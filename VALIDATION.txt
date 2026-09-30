@@ -1,0 +1,12 @@
+Point Group Reducer 2.2.0 validation — 2026-09-30
+Source: 21 unittest tests PASS, including 213 point-group instances.
+Native Linux Tk controls: PASS (navigation, example fill without page change,
+class-specific error feedback, bulk paste, JSON export, help).
+Native GUI smoke entry (--smoke-test): PASS on Linux.
+Windows runtime source files updated; bootloaders unchanged.
+Windows/macOS native binaries and Chinese font rendering on those OSes:
+NOT verified in this environment.
+Linux test Tk lacks usable Chinese glyphs; its screenshots are not evidence
+of Windows/macOS Chinese-font rendering acceptance.
+GitHub native Windows/macOS workflow prepared but NOT run/published yet.
+macOS first-build package must be run on a Mac before an independent .app exists.
