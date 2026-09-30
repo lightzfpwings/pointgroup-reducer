@@ -267,20 +267,21 @@ COMMON = ['C1','Cs','Ci','C2','C3','C4','C5','C6','C2v','C3v','C4v','C5v','C6v',
           'D2d','D3d','D4d','D5d','D6d','S4','S6','S8','T','Th','Td','O','Oh','I','Ih']
 
 
-def report(table, result=None):
+def report(table, result=None, language='zh-Hans'):
+    from i18n import tr, group_notes
+    def t(key, **values): return tr(key, language, **values)
     headers=['irrep']+table.classes
     rows=[headers,['n_j']+[str(n) for n in table.sizes]]
     rows += [[label]+[fmt(z) for z in row] for label,row in zip(table.irreps,table.X)]
     widths=[max(len(row[j]) for row in rows) for j in range(len(headers))]
-    lines=[f'{table.name}    h = {table.h}',table.note,
-           'X: 行=不可约表示；列=共轭类；W=diag(n_j)。输入类代表的特征标，不乘 n_j。']
+    lines=[f'{table.name}    h = {table.h}',group_notes(table,language),t('cli_table_note')]
     lines += ['  '.join(s.rjust(w) for s,w in zip(row,widths)) for row in rows]
-    lines += [f'正交性误差 = {table.check():.3g}', 'a = (1/h) X.conj() @ W @ c']
+    lines += [t('cli_orthogonality',value=f'{table.check():.3g}'), 'a = (1/h) X.conj() @ W @ c']
     if result is not None:
         lines += ['c = ['+', '.join(fmt(z) for z in result['c'])+']',
                   'a = ['+', '.join(fmt(z) for z in result['a'])+']',
-                  table.decomposition(result),
-                  f"dim Γ = {fmt(result['dimension'])}；重建误差 = {result['residual']:.3g}"]
+                  table.decomposition(result) if result['valid'] else t('representation_invalid'),
+                  t('dimension')+f" = {fmt(result['dimension'])}; "+t('residual',value=f"{result['residual']:.3g}")]
     return '\n'.join(lines)
 
 

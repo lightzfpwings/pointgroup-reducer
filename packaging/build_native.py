@@ -41,7 +41,7 @@ def main():
         for entry, appname, mode in [('desktop.py', 'PointGroupReducer', '--windowed'),
                                      ('pointgroup.py', 'PointGroupReducer-CLI', '--console')]:
             command = [sys.executable, '-m', 'PyInstaller', '--clean', '--noconfirm', '--onedir',
-                       mode, '--name', appname, '--distpath', str(tmp / 'dist'),
+                       mode, '--hidden-import', 'matplotlib.backends.backend_agg', '--collect-data', 'matplotlib', '--name', appname, '--distpath', str(tmp / 'dist'),
                        '--workpath', str(tmp / appname), '--specpath', str(tmp / 'spec')]
             if sys.platform == 'darwin' and mode == '--windowed':
                 command.extend(['--osx-bundle-identifier', 'org.symmetrygroup.pointgroupreducer'])
@@ -63,20 +63,22 @@ def main():
             run('/usr/bin/codesign', '--verify', '--deep', '--strict', str(output / 'PointGroupReducer.app'))
         run(str(gui), '--smoke-test', timeout=60)
         smoke = []
-        for group, characters, expected in [('C2v', '5,1,1,1', '2A1 + A2 + B1 + B2')]:
-            check = run(str(cli), group, '--c', characters, capture_output=True, text=True, encoding='utf-8')
-            assert expected in check.stdout
-            smoke.append(check.stdout)
+        for language in ('en','zh-Hans','zh-Hant'):
+            for group, characters, expected in [('C2v', '5,1,1,1', '2A1 + A2 + B1 + B2')]:
+                check = run(str(cli), group, '--c', characters, '--lang', language, capture_output=True, text=True, encoding='utf-8')
+                assert expected in check.stdout
+                smoke.append(check.stdout)
         for group, expected in [('D4h', 'A1g + B1g + B2g + Eg'), ('Ih', 'Hg')]:
             check = run(str(cli), group, '--shell', '2', capture_output=True, text=True, encoding='utf-8')
             assert expected in check.stdout
             smoke.append(check.stdout)
         (output / 'SMOKE-TEST.txt').write_text('\n'.join(smoke), encoding='utf-8')
-        shutil.copy2(ROOT / 'README.md', output / 'README.md')
+        for document in ('README.md', 'README.en.md', 'README.zh-Hant.md'):
+            shutil.copy2(ROOT / document, output / document)
         shutil.copy2(ROOT / 'CHANGELOG.md', output / 'CHANGELOG.md')
         meta = {'version': version, 'platform': platform.platform(), 'architecture': arch,
                 'python': platform.python_version(), 'source_tests': 'passed',
-                'native_gui_smoke': 'passed', 'native_cli_smoke': 'passed',
+                'native_gui_smoke': 'passed', 'native_cli_smoke': 'passed', 'mathtext_and_three_language_smoke': 'passed',
                 'manual_click_acceptance': False}
         (output / 'BUILD-INFO.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
         dependencies = run(sys.executable, '-m', 'pip', 'freeze', capture_output=True, text=True)

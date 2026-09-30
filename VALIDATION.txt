@@ -1,12 +1,8 @@
-Point Group Reducer 2.2.0 validation — 2026-09-30
-Source: 21 unittest tests PASS, including 213 point-group instances.
-Native Linux Tk controls: PASS (navigation, example fill without page change,
-class-specific error feedback, bulk paste, JSON export, help).
-Native GUI smoke entry (--smoke-test): PASS on Linux.
-Windows runtime source files updated; bootloaders unchanged.
-Windows/macOS native binaries and Chinese font rendering on those OSes:
-NOT verified in this environment.
-Linux test Tk lacks usable Chinese glyphs; its screenshots are not evidence
-of Windows/macOS Chinese-font rendering acceptance.
-GitHub native Windows/macOS workflow prepared but NOT run/published yet.
-macOS first-build package must be run on a Mac before an independent .app exists.
+Point Group Reducer 2.3.0 validation — 2026-09-30
+29 source unittest tests: PASS (includes 213 point-group instances).
+Mathematical notation/parser checks: PASS across finite families and polyhedral groups.
+Native Linux Tk 8.6 with Chinese font support: PASS, visual inspection completed.
+Native Linux Tk 9: automated functionality PASS; Chinese font rendering is unavailable in that test runtime.
+Real GUI smoke: all three languages, preserved fields/pasted vector/result, dynamic error translations, clipboard text/LaTeX, export, help and zero/invalid multiplicities PASS.
+Windows/macOS acceptance is enforced in packaging/build_native.py and the release workflow, including frozen application checks. See actual Actions results and BUILD-INFO.json.
+Manual click acceptance on native Windows/macOS remains pending.

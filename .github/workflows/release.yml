@@ -81,5 +81,5 @@ jobs:
             gh release upload "$tag" release-assets/*.zip release-assets/*.sha256 --clobber
           else
             gh release create "$tag" release-assets/*.zip release-assets/*.sha256 \
-              --target "$GITHUB_SHA" --title "Point Group Reducer $tag" --notes-file CHANGELOG.md
+              --target "$GITHUB_SHA" --title "Point Group Reducer $tag" --notes-file RELEASE_NOTES.md
           fi

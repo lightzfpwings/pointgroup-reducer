@@ -3,8 +3,12 @@ import json
 from pathlib import Path
 from core import COMMON, get_table, number, parse_vector, payload, report
 
+from i18n import tr, error_text, LANGUAGES
+from preferences import save_language
 
-def run(initial_group=None, read=input, write=print):
+
+def run(initial_group=None, read=input, write=print, language='zh-Hans'):
+    def t(key, **values): return tr(key, language, **values)
     stage='group' if initial_group else 'home'
     table=None; values=[]; result=None
     pending=initial_group
@@ -13,31 +17,45 @@ def run(initial_group=None, read=input, write=print):
         except (EOFError,KeyboardInterrupt):return 'q'
     while True:
         if stage=='home':
-            write('\n=== 点群约化 · 主菜单 ===\n1 开始计算    2 支持范围    q 退出\n也可直接输入点群名，例如 C2v。')
-            s=ask('选择：')
+            write(t('cli_home'))
+            s=ask(t('cli_choice'))
+            if s.lower() == 'lang':
+                selected = ask('en / zh-Hans / zh-Hant (0: Back, q: Exit): ')
+                if selected == 'q': break
+                if selected in LANGUAGES:
+                    language = selected
+                    save_language(language)
+                continue
             if s.lower()=='q':break
             if s.lower() in ('0','home','h'):continue
             if s=='2':
-                write('支持 Cn/Cnv/Cnh、Dn/Dnh/Dnd、S2n、T/Th/Td/O/Oh/I/Ih；无限群不适用。\n常用：'+', '.join(COMMON))
+                write(t('cli_scope')+', '.join(COMMON))
                 continue
             stage='group';pending=None if s=='1' else s
             continue
-        write('\n导航：0 上一步 | home 主菜单 | q 退出；数值零请写 =0（逗号向量中的 0 可直接写）。')
+        write(t('cli_nav'))
         if stage=='group':
-            s=pending if pending is not None else ask('输入点群：')
+            s=pending if pending is not None else ask(t('cli_group'))
             pending=None
         elif stage=='vector':
-            write(report(table))
-            s=ask('输入 c（逗号分隔；Enter 逐项输入；d 填入五个 d 轨道示例）：')
+            write(report(table,language=language))
+            s=ask(t('cli_vector'))
         elif stage=='items':
             j=len(values)
             s=ask(f'[{j+1}/{len(table.classes)}] χ({table.classes[j]}), n_j={table.sizes[j]}：')
         elif stage=='result':
-            write(report(table,result))
-            s=ask('1 重新输入 c | 2 更换点群 | s 导出 JSON | 0 返回输入 | home 主菜单 | q 退出：')
+            write(report(table,result,language=language))
+            s=ask(t('cli_result'))
         else:
-            s=ask('导出 JSON 路径（0 返回结果）：')
+            s=ask(t('cli_path'))
         cmd=s.lower()
+        if cmd == 'lang':
+            selected = ask('en / zh-Hans / zh-Hant (0: Back, q: Exit): ')
+            if selected == 'q': break
+            if selected in LANGUAGES:
+                language = selected
+                save_language(language)
+            continue
         if cmd=='q':break
         if cmd in ('home','h'):
             table=None;values=[];result=None;stage='home';continue
@@ -64,14 +82,14 @@ def run(initial_group=None, read=input, write=print):
                 if cmd=='1':values=[];stage='vector'
                 elif cmd=='2':stage='group'
                 elif cmd=='s':stage='export'
-                else:write('请选择 1、2、s、0、home 或 q。')
+                else:write(t('cli_choose'))
             elif stage=='export':
-                if not s:raise ValueError('路径不能为空。')
+                if not s:raise ValueError(t('cli_empty_path'))
                 p=Path(s).expanduser()
                 if p.exists():
-                    write('该文件已存在，请换一个文件名，避免覆盖。');continue
+                    write(t('cli_existing'));continue
                 p.write_text(json.dumps(payload(table,result),ensure_ascii=False,indent=2),encoding='utf-8')
-                write('已导出：'+str(p));stage='result'
-        except (ValueError,OSError) as e:write('错误：'+str(e)+'；可以重试或使用导航命令。')
-    write('已退出。')
+                write(t('saved',path=str(p)));stage='result'
+        except (ValueError,OSError) as e:write(t('cli_error',reason=error_text(e,language)))
+    write(t('cli_exited'))
     return 0
