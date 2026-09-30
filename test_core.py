@@ -1,5 +1,6 @@
 """Run: python -m unittest -v. Tests include independent orbital transforms."""
 import json
+import os
 import subprocess
 import sys
 import unittest
@@ -8,6 +9,14 @@ from core import get_table, number, parse_vector, payload
 
 
 class CharacterTests(unittest.TestCase):
+    def test_cli_redirected_legacy_encoding(self):
+        env = dict(os.environ, PYTHONIOENCODING='ascii', PYTHONUTF8='0')
+        result = subprocess.run([sys.executable, 'pointgroup.py', 'C2v', '--c', '5,1,1,1'],
+                                env=env, capture_output=True, check=True)
+        output = result.stdout.decode('utf-8')
+        self.assertIn('2A1 + A2 + B1 + B2', output)
+        self.assertIn('Γ', output)
+
     def test_families_and_round_trip(self):
         groups=['C1','Cs','Ci','T','Th','Td','O','Oh','I','Ih']
         for n in range(2,31):

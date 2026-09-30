@@ -12,7 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def run(*args, **kwargs):
-    return subprocess.run(args, check=True, cwd=ROOT, **kwargs)
+    try:
+        return subprocess.run(args, check=True, cwd=ROOT, **kwargs)
+    except subprocess.CalledProcessError as error:
+        if error.stdout:
+            print(error.stdout)
+        if error.stderr:
+            print(error.stderr, file=sys.stderr)
+        raise
 
 
 def main():

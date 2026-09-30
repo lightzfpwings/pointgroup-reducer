@@ -9,6 +9,11 @@ from core import COMMON, fmt, get_table, parse_vector, payload, report, number
 
 
 def main(argv=None):
+    # Frozen Windows executables may use the legacy code page for redirected
+    # output despite PYTHONUTF8. Keep Chinese text and symmetry symbols intact.
+    for stream in (sys.stdin, sys.stdout, sys.stderr):
+        if stream is not None and hasattr(stream, 'reconfigure'):
+            stream.reconfigure(encoding='utf-8')
     p=argparse.ArgumentParser(description='点群特征标约化：a = X.conj() @ W @ c / h')
     p.add_argument('group',nargs='?',help='例如 C2v、D4h、Ih 或 C17v')
     p.add_argument('--c',help='按列输入，用逗号分隔，例如 --c "5,1,1,1"')
