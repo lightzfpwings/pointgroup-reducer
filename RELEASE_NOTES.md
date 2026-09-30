@@ -5,7 +5,7 @@
 - Copy plain text or editable LaTeX from the result page.
 - CLI: use `--lang en`, `--lang zh-Hans`, `--lang zh-Hant`, or `lang` in an interactive step.
 - Windows x64, Apple Silicon and Intel Mac standalone packages include three-language documentation and SHA-256 files.
-- 29 source tests and native frozen GUI/CLI checks run before release. Manual Windows/macOS click acceptance remains pending.
+- 30 source tests and native frozen GUI/CLI checks run before release. Manual Windows/macOS click acceptance remains pending.
 
 ## 简体中文
 

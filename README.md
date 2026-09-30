@@ -71,6 +71,6 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-构建先执行 29 项源码测试，以及真实 Tk 的数学渲染、三语切换、输入保留、复制和导出检查；封装后再检查独立 GUI/CLI 启动及示例计算。输出 ZIP、SHA-256 和构建记录。GUI 使用离线 MathText，用户无需安装 LaTeX。
+构建先执行 30 项源码测试，以及真实 Tk 的数学渲染、三语切换、输入保留、复制和导出检查；封装后再检查独立 GUI/CLI 启动及示例计算。输出 ZIP、SHA-256 和构建记录。GUI 使用离线 MathText，用户无需安装 LaTeX。
 
 `.github/workflows/release.yml` 在三个平台都通过后才发布。手动执行并选中 publish，或推送与 VERSION 对应的标签（v2.3.0）。构建检查不替代 Windows/macOS 实机人工点击验收；具体状态以 Actions 和发行包 BUILD-INFO.json 为准。

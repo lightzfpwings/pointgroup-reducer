@@ -146,6 +146,10 @@ def tr(key, language='zh-Hans', **values):
 
 def error_text(error, language):
     text = str(error)
+    import re
+    match = re.fullmatch(r'需要 (\d+) 个特征标，每个共轭类输入一个。', text)
+    if match:
+        return tr('need_count', language, count=match[1])
     if text in ERRORS:
         return text if language == 'zh-Hans' else ERRORS[text][0 if language == 'en' else 1]
     return text

@@ -70,4 +70,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-The builder runs 29 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow publishes only after all three platforms pass. Automated checks do not replace manual Windows/macOS click acceptance; see Actions and BUILD-INFO.json.
+The builder runs 30 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow publishes only after all three platforms pass. Automated checks do not replace manual Windows/macOS click acceptance; see Actions and BUILD-INFO.json.

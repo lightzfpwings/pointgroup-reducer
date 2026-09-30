@@ -71,4 +71,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-構建先執行 29 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。三個平台全部通過後才發佈。自動檢查不替代 Windows/macOS 實機人工點選驗收；狀態以 Actions 與 BUILD-INFO.json 為準。
+構建先執行 30 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。三個平台全部通過後才發佈。自動檢查不替代 Windows/macOS 實機人工點選驗收；狀態以 Actions 與 BUILD-INFO.json 為準。

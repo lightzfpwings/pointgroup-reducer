@@ -72,6 +72,9 @@ def main():
             check = run(str(cli), group, '--shell', '2', capture_output=True, text=True, encoding='utf-8')
             assert expected in check.stdout
             smoke.append(check.stdout)
+        conflict = subprocess.run([str(cli), 'C2v', '--c', '5,1,1,1', '--shell', '2', '--lang', 'en'],
+                                  cwd=ROOT, capture_output=True, text=True, encoding='utf-8', timeout=30)
+        assert conflict.returncode == 1 and 'Choose only one' in conflict.stderr and 'Traceback' not in conflict.stderr
         (output / 'SMOKE-TEST.txt').write_text('\n'.join(smoke), encoding='utf-8')
         for document in ('README.md', 'README.en.md', 'README.zh-Hant.md'):
             shutil.copy2(ROOT / document, output / document)

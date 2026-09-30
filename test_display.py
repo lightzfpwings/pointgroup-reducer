@@ -87,6 +87,18 @@ class DisplayTests(unittest.TestCase):
                 self.assertIn('表示維度', text)
                 self.assertEqual(text.count('Γ = 2A1 + A2 + B1 + B2'), 3)
 
+    def test_cli_invalid_counts_and_conflicting_options(self):
+        import subprocess
+        import sys
+        for language in LANGUAGES:
+            for arguments, expected in [(['--c', '5,1,1,1', '--shell', '2'], tr('arg_conflict', language)),
+                                        (['--c', '5,1'], tr('need_count', language, count=4))]:
+                completed = subprocess.run([sys.executable, 'pointgroup.py', 'C2v', '--lang', language] + arguments,
+                                           capture_output=True, encoding='utf-8')
+                self.assertEqual(completed.returncode, 1)
+                self.assertIn(expected, completed.stderr)
+                self.assertNotIn('Traceback', completed.stderr)
+
     def test_preferences_persist_and_handle_corrupt_file(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'settings.json'
