@@ -133,7 +133,8 @@ class App:
         self.canvas = tk.Canvas(self.inputframe, height=88, highlightthickness=0)
         self.inputs = ttk.Frame(self.canvas)
         self.canvas.create_window((0, 0), window=self.inputs, anchor='nw')
-        self.inputs.bind('<Configure>', lambda _: self.canvas.configure(scrollregion=self.canvas.bbox('all')))
+        self.inputs.bind('<Configure>', lambda _: self.canvas.configure(
+            scrollregion=self.canvas.bbox('all'), height=self.inputs.winfo_reqheight()))
         sb = ttk.Scrollbar(self.inputframe, orient='horizontal', command=self.canvas.xview)
         self.canvas.configure(xscrollcommand=sb.set)
         self.canvas.pack(fill='x')
@@ -353,8 +354,12 @@ class App:
             self.tree.heading(column, text='', image=image)
             self.tree.column(column, width=max(110, image.width() + 18), stretch=False, anchor='center')
         self.weight_row = self.tree.insert('', 'end', text=self.t('class_size'), values=table.sizes.tolist())
-        for label, row in zip(table.irreps, table.X):
-            self.tree.insert('', 'end', image=self.math.image(symbol_tex(label)), values=[fmt(z) for z in row])
+        row_images = [self.math.image(symbol_tex(label)) for label in table.irreps]
+        # Treeview does not grow rows to fit images, especially at high DPI.
+        ttk.Style(self.root).configure('Treeview', rowheight=max(
+            32, round(self.math.dpi * .27), max(image.height() for image in row_images) + 8))
+        for image, row in zip(row_images, table.X):
+            self.tree.insert('', 'end', image=image, values=[fmt(z) for z in row])
         for widget in self.inputs.winfo_children():
             widget.destroy()
         self.fields, self.entries = [], []

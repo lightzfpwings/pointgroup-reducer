@@ -12,7 +12,8 @@ os.environ.setdefault('MPLCONFIGDIR', os.path.join(tempfile.gettempdir(), 'point
 import matplotlib
 matplotlib.use('Agg')
 from matplotlib.font_manager import FontProperties
-from matplotlib.mathtext import math_to_image
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from core import fmt
 
 FORMULA = r'\mathbf{a}=\frac{1}{h}X^{*}W\mathbf{c}'
@@ -78,9 +79,21 @@ def result_latex(table, result):
 
 @lru_cache(maxsize=1024)
 def render_png(tex, size=12, dpi=110):
+    """Render onto a transparent canvas with point-sized safety margins.
+
+    Measure at the final DPI before sizing the output: math_to_image's tight
+    72-DPI box can cut off glyphs after rasterization at screen resolution.
+    """
     buffer = BytesIO()
     with matplotlib.rc_context({'mathtext.fontset': 'stix', 'text.usetex': False}):
-        math_to_image('$' + tex + '$', buffer, prop=FontProperties(size=size), dpi=dpi, format='png')
+        figure = Figure(figsize=(1, 1), dpi=dpi)
+        canvas = FigureCanvasAgg(figure)
+        text = figure.text(0, 0, '$' + tex + '$',
+                           fontproperties=FontProperties(size=size), color='#202020')
+        bounds = text.get_window_extent(canvas.get_renderer())
+        bounds = bounds.transformed(figure.dpi_scale_trans.inverted()).padded(4 / 72)
+        figure.savefig(buffer, dpi=dpi, format='png', transparent=True,
+                       bbox_inches=bounds, pad_inches=0)
     return buffer.getvalue()
 
 

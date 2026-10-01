@@ -14,6 +14,24 @@ from matplotlib.mathtext import MathTextParser
 
 
 class DisplayTests(unittest.TestCase):
+    def test_math_background_is_transparent_and_glyphs_have_clear_margins(self):
+        from io import BytesIO
+        from PIL import Image
+        import numpy as np
+        for dpi in (96, 110, 144, 192):
+            for tex in (symbol_tex('D6h'), symbol_tex('C6^2'), symbol_tex("A''"),
+                        symbol_tex('E1+g'), FORMULA):
+                with self.subTest(tex=tex, dpi=dpi):
+                    image = Image.open(BytesIO(render_png(tex, 16, dpi))).convert('RGBA')
+                    alpha = np.array(image)[:, :, 3]
+                    self.assertGreater(alpha.max(), 0)
+                    # Real transparent padding, not white pixels that clash with ttk.
+                    self.assertFalse(alpha[:3, :].any())
+                    self.assertFalse(alpha[-3:, :].any())
+                    self.assertFalse(alpha[:, :3].any())
+                    self.assertFalse(alpha[:, -3:].any())
+                    self.assertTrue(((alpha > 0) & (alpha < 255)).any())
+
     def test_notation_preserves_parity_signs_powers_and_primes(self):
         cases = {'D6h': 'D_{6h}', 'A1g': 'A_{1g}', 'C6^2': 'C_{6}^{2}',
                  'E1+g': 'E_{1g}^{+}', "A''": "A^{''}", 'sigma_h': r'\sigma_{h}',

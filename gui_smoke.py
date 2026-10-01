@@ -7,7 +7,7 @@ from unittest.mock import patch
 import tkinter as tk
 from gui import App
 from i18n import LANGUAGES, tr
-from math_display import decomposition_tex
+from math_display import decomposition_tex, symbol_tex
 
 
 def run():
@@ -67,6 +67,19 @@ def run():
                 for group in ('D6h', 'Cs', 'C3', 'Th', 'Ih'):
                     app.group.set(group)
                     app.next_input()
+                    root.deiconify()
+                    root.update()
+                    # Check actual allocated geometry, not just requested sizes.
+                    group_image = app.math.image(symbol_tex(group), 16)
+                    assert group_image.transparency_get(0, 0)
+                    assert app.group_image.winfo_height() >= group_image.height()
+                    assert app.canvas.winfo_height() >= app.inputs.winfo_reqheight()
+                    from tkinter import ttk
+                    rowheight = int(ttk.Style(root).lookup('Treeview', 'rowheight'))
+                    for label in app.table.irreps:
+                        image = app.math.image(symbol_tex(label))
+                        assert image.transparency_get(0, 0)
+                        assert rowheight >= image.height() + 8
                     app.example()
                     app.calculate()
                     assert app.result['valid'], group

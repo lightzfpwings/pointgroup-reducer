@@ -1,16 +1,15 @@
-## v2.3.0 · Mathematical notation and three languages
+## v2.3.1 · Formula background and clipping fixes
 
-- Offline mathematical rendering for point groups, class headings, irreps and formulas. Subscripts, superscripts, primes and complex-irrep signs now display correctly; no LaTeX installation needed.
-- Switch English / 简体中文 / 繁體中文 for buttons, instructions, errors and the guide. Your inputs and results are retained; language preference is remembered.
-- Copy plain text or editable LaTeX from the result page.
-- CLI: use `--lang en`, `--lang zh-Hans`, `--lang zh-Hant`, or `lang` in an interactive step.
-- Windows x64, Apple Silicon and Intel Mac standalone packages include three-language documentation and SHA-256 files.
-- 30 source tests and native frozen GUI/CLI checks run before release. Manual Windows/macOS click acceptance remains pending.
+- Transparent math images blend into page, table heading and selected-row backgrounds.
+- Measure glyph bounds at the actual display DPI and add safety margins on every side, fixing clipped symbols such as D6h.
+- Table rows and input panels grow to fit their rendered symbols.
+- Retains English / 简体中文 / 繁體中文 and all existing calculation and navigation features.
+- 31 source tests, including transparency and margins at 96, 110, 144 and 192 DPI. Native GUI geometry and frozen GUI/CLI checks must pass before publication. Manual Windows/macOS click acceptance remains pending.
 
 ## 简体中文
 
-公式和点群符号已支持数学上下标、撇号与复表示正负号。窗口右上角或语言菜单可切换英文／简体中文／繁体中文，按钮、提示、错误和说明同步切换，输入与结果保留。新增“复制文本”和“复制 LaTeX”。下载对应平台的 ZIP，完整解压后双击启动，无需安装 Python 或 LaTeX。
+修复公式区域白色背景与界面不一致的问题；增加公式四周留白，修复 D6h 等符号顶部被裁切的问题。表格行高和输入区高度自动适应公式尺寸。下载对应系统的 ZIP，完整解压后双击启动，无需安装 Python 或 LaTeX。
 
 ## 繁體中文
 
-公式與點群符號已支援數學上下標、撇號與複表示正負號。視窗右上角或語言選單可切換英文／簡體中文／繁體中文，按鈕、提示、錯誤與說明同步切換，輸入與結果保留。新增「複製文字」與「複製 LaTeX」。下載對應平台的 ZIP，完整解壓縮後雙擊啟動，無須安裝 Python 或 LaTeX。
+修復公式區域白色背景與介面不一致的問題；增加公式四周留白，修復 D6h 等符號頂部被裁切的問題。表格列高與輸入區高度自動配合公式尺寸。下載對應系統的 ZIP，完整解壓縮後雙擊啟動，無須安裝 Python 或 LaTeX。
