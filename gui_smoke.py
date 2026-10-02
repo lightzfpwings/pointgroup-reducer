@@ -15,6 +15,8 @@ def run():
         with patch.dict(os.environ, {'POINTGROUP_SETTINGS_PATH': str(Path(temp) / 'settings.json')}):
             root = tk.Tk()
             root.withdraw()
+            callback_errors = []
+            root.report_callback_exception = lambda *error: callback_errors.append(error)
             try:
                 app = App(root, language='zh-Hans')
                 for language in LANGUAGES:
@@ -68,7 +70,9 @@ def run():
                     app.group.set(group)
                     app.next_input()
                     root.deiconify()
-                    root.update()
+                    settled = tk.BooleanVar(root, False)
+                    root.after(350, lambda: settled.set(True))
+                    root.wait_variable(settled)
                     # Check actual allocated geometry, not just requested sizes.
                     group_image = app.math.image(symbol_tex(group), 16)
                     assert group_image.transparency_get(0, 0)
@@ -85,6 +89,30 @@ def run():
                     assert app.result['valid'], group
                     assert len(app.output.image_names()) > 0
                     root.update()
+                # Navigate rapidly, resize mid-transition, then let the last request settle.
+                draft = [value.get() for value in app.fields]
+                app.show_stage('input')
+                app.show_stage('select')
+                app.show_stage('result')
+                root.geometry('1050x760')
+                root.after(30, lambda: root.geometry('1200x840'))
+                settled = tk.BooleanVar(root, False)
+                root.after(400, lambda: settled.set(True))
+                root.wait_variable(settled)
+                assert app.body_motion.current is app.resultpage
+                assert app.body_motion.timer is None and app.page_motion.timer is None
+                assert app.resultpage.winfo_x() == 0
+                assert abs(app.resultpage.winfo_width() - app.content.winfo_width()) <= 1
+                assert [value.get() for value in app.fields] == draft
+                assert app.selectpage.winfo_manager() == ''
+                assert app.inputpage.winfo_manager() == ''
+                app.show_stage('input')
+                app.motion_enabled.set(False)
+                app.toggle_motion()
+                assert app.body_motion.timer is None
+                assert app.body_motion.current is app.inputpage
+                app.home()
+                assert app.page_motion.timer is None
                 app.group.set('C1')
                 app.next_input()
                 app.fields[0].set('1/2')
@@ -94,8 +122,14 @@ def run():
                 app.calculate()
                 assert app.result['valid'] and decomposition_tex(app.table, app.result) == r'\Gamma = 0'
                 root.update()
+                app.motion_enabled.set(True)
+                app.toggle_motion()
+                app.home()
+                root.update_idletasks()
+                app.show_stage('select')
             finally:
                 root.destroy()
+            assert not callback_errors, callback_errors
 
 
 if __name__ == '__main__':

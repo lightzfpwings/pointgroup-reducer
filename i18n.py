@@ -3,6 +3,7 @@ LANGUAGES = {'en': 'English', 'zh-Hans': '简体中文', 'zh-Hant': '繁體中�
 # Every key has all three translations. Canonical identifiers and JSON stay stable.
 MESSAGES = {
 'app_title': ('Point Group Reducer', '点群特征标约化', '點群特徵標約化'),
+'smooth_motion': ('Smooth transitions', '平滑过渡', '平滑過渡'),
 'language': ('Language', '语言', '語言'),
 'home_description': ('Enter characters c to obtain multiplicities a and the irreducible decomposition.', '输入表示的特征标 c，得到重数 a 和不可约表示分解。', '輸入表示的特徵標 c，得到重數 a 和不可約表示分解。'),
 'home_steps': ('1  Select group  →  2  Enter c  →  3  View result', '1  选择点群  →  2  输入 c  →  3  查看结果', '1  選擇點群  →  2  輸入 c  →  3  查看結果'),
@@ -176,3 +177,4 @@ def group_notes(table, language):
     if table.name.startswith(('T', 'O', 'I')):
         notes.append(tr('polyhedral_note', language))
     return '\n'.join(notes)
+
