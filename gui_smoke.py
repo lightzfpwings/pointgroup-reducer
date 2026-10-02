@@ -73,10 +73,15 @@ def run():
                     settled = tk.BooleanVar(root, False)
                     root.after(350, lambda: settled.set(True))
                     root.wait_variable(settled)
+                    root.update_idletasks()
                     # Check actual allocated geometry, not just requested sizes.
                     group_image = app.math.image(symbol_tex(group), 16)
                     assert group_image.transparency_get(0, 0)
-                    assert app.group_image.winfo_height() >= group_image.height()
+                    assert app.group_image.winfo_height() >= group_image.height(), (
+                        group, app.group_image.winfo_geometry(), group_image.height(),
+                        app.group_image.winfo_reqheight(), root.state(), root.winfo_geometry(),
+                        app.host.winfo_geometry(), app.workspace.winfo_geometry(),
+                        app.page_motion.positions)
                     assert app.canvas.winfo_height() >= app.inputs.winfo_reqheight()
                     from tkinter import ttk
                     rowheight = int(ttk.Style(root).lookup('Treeview', 'rowheight'))
