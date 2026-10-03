@@ -53,7 +53,7 @@ def main(argv=None):
             raise ValueError(msg('arg_conflict'))
         result=None
         if args.c is not None: result=t.reduce(parse_vector(args.c),args.tol)
-        elif args.shell is not None: result=t.reduce(t.orbital(args.shell),args.tol)
+        elif args.shell is not None: result=t.reduce(t.orbital_exact(args.shell),args.tol)
         print(report(t,result,language=language))
         if args.json:
             args.json.write_text(json.dumps(payload(t,result),ensure_ascii=False,indent=2),encoding='utf-8')
@@ -63,7 +63,7 @@ def main(argv=None):
                 writer=csv.writer(f)
                 writer.writerow(['irrep']+t.classes)
                 writer.writerow(['n_j']+t.sizes.tolist())
-                writer.writerows([[label]+[fmt(z,15) for z in row] for label,row in zip(t.irreps,t.X)])
+                writer.writerows([[label]+[fmt(z,15) for z in row] for label,row in zip(t.irreps,t.symbolic_rows())])
             print(tr('saved',language,path=str(args.csv)))
         return 0 if result is None or result['valid'] else 2
     except (ValueError,OSError,EOFError,ImportError) as e:
@@ -76,3 +76,4 @@ def main(argv=None):
 
 if __name__=='__main__':
     raise SystemExit(main())
+

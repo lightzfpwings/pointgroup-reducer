@@ -5,6 +5,9 @@ Analytic cyclic/dihedral families; explicit polyhedral tables; central products.
 """
 from dataclasses import dataclass
 from functools import lru_cache
+from fractions import Fraction
+from exact_numbers import ExactNumber, ast_expression, expression, cos_pi, root_of_unity, plain, result_values
+import sympy as sp
 import ast
 import cmath
 import math
@@ -13,19 +16,13 @@ import numpy as np
 
 
 def fmt(z, digits=8):
-    z = complex(z)
-    a = 0.0 if abs(z.real) < 1e-10 else z.real
-    b = 0.0 if abs(z.imag) < 1e-10 else z.imag
-    if not b:
-        return f"{a:.{digits}g}"
-    if not a:
-        return f"{b:.{digits}g}i"
-    return f"{a:.{digits}g}{b:+.{digits}g}i"
+    return plain(z)
 
 
 def number(text):
     """Small arithmetic grammar, deliberately not eval()."""
-    text = text.strip().replace('−', '-').replace('^', '**')
+    text = text.strip().replace('−', '-').replace('^', '**').replace('π', 'pi')
+    text = re.sub(r'√(\d+)', r'sqrt(\1)', text).replace('√(', 'sqrt(')
     text = re.sub(r'(?<=[0-9.)])i\b', '*i', text)
     if len(text) > 256:
         raise ValueError('数值表达式过长。')
@@ -55,7 +52,7 @@ def number(text):
         z = complex(run(tree))
         if not (math.isfinite(z.real) and math.isfinite(z.imag)):
             raise ValueError('不能输入 NaN 或无穷大。')
-        return z
+        return ExactNumber(z, ast_expression(tree, text))
     except (SyntaxError, ZeroDivisionError, OverflowError, RecursionError) as e:
         raise ValueError('无效的数值表达式。') from e
 
@@ -63,7 +60,7 @@ def number(text):
 def parse_vector(text):
     # Commas or semicolons allow spaces INSIDE each expression.
     parts = re.split(r'[,;，；]', text) if re.search(r'[,;，；]', text) else text.split()
-    return np.array([number(p) for p in parts], dtype=complex)
+    return [number(p) for p in parts]
 
 
 def rz(t):
@@ -80,6 +77,30 @@ class Table:
     X: np.ndarray
     reps: np.ndarray
     note: str = ''
+    exact_entry: object = None
+
+    def symbolic(self, i, j):
+        return self.exact_entry(i, j) if self.exact_entry else expression(self.X[i,j])
+
+    def symbolic_rows(self):
+        return [[self.symbolic(i,j) for j in range(len(self.classes))]
+                for i in range(len(self.irreps))]
+
+    def orbital_exact(self, l=2):
+        values = self.orbital(l)
+        result = []
+        for value, matrix in zip(values, self.reps):
+            parity = 1 if np.linalg.det(matrix)>0 else -1
+            theta = math.acos(float(np.clip((np.trace(parity*matrix)-1)/2, -1, 1)))
+            # A finite-group operation has finite order dividing 2h after
+            # removing inversion. Recover that rational angle, not a radical
+            # guessed from the final floating-point character.
+            turn = Fraction(theta/(2*math.pi)).limit_denominator(2*self.h)
+            assert abs(float(turn)*2*math.pi-theta) < 1e-7
+            expr = parity**l*(1+2*sum(cos_pi(2*m*turn.numerator, turn.denominator)
+                                     for m in range(1,l+1)))
+            result.append(ExactNumber(value, expr))
+        return result
 
     @property
     def h(self): return int(sum(self.sizes))
@@ -113,6 +134,7 @@ class Table:
     def reduce(self, c, tol=1e-7):
         if not math.isfinite(tol) or not 0 < tol < .01:
             raise ValueError('容差必须大于 0 且小于 0.01。')
+        originals = c
         c = np.asarray(c, dtype=complex)
         if c.shape != (len(self.classes),):
             raise ValueError(f'需要 {len(self.classes)} 个特征标，每个共轭类输入一个。')
@@ -124,7 +146,7 @@ class Table:
         residual = float(np.max(np.abs(recovered-c)))
         int_residual = float(np.max(np.abs(self.X.T @ nearest-c)))
         valid = integral and int_residual <= tol
-        return {'c': c, 'a': a, 'integer_a': nearest.astype(object) if valid else None,
+        return {'c': c, 'c_exact': [expression(z) for z in originals], 'a': a, 'integer_a': nearest.astype(object) if valid else None,
                 'valid': valid, 'reconstructed_c': recovered, 'residual': residual,
                 'integer_residual': int_residual,
                 'dimension': c[0], 'tolerance': tol}
@@ -138,9 +160,9 @@ class Table:
         return 'Γ = ' + (' + '.join(terms) if terms else '0')
 
 
-def make(name, classes, sizes, names, X, reps, note=''):
+def make(name, classes, sizes, names, X, reps, note='', exact_entry=None):
     t = Table(name, classes, np.array(sizes, int), names,
-              np.array(X, complex), np.array(reps, float), note)
+              np.array(X, complex), np.array(reps, float), note, exact_entry)
     t.check()
     return t
 
@@ -161,7 +183,8 @@ def cyclic(n, name, generator, symbol):
                 [np.linalg.matrix_power(generator,p) for p in powers],
                 f'生成元 r={symbol}；E_k+ / E_k- 为一维复共轭表示。'
                 if not symbol.startswith('S') else
-                f'Rk(r^p)=exp(2πikp/{n})，r={symbol}；Rk 是明确的生成元标签。')
+                f'Rk(r^p)=exp(2πikp/{n})，r={symbol}；Rk 是明确的生成元标签。',
+                exact_entry=lambda i,j: root_of_unity(order[i]*j,n))
 
 
 def dihedral(n, name, r, s, rsym, ssym, vertical=False):
@@ -186,7 +209,9 @@ def dihedral(n, name, r, s, rsym, ssym, vertical=False):
         rows = [rows[i] for i in indices]
         labels = [labels[i] for i in indices]
     return make(name, classes, sizes, labels, rows, reps,
-                f'主轴 z；r={rsym}，s={ssym}；列为共轭类代表操作，n_j 单列显示。')
+                f'主轴 z；r={rsym}，s={ssym}；列为共轭类代表操作，n_j 单列显示。',
+                exact_entry=lambda i,j: (2*cos_pi(2*(i-(4 if n%2==0 else 2)+1)*rotations[j],n)
+                    if i >= (4 if n%2==0 else 2) and j < len(rotations) else sp.Integer(round(rows[i][j]))))
 
 
 def product(base, name, central, symbol, suffixes):
@@ -195,7 +220,8 @@ def product(base, name, central, symbol, suffixes):
                 list(base.sizes)*2, [a+suffix for suffix in suffixes for a in base.irreps],
                 np.block([[X,X],[X,-X]]),
                 list(base.reps)+[central@m for m in base.reps],
-                base.note+f' 后半列为 {symbol} 乘以前半列；后缀 {suffixes[0]}/{suffixes[1]} 表示对 {symbol} 的 ± 宇称。')
+                base.note+f' 后半列为 {symbol} 乘以前半列；后缀 {suffixes[0]}/{suffixes[1]} 表示对 {symbol} 的 ± 宇称。',
+                exact_entry=lambda i,j: (-1 if i>=len(X) and j>=len(X) else 1)*base.symbolic(i%len(X),j%len(X)))
 
 
 def polyhedral(name):
@@ -219,6 +245,12 @@ def polyhedral(name):
         b=make('I',['E','C5','C5^2','C3','C2'],[1,12,12,20,15],['A','T1','T2','G','H'],
                [[1,1,1,1,1],[3,p,q,0,-1],[3,q,p,0,-1],[4,-1,-1,1,0],[5,0,0,-1,1]],
                [np.eye(3),rz(2*math.pi/5),rz(4*math.pi/5),rz(2*math.pi/3),rz(math.pi)])
+    if name in ('T','Th'):
+        b.exact_entry = lambda i,j: (root_of_unity((1 if i==1 else -1)*(1 if j==1 else -1),3)
+                                     if i in (1,2) and j in (1,2) else sp.Integer(round(b.X[i,j].real)))
+    elif name in ('I','Ih'):
+        phi = (1+sp.sqrt(5))/2
+        b.exact_entry = lambda i,j: (phi if i==j else 1-phi) if i in (1,2) and j in (1,2) else sp.Integer(round(b.X[i,j].real))
     # For polyhedra, reps encode only angle/parity (sufficient for central shells),
     # and are not one common spatial realization of the whole group.
     b.note += ' 多面体群的内部代表矩阵仅编码转角/宇称，供中心原子轨道示例使用。'
@@ -272,16 +304,16 @@ def report(table, result=None, language='zh-Hans'):
     def t(key, **values): return tr(key, language, **values)
     headers=['irrep']+table.classes
     rows=[headers,['n_j']+[str(n) for n in table.sizes]]
-    rows += [[label]+[fmt(z) for z in row] for label,row in zip(table.irreps,table.X)]
+    rows += [[label]+[fmt(z) for z in row] for label,row in zip(table.irreps,table.symbolic_rows())]
     widths=[max(len(row[j]) for row in rows) for j in range(len(headers))]
     lines=[f'{table.name}    h = {table.h}',group_notes(table,language),t('cli_table_note')]
     lines += ['  '.join(s.rjust(w) for s,w in zip(row,widths)) for row in rows]
     lines += [t('cli_orthogonality',value=f'{table.check():.3g}'), 'a = (1/h) X.conj() @ W @ c']
     if result is not None:
-        lines += ['c = ['+', '.join(fmt(z) for z in result['c'])+']',
-                  'a = ['+', '.join(fmt(z) for z in result['a'])+']',
+        lines += ['c = ['+', '.join(fmt(z) for z in result_values(table, result, 'c'))+']',
+                  'a = ['+', '.join(fmt(z) for z in result_values(table, result, 'a'))+']',
                   table.decomposition(result) if result['valid'] else t('representation_invalid'),
-                  t('dimension')+f" = {fmt(result['dimension'])}; "+t('residual',value=f"{result['residual']:.3g}")]
+                  t('dimension')+f" = {fmt(result_values(table, result, 'c')[0])}; "+t('residual',value=f"{result['residual']:.3g}")]
     return '\n'.join(lines)
 
 
@@ -292,10 +324,13 @@ def payload(table, result=None):
     data={'schema_version':1,'point_group':table.name,'h':table.h,'classes':table.classes,
           'class_sizes':table.sizes.tolist(),'W':table.W.tolist(),'irreps':table.irreps,
           'X':[[encode(x) for x in row] for row in table.X], 'note':table.note,
+          'X_symbolic':[[plain(x) for x in row] for row in table.symbolic_rows()],
           'formula':'a = X.conj() @ W @ c / h','orthogonality_error':table.check()}
     if result is not None:
         data['result']={k: [encode(x) for x in result[k]] for k in ('c','a','reconstructed_c')}
+        data['result']['symbolic'] = {key: [plain(x) for x in result_values(table,result,key)] for key in ('c','a')}
         data['result'].update(valid=result['valid'],residual=result['residual'],
                               integer_residual=result['integer_residual'],tolerance=result['tolerance'],
                               decomposition=table.decomposition(result))
     return data
+

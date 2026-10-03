@@ -15,6 +15,7 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from core import fmt
+from exact_numbers import tex, result_values
 
 FORMULA = r'\mathbf{a}=\frac{1}{h}X^{*}W\mathbf{c}'
 
@@ -51,8 +52,7 @@ def qualifier_tex(text):
 
 
 def number_tex(z, digits=12):
-    return re.sub(r'([-+]?(?:\d+(?:\.\d*)?|\.\d+))e([-+]?\d+)',
-                  lambda m: m[1] + r'\times 10^{' + str(int(m[2])) + '}', fmt(z, digits))
+    return tex(z)
 
 
 def decomposition_terms(table, result):
@@ -70,8 +70,8 @@ def result_latex(table, result):
     """Copyable full LaTeX, rather than the rendered bitmap or rounded integers."""
     def vector(values):
         return r'\begin{pmatrix}' + r' \\ '.join(number_tex(z, 15) for z in values) + r'\end{pmatrix}'
-    lines = [r'\[', FORMULA, r'\]', r'\[', r'\mathbf{c}=' + vector(result['c']),
-             r',\qquad \mathbf{a}=' + vector(result['a']), r'\]']
+    lines = [r'\[', FORMULA, r'\]', r'\[', r'\mathbf{c}=' + vector(result_values(table,result,'c')),
+             r',\qquad \mathbf{a}=' + vector(result_values(table,result,'a')), r'\]']
     if result['valid']:
         lines.extend([r'\[', decomposition_tex(table, result), r'\]'])
     return '\n'.join(lines)
