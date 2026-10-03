@@ -73,7 +73,7 @@ def run(initial_group=None, read=input, write=print, language='zh-Hans'):
                 table=get_table(s);values=[];result=None;stage='vector'
             elif stage=='vector':
                 if not s:values=[];stage='items';continue
-                c=table.orbital(2) if cmd=='d' else parse_vector(s[1:] if s.startswith('=') else s)
+                c=table.orbital_exact(2) if cmd=='d' else parse_vector(s[1:] if s.startswith('=') else s)
                 result=table.reduce(c);stage='result'
             elif stage=='items':
                 values.append(number(s[1:] if s.startswith('=') else s))
@@ -93,3 +93,4 @@ def run(initial_group=None, read=input, write=print, language='zh-Hans'):
         except (ValueError,OSError) as e:write(t('cli_error',reason=error_text(e,language)))
     write(t('cli_exited'))
     return 0
+

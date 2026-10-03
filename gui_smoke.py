@@ -94,6 +94,33 @@ def run():
                     assert app.result['valid'], group
                     assert len(app.output.image_names()) > 0
                     root.update()
+                # Exact table text and generated values must survive native GUI paths.
+                from exact_numbers import expression
+                from core import number
+                from math_display import number_tex
+                import sympy as sp
+                for group, fragment in (('D8', '√2'), ('C3', '√3'), ('D7', 'cos'), ('Ih', '√5')):
+                    app.group.set(group)
+                    app.next_input()
+                    root.update_idletasks()
+                    rows = [app.tree.item(item, 'values') for item in app.tree.get_children()]
+                    assert any(fragment in str(row) for row in rows), (group, rows)
+                    app.example()
+                    assert all(not expression(number(value.get())).has(sp.Float) for value in app.fields)
+                    app.calculate()
+                    assert app.result['valid'], group
+                app.group.set('C1')
+                app.next_input()
+                app.bulk.insert(0, 'sqrt(2)+sqrt(3)*i/2')
+                assert app.fill_bulk()
+                assert 'sqrt' in app.fields[0].get()
+                app.calculate()
+                assert '√2' in app.result_text()
+                app.copy_result(True)
+                assert r'\sqrt{2}' in root.clipboard_get()
+                assert not app.result['valid']
+                app.example()
+                app.calculate()
                 # Navigate rapidly, resize mid-transition, then let the last request settle.
                 draft = [value.get() for value in app.fields]
                 app.show_stage('input')

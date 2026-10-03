@@ -1,17 +1,15 @@
-## v2.4.0 · Smooth page transitions
+## v2.4.1 · Exact symbolic values
 
-- Persistent pages slide forward/back with a short 220 ms cubic ease-out transition.
-- Navigation is interruptible: rapid clicks continue from current positions and keep only the latest destination. Inputs and results are preserved.
-- Relative page geometry follows live window resizing. Input layout updates only when its content size changes; formulas reuse cached images.
-- A Smooth transitions / 平滑过渡 / 平滑過渡 switch disables motion immediately.
-- Retains transparent formulas and the clipping fixes from v2.3.1.
-- 36 source tests plus native GUI navigation, mid-animation resizing, shutdown and frozen GUI/CLI checks gate publication. Manual Windows/macOS motion acceptance and frame-rate profiling remain pending.
-- Outer-window maximize/fullscreen animations are controlled by the operating system; this release animates the application pages.
+- Character tables display fractions, radicals (such as √2), exact trigonometric values and complex components instead of decimal approximations.
+- Exact expressions are generated from character formulas and retained from validated user input; rounded decimals are never guessed to be radicals.
+- Result formulas, text/LaTeX copy, orbital examples and CSV retain symbolic values. JSON keeps its numeric fields and adds `X_symbolic` and `result.symbolic`.
+- Table columns expand to fit longer symbolic expressions. Transparent formulas and smooth page transitions remain available.
+- 43 source tests and native GUI/frozen application smoke checks gate publication.
 
 ## 简体中文
 
-前进、返回和主页切换加入约 0.2 秒的平滑过渡，连续点击不会累积动画。输入和结果保留，缩放过程中页面实时适应窗口。顶部可关闭“平滑过渡”。保留英文／简体中文／繁体中文切换与公式透明背景。外层窗口的最大化和全屏动画由操作系统控制。
+特征标、根号数、分数、三角函数和复数实部／虚部改用符号显示，例如 √2、−1/2 + √3*i/2。输入、轨道示例、结果公式、复制和 CSV 均保留符号形式。JSON 增加符号字段，同时保留用于计算的数值字段。表格列宽随表达式调整，保留透明公式背景和平滑过渡。
 
 ## 繁體中文
 
-前進、返回與首頁切換加入約 0.2 秒的平滑過渡，連續點擊不會累積動畫。輸入與結果保留，縮放過程中頁面即時配合視窗。頂部可關閉「平滑過渡」。保留英文／簡體中文／繁體中文切換與公式透明背景。外層視窗的最大化與全螢幕動畫由作業系統控制。
+特徵標、根號數、分數、三角函數與複數實部／虛部改用符號顯示，例如 √2、−1/2 + √3*i/2。輸入、軌域範例、結果公式、複製與 CSV 均保留符號形式。JSON 新增符號欄位，同時保留用於計算的數值欄位。表格欄寬隨表達式調整，保留透明公式背景與平滑過渡。

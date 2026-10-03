@@ -9,6 +9,7 @@ from core import COMMON, fmt, get_table, number, parse_vector, payload
 from i18n import LANGUAGES, tr, error_text, group_notes, UIError
 from preferences import load_language, save_language
 from motion import SlideStack
+from exact_numbers import input_text, result_values
 from math_display import MathImages, FORMULA, symbol_tex, decomposition_terms, result_latex, number_tex
 
 STAGES = {name: (tr(name + '_title'), tr(name + '_instruction')) for name in ('select', 'input', 'result')}
@@ -371,7 +372,7 @@ class App:
         columns = [str(j) for j in range(len(table.classes))]
         headings = [self.math.image(symbol_tex(label)) for label in table.classes]
         row_images = [self.math.image(symbol_tex(label)) for label in table.irreps]
-        values = [[fmt(z) for z in row] for row in table.X]
+        values = [[fmt(z) for z in row] for row in table.symbolic_rows()]
         ttk.Style(self.root).configure('Treeview', rowheight=max(
             32, round(self.math.dpi * .27), max(image.height() for image in row_images) + 8))
         self.table_views = []
@@ -379,9 +380,10 @@ class App:
             tree.delete(*tree.get_children())
             tree.configure(columns=columns)
             tree.heading('#0', text=self.t('irrep'))
-            for column, image in zip(columns, headings):
+            cell_font = tkfont.nametofont('TkDefaultFont')
+            for j, (column, image) in enumerate(zip(columns, headings)):
                 tree.heading(column, text='', image=image)
-                tree.column(column, width=max(110, image.width() + 18), stretch=False, anchor='center')
+                tree.column(column, width=max(110, image.width() + 18, max(cell_font.measure(row[j]) for row in values) + 24), stretch=False, anchor='center')
             weight_row = tree.insert('', 'end', text=self.t('class_size'), values=table.sizes.tolist())
             self.table_views.append((tree, weight_row))
             for image, row in zip(row_images, values):
@@ -438,7 +440,7 @@ class App:
                 self.bulk.focus_set()
                 return False
             for value, z in zip(self.fields, c):
-                value.set(fmt(z, 15))
+                value.set(input_text(z))
             self.bulk.delete(0, 'end')
             self.message('filled')
             return True
@@ -450,8 +452,8 @@ class App:
     def example(self):
         try:
             self.current()
-            for value, z in zip(self.fields, self.table.orbital(2)):
-                value.set(fmt(z, 12))
+            for value, z in zip(self.fields, self.table.orbital_exact(2)):
+                value.set(input_text(z))
             self.bulk.delete(0, 'end')
             self.message('example_filled')
         except ValueError as error:
@@ -464,11 +466,11 @@ class App:
     def result_text(self):
         result = self.result
         lines = [self.table.name, '', self.t('input_characters')]
-        lines.extend(f'  {name}: {fmt(z)}' for name, z in zip(self.table.classes, result['c']))
+        lines.extend(f'  {name}: {fmt(z)}' for name, z in zip(self.table.classes, result_values(self.table,result,'c')))
         lines.extend(['', self.t('multiplicities')])
-        lines.extend(f'  {name}: {fmt(z)}' for name, z in zip(self.table.irreps, result['a']))
+        lines.extend(f'  {name}: {fmt(z)}' for name, z in zip(self.table.irreps, result_values(self.table,result,'a')))
         lines.extend(['', self.table.decomposition(result) if result['valid'] else self.t('invalid_decomposition'),
-                      '', self.t('dimension') + f' χ(E) = {fmt(result["dimension"])}',
+                      '', self.t('dimension') + f' χ(E) = {fmt(result_values(self.table,result,"c")[0])}',
                       self.t('residual', value=f'{result["residual"]:.3g}')])
         return '\n'.join(lines)
 
@@ -494,13 +496,13 @@ class App:
         else:
             self.output.insert('end', self.t('invalid_decomposition') + '\n')
         self.output.insert('end', '\n' + self.t('input_characters') + '\n')
-        for label, z in zip(self.table.classes, result['c']):
+        for label, z in zip(self.table.classes, result_values(self.table,result,'c')):
             self.mathline(self.output, symbol_tex(label) + ' = ' + number_tex(z))
         self.output.insert('end', '\n' + self.t('multiplicities') + '\n')
-        for label, z in zip(self.table.irreps, result['a']):
+        for label, z in zip(self.table.irreps, result_values(self.table,result,'a')):
             self.mathline(self.output, 'a_{' + symbol_tex(label) + '} = ' + number_tex(z))
         self.output.insert('end', '\n' + self.t('dimension') + '\n')
-        self.mathline(self.output, r'\chi_{\Gamma}(E)=' + number_tex(result['dimension']))
+        self.mathline(self.output, r'\chi_{\Gamma}(E)=' + number_tex(result_values(self.table,result,'c')[0]))
         self.output.insert('end', self.t('residual', value=f'{result["residual"]:.3g}'))
         self.output.configure(state='disabled')
         self.output.yview_moveto(0)
