@@ -8,6 +8,7 @@ from tkinter.scrolledtext import ScrolledText
 from core import COMMON, fmt, get_table, number, parse_vector, payload
 from i18n import LANGUAGES, tr, error_text, group_notes, UIError
 from preferences import load_language, save_language
+from motion import SlideStack
 from math_display import MathImages, FORMULA, symbol_tex, decomposition_terms, result_latex, number_tex
 
 STAGES = {name: (tr(name + '_title'), tr(name + '_instruction')) for name in ('select', 'input', 'result')}
@@ -66,6 +67,9 @@ class App:
         language_bar = ttk.Frame(root, padding=(20, 8))
         language_bar.pack(fill='x')
         self.label(language_bar, 'language').pack(side='right', padx=8)
+        self.motion_enabled = tk.BooleanVar(value=True)
+        self.widget(ttk.Checkbutton, language_bar, 'smooth_motion',
+                    variable=self.motion_enabled, command=self.toggle_motion).pack(side='left')
         self.language_value = tk.StringVar(value=LANGUAGES[self.language])
         self.language_combo = ttk.Combobox(language_bar, textvariable=self.language_value,
                                           values=list(LANGUAGES.values()), state='readonly', width=14)
@@ -74,6 +78,7 @@ class App:
             next(key for key, value in LANGUAGES.items() if value == self.language_value.get())))
         self.host = ttk.Frame(root)
         self.host.pack(fill='both', expand=True)
+        self.page_motion = SlideStack(self.host)
         self.homepage = ttk.Frame(self.host, padding=36)
         self.label(self.homepage, 'app_title', style='Title.TLabel').pack(anchor='w', pady=(26, 16))
         self.label(self.homepage, 'home_description', wraplength=960).pack(anchor='w', pady=6)
@@ -104,9 +109,14 @@ class App:
         ttk.Label(infoframe, textvariable=self.info, style='Hint.TLabel').pack(side='left')
         self.content = ttk.Frame(self.workspace)
         self.content.grid(row=4, column=0, sticky='nsew')
-        self.content.columnconfigure(0, weight=1)
-        self.content.rowconfigure(1, weight=1)
-        self.controls = ttk.Frame(self.content)
+        self.body_motion = SlideStack(self.content)
+        self.selectpage = ttk.Frame(self.content)
+        self.inputpage = ttk.Frame(self.content)
+        self.resultpage = ttk.Frame(self.content)
+        for page in (self.selectpage, self.inputpage):
+            page.columnconfigure(0, weight=1)
+            page.rowconfigure(1, weight=1)
+        self.controls = ttk.Frame(self.selectpage)
         self.label(self.controls, 'group_name').pack(side='left')
         self.group = tk.StringVar(value=group)
         self.combo = ttk.Combobox(self.controls, textvariable=self.group, values=COMMON, width=18)
@@ -116,31 +126,25 @@ class App:
         self.button(self.controls, 'view_table', self.load).pack(side='left')
         self.label(self.controls, 'group_examples', style='Hint.TLabel').pack(side='left', padx=16)
 
-        self.tableframe = ttk.Frame(self.content)
-        self.tableframe.columnconfigure(0, weight=1)
-        self.tableframe.rowconfigure(0, weight=1)
-        # #0 has per-row images; each data-column heading has its own math image.
-        self.tree = ttk.Treeview(self.tableframe, show='tree headings', height=8)
-        self.tree.column('#0', width=190, stretch=False, anchor='center')
-        sx = ttk.Scrollbar(self.tableframe, orient='horizontal', command=self.tree.xview)
-        sy = ttk.Scrollbar(self.tableframe, orient='vertical', command=self.tree.yview)
-        self.tree.configure(xscrollcommand=sx.set, yscrollcommand=sy.set)
-        self.tree.grid(row=0, column=0, sticky='nsew')
-        sx.grid(row=1, column=0, sticky='ew')
-        sy.grid(row=0, column=1, sticky='ns')
+        self.tableframe, self.tree = self.make_table(self.selectpage)
+        self.inputtableframe, self.inputtree = self.make_table(self.inputpage)
+        self.table_views = [(self.tree, None), (self.inputtree, None)]
+        self.controls.grid(row=0, column=0, sticky='ew', pady=(0, 12))
+        self.tableframe.grid(row=1, column=0, sticky='nsew')
+        self.inputtableframe.grid(row=1, column=0, sticky='nsew')
 
-        self.inputframe = self.widget(ttk.LabelFrame, self.content, 'input_box', padding=10)
+        self.inputframe = self.widget(ttk.LabelFrame, self.inputpage, 'input_box', padding=10)
         self.canvas = tk.Canvas(self.inputframe, height=88, highlightthickness=0)
         self.inputs = ttk.Frame(self.canvas)
         self.canvas.create_window((0, 0), window=self.inputs, anchor='nw')
-        self.inputs.bind('<Configure>', lambda _: self.canvas.configure(
-            scrollregion=self.canvas.bbox('all'), height=self.inputs.winfo_reqheight()))
+        self._input_geometry = None
+        self.inputs.bind('<Configure>', self.resize_inputs)
         sb = ttk.Scrollbar(self.inputframe, orient='horizontal', command=self.canvas.xview)
         self.canvas.configure(xscrollcommand=sb.set)
         self.canvas.pack(fill='x')
         sb.pack(fill='x')
         self.label(self.inputframe, 'input_hint', style='Hint.TLabel').pack(anchor='w', pady=(8, 0))
-        self.bulkframe = ttk.Frame(self.content)
+        self.bulkframe = ttk.Frame(self.inputpage)
         self.label(self.bulkframe, 'paste_label').pack(side='left')
         self.bulk = ttk.Entry(self.bulkframe)
         self.bulk.pack(side='left', fill='x', expand=True, padx=10)
@@ -148,8 +152,11 @@ class App:
         self.apply_button = self.button(self.bulkframe, 'apply', self.fill_bulk)
         self.apply_button.pack(side='left')
         self.label(self.bulkframe, 'paste_hint', style='Hint.TLabel').pack(side='left', padx=10)
-        self.output = ScrolledText(self.content, height=12, wrap='word', font=(family, 11))
+        self.inputframe.grid(row=2, column=0, sticky='ew', pady=(12, 10))
+        self.bulkframe.grid(row=3, column=0, sticky='ew')
+        self.output = ScrolledText(self.resultpage, height=12, wrap='word', font=(family, 11))
         self.output.configure(state='disabled')
+        self.output.pack(fill='both', expand=True)
         self.actions = ttk.Frame(self.workspace)
         self.actions.grid(row=5, column=0, sticky='ew', pady=(14, 8))
         self.selectbar = ttk.Frame(self.actions)
@@ -207,8 +214,9 @@ class App:
             self.instruction.set(self.t(self.stage + '_instruction'))
         self.refresh_info()
         if self.table is not None:
-            self.tree.heading('#0', text=self.t('irrep'))
-            self.tree.item(self.weight_row, text=self.t('class_size'))
+            for tree, weight_row in self.table_views:
+                tree.heading('#0', text=self.t('irrep'))
+                tree.item(weight_row, text=self.t('class_size'))
         if self.result is not None:
             self.render_result()
         for window, text in list(self.help_windows):
@@ -276,35 +284,50 @@ class App:
             self.message('core_error', error=True, reason=str(error))
 
     def show_stage(self, stage):
+        previous = self.stage
+        order = ('home', 'select', 'input', 'result')
+        direction = 1 if order.index(stage) > order.index(previous) else -1
         self.stage = stage
-        self.homepage.pack_forget()
-        self.workspace.pack_forget()
         self.set_status()
         if stage == 'home':
-            self.homepage.pack(fill='both', expand=True)
+            self.page_motion.show(self.homepage, direction)
             self.root.focus_set()
             return
-        self.workspace.pack(fill='both', expand=True)
         self.steptext.set(self.t(stage + '_title'))
         self.instruction.set(self.t(stage + '_instruction'))
-        for widget in (self.controls, self.tableframe, self.inputframe, self.bulkframe, self.output):
-            widget.grid_remove()
         for widget in (self.selectbar, self.inputbar, self.resultbar):
             widget.pack_forget()
-        if stage == 'select':
-            self.controls.grid(row=0, column=0, sticky='ew', pady=(0, 12))
-            self.tableframe.grid(row=1, column=0, sticky='nsew')
-            self.selectbar.pack(fill='x')
-        elif stage == 'input':
-            self.tableframe.grid(row=1, column=0, sticky='nsew')
-            self.inputframe.grid(row=2, column=0, sticky='ew', pady=(12, 10))
-            self.bulkframe.grid(row=3, column=0, sticky='ew')
-            self.inputbar.pack(fill='x')
-        else:
-            self.output.grid(row=0, column=0, rowspan=4, sticky='nsew')
-            self.resultbar.pack(fill='x')
-            if self.result is not None:
-                self._result_status()
+        page = {'select': self.selectpage, 'input': self.inputpage, 'result': self.resultpage}[stage]
+        # Do not stack two animations on entering the workspace from Home.
+        self.body_motion.show(page, direction, animate=previous != 'home')
+        self.page_motion.show(self.workspace, direction)
+        {'select': self.selectbar, 'input': self.inputbar, 'result': self.resultbar}[stage].pack(fill='x')
+        if stage == 'result' and self.result is not None:
+            self._result_status()
+
+    def toggle_motion(self):
+        for controller in (self.page_motion, self.body_motion):
+            controller.set_enabled(self.motion_enabled.get())
+
+    def make_table(self, parent):
+        frame = ttk.Frame(parent)
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(0, weight=1)
+        tree = ttk.Treeview(frame, show='tree headings', height=8)
+        tree.column('#0', width=190, stretch=False, anchor='center')
+        sx = ttk.Scrollbar(frame, orient='horizontal', command=tree.xview)
+        sy = ttk.Scrollbar(frame, orient='vertical', command=tree.yview)
+        tree.configure(xscrollcommand=sx.set, yscrollcommand=sy.set)
+        tree.grid(row=0, column=0, sticky='nsew')
+        sx.grid(row=1, column=0, sticky='ew')
+        sy.grid(row=0, column=1, sticky='ns')
+        return frame, tree
+
+    def resize_inputs(self, _event=None):
+        geometry = (self.inputs.winfo_reqwidth(), self.inputs.winfo_reqheight())
+        if geometry != self._input_geometry:
+            self._input_geometry = geometry
+            self.canvas.configure(scrollregion=(0, 0, *geometry), height=geometry[1])
 
     def back(self):
         self.show_stage({'home': 'home', 'select': 'home', 'input': 'select', 'result': 'input'}[self.stage])
@@ -345,21 +368,25 @@ class App:
             self.message('ready')
             return True
         self.table, self.result = table, None
-        self.tree.delete(*self.tree.get_children())
         columns = [str(j) for j in range(len(table.classes))]
-        self.tree.configure(columns=columns)
-        self.tree.heading('#0', text=self.t('irrep'))
-        for column, label in zip(columns, table.classes):
-            image = self.math.image(symbol_tex(label))
-            self.tree.heading(column, text='', image=image)
-            self.tree.column(column, width=max(110, image.width() + 18), stretch=False, anchor='center')
-        self.weight_row = self.tree.insert('', 'end', text=self.t('class_size'), values=table.sizes.tolist())
+        headings = [self.math.image(symbol_tex(label)) for label in table.classes]
         row_images = [self.math.image(symbol_tex(label)) for label in table.irreps]
-        # Treeview does not grow rows to fit images, especially at high DPI.
+        values = [[fmt(z) for z in row] for row in table.X]
         ttk.Style(self.root).configure('Treeview', rowheight=max(
             32, round(self.math.dpi * .27), max(image.height() for image in row_images) + 8))
-        for image, row in zip(row_images, table.X):
-            self.tree.insert('', 'end', image=image, values=[fmt(z) for z in row])
+        self.table_views = []
+        for tree in (self.tree, self.inputtree):
+            tree.delete(*tree.get_children())
+            tree.configure(columns=columns)
+            tree.heading('#0', text=self.t('irrep'))
+            for column, image in zip(columns, headings):
+                tree.heading(column, text='', image=image)
+                tree.column(column, width=max(110, image.width() + 18), stretch=False, anchor='center')
+            weight_row = tree.insert('', 'end', text=self.t('class_size'), values=table.sizes.tolist())
+            self.table_views.append((tree, weight_row))
+            for image, row in zip(row_images, values):
+                tree.insert('', 'end', image=image, values=row)
+        self.weight_row = self.table_views[0][1]
         for widget in self.inputs.winfo_children():
             widget.destroy()
         self.fields, self.entries = [], []
