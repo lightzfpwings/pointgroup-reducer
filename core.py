@@ -257,8 +257,7 @@ def polyhedral(name):
     return product(b,name,-np.eye(3),'i',('g','u')) if name.endswith('h') else b
 
 
-@lru_cache(maxsize=64)
-def get_table(raw):
+def _build_table(raw):
     name = re.sub(r'[\s_{}]', '', raw).lower().replace('∞','inf')
     if name in ('cinfv','dinfh','c∞v','d∞h','cinfinityv','dinfinityh','kh','so3','o3'):
         raise ValueError('这是无限群，h 不是有限数，不能使用有限的 X、W 和 c。需以连续特征标函数及 Haar 积分约化；本程序的有限群模式不适用。')
@@ -292,6 +291,14 @@ def get_table(raw):
             if n%2: return product(get_table(f'D{n}'),canonical,-eye,'i',('g','u'))
             return dihedral(2*n,canonical,rz(math.pi/n)@sh,c2x,f'S{2*n}',"C2'(x)")
     raise ValueError('该点群名称无效；Dn 系列要求 n≥2，S 系列不带后缀。')
+
+
+@lru_cache(maxsize=64)
+def get_table(raw):
+    from operation_labels import direct_labels
+    table = _build_table(raw)
+    table.classes = direct_labels(table)
+    return table
 
 
 COMMON = ['C1','Cs','Ci','C2','C3','C4','C5','C6','C2v','C3v','C4v','C5v','C6v',
@@ -333,4 +340,3 @@ def payload(table, result=None):
                               integer_residual=result['integer_residual'],tolerance=result['tolerance'],
                               decomposition=table.decomposition(result))
     return data
-

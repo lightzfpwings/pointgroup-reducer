@@ -43,6 +43,8 @@ Back and Home keep your input. Changing groups clears it. A zero within a comma-
 
 ## Scope
 
+Class headings directly name rotations, mirrors or inversion. For example, C2v uses E, C2, sigma_v(xz), sigma_v(yz). For axial groups, the principal rotation axis defaults to z, including C3 and higher orders. The xy plane is horizontal; xz and yz are vertical. Other mirrors and perpendicular twofold axes use an exact azimuth phi measured from +x toward +y. For polyhedral groups, one highest-order rotation axis may be chosen as z; equivalent axes in a class need not be parallel to z. Renaming preserves column order and character data.
+
 Finite ordinary 3D point groups: C1, Cs, Ci; Cn, Cnv, Cnh; Dn, Dnh, Dnd; S2n; T, Th, Td, O, Oh, I, Ih. Families are generated on demand with n ≤ 2000; large dense matrices require substantial memory.
 
 Complex characters, nonnegative integer multiplicity checks, central d-shell examples, JSON and CSV are supported. E+ / E− are each one-dimensional complex conjugate irreps, not separate two-dimensional E irreps. Labels and class order may differ from textbooks. Infinite C∞v / D∞h, double groups, magnetic groups and space groups are excluded.
@@ -70,4 +72,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-The builder runs 30 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow publishes only after all three platforms pass. Automated checks do not replace manual Windows/macOS click acceptance; see Actions and BUILD-INFO.json.
+The builder runs 50 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow publishes only after all three platforms pass. Automated checks do not replace manual Windows/macOS click acceptance; see Actions and BUILD-INFO.json.

@@ -6,3 +6,4 @@ Native Linux Tk 9: automated functionality PASS; Chinese font rendering is unava
 Real GUI smoke: all three languages, preserved fields/pasted vector/result, dynamic error translations, clipboard text/LaTeX, export, help and zero/invalid multiplicities PASS.
 Windows/macOS acceptance is enforced in packaging/build_native.py and the release workflow, including frozen application checks. See actual Actions results and BUILD-INFO.json.
 Manual click acceptance on native Windows/macOS remains pending.
+

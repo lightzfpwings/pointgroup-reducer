@@ -6,7 +6,7 @@
     "E",
     "C2",
     "sigma_v(xz)",
-    "C2·sigma_v(xz)"
+    "sigma_v(yz)"
   ],
   "class_sizes": [
     1,
@@ -73,6 +73,32 @@
     ]
   ],
   "note": "主轴 z；r=C2，s=sigma_v(xz)；列为共轭类代表操作，n_j 单列显示。",
+  "X_symbolic": [
+    [
+      "1",
+      "1",
+      "1",
+      "1"
+    ],
+    [
+      "1",
+      "1",
+      "-1",
+      "-1"
+    ],
+    [
+      "1",
+      "-1",
+      "1",
+      "-1"
+    ],
+    [
+      "1",
+      "-1",
+      "-1",
+      "1"
+    ]
+  ],
   "formula": "a = X.conj() @ W @ c / h",
   "orthogonality_error": 0.0,
   "result": {
@@ -94,6 +120,20 @@
       1.0,
       1.0
     ],
+    "symbolic": {
+      "c": [
+        "5",
+        "1",
+        "1",
+        "1"
+      ],
+      "a": [
+        "2",
+        "1",
+        "1",
+        "1"
+      ]
+    },
     "valid": true,
     "residual": 0.0,
     "integer_residual": 0.0,

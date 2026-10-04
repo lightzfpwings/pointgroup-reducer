@@ -1,0 +1,1 @@
+Private test build for native Windows and macOS apps. Includes direct operation names and z-axis convention, simplified tables and centered operation symbols. This branch creates Actions artifacts only; no release job, tags or main-branch updates.

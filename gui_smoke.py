@@ -19,6 +19,7 @@ def run():
             root.report_callback_exception = lambda *error: callback_errors.append(error)
             try:
                 app = App(root, language='zh-Hans')
+                assert app.table.classes == ['E', 'C2', 'sigma_v(xz)', 'sigma_v(yz)']
                 for language in LANGUAGES:
                     app.set_language(language)
                     app.show_stage('select')
@@ -66,7 +67,7 @@ def run():
                     window.destroy()
                     app.home()
                     assert app.stage == 'home'
-                for group in ('D6h', 'Cs', 'C3', 'Th', 'Ih'):
+                for group in ('D6h', 'D4d', 'S6', 'Cs', 'C3', 'Th', 'Ih'):
                     app.group.set(group)
                     app.next_input()
                     root.deiconify()

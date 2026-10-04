@@ -44,6 +44,8 @@ Windows 請保留程式旁的 `_internal` 資料夾；macOS 命令列入口為 `
 
 ## 支援範圍
 
+對稱操作表頭直接顯示旋轉、鏡面或反演名稱。例如 C2v 的四欄為 E、C2、sigma_v(xz)、sigma_v(yz)。軸向點群的主旋轉軸預設沿 z（包括 C3 及更高階軸）；xy 為水平面，xz、yz 為垂直面。其他鏡面或垂直二重軸用精確方位角 phi 標註，從 +x 向 +y 測量。多面體群可選一條最高階旋轉軸為 z，同一類的其他等價軸不必平行於 z。名稱調整保留原有欄位順序及對應特徵標。
+
 有限普通三維點群：C1、Cs、Ci；Cn、Cnv、Cnh；Dn、Dnh、Dnd；S2n；T、Th、Td、O、Oh、I、Ih。系列按需產生，目前 n ≤ 2000；大 n 的稠密矩陣需要較多記憶體。
 
 支援複特徵標、非負整數重數檢查、d 軌域範例、JSON/CSV 匯出。E+ / E− 各為一維複共軛表示，不可各視為二維 E。標籤與類順序可能不同於教材，以程式顯示為準。無限點群 C∞v、D∞h 不適用有限矩陣公式；不包含雙群、磁群或空間群。
@@ -71,4 +73,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-構建先執行 30 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。三個平台全部通過後才發佈。自動檢查不替代 Windows/macOS 實機人工點選驗收；狀態以 Actions 與 BUILD-INFO.json 為準。
+構建先執行 50 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。三個平台全部通過後才發佈。自動檢查不替代 Windows/macOS 實機人工點選驗收；狀態以 Actions 與 BUILD-INFO.json 為準。

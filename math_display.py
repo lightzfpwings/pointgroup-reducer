@@ -22,6 +22,8 @@ FORMULA = r'\mathbf{a}=\frac{1}{h}X^{*}W\mathbf{c}'
 
 def symbol_tex(label):
     """Convert canonical program labels without changing their mathematical meaning."""
+    if label == 'sigma':
+        return r'\sigma'
     if '·' in label:
         return r'\,\cdot\,'.join(symbol_tex(x) for x in label.split('·'))
     if label.startswith('(') and label.endswith(')'):
@@ -48,6 +50,9 @@ def qualifier_tex(text):
         return ''
     if text in ('(+)', '(-)'):
         return text
+    angle = re.fullmatch(r'\(phi=(?:(\d+)\*)?pi/(\d+)\)', text)
+    if angle:
+        return r'\,(\varphi=\frac{' + (angle[1] or '') + r'\pi}{' + angle[2] + '})'
     return r'\,\mathrm{' + text + '}'
 
 

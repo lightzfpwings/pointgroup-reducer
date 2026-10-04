@@ -44,6 +44,8 @@ Windows 保留同目录下的 `_internal` 文件夹；macOS 命令行入口为 `
 
 ## 支持范围
 
+对称操作表头直接显示旋转、镜面或反演名称。例如 C2v 的四列为 E、C2、sigma_v(xz)、sigma_v(yz)。轴向点群的主旋转轴默认沿 z（包括 C3 及更高阶轴）；xy 为水平面，xz、yz 为垂直面。其他镜面或垂直二重轴用精确方位角 phi 标注，从 +x 向 +y 测量。多面体群可选一条最高阶旋转轴为 z，同一类的其他等价轴不必平行于 z。名称调整保留原有列顺序及对应特征标。
+
 有限普通三维点群：C1、Cs、Ci；Cn、Cnv、Cnh；Dn、Dnh、Dnd；S2n；T、Th、Td、O、Oh、I、Ih。系列按需生成，目前 n ≤ 2000；大 n 的稠密矩阵需要较多内存。
 
 支持复特征标、非负整数重数检查、d 轨道示例、JSON/CSV 导出。E+ / E− 各为一维复共轭表示，不能各当作二维 E；标签和类顺序可能与教材不同，以本程序表为准。无限点群 C∞v、D∞h 不适用此有限矩阵公式；不包含双群、磁群、空间群。
@@ -71,6 +73,6 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-构建先执行 30 项源码测试，以及真实 Tk 的数学渲染、三语切换、输入保留、复制和导出检查；封装后再检查独立 GUI/CLI 启动及示例计算。输出 ZIP、SHA-256 和构建记录。GUI 使用离线 MathText，用户无需安装 LaTeX。
+构建先执行 50 项源码测试，以及真实 Tk 的数学渲染、三语切换、输入保留、复制和导出检查；封装后再检查独立 GUI/CLI 启动及示例计算。输出 ZIP、SHA-256 和构建记录。GUI 使用离线 MathText，用户无需安装 LaTeX。
 
 `.github/workflows/release.yml` 在三个平台都通过后才发布。手动执行并选中 publish，或推送与 VERSION 对应的标签（v2.3.0）。构建检查不替代 Windows/macOS 实机人工点击验收；具体状态以 Actions 和发行包 BUILD-INFO.json 为准。
