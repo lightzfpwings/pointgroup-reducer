@@ -76,7 +76,7 @@ class MathTable(ttk.Frame):
                               scrollregion=(0, 0, self.edges[-1], self.header_height))
         self.rowconfigure(0, minsize=self.header_height)
         self.body.configure(scrollregion=(0, 0, self.edges[-1], len(self.row_images) * self.row_height),
-                            yscrollincrement=self.row_height, xscrollincrement=32)
+                            yscrollincrement=self.row_height)
         self.body.xview_moveto(0)
         self.body.yview_moveto(0)
         self._schedule_draw()
@@ -162,4 +162,9 @@ class MathTable(ttk.Frame):
                 assert b0 >= y0 + self.padding - 1 and b1 <= y1 - self.padding + 1, (bounds, actual)
                 assert abs((a0 + a1) / 2 - (x0 + x1) / 2) <= 1
                 assert abs((b0 + b1) / 2 - (y0 + y1) / 2) <= 1
-        assert self.header.xview() == self.body.xview()
+        # Compare real pixel origins; native Tk may format normalized view
+        # fractions differently even when cell borders are aligned.
+        assert abs(self.header.canvasx(0) - self.body.canvasx(0)) <= 1, (
+            self.header.canvasx(0), self.body.canvasx(0),
+            self.header.xview(), self.body.xview(),
+            self.header.winfo_width(), self.body.winfo_width())
