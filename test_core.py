@@ -5,7 +5,7 @@ import subprocess
 import sys
 import unittest
 import numpy as np
-from core import get_table, number, parse_vector, payload
+from core import COMMON, matching_groups, get_table, number, parse_vector, payload
 
 
 class CharacterTests(unittest.TestCase):
@@ -18,18 +18,26 @@ class CharacterTests(unittest.TestCase):
         self.assertIn('Γ', output)
 
     def test_families_and_round_trip(self):
-        groups=['C1','Cs','Ci','T','Th','Td','O','Oh','I','Ih']
-        for n in range(2,31):
-            groups += [f'{f}{n}{s}' for f,s in [('C',''),('C','v'),('C','h'),('D',''),('D','h'),('D','d')]]
-            groups += [f'S{2*n}']
         rng=np.random.default_rng(42)
-        for name in groups:
+        for name in COMMON:
             with self.subTest(group=name):
                 t=get_table(name);self.assertLess(t.check(),1e-10)
                 a=rng.integers(0,4,len(t.irreps));r=t.reduce(t.X.T@a)
                 self.assertTrue(r['valid']);np.testing.assert_allclose(r['a'],a,atol=1e-10)
                 # Every central shell l=0..4 must restrict to a valid representation.
                 for l in range(5):self.assertTrue(t.reduce(t.orbital(l))['valid'])
+
+    def test_expanded_catalogue_and_search(self):
+        self.assertEqual(len(COMMON), 423)
+        self.assertEqual(len(COMMON), len(set(COMMON)))
+        for name in ('C9h', 'C12v', 'D30h', 'D60d', 'S120', 'Ih'):
+            self.assertIn(name, COMMON)
+        self.assertEqual(matching_groups('D_12'), ['D12', 'D12h', 'D12d'])
+        self.assertEqual(matching_groups(' c_{60} '), ['C60', 'C60v', 'C60h'])
+        self.assertEqual(matching_groups(''), COMMON)
+        self.assertEqual(matching_groups('not-a-group'), [])
+        # Manual entry beyond the visible catalogue stays available.
+        self.assertEqual(get_table('C61v').name, 'C61v')
 
     def test_known_d_splittings(self):
         known={'C2v':{'A1':2,'A2':1,'B1':1,'B2':1},
@@ -97,4 +105,3 @@ class CharacterTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
-

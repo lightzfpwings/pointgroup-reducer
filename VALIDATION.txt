@@ -1,9 +1,10 @@
-Point Group Reducer 2.4.2 validation — 2026-10-04
-50 source tests cover calculation, exact values, symmetry-operation labels and navigation.
-Native checks measure rendered header/body bounds, centering, scrolling and resize behavior.
-GUI checks cover three languages, preserved input, clipboard, export and mathematical notation.
-The user accepted 2.4.2-preview.2 on 2026-10-04; the release retains its GUI source.
-Formal packages are rebuilt and checked on Windows x64 and Apple Silicon macOS.
-Publication requires both native source and frozen GUI/CLI checks to pass.
-See Actions, QA screenshots and each package's BUILD-INFO.json for actual build results.
-The user-tested platform is not recorded; this does not claim manual acceptance of both platforms.
+Point Group Reducer 2.4.3 validation — 2026-10-04
+51 source tests: calculation, exact values, group selection, operation labels and navigation.
+Numerical orthogonality and reduction round trips cover all 423 selectable groups.
+The selector lists six cyclic/dihedral families through n=60, even S4…S120,
+C1/Cs/Ci and seven polyhedral groups. Higher orders remain manually accessible.
+Native checks verify real selector filtering, selected-group loading, complete headers,
+three-language results without reconstruction-error footers, clipboard and export.
+The refinement preview passed both native builds; publication of v2.4.3 was authorized on 2026-10-04.
+Both Windows x64 and Apple Silicon source and frozen GUI/CLI checks gate formal publication.
+See Actions, QA screenshots and BUILD-INFO.json for actual build results.

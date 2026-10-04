@@ -12,7 +12,7 @@ class GuiNavigationTests(unittest.TestCase):
         for name in ['homepage', 'workspace', 'root', 'controls', 'tableframe', 'inputframe',
                      'bulkframe', 'selectbar', 'inputbar', 'resultbar', 'output', 'statuslabel',
                      'steptext', 'instruction', 'status', 'page_motion', 'body_motion',
-                     'selectpage', 'inputpage', 'resultpage']:
+                     'selectpage', 'inputpage', 'resultpage', 'combo']:
             setattr(app, name, Mock())
         app.fields = [Mock() for _ in range(4)]
         for field, value in zip(app.fields, ['5', '1', '1', '1']):
@@ -100,4 +100,3 @@ class GuiNavigationTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

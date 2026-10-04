@@ -304,6 +304,18 @@ def get_table(raw):
 COMMON = ['C1','Cs','Ci','C2','C3','C4','C5','C6','C2v','C3v','C4v','C5v','C6v',
           'C2h','C3h','C4h','C6h','D2','D3','D4','D5','D6','D2h','D3h','D4h','D5h','D6h',
           'D2d','D3d','D4d','D5d','D6d','S4','S6','S8','T','Th','Td','O','Oh','I','Ih']
+# Keep familiar entries first; generate only names, with tables built on demand.
+COMMON = list(dict.fromkeys(COMMON + [
+    name for n in range(2, 61)
+    for name in [f'{family}{n}{suffix}' for family, suffix in
+                 [('C', ''), ('C', 'v'), ('C', 'h'), ('D', ''), ('D', 'h'), ('D', 'd')]]
+                + [f'S{2*n}']
+]))
+
+
+def matching_groups(query):
+    prefix = re.sub(r'[\s_{}]', '', query).lower()
+    return [name for name in COMMON if name.lower().startswith(prefix)]
 
 
 def report(table, result=None, language='zh-Hans'):
@@ -320,7 +332,7 @@ def report(table, result=None, language='zh-Hans'):
         lines += ['c = ['+', '.join(fmt(z) for z in result_values(table, result, 'c'))+']',
                   'a = ['+', '.join(fmt(z) for z in result_values(table, result, 'a'))+']',
                   table.decomposition(result) if result['valid'] else t('representation_invalid'),
-                  t('dimension')+f" = {fmt(result_values(table, result, 'c')[0])}; "+t('residual',value=f"{result['residual']:.3g}")]
+                  t('dimension')+f" = {fmt(result_values(table, result, 'c')[0])}"]
     return '\n'.join(lines)
 
 

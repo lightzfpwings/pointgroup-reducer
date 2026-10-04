@@ -86,7 +86,7 @@ def main():
         meta = {'version': version, 'platform': platform.platform(), 'architecture': arch,
                 'python': platform.python_version(), 'source_tests': 'passed',
                 'native_gui_smoke': 'passed', 'native_cli_smoke': 'passed', 'mathtext_and_three_language_smoke': 'passed',
-                'user_verified_preview': '2.4.2-preview.2',
+                'based_on_user_verified_version': '2.4.2',
                 'manual_click_acceptance': False}
         (output / 'BUILD-INFO.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
         dependencies = run(sys.executable, '-m', 'pip', 'freeze', capture_output=True, text=True)

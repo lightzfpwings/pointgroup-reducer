@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import ttk, filedialog
 from tkinter.scrolledtext import ScrolledText
-from core import COMMON, fmt, get_table, number, parse_vector, payload
+from core import COMMON, fmt, get_table, number, parse_vector, payload, matching_groups
 from i18n import LANGUAGES, tr, error_text, group_notes, UIError
 from preferences import load_language, save_language
 from motion import SlideStack
@@ -123,6 +123,7 @@ class App:
         self.combo.pack(side='left', padx=10)
         self.combo.bind('<<ComboboxSelected>>', lambda _: self.load())
         self.combo.bind('<Return>', lambda _: self.load())
+        self.combo.bind('<KeyRelease>', self.filter_groups)
         self.button(self.controls, 'view_table', self.load).pack(side='left')
         self.label(self.controls, 'group_examples', style='Hint.TLabel').pack(side='left', padx=16)
 
@@ -343,12 +344,19 @@ class App:
             self.info.set(self.t('group_info', h=self.table.h, count=len(self.table.classes)))
             self.group_image.configure(image=self.math.image(symbol_tex(self.table.name), 16))
 
+    def filter_groups(self, event=None):
+        if event is not None and event.keysym in ('Return', 'Up', 'Down', 'Left', 'Right', 'Tab'):
+            return
+        self.combo.configure(values=COMMON if event is not None and event.keysym == 'Escape'
+                             else matching_groups(self.group.get()))
+
     def load(self):
         try:
             table = get_table(self.group.get())
         except ValueError as error:
             self.message('load_error', reason=str(error), error=True)
             return False
+        self.combo.configure(values=COMMON)
         if table is self.table:
             self.message('ready')
             return True
@@ -436,8 +444,7 @@ class App:
         lines.extend(['', self.t('multiplicities')])
         lines.extend(f'  {name}: {fmt(z)}' for name, z in zip(self.table.irreps, result_values(self.table,result,'a')))
         lines.extend(['', self.table.decomposition(result) if result['valid'] else self.t('invalid_decomposition'),
-                      '', self.t('dimension') + f' χ(E) = {fmt(result_values(self.table,result,"c")[0])}',
-                      self.t('residual', value=f'{result["residual"]:.3g}')])
+                      '', self.t('dimension') + f' χ(E) = {fmt(result_values(self.table,result,"c")[0])}'])
         return '\n'.join(lines)
 
     def mathline(self, widget, tex, size=13):
@@ -469,7 +476,6 @@ class App:
             self.mathline(self.output, 'a_{' + symbol_tex(label) + '} = ' + number_tex(z))
         self.output.insert('end', '\n' + self.t('dimension') + '\n')
         self.mathline(self.output, r'\chi_{\Gamma}(E)=' + number_tex(result_values(self.table,result,'c')[0]))
-        self.output.insert('end', self.t('residual', value=f'{result["residual"]:.3g}'))
         self.output.configure(state='disabled')
         self.output.yview_moveto(0)
 

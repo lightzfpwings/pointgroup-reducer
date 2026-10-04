@@ -69,10 +69,19 @@ def obsolete_asset(name):
 def clean_obsolete_assets(repo, current_tag):
     # Preserve historical Windows/Apple Silicon packages for rollback.
     removed = []
+    removed_drafts = []
     page = 1
     while True:
         releases = api(f'repos/{repo}/releases?per_page=100&page={page}')
         for release in releases:
+            # Empty duplicate left by the interrupted v2.4.2 publication.
+            if (release['id'] == 402933612 and release['draft'] and not release['assets']
+                    and release['tag_name'].startswith('untagged-')
+                    and release['name'] == 'Point Group Reducer v2.4.2'
+                    and release['target_commitish'] == '8f273458898f8547445a3422d06d2b92340cdaa9'):
+                gh('api', '--method', 'DELETE', f"repos/{repo}/releases/{release['id']}")
+                removed_drafts.append(release['id'])
+                continue
             if release['tag_name'] == current_tag or release['draft']:
                 continue
             for asset in release['assets']:
@@ -111,6 +120,7 @@ def clean_obsolete_assets(repo, current_tag):
     for artifact in intel_artifacts:
         gh('api', '--method', 'DELETE', f"repos/{repo}/actions/artifacts/{artifact['id']}")
     return {'release_assets': removed,
+            'empty_duplicate_drafts': removed_drafts,
             'intel_workflow_artifacts': [a['id'] for a in intel_artifacts]}
 
 

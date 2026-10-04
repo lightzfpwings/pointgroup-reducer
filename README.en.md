@@ -21,7 +21,7 @@ Keep Windows `_internal` folders beside their executables. On macOS, `Start-CLI.
 
 ## Mathematical notation and languages
 
-The application typesets point-group names, operation headings, character values, irrep labels and formulas offline, including radicals, fractions, imaginary i, π and angles. Cells follow rendered image dimensions, with centered symbols and sufficient margins. The class-size row and upper-left irrep heading are omitted.
+The application typesets point-group names, operation headings, character values, irrep labels and formulas offline, including radicals, fractions, imaginary i, π and angles. Cells follow rendered image dimensions, with centered symbols and sufficient margins. The class-size row and upper-left irrep heading are omitted. Results and copied text show decomposition, characters, multiplicities and dimension without the reconstruction-error footer.
 
 Use the top-right selector or Language menu to choose **English / 简体中文 / 繁體中文**. Buttons, instructions, errors and the guide update together. Switching keeps your group, input values, pasted vector and result. Your language choice is remembered.
 
@@ -41,6 +41,8 @@ Select group → enter c → view result. The five d-orbital example only fills 
 Back and Home keep your input. Changing groups clears it. A zero within a comma-separated vector needs no prefix. CLI language flags: `--lang en`, `--lang zh-Hans`, `--lang zh-Hant`; use `lang` during an interactive step to switch without losing state.
 
 ## Scope
+
+The searchable selector offers **423 groups**: Cn/Cnv/Cnh and Dn/Dnh/Dnd for n=2…60, even S4…S120, C1/Cs/Ci and seven polyhedral groups. Type a name to filter. Higher orders remain available by manual entry and Enter.
 
 Class headings directly name rotations, mirrors or inversion. For example, C2v uses E, C2, σᵥ(xz), σᵥ(yz). For axial groups, the principal rotation axis defaults to z, including C3 and higher orders. The xy plane is horizontal; xz and yz are vertical. Other mirrors and perpendicular twofold axes use an exact azimuth φ measured from +x toward +y. For polyhedral groups, one highest-order rotation axis may be chosen as z; equivalent axes in a class need not be parallel to z. Renaming preserves column order and character data.
 
@@ -71,4 +73,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-The builder runs 50 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow supports Windows x64 and Apple Silicon macOS and publishes only after both pass. A main-branch commit marked `[release]`, a VERSION-matching tag or a manual publish run triggers publication. Release assets contain two ZIPs and one SHA256SUMS.txt. See Actions and BUILD-INFO.json for build results.
+The builder runs 51 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow supports Windows x64 and Apple Silicon macOS and publishes only after both pass. A main-branch commit marked `[release]`, a VERSION-matching tag or a manual publish run triggers publication. Release assets contain two ZIPs and one SHA256SUMS.txt. See Actions and BUILD-INFO.json for build results.
