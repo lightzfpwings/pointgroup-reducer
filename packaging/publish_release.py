@@ -5,6 +5,8 @@ import json
 import os
 import re
 import subprocess
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,6 +18,18 @@ def gh(*args):
 
 def api(path):
     return json.loads(gh('api', path))
+
+
+def upload_asset(release, path):
+    url = release['upload_url'].split('{', 1)[0] + '?name=' + quote(path.name)
+    request = Request(url, data=path.read_bytes(), method='POST', headers={
+        'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/zip' if path.suffix == '.zip' else 'text/plain',
+        'X-GitHub-Api-Version': '2026-03-10',
+    })
+    with urlopen(request, timeout=120) as response:
+        return json.load(response)
 
 
 def package_checks(version, folder):
@@ -134,7 +148,12 @@ def main():
                                 '-f', 'target_commitish=' + sha))
     assert release['target_commitish'] == sha, 'Release has different source'
     release_path = f"repos/{repo}/releases/{release['id']}"
-    gh('release', 'upload', tag, *[str(p) for p in assets], '--clobber')
+    for path in assets:
+        for asset in release['assets']:
+            if asset['name'] == path.name:
+                gh('api', '--method', 'DELETE', f"repos/{repo}/releases/assets/{asset['id']}")
+        uploaded = upload_asset(release, path)
+        assert uploaded['name'] == path.name and uploaded['state'] == 'uploaded'
     release = api(release_path)
     expected = {p.name: p for p in assets}
     for asset in release['assets']:
@@ -146,8 +165,9 @@ def main():
         path = expected[asset['name']]
         assert asset['state'] == 'uploaded' and asset['size'] == path.stat().st_size
         assert asset['digest'] == 'sha256:' + hashlib.sha256(path.read_bytes()).hexdigest()
-    gh('release', 'edit', tag, '--draft=false', '--prerelease=false', '--latest',
-       '--notes-file', str(ROOT / 'RELEASE_NOTES.md'))
+    gh('api', '--method', 'PATCH', release_path,
+       '-F', 'draft=false', '-F', 'prerelease=false', '-f', 'make_latest=true',
+       '-f', 'body=' + (ROOT / 'RELEASE_NOTES.md').read_text())
     result = clean_obsolete_assets(repo, tag)
     result['release'] = api(f'repos/{repo}/releases/tags/{tag}')['html_url']
     (ROOT / 'release-assets' / 'PUBLISH-REPORT.json').write_text(
