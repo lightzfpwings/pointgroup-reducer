@@ -121,10 +121,17 @@ def main():
     releases = api(f'repos/{repo}/releases?per_page=100')
     release = next((r for r in releases if r['tag_name'] == tag), None)
     if release is None:
-        gh('release', 'create', tag, '--draft', '--target', sha,
-           '--title', f'Point Group Reducer {tag}', '--notes-file', str(ROOT / 'RELEASE_NOTES.md'))
-        releases = api(f'repos/{repo}/releases?per_page=100')
-        release = next(r for r in releases if r['tag_name'] == tag)
+        release = json.loads(gh('api', '--method', 'POST', f'repos/{repo}/releases',
+                                '-f', 'tag_name=' + tag, '-f', 'target_commitish=' + sha,
+                                '-f', 'name=Point Group Reducer ' + tag,
+                                '-f', 'body=' + (ROOT / 'RELEASE_NOTES.md').read_text(),
+                                '-F', 'draft=true', '-F', 'prerelease=false'))
+    elif release['draft'] and release['target_commitish'] != sha:
+        # A prior failed publication may have left an unpublished, empty draft.
+        assert not release['assets'], 'A draft with uploaded packages has different source'
+        release = json.loads(gh('api', '--method', 'PATCH',
+                                f"repos/{repo}/releases/{release['id']}",
+                                '-f', 'target_commitish=' + sha))
     assert release['target_commitish'] == sha, 'Release has different source'
     release_path = f"repos/{repo}/releases/{release['id']}"
     gh('release', 'upload', tag, *[str(p) for p in assets], '--clobber')
