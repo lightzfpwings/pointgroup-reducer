@@ -6,6 +6,7 @@ import tempfile
 from unittest.mock import patch
 import tkinter as tk
 from gui import App
+from core import COMMON
 from i18n import LANGUAGES, tr
 from math_display import decomposition_tex, symbol_tex
 
@@ -20,6 +21,23 @@ def run():
             try:
                 app = App(root, language='zh-Hans')
                 assert app.table.classes == ['E', 'C2', 'sigma_v(xz)', 'sigma_v(yz)']
+                app.motion_enabled.set(False)
+                app.toggle_motion()
+                app.show_stage('select')
+                root.deiconify()
+                root.update()
+                assert len(app.combo['values']) == 423
+                app.group.set('d12')
+                app.filter_groups()
+                assert app.combo['values'] == ('D12', 'D12h', 'D12d')
+                app.group.set('D12h')
+                app.combo.event_generate('<<ComboboxSelected>>')
+                assert app.table.name == 'D12h'
+                assert list(app.combo['values']) == COMMON
+                app.group.set('C2v')
+                app.load()
+                app.motion_enabled.set(True)
+                app.toggle_motion()
                 for language in LANGUAGES:
                     app.set_language(language)
                     app.show_stage('select')
@@ -40,6 +58,21 @@ def run():
                     assert r'\Gamma = 2A_{1}' in root.clipboard_get()
                     app.copy_result(False)
                     assert '2A1 + A2 + B1 + B2' in root.clipboard_get()
+                    residual_label = tr('residual', language, value='').split('=')[0].strip()
+                    assert residual_label not in root.clipboard_get()
+                    assert residual_label not in app.output.get('1.0', 'end')
+                    if os.environ.get('POINTGROUP_QA_DIR') and language == 'zh-Hans':
+                        from PIL import ImageGrab
+                        settled = tk.BooleanVar(root, False)
+                        root.after(350, lambda: settled.set(True))
+                        root.wait_variable(settled)
+                        root.update()
+                        directory = Path(os.environ['POINTGROUP_QA_DIR'])
+                        directory.mkdir(parents=True, exist_ok=True)
+                        box = (root.winfo_rootx(), root.winfo_rooty(),
+                               root.winfo_rootx() + root.winfo_width(),
+                               root.winfo_rooty() + root.winfo_height())
+                        ImageGrab.grab(bbox=box).save(directory / 'Result-C2v.png')
                     app.set_language(language)
                     assert app.result is result
                     assert app.instruction.get() == tr('result_instruction', language)
@@ -67,7 +100,8 @@ def run():
                     window.destroy()
                     app.home()
                     assert app.stage == 'home'
-                for group in ('C2v', 'D6h', 'D4d', 'D8', 'D7', 'S6', 'Cs', 'C3', 'Th', 'Ih'):
+                for group in ('C2v', 'D6h', 'D4d', 'D8', 'D7', 'S6', 'Cs', 'C3', 'Th', 'Ih',
+                              'C12v', 'D10d', 'C9h', 'S20'):
                     app.group.set(group)
                     app.next_input()
                     root.deiconify()

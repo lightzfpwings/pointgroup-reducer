@@ -24,7 +24,7 @@ MESSAGES = {
 'result_instruction': ('a gives each irrep multiplicity. Go back to edit c, or copy/export the result.', 'a 表示各不可约表示出现的次数。可以返回修改输入，或复制／导出结果。', 'a 表示各不可約表示出現的次數。可返回修改輸入，或複製／匯出結果。'),
 'group_name': ('Point group', '点群名称', '點群名稱'),
 'view_table': ('View character table', '查看特征标表', '查看特徵標表'),
-'group_examples': ('Examples: C2v, D4h, C17v', '例如 C2v、D4h、C17v', '例如 C2v、D4h、C17v'),
+'group_examples': ('423 groups · type to filter', '423 个点群，可输入名称筛选', '423 個點群，可輸入名稱篩選'),
 'input_box': ('Characters c', '输入特征标 c', '輸入特徵標 c'),
 'input_hint': ('One value per box; do not multiply by class size. Enter 0 directly.', '每格填一个数；不乘类内操作数。0 可直接输入。', '每格填一個數；不乘類內操作數。0 可直接輸入。'),
 'paste_label': ('Paste vector (commas)', '整行粘贴（逗号分隔）', '整行貼上（逗號分隔）'),
