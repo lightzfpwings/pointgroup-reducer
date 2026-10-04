@@ -19,6 +19,7 @@ def run():
             root.report_callback_exception = lambda *error: callback_errors.append(error)
             try:
                 app = App(root, language='zh-Hans')
+                assert app.table.classes == ['E', 'C2', 'sigma_v(xz)', 'sigma_v(yz)']
                 for language in LANGUAGES:
                     app.set_language(language)
                     app.show_stage('select')
@@ -66,7 +67,7 @@ def run():
                     window.destroy()
                     app.home()
                     assert app.stage == 'home'
-                for group in ('D6h', 'Cs', 'C3', 'Th', 'Ih'):
+                for group in ('C2v', 'D6h', 'D4d', 'D8', 'D7', 'S6', 'Cs', 'C3', 'Th', 'Ih'):
                     app.group.set(group)
                     app.next_input()
                     root.deiconify()
@@ -83,12 +84,30 @@ def run():
                         app.host.winfo_geometry(), app.workspace.winfo_geometry(),
                         app.page_motion.positions)
                     assert app.canvas.winfo_height() >= app.inputs.winfo_reqheight()
-                    from tkinter import ttk
-                    rowheight = int(ttk.Style(root).lookup('Treeview', 'rowheight'))
-                    for label in app.table.irreps:
-                        image = app.math.image(symbol_tex(label))
-                        assert image.transparency_get(0, 0)
-                        assert rowheight >= image.height() + 8
+                    app.inputtree.validate_geometry()
+                    assert len(app.inputtree.plain_rows) == len(app.table.irreps)
+                    assert app.inputtree.heading_images[0] is None
+                    # Scroll the longest tables: headers must stay synchronized,
+                    # and visible formulas must remain centered with clear margins.
+                    app.inputtree.xview('moveto', 1)
+                    app.inputtree.yview('moveto', 1)
+                    root.update_idletasks()
+                    app.inputtree.validate_geometry()
+                    app.inputtree.xview('moveto', 0)
+                    app.inputtree.yview('moveto', 0)
+                    root.update_idletasks()
+                    qa_dir = os.environ.get('POINTGROUP_QA_DIR')
+                    if qa_dir and group in ('C2v', 'D6h', 'D8', 'D7', 'C3'):
+                        from PIL import ImageGrab
+                        directory = Path(qa_dir)
+                        directory.mkdir(parents=True, exist_ok=True)
+                        # Capture the actual native app, including both the table
+                        # and editable inputs, rather than a separate mockup.
+                        root.update()
+                        box = (root.winfo_rootx(), root.winfo_rooty(),
+                               root.winfo_rootx() + root.winfo_width(),
+                               root.winfo_rooty() + root.winfo_height())
+                        ImageGrab.grab(bbox=box).save(directory / (group + '.png'))
                     app.example()
                     app.calculate()
                     assert app.result['valid'], group
@@ -103,12 +122,14 @@ def run():
                     app.group.set(group)
                     app.next_input()
                     root.update_idletasks()
-                    rows = [app.tree.item(item, 'values') for item in app.tree.get_children()]
+                    rows = app.tree.plain_rows
                     assert any(fragment in str(row) for row in rows), (group, rows)
                     app.example()
                     assert all(not expression(number(value.get())).has(sp.Float) for value in app.fields)
                     app.calculate()
                     assert app.result['valid'], group
+                    assert any(app.tree.value_images[tex].width() > 0
+                               for row in app.tree.tex_rows for tex in row)
                 app.group.set('C1')
                 app.next_input()
                 app.bulk.insert(0, 'sqrt(2)+sqrt(3)*i/2')
@@ -143,6 +164,8 @@ def run():
                 app.toggle_motion()
                 assert app.body_motion.timer is None
                 assert app.body_motion.current is app.inputpage
+                root.update_idletasks()
+                app.inputtree.validate_geometry()
                 app.home()
                 assert app.page_motion.timer is None
                 app.group.set('C1')

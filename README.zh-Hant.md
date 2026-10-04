@@ -16,13 +16,13 @@ X 每個橫列對應一個完整的複不可約表示，W 的對角元素是共�
 |---|---|---|
 | Windows 64 位元 | Windows-x64.zip | PointGroupReducer/PointGroupReducer.exe |
 | Mac M 系列 | macOS-arm64.zip | PointGroupReducer.app |
-| Intel Mac | macOS-x64.zip | PointGroupReducer.app |
 
-Windows 請保留程式旁的 `_internal` 資料夾；macOS 命令列入口為 `Start-CLI.command`。應用程式未經開發者簽署或 Apple 公證。私有儲存庫須登入有權限的 GitHub 帳號。
+Windows 請保留程式旁的 `_internal` 資料夾；macOS 命令列入口為 `Start-CLI.command`。應用程式未經開發者簽署或 Apple 公證。
 
-## v2.3.0 數學排版與語言切換
+## 數學排版與語言切換
 
-- 點群名稱、共軛類表頭、不可約表示與結果公式採用離線 MathText 渲染，正確顯示上下標、撇號與複共軛表示的正負號。
+- 點群名稱、操作表頭、特徵標、不可約表示與結果公式採用離線數學排版，顯示上下標、根號、分數、虛數 i、π 與角度。
+- 表頭與列高依公式尺寸調整，符號置中；不顯示類內操作數列及左上角標題。
 - 右上角或「語言」選單可切換 **English / 简体中文 / 繁體中文**；按鈕、步驟提示、錯誤訊息與使用說明同步更新。
 - 切換語言保留點群、c、貼上框內容與計算結果；下次啟動沿用已儲存的語言偏好。
 - 結果頁可「複製文字」或「複製 LaTeX」。LaTeX 包含約化公式、c/a 向量與合法表示的分解。
@@ -43,6 +43,8 @@ Windows 請保留程式旁的 `_internal` 資料夾；macOS 命令列入口為 `
 返回與首頁保留輸入；更換點群清空舊輸入。逗號向量內的 `0` 可直接寫。
 
 ## 支援範圍
+
+對稱操作表頭直接顯示旋轉、鏡面或反演名稱。例如 C2v 的四欄為 E、C2、σᵥ(xz)、σᵥ(yz)。軸向點群的主旋轉軸預設沿 z（包括 C3 及更高階軸）；xy 為水平面，xz、yz 為垂直面。其他鏡面或垂直二重軸用精確方位角 φ 標註，從 +x 向 +y 測量。多面體群可選一條最高階旋轉軸為 z，同一類的其他等價軸不必平行於 z。名稱調整保留原有欄位順序及對應特徵標。
 
 有限普通三維點群：C1、Cs、Ci；Cn、Cnv、Cnh；Dn、Dnh、Dnd；S2n；T、Th、Td、O、Oh、I、Ih。系列按需產生，目前 n ≤ 2000；大 n 的稠密矩陣需要較多記憶體。
 
@@ -71,4 +73,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-構建先執行 30 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。三個平台全部通過後才發佈。自動檢查不替代 Windows/macOS 實機人工點選驗收；狀態以 Actions 與 BUILD-INFO.json 為準。
+構建先執行 50 項原始碼測試，以及真實 Tk 的數學渲染、三語切換、輸入保留、複製與匯出檢查；封裝後檢查獨立 GUI/CLI 啟動與範例計算。輸出 ZIP、SHA-256 與構建紀錄。只構建 Windows x64 與 Apple 晶片 Mac，兩個平台通過後才發佈。main 分支的 `[release]` 提交、VERSION 對應標籤或手動選擇 publish 可觸發發佈。發佈頁提供兩個 ZIP 與統一的 SHA256SUMS.txt；狀態以 Actions 與 BUILD-INFO.json 為準。

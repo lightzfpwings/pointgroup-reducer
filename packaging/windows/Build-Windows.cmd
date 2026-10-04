@@ -14,3 +14,4 @@ exit /b 0
 echo Build failed. Please check the output above.
 pause
 exit /b 1
+

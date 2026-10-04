@@ -1,4 +1,6 @@
 """Reviewed English, Simplified Chinese and Traditional Chinese UI messages."""
+import re
+
 LANGUAGES = {'en': 'English', 'zh-Hans': '简体中文', 'zh-Hant': '繁體中文'}
 # Every key has all three translations. Canonical identifiers and JSON stay stable.
 MESSAGES = {
@@ -81,10 +83,10 @@ MESSAGES = {
 'guide_scope': ('Finite ordinary 3D point groups and polyhedral groups, with n ≤ 2000.\nInfinite groups C∞v and D∞h, double groups, magnetic groups and space groups are excluded.\nE+ / E− are one-dimensional complex conjugate irreps, not separate two-dimensional E irreps.\nLabels and column order may differ from textbooks; use the displayed table.', '支持有限三维普通点群系列和多面体群，当前 n ≤ 2000。\n无限点群 C∞v、D∞h，以及双群、磁群、空间群不在此模式内。\nE+ / E− 为一维复共轭表示，不能分别当作二维 E。\n标签和列顺序可能不同于教材，请以程序显示为准。', '支援有限三維普通點群系列與多面體群，目前 n ≤ 2000。\n無限點群 C∞v、D∞h，以及雙群、磁群、空間群不在此模式內。\nE+ / E− 為一維複共軛表示，不可分別當作二維 E。\n標籤與欄位順序可能不同於教材，請以程式顯示為準。'),
 'current_note': ('Current group conventions', '当前点群补充说明', '目前點群補充說明'),
 'cyclic_convention': ('Generator r = {generator}. Rk(r^p) = exp(2πikp/{order}); each Rk is a one-dimensional complex irrep.', '生成元 r = {generator}；Rk(r^p) = exp(2πikp/{order})，每个 Rk 为一维复不可约表示。', '生成元 r = {generator}；Rk(r^p) = exp(2πikp/{order})，每個 Rk 為一維複不可約表示。'),
-'axis_convention': ('The principal axis is z. Rotation/reflection generator labels appear in the class headings.', '主轴为 z；旋转／反射生成元标签见共轭类表头。', '主軸為 z；旋轉／反射生成元標籤見共軛類表頭。'),
-'generator_note': ('Generator labels and class representatives are kept exactly as displayed; class sizes are in a separate row. Conjugate E+ / E− labels denote one-dimensional irreps.', '生成元标签和共轭类代表操作以表中显示为准，类内操作数单列显示。共轭的 E+ / E− 标签表示一维不可约表示。', '生成元標籤與共軛類代表操作以表中顯示為準，類內操作數另列顯示。共軛的 E+ / E− 標籤表示一維不可約表示。'),
+'axis_convention': ('The principal rotation axis is z (including C3 and higher). Vertical mirrors contain z; phi is measured from +x toward +y in the xy plane.', '主旋转轴默认沿 z（包括 C3 及更高阶轴）；垂直镜面包含 z，phi 为 xy 平面内从 +x 向 +y 量起的方位角。', '主旋轉軸預設沿 z（包括 C3 及更高階軸）；垂直鏡面包含 z，phi 為 xy 平面內從 +x 向 +y 量起的方位角。'),
+'generator_note': ('Headings directly name the representative rotation, reflection or inversion. Conjugate E+ / E− labels denote one-dimensional irreps.', '表头直接标注代表操作的旋转、反射或反演记号。共轭的 E+ / E− 标签表示一维不可约表示。', '表頭直接標註代表操作的旋轉、反射或反演記號。共軛的 E+ / E− 標籤表示一維不可約表示。'),
 'product_note': ('For groups with g/u or prime suffixes, the second half of the columns is the central inversion/reflection times the first half. The suffix records its parity.', '带 g/u 或撇号后缀的群，后半列为中心反演／反射乘以前半列，后缀表示其宇称。', '帶 g/u 或撇號後綴的群，後半欄為中心反演／反射乘以前半欄，後綴表示其宇稱。'),
-'polyhedral_note': ('Internal polyhedral representative matrices encode only rotation angle/parity for central atomic shell examples.', '多面体群的内部代表矩阵仅编码转角／宇称，供中心原子轨道示例使用。', '多面體群的內部代表矩陣僅編碼轉角／宇稱，供中心原子軌域範例使用。'),
+'polyhedral_note': ('Choose one highest-order rotation axis as z; equivalent axes in a class need not be parallel to z. Internal polyhedral representative matrices encode only rotation angle/parity for central atomic shell examples.', '多面体群选一条最高阶旋转轴为 z；同一类中的等价轴不必都平行于 z。内部代表矩阵仅编码转角／宇称，供中心原子轨道示例使用。', '多面體群選一條最高階旋轉軸為 z；同一類中的等價軸不必都平行於 z。內部代表矩陣僅編碼轉角／宇稱，供中心原子軌域範例使用。'),
 'language_not_saved': ('Language changed for this session; preference could not be saved.', '本次语言已切换，但无法保存语言偏好。', '本次語言已切換，但無法儲存語言偏好。'),
 'core_error': ('{reason}', '{reason}', '{reason}'),
 'error_generic': ('Invalid input. Check the group name, column order and finite numeric expressions.', '输入无效，请检查点群名称、列顺序和有限数值表达式。', '輸入無效，請檢查點群名稱、欄位順序與有限數值運算式。'),
@@ -170,11 +172,10 @@ def group_notes(table, language):
     notes = [tr('generator_note', language)]
     if table.name.startswith('S') and len(table.classes)>1:
         notes.append(tr('cyclic_convention', language, generator=table.classes[1], order=table.h))
-    elif table.name.startswith(('C','D')):
+    if re.fullmatch(r'[CDS]\d+[vhd]?', table.name) and table.name != 'C1':
         notes.append(tr('axis_convention', language))
     if table.name.endswith('h') and table.name != 'Th' or any(x.endswith(('g', 'u')) for x in table.irreps):
         notes.append(tr('product_note', language))
     if table.name.startswith(('T', 'O', 'I')):
         notes.append(tr('polyhedral_note', language))
     return '\n'.join(notes)
-

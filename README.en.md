@@ -16,13 +16,12 @@ Download a ZIP from this repository's Releases page and extract it completely. N
 |---|---|---|
 | Windows 64-bit | Windows-x64.zip | PointGroupReducer/PointGroupReducer.exe |
 | Apple Silicon Mac | macOS-arm64.zip | PointGroupReducer.app |
-| Intel Mac | macOS-x64.zip | PointGroupReducer.app |
 
-Keep Windows `_internal` folders beside their executables. On macOS, `Start-CLI.command` starts the CLI. These apps are not developer signed or Apple notarized. Private repositories require an authorized GitHub login.
+Keep Windows `_internal` folders beside their executables. On macOS, `Start-CLI.command` starts the CLI. These apps are not developer signed or Apple notarized.
 
 ## Mathematical notation and languages
 
-v2.3.0 renders point-group names, class headings, irrep labels and formulas with offline MathText, including subscripts, superscripts, primes and complex-irrep signs.
+The application typesets point-group names, operation headings, character values, irrep labels and formulas offline, including radicals, fractions, imaginary i, π and angles. Cells follow rendered image dimensions, with centered symbols and sufficient margins. The class-size row and upper-left irrep heading are omitted.
 
 Use the top-right selector or Language menu to choose **English / 简体中文 / 繁體中文**. Buttons, instructions, errors and the guide update together. Switching keeps your group, input values, pasted vector and result. Your language choice is remembered.
 
@@ -42,6 +41,8 @@ Select group → enter c → view result. The five d-orbital example only fills 
 Back and Home keep your input. Changing groups clears it. A zero within a comma-separated vector needs no prefix. CLI language flags: `--lang en`, `--lang zh-Hans`, `--lang zh-Hant`; use `lang` during an interactive step to switch without losing state.
 
 ## Scope
+
+Class headings directly name rotations, mirrors or inversion. For example, C2v uses E, C2, σᵥ(xz), σᵥ(yz). For axial groups, the principal rotation axis defaults to z, including C3 and higher orders. The xy plane is horizontal; xz and yz are vertical. Other mirrors and perpendicular twofold axes use an exact azimuth φ measured from +x toward +y. For polyhedral groups, one highest-order rotation axis may be chosen as z; equivalent axes in a class need not be parallel to z. Renaming preserves column order and character data.
 
 Finite ordinary 3D point groups: C1, Cs, Ci; Cn, Cnv, Cnh; Dn, Dnh, Dnd; S2n; T, Th, Td, O, Oh, I, Ih. Families are generated on demand with n ≤ 2000; large dense matrices require substantial memory.
 
@@ -70,4 +71,4 @@ python -m pip install -r requirements-build.txt
 python packaging/build_native.py
 ```
 
-The builder runs 30 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow publishes only after all three platforms pass. Automated checks do not replace manual Windows/macOS click acceptance; see Actions and BUILD-INFO.json.
+The builder runs 50 source tests and real Tk checks of formula images, all languages, preserved drafts, clipboard operations and export. It also checks the frozen GUI and CLI before packaging ZIPs with SHA-256 checksums and build metadata. The release workflow supports Windows x64 and Apple Silicon macOS and publishes only after both pass. A main-branch commit marked `[release]`, a VERSION-matching tag or a manual publish run triggers publication. Release assets contain two ZIPs and one SHA256SUMS.txt. See Actions and BUILD-INFO.json for build results.

@@ -7,3 +7,4 @@ python3 -m venv .venv
 .venv/bin/python packaging/build_native.py
 open release
 read -r -p '按回车关闭…' _
+

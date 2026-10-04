@@ -1,8 +1,9 @@
-Point Group Reducer 2.3.0 validation — 2026-09-30
-30 source unittest tests: PASS (includes 213 point-group instances).
-Mathematical notation/parser checks: PASS across finite families and polyhedral groups.
-Native Linux Tk 8.6 with Chinese font support: PASS, visual inspection completed.
-Native Linux Tk 9: automated functionality PASS; Chinese font rendering is unavailable in that test runtime.
-Real GUI smoke: all three languages, preserved fields/pasted vector/result, dynamic error translations, clipboard text/LaTeX, export, help and zero/invalid multiplicities PASS.
-Windows/macOS acceptance is enforced in packaging/build_native.py and the release workflow, including frozen application checks. See actual Actions results and BUILD-INFO.json.
-Manual click acceptance on native Windows/macOS remains pending.
+Point Group Reducer 2.4.2 validation — 2026-10-04
+50 source tests cover calculation, exact values, symmetry-operation labels and navigation.
+Native checks measure rendered header/body bounds, centering, scrolling and resize behavior.
+GUI checks cover three languages, preserved input, clipboard, export and mathematical notation.
+The user accepted 2.4.2-preview.2 on 2026-10-04; the release retains its GUI source.
+Formal packages are rebuilt and checked on Windows x64 and Apple Silicon macOS.
+Publication requires both native source and frozen GUI/CLI checks to pass.
+See Actions, QA screenshots and each package's BUILD-INFO.json for actual build results.
+The user-tested platform is not recorded; this does not claim manual acceptance of both platforms.

@@ -1,15 +1,23 @@
-## v2.4.1 · Exact symbolic values
+# v2.4.2 · 数学表格显示修复
 
-- Character tables display fractions, radicals (such as √2), exact trigonometric values and complex components instead of decimal approximations.
-- Exact expressions are generated from character formulas and retained from validated user input; rounded decimals are never guessed to be radicals.
-- Result formulas, text/LaTeX copy, orbital examples and CSV retain symbolic values. JSON keeps its numeric fields and adds `X_symbolic` and `result.symbolic`.
-- Table columns expand to fit longer symbolic expressions. Transparent formulas and smooth page transitions remain available.
-- 43 source tests and native GUI/frozen application smoke checks gate publication.
+- 操作符号按实际公式尺寸调整表头高度，并在单元格内水平、垂直居中，修复遮挡与裁切。
+- 特征标中的根号、分数、虚数 i、π 和角度采用数学排版。
+- 删除“类内操作数”行及左上角“不可约表示”标题。
+- 表头直接显示对称操作名称；轴向点群的主旋转轴默认沿 z。
+- 调整窗口布局，使小屏幕上的输入区和底部按钮保持可见。
 
-## 简体中文
+仅提供 **Windows x64** 和 **Apple 芯片 Mac（arm64）** 独立软件包。完整解压后双击 `.exe` 或 `.app`，无需安装 Python 或 LaTeX。`SHA256SUMS.txt` 为两份软件包的统一校验文件。
 
-特征标、根号数、分数、三角函数和复数实部／虚部改用符号显示，例如 √2、−1/2 + √3*i/2。输入、轨道示例、结果公式、复制和 CSV 均保留符号形式。JSON 增加符号字段，同时保留用于计算的数值字段。表格列宽随表达式调整，保留透明公式背景和平滑过渡。
+用户已确认 preview.2 显示正常；正式软件包在两个目标平台重新构建，通过 50 项源码测试、原生窗口布局及封装后的 GUI/CLI 检查。macOS 应用未经过 Apple 开发者签名或公证。
+
+## English
+
+Operation headings are centered inside measured cells with enough space for complete formulas. Character values now typeset radicals, fractions, imaginary i, π and angles. The class-size row and upper-left irrep heading are removed. Direct symmetry-operation names and the z-axis convention are retained, and compact windows keep their controls visible.
+
+Standalone packages support Windows x64 and Apple Silicon macOS only. Extract the ZIP completely and launch the executable or app; Python and LaTeX are bundled or unnecessary. Both native builds pass 50 source tests and GUI/CLI smoke checks before publication.
 
 ## 繁體中文
 
-特徵標、根號數、分數、三角函數與複數實部／虛部改用符號顯示，例如 √2、−1/2 + √3*i/2。輸入、軌域範例、結果公式、複製與 CSV 均保留符號形式。JSON 新增符號欄位，同時保留用於計算的數值欄位。表格欄寬隨表達式調整，保留透明公式背景與平滑過渡。
+修復操作符號被表頭遮擋及裁切的問題，依公式尺寸調整儲存格並置中。根號、分數、虛數 i、π 與角度改用數學排版；刪除「類內操作數」列與左上角標題。保留直接對稱操作名稱及 z 軸約定，調整小螢幕的輸入區與底部按鈕。
+
+僅提供 Windows x64 與 Apple 晶片 Mac 獨立套件，完整解壓縮後雙擊啟動。

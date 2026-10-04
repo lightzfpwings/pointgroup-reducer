@@ -1,5 +1,6 @@
 """Build standalone GUI and CLI on their target operating system."""
 from pathlib import Path
+import os
 import hashlib
 import json
 import platform
@@ -30,12 +31,15 @@ def main():
     if arch in ('amd64', 'x86_64'):
         arch = 'x64'
     target = 'Windows' if sys.platform == 'win32' else 'macOS'
+    if target == 'macOS' and arch != 'arm64':
+        raise SystemExit('macOS packages support Apple Silicon (arm64) only.')
     name = f'PointGroupReducer-{version}-{target}-{arch}'
     output = ROOT / 'release' / name
     if output.exists():
         raise SystemExit(f'Output already exists; move it aside before rebuilding: {output}')
     run(sys.executable, '-m', 'unittest', '-v')
-    run(sys.executable, 'gui_smoke.py')
+    qa_env = dict(os.environ, POINTGROUP_QA_DIR=str(ROOT / 'release' / 'gui-qa'))
+    run(sys.executable, 'gui_smoke.py', env=qa_env)
     with tempfile.TemporaryDirectory(prefix='pointgroup-build-') as scratch:
         tmp = Path(scratch)
         for entry, appname, mode in [('desktop.py', 'PointGroupReducer', '--windowed'),
@@ -82,6 +86,7 @@ def main():
         meta = {'version': version, 'platform': platform.platform(), 'architecture': arch,
                 'python': platform.python_version(), 'source_tests': 'passed',
                 'native_gui_smoke': 'passed', 'native_cli_smoke': 'passed', 'mathtext_and_three_language_smoke': 'passed',
+                'user_verified_preview': '2.4.2-preview.2',
                 'manual_click_acceptance': False}
         (output / 'BUILD-INFO.json').write_text(json.dumps(meta, indent=2), encoding='utf-8')
         dependencies = run(sys.executable, '-m', 'pip', 'freeze', capture_output=True, text=True)

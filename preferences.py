@@ -36,3 +36,4 @@ def save_language(language):
         return True
     except OSError:
         return False
+
