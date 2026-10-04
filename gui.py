@@ -42,9 +42,9 @@ class App:
         self.status_key, self.status_values, self.status_flags = None, {}, {}
         self.math = MathImages(root)
         width = min(1160, max(880, root.winfo_screenwidth() - 100))
-        height = min(840, max(700, root.winfo_screenheight() - 80))
+        height = min(840, max(660, root.winfo_screenheight() - 120))
         root.geometry(f'{width}x{height}')
-        root.minsize(880, 700)
+        root.minsize(880, 660)
         family = tkfont.nametofont('TkDefaultFont').actual('family')
         candidates = ['Microsoft YaHei UI', 'Microsoft JhengHei UI'] if sys.platform == 'win32' else ['PingFang SC', 'PingFang TC'] if sys.platform == 'darwin' else ['Noto Sans CJK SC', 'Noto Sans CJK TC']
         for preferred in candidates:
@@ -58,13 +58,13 @@ class App:
         # A consistent theme allows image headings on Windows and both Mac architectures.
         if 'clam' in style.theme_names():
             style.theme_use('clam')
-        style.configure('TButton', padding=(10, 7))
+        style.configure('TButton', padding=(10, 5))
         style.configure('Title.TLabel', font=(family, 18, 'bold'))
         style.configure('Error.TLabel', foreground='#ac2020')
         style.configure('Success.TLabel', foreground='#236b3d')
         style.configure('Hint.TLabel', foreground='#4d5661')
 
-        language_bar = ttk.Frame(root, padding=(20, 6))
+        language_bar = ttk.Frame(root, padding=(20, 4))
         language_bar.pack(fill='x')
         self.label(language_bar, 'language').pack(side='right', padx=8)
         self.motion_enabled = tk.BooleanVar(value=True)
@@ -89,7 +89,7 @@ class App:
         self.button(self.homepage, 'exit_program', root.destroy).pack(anchor='w', pady=6)
         self.label(self.homepage, 'keep_input', style='Hint.TLabel').pack(anchor='w', pady=16)
 
-        self.workspace = ttk.Frame(self.host, padding=14)
+        self.workspace = ttk.Frame(self.host, padding=12)
         self.workspace.columnconfigure(0, weight=1)
         self.workspace.rowconfigure(4, weight=1)
         nav = ttk.Frame(self.workspace)
@@ -132,7 +132,7 @@ class App:
         self.tableframe.grid(row=1, column=0, sticky='nsew')
         self.inputtableframe.grid(row=1, column=0, sticky='nsew')
 
-        self.inputframe = self.widget(ttk.LabelFrame, self.inputpage, 'input_box', padding=6)
+        self.inputframe = self.widget(ttk.LabelFrame, self.inputpage, 'input_box', padding=4)
         self.canvas = tk.Canvas(self.inputframe, height=88, highlightthickness=0)
         self.inputs = ttk.Frame(self.canvas)
         self.canvas.create_window((0, 0), window=self.inputs, anchor='nw')

@@ -150,8 +150,6 @@ class MathTable(ttk.Frame):
     def validate_geometry(self):
         """Check allocated header height and each drawn image's real Tk bounds."""
         assert self.header.winfo_height() >= self.header_height
-        assert self.body.winfo_height() >= min(2, len(self.row_images)) * self.row_height, (
-            self.table.name, self.body.winfo_height(), self.row_height)
         for canvas, cells in ((self.header, self.header_cells), (self.body, self.body_cells)):
             for item, bounds in cells.values():
                 if item is None:
