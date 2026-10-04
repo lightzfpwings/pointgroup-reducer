@@ -1,1 +1,1 @@
-Private test build for native Windows and macOS apps. Includes direct operation names and z-axis convention, simplified tables and centered operation symbols. This branch creates Actions artifacts only; no release job, tags or main-branch updates.
+Native preview 2: measured mathematical headers and cell images, including roots, complex components and exact angles. Native GUI checks verify real image bounds and centering and produce screenshots. Actions artifacts only; no release job, tags or main updates.

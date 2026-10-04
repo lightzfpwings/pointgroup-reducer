@@ -1,5 +1,6 @@
 """Build standalone GUI and CLI on their target operating system."""
 from pathlib import Path
+import os
 import hashlib
 import json
 import platform
@@ -35,7 +36,8 @@ def main():
     if output.exists():
         raise SystemExit(f'Output already exists; move it aside before rebuilding: {output}')
     run(sys.executable, '-m', 'unittest', '-v')
-    run(sys.executable, 'gui_smoke.py')
+    qa_env = dict(os.environ, POINTGROUP_QA_DIR=str(ROOT / 'release' / 'gui-qa'))
+    run(sys.executable, 'gui_smoke.py', env=qa_env)
     with tempfile.TemporaryDirectory(prefix='pointgroup-build-') as scratch:
         tmp = Path(scratch)
         for entry, appname, mode in [('desktop.py', 'PointGroupReducer', '--windowed'),
@@ -98,4 +100,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

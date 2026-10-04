@@ -11,6 +11,7 @@ from preferences import load_language, save_language
 from motion import SlideStack
 from exact_numbers import input_text, result_values
 from math_display import MathImages, FORMULA, symbol_tex, decomposition_terms, result_latex, number_tex
+from math_table import MathTable
 
 STAGES = {name: (tr(name + '_title'), tr(name + '_instruction')) for name in ('select', 'input', 'result')}
 
@@ -62,18 +63,6 @@ class App:
         style.configure('Error.TLabel', foreground='#ac2020')
         style.configure('Success.TLabel', foreground='#236b3d')
         style.configure('Hint.TLabel', foreground='#4d5661')
-        style.configure('Treeview', rowheight=max(32, round(self.math.dpi * .27)))
-        style.configure('Treeview.Heading', padding=(6, 6))
-        # Default Treeview headings pack images against an edge. Give the
-        # math image the whole padded cell, with no side packing or stretching.
-        style.layout('Operation.Treeview.Heading', [
-            ('Treeheading.cell', {'sticky': 'nswe'}),
-            ('Treeheading.border', {'sticky': 'nswe', 'children': [
-                ('Treeheading.padding', {'sticky': 'nswe', 'children': [
-                    ('Treeheading.image', {'sticky': ''}),
-                ]}),
-            ]}),
-        ])
 
         language_bar = ttk.Frame(root, padding=(20, 8))
         language_bar.pack(fill='x')
@@ -316,19 +305,8 @@ class App:
             controller.set_enabled(self.motion_enabled.get())
 
     def make_table(self, parent):
-        frame = ttk.Frame(parent)
-        frame.columnconfigure(0, weight=1)
-        frame.rowconfigure(0, weight=1)
-        tree = ttk.Treeview(frame, show='tree headings', height=8,
-                            style='Operation.Treeview')
-        tree.column('#0', width=190, stretch=False, anchor='center')
-        sx = ttk.Scrollbar(frame, orient='horizontal', command=tree.xview)
-        sy = ttk.Scrollbar(frame, orient='vertical', command=tree.yview)
-        tree.configure(xscrollcommand=sx.set, yscrollcommand=sy.set)
-        tree.grid(row=0, column=0, sticky='nsew')
-        sx.grid(row=1, column=0, sticky='ew')
-        sy.grid(row=0, column=1, sticky='ns')
-        return frame, tree
+        table = MathTable(parent, self.math)
+        return table, table
 
     def resize_inputs(self, _event=None):
         geometry = (self.inputs.winfo_reqwidth(), self.inputs.winfo_reqheight())
@@ -375,22 +353,8 @@ class App:
             self.message('ready')
             return True
         self.table, self.result = table, None
-        columns = [str(j) for j in range(len(table.classes))]
-        headings = [self.math.image(symbol_tex(label)) for label in table.classes]
-        row_images = [self.math.image(symbol_tex(label)) for label in table.irreps]
-        values = [[fmt(z) for z in row] for row in table.symbolic_rows()]
-        ttk.Style(self.root).configure('Treeview', rowheight=max(
-            32, round(self.math.dpi * .27), max(image.height() for image in row_images) + 8))
         for tree in (self.tree, self.inputtree):
-            tree.delete(*tree.get_children())
-            tree.configure(columns=columns)
-            tree.heading('#0', text='')
-            cell_font = tkfont.nametofont('TkDefaultFont')
-            for j, (column, image) in enumerate(zip(columns, headings)):
-                tree.heading(column, text='', image=image, anchor='center')
-                tree.column(column, width=max(110, image.width() + 18, max(cell_font.measure(row[j]) for row in values) + 24), stretch=False, anchor='center')
-            for image, row in zip(row_images, values):
-                tree.insert('', 'end', image=image, values=row)
+            tree.set_table(table)
         for widget in self.inputs.winfo_children():
             widget.destroy()
         self.fields, self.entries = [], []

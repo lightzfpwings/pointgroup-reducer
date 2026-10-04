@@ -12,3 +12,7 @@ Status: unpublished source draft based on v2.4.1. VERSION remains 2.4.1.
 - Native Windows/macOS builds and manual window inspection have not run for this draft. The current session has no desktop display.
 
 No release tag, release asset, main-branch update or publish workflow is requested for this draft.
+
+## Preview 2: mathematical table geometry
+
+The GUI now draws a measured fixed header and mathematical cells on synchronized canvases, rather than relying on platform Treeview heading sizing. Header height and row height include 12 px of clearance on each side of the tallest rendered expression. Numbers use MathText via exact SymPy LaTeX, including radicals, fractions, complex components and trigonometric angles. Only visible cells are drawn. Native checks inspect actual allocated header height, image bounds, center coordinates, synchronized horizontal scrolling, vertical scrolling, navigation and resizing. Native screenshots are included as QA artifacts. This remains a test build; no main merge or Release is authorized.

@@ -1,4 +1,4 @@
-name: Build and release desktop apps
+name: Build native test desktop apps
 
 on:
   push:
@@ -46,6 +46,7 @@ jobs:
           path: |
             release/*.zip
             release/*.sha256
+            release/gui-qa/*.png
           if-no-files-found: error
           compression-level: 0
           retention-days: 30
