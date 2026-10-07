@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "application": "basis-character-prototype",
+  "version": "0.2.0",
+  "input": {
+    "schemaVersion": 1,
+    "group": "C2v",
+    "tolerance": 0.000001,
+    "sites": [
+      {
+        "id": "O0",
+        "kind": "O",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "H0",
+        "kind": "H",
+        "position": [
+          0.8,
+          0,
+          0.6
+        ]
+      },
+      {
+        "id": "H1",
+        "kind": "H",
+        "position": [
+          -0.8,
+          0,
+          0.6
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "id": "H0:1s:s",
+        "site": "H0",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H0 1s"
+      },
+      {
+        "id": "H1:1s:s",
+        "site": "H1",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H1 1s"
+      }
+    ],
+    "note": "教学几何；只定义对称变换，不计算能量。"
+  }
+}

@@ -1,0 +1,231 @@
+点群与基函数	點群與基函數	Point Groups & Basis Functions
+语言	語言	Language
+新建	新增	New
+撤销	復原	Undo
+保存	儲存	Save
+载入	載入	Open
+示例	範例	Examples
+苯 · D₆ₕ	苯 · D₆ₕ	Benzene · D₆ₕ
+水 · C₂ᵥ	水 · C₂ᵥ	Water · C₂ᵥ
+中心 p · C₂ᵥ	中心 p · C₂ᵥ	Central p · C₂ᵥ
+中心 p · Oₕ	中心 p · Oₕ	Central p · Oₕ
+中心 d · C₂ᵥ	中心 d · C₂ᵥ	Central d · C₂ᵥ
+中心 d · Oₕ	中心 d · Oₕ	Central d · Oₕ
+二十面体 · Iₕ	二十面體 · Iₕ	Icosahedron · Iₕ
+计算方式	計算方式	Input method
+从基函数计算	由基函數計算	From basis functions
+手动输入特征标	手動輸入特徵標	Enter characters
+点群	點群	Point group
+特征标表	特徵標表	Character table
+坐标设置	座標設定	Coordinate settings
+位置容差	位置容差	Position tolerance
+原点为对称固定点；所有坐标使用同一长度单位。	原點為對稱固定點；所有座標使用同一長度單位。	The origin is fixed by symmetry. Use one length unit for all coordinates.
+2. 位置	2. 位置	2. Positions
+0 个中心	0 個中心	0 sites
+元素 / 类型	元素 / 類型	Element / type
+对称展开	對稱展開	Expand by symmetry
+手动输入与其他设置	手動輸入與其他設定	Manual coordinates & settings
+编号前缀	編號前綴	ID prefix
+预期位置数	預期位置數	Expected site count
+可留空	可留空	Optional
+添加单个位置	新增單個位置	Add one site
+预期数量仅用于核对。批量坐标每行：编号 类型 x y z。	預期數量僅用於核對。批次座標每行：編號 類型 x y z。	The expected count is a check. Paste one site per line: ID type x y z.
+添加坐标	新增座標	Add coordinates
+全选	全選	Select all
+取消全选	取消全選	Deselect all
+勾选下表中心以添加函数。	勾選下表中心以新增函數。	Select sites below to add functions.
+3. 基函数	3. 基函數	3. Basis functions
+0 个函数	0 個函數	0 functions
+径向编号	徑向編號	Radial ID
+例如 2 对应 2s / 2p；H 1s 使用 1	例如 2 對應 2s / 2p；H 1s 使用 1	For 2s / 2p use 2; for H 1s use 1.
+添加函数	新增函數	Add functions
+更多函数设置	更多函數設定	More function settings
+仅完整 p	僅完整 p	Complete p only
+仅完整 d	僅完整 d	Complete d only
+仅 s	僅 s	s only
+清空函数	清空函數	Clear functions
+径向编号 3 对应 3s / 3p / 3d。d 为五个实球谐函数，各分量先单独存储。	徑向編號 3 對應 3s / 3p / 3d。d 為五個實球諧函數，各分量先分別儲存。	Radial ID 3 labels 3s / 3p / 3d. Each of the five real d harmonics is stored separately.
+添加自定义方向的 p 函数	新增自訂方向的 p 函數	Add a p function with a custom direction
+输入局部 x′、z′ 在全局坐标中的方向；须非零且互相垂直。系统归一化，并由 y′ = z′ × x′ 构建右手坐标系。同一批所选中心使用这组轴。	輸入局部 x′、z′ 在全域座標中的方向；須非零且互相垂直。系統正規化，並由 y′ = z′ × x′ 建立右手座標系。同批所選中心使用這組軸。	Enter nonzero, perpendicular local x′ and z′ directions in global coordinates. Axes are normalized and y′ = z′ × x′ defines a right-handed frame for the selected sites.
+d 的局部坐标轴（默认沿全局 xyz）	d 的局部座標軸（預設沿全域 xyz）	Local d axes (global xyz by default)
+x′ 的 x	x′ 的 x	x component of x′
+x′ 的 y	x′ 的 y	y component of x′
+x′ 的 z	x′ 的 z	z component of x′
+z′ 的 x	z′ 的 x	x component of z′
+z′ 的 y	z′ 的 y	y component of z′
+z′ 的 z	z′ 的 z	z component of z′
+函数列表	函數清單	Function list
+2. 特征标输入	2. 特徵標輸入	2. Character input
+按上表列顺序，每个共轭类输入一个数，不乘类大小。支持逗号或分号分隔，以及 i、π、sqrt、cos、sin、exp 等表达式。	依上表欄位順序，每個共軛類輸入一個數，不乘類大小。支援逗號或分號分隔，以及 i、π、sqrt、cos、sin、exp 等運算式。	Enter one character per class in the table order, without multiplying by class size. Separate values with commas or semicolons. Expressions may use i, π, sqrt, cos, sin and exp.
+例如：5, -1, 1, -1, 1	例如：5, -1, 1, -1, 1	Example: 5, -1, 1, -1, 1
+约化容差	約化容差	Reduction tolerance
+中心 s	中心 s	Central s
+中心 p	中心 p	Central p
+中心 d	中心 d	Central d
+结果	結果	Results
+计算并分解	計算並分解	Calculate & reduce
+导出	匯出	Export
+选择位置和基函数后计算。	選擇位置與基函數後計算。	Choose positions and basis functions, then calculate.
+特征标向量与导出	特徵標向量與匯出	Character vectors & export
+全体和每个封闭空间使用相同共轭类顺序；每类一个特征标，不乘类大小。	全體及各封閉空間使用相同共軛類順序；每類一個特徵標，不乘類大小。	The total space and each closed block use the same class order, with one unweighted character per class.
+选择向量	選擇向量	Choose vector
+原模块特征标向量	原模組特徵標向量	Character vector
+导出向量	匯出向量	Export vectors
+复制结果	複製結果	Copy results
+复制文本	複製文字	Copy text
+复制 LaTeX	複製 LaTeX	Copy LaTeX
+复制内容	複製內容	Copy content
+对称操作详情	對稱操作詳情	Symmetry operation details
+共轭类	共軛類	Conjugacy class
+类内操作	類內操作	Operation in class
+查看空间	檢視空間	Space to inspect
+空间矩阵 R(g)	空間矩陣 R(g)	Spatial matrix R(g)
+函数变换	函數變換	Function transformation
+位置映射	位置映射	Site mapping
+s/p/d 基函数 → 可约特征标 → 不可约组成；尚未计算 SALC 系数。	s/p/d 基函數 → 可約特徵標 → 不可約組成；尚未計算 SALC 係數。	s/p/d basis functions → reducible characters → irreducible decomposition. SALC coefficients are not computed yet.
+输入已更新，请重新计算。	輸入已更新，請重新計算。	Input changed. Recalculate to see results.
+查看失败操作与对象	檢視失敗操作與物件	Failed operation and object
+移除	移除	Remove
+ 个中心	 個中心	 sites
+输入一个代表位置，或载入上方示例。	輸入一個代表位置，或載入上方範例。	Enter a representative position or open an example above.
+选择中心 	選擇中心 	Select site 
+ 类型	 類型	 type
+中心类型不能为空。	中心類型不能為空。	Site type cannot be empty.
+坐标需要有限数值。	座標需要有限數值。	Coordinates must be finite numbers.
+已移除中心及引用它的函数，可撤销。	已移除中心及引用它的函數，可復原。	Site and its functions removed. Undo is available.
+选择	選擇	Select
+中心	中心	Site
+类型	類型	Type
+ 个函数	 個函數	 functions
+勾选中心，然后添加 s、p 或 d 函数。	勾選中心，然後新增 s、p 或 d 函數。	Select sites, then add s, p or d functions.
+球对称	球對稱	Spherical
+；局部轴列矩阵 	；局部軸欄矩陣 	; local frame columns 
+函数	函數	Function
+径向类型	徑向類型	Radial type
+方向 / 局部坐标	方向 / 局部座標	Direction / local frame
+已选择 	已選擇 	Selected 
+ 个中心。	 個中心。	 sites.
+请填写类型和编号前缀。	請填寫類型及編號前綴。	Enter a type and an ID prefix.
+位置对应多个中心，请调整容差。	位置對應多個中心，請調整容差。	A position matches multiple sites. Adjust the tolerance.
+该位置已存在不同类型中心 	該位置已存在不同類型中心 	Position already has a site of another type: 
+初版最多支持 120 个中心。	目前最多支援 120 個中心。	At most 120 sites are supported.
+新增 	新增 	Added 
+ 个中心；已选择该位置集合。	 個中心；已選擇該位置集合。	 sites; the orbit is selected.
+p 方向	p 方向	p direction
+p 方向不能为零。	p 方向不能為零。	p direction cannot be zero.
+局部 	局部 	Local 
+ 轴	 軸	 axis
+d 的局部轴不能为零。	d 的局部軸不能為零。	Local d axes cannot be zero.
+d 的局部 x′、z′ 轴必须互相垂直。	d 的局部 x′、z′ 軸必須互相垂直。	Local x′ and z′ must be perpendicular.
+请先勾选至少一个中心。	請先勾選至少一個中心。	Select at least one site first.
+请填写径向编号 / 副本标识。	請填寫徑向編號 / 副本識別碼。	Enter a radial ID / copy identifier.
+请至少选择一种函数。	請至少選擇一種函數。	Choose at least one function.
+ 已有相同径向类型和方向的函数。	 已有相同徑向類型及方向的函數。	 already has a function of this radial type and direction.
+初版最多支持 180 个函数。	目前最多支援 180 個函數。	At most 180 functions are supported.
+已添加 	已新增 	Added 
+ 个独立函数；尚未预设它们的计算分组。	 個獨立函數；尚未預設其計算分組。	 independent functions; blocks will be inferred from transformations.
+基函数组	基函數組	Basis block
+维数	維數	Dimension
+全体	全體	Total
+分组与检查详情	分組與檢查詳情	Block and validation details
+已通过位置映射、线性独立性、封闭性、群关系及同类 trace 检查。	已通過位置映射、線性獨立性、封閉性、群關係及同類 trace 檢查。	Site mapping, independence, closure, group relations and class traces passed.
+输入批次	輸入批次	Input batch
+函数数	函數數	Function count
+计算关系	計算關係	Calculation relation
+可独立计算	可獨立計算	Independent
+需与 	須與 	Combine with 
+ 联合	 聯合	 jointly
+全体向量：[	全體向量：[	Total vector: [
+独立但对称等价：	獨立但對稱等價：	Independent equivalent copies: 
+。各副本均保留。	。各副本均保留。	. All copies are retained.
+全体基函数	全體基函數	All basis functions
+向量	向量	Vector
+ · 代表操作	 · 代表操作	 · representative
+保持原位的中心：	保持原位的中心：	Fixed sites: 
+无	無	None
+。所选空间 trace = 	。所選空間 trace = 	. Trace of selected space = 
+原函数	原函數	Original function
+操作后的完整展开	操作後的完整展開	Complete transformed expansion
+对角贡献	對角貢獻	Diagonal contribution
+原中心	原中心	Original site
+目标中心	目標中心	Target site
+变换后坐标	變換後座標	Transformed coordinates
+已载入示例。坐标与轨道均可编辑。	已載入範例。座標與軌道均可編輯。	Example opened. Coordinates and orbitals are editable.
+点群已改变；已有位置和函数已保留，需要重新验证。	點群已變更；現有位置與函數已保留，須重新驗證。	Point group changed. Positions and functions are retained and must be rechecked.
+容差	容差	Tolerance
+容差需在 1e−10 至 0.01 之间。	容差須在 1e−10 至 0.01 之間。	Tolerance must be between 1e−10 and 0.01.
+代表坐标	代表座標	Representative coordinates
+实际生成 	實際產生 	Generated 
+ 个位置，与预期 	 個位置，與預期 	 sites; expected 
+ 不同；未添加任何位置。	 不同；未新增任何位置。	. No sites were added.
+生成 	產生 	Generated 
+ 个唯一位置；稳定子含 	 個唯一位置；穩定子含 	 unique sites; stabilizer has 
+ 个操作。	 個操作。	 operations.
+坐标	座標	Coordinates
+请粘贴坐标。	請貼上座標。	Paste coordinates first.
+每行需要：编号 类型 x y z。	每行需要：編號 類型 x y z。	Each line needs: ID type x y z.
+存在重复中心编号。	存在重複中心編號。	Duplicate site IDs.
+存在重合中心，请复用已有中心。	存在重合中心，請重用現有中心。	Coincident sites. Reuse the existing site.
+已清空函数；中心坐标保留，可撤销。	已清空函數；中心座標保留，可復原。	Functions cleared. Sites retained. Undo is available.
+正在逐函数检查变换、分组和群关系…	正在逐函數檢查變換、分組與群關係…	Checking transformations, blocks and group relations…
+已生成 	已產生 	Generated 
+ 个封闭空间的特征标，共 	 個封閉空間的特徵標，共 	 closed character blocks, with 
+ 个基函数。	 個基函數。	 basis functions.
+输入未通过验证，尚未生成可约表示特征标。	輸入未通過驗證，尚未產生可約表示特徵標。	Input validation failed. No reducible characters were generated.
+请先生成结果。	請先產生結果。	Calculate results first.
+不支持的输入版本。	不支援的輸入版本。	Unsupported input version.
+输入结构或数量有误。	輸入結構或數量有誤。	Invalid input structure or count.
+输入容差无效。	輸入容差無效。	Invalid input tolerance.
+中心数据格式有误。	中心資料格式有誤。	Invalid site data.
+基函数数据格式有误。	基函數資料格式有誤。	Invalid basis function data.
+函数编号重复或引用了不存在的中心。	函數編號重複或引用不存在的中心。	Duplicate function IDs or unknown sites.
+已载入输入。请重新计算，不沿用文件中的旧结果。	已載入輸入。請重新計算，不沿用檔案中的舊結果。	Input opened. Recalculate; saved results are not reused.
+输入文件不能超过 2 MiB。	輸入檔案不能超過 2 MiB。	Input file cannot exceed 2 MiB.
+已撤销最近一次输入修改。	已復原最近一次輸入修改。	Last input change undone.
+已新建空项目，可撤销。	已新增空白專案，可復原。	New empty project. Undo is available.
+需要填写有限数值。	須填寫有限數值。	 must be a finite number.
+手动约化支持 423 个点群；输入向量须符合当前表的列顺序。	手動約化支援 423 個點群；輸入向量須符合目前表格的欄位順序。	Manual reduction supports 423 point groups. Match the current table column order.
+完整复不可约特征标表；复共轭表示分别保留。	完整複不可約特徵標表；複共軛表示分別保留。	Complete complex character table. Conjugate irreps are retained separately.
+需要 	需要 	Expected 
+ 个特征标。	 個特徵標。	 characters.
+不可约组成	不可約組成	Irreducible decomposition
+不可约表示	不可約表示	Irrep
+重数	重數	Multiplicity
+已核对各块重数之和等于全体重数；封闭计算块不等同于不可约表示。	已核對各塊重數之和等於全體重數；封閉計算塊不等同於不可約表示。	Block multiplicities sum to the total. A closed basis block need not be irreducible.
+输入不是容差内的合法表示特征标；重数须为非负整数且能重建输入。	輸入不是容差內的合法表示特徵標；重數須為非負整數且能重建輸入。	Invalid representation characters: multiplicities must be nonnegative integers and reconstruct the input within tolerance.
+无合法不可约组成	無合法不可約組成	No valid irreducible decomposition
+已复制结果。	已複製結果。	Results copied.
+内容已选中，请复制。	內容已選取，請複製。	Content selected. Copy it now.
+分解特征标	分解特徵標	Reduce characters
+不可约分解已完成。	不可約分解已完成。	Irreducible decomposition complete.
+特征标未通过合法表示检查。	特徵標未通過合法表示檢查。	Characters did not pass the representation checks.
+手动特征标输入格式有误。	手動特徵標輸入格式有誤。	Invalid manual character input.
+理想正六边形；半径为示意值，坐标单位自定，不代表实验键长。	理想正六邊形；半徑為示意值，座標單位自訂，不代表實驗鍵長。	Ideal regular hexagon. Radii are illustrative, not experimental bond lengths. Use your own length unit.
+单位球面上的正二十面体 12 个顶点；每个顶点一个 s 函数。	單位球面上正二十面體的 12 個頂點；每個頂點一個 s 函數。	Twelve icosahedron vertices on the unit sphere, each with one s function.
+教学几何；只定义对称变换，不计算能量。	教學幾何；僅定義對稱變換，不計算能量。	Teaching geometry for symmetry transformations; no energy calculation.
+仅单位操作。	僅單位操作。	Identity operation only.
+镜面为 xy。	鏡面為 xy。	Mirror plane: xy.
+反演中心为原点。	反演中心為原點。	Inversion center: origin.
+C₂ 沿 z；镜面为 xz、yz。	C₂ 沿 z；鏡面為 xz、yz。	C₂ along z; mirror planes xz and yz.
+C₃ 沿 z；一个垂直镜面为 xz。	C₃ 沿 z；一個垂直鏡面為 xz。	C₃ along z; one vertical mirror plane is xz.
+C₆ 沿 z；σᵥ 包含 xz，σᵈ 与之错开 30°。	C₆ 沿 z；σᵥ 包含 xz，σᵈ 與之錯開 30°。	C₆ along z; σᵥ contains xz and σᵈ is offset by 30°.
+三条 C₂ 轴沿 x、y、z；反演中心为原点。	三條 C₂ 軸沿 x、y、z；反演中心為原點。	C₂ axes along x, y and z; inversion center at the origin.
+C₆ 沿 z；C₂′ 穿过 +x；σᵥ 包含 xz。苯模板的对位碳位于 x 轴。	C₆ 沿 z；C₂′ 通過 +x；σᵥ 包含 xz。苯範例的對位碳位於 x 軸。	C₆ along z; C₂′ through +x; σᵥ contains xz. Opposite carbon atoms lie on x.
+立方坐标取向；三个 C₄ 轴沿 x、y、z。	立方座標取向；三個 C₄ 軸沿 x、y、z。	Cubic frame: three C₄ axes along x, y and z.
+主轴沿 z；角度 φ 从 +x 向 +y 测量。	主軸沿 z；角度 φ 由 +x 向 +y 量測。	Principal axis along z; φ is measured from +x towards +y.
+一条平面内 C₂ 轴沿 x。	一條平面內 C₂ 軸沿 x。	One in-plane C₂ axis lies along x.
+一个垂直镜面为 xz。	一個垂直鏡面為 xz。	One vertical mirror plane is xz.
+水平镜面为 xy。	水平鏡面為 xy。	Horizontal mirror plane: xy.
+ 沿 z，镜面平分相邻平面内 C₂ 轴。	 沿 z，鏡面平分相鄰平面內 C₂ 軸。	 along z; mirrors bisect adjacent in-plane C₂ axes.
+旋转反射轴沿 z；生成元为旋转 π/	旋轉反射軸沿 z；生成元為旋轉 π/	Improper axis along z: generator rotates by π/
+ 后对 xy 反射。	 後對 xy 反射。	 then reflects in xy.
+一条 C₃ 轴沿 z；一个四面体顶点在 +z，另一顶点的 x 分量为 0、y 为负。	一條 C₃ 軸沿 z；一個四面體頂點在 +z，另一頂點的 x 分量為 0、y 為負。	One C₃ axis is along z. A tetrahedron vertex lies on +z; another has x=0 and y<0.
+另含反演。	另含反演。	 Includes inversion.
+另含镜面与旋转反射。	另含鏡面與旋轉反射。	 Includes mirrors and improper rotations.
+一条 C₅ 轴沿 z，一个二十面体顶点在 +z；由标准顶点 (0,±1,±φ) 的共同坐标变换构造。	一條 C₅ 軸沿 z，一個二十面體頂點在 +z；由標準頂點 (0,±1,±φ) 的共同座標變換建立。	One C₅ axis is along z, with an icosahedron vertex on +z, using a common frame transformation of (0,±1,±φ).
+坐标轴	座標軸	coordinate axis
+棱轴	稜軸	edge axis
+、	、	, 
+。	。	.
+；	；	; 
+X 的行对应不可约表示、列对应共轭类；星号表示逐项复共轭，不含转置。	X 的行對應不可約表示、欄對應共軛類；星號表示逐項複共軛，不含轉置。	Rows of X are irreps and columns are classes. The star means elementwise complex conjugation, without transposition.

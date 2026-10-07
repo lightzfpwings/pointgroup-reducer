@@ -1,0 +1,38 @@
+name: Integrated basis app checks
+
+on:
+  push:
+    branches: [main]
+    paths: ['basis-character-prototype/**', '.github/workflows/basis-ci.yml']
+  pull_request:
+    paths: ['basis-character-prototype/**', '.github/workflows/basis-ci.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: basis-character-prototype
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Build self-contained language versions
+        run: python3 build.py
+      - name: Test geometry, reduction, MathML and all three languages
+        run: |
+          node --version
+          node --test tests/*.test.js
+      - name: Verify distributable checksums
+        run: |
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          manifest = json.loads(Path('dist/manifest.json').read_text())
+          for item in manifest['files']:
+              assert hashlib.sha256((Path('dist') / item['name']).read_bytes()).hexdigest() == item['sha256']
+          print('Offline language files and source archive checksums passed')
+          PY

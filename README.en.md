@@ -2,6 +2,16 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
+## Integrated Point Groups & Basis Functions 0.4.2
+
+[Download the integrated app](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.2) · [Full guide](basis-character-prototype/README.en.md)
+
+Positions and s/p/d functions now lead directly to reducible characters and irreducible decompositions of the total space and each closed block. The geometry workflow supports 87 spatial groups; manual reduction supports 423 groups. A consistent mathematical interface supports English, Simplified Chinese and Traditional Chinese, retaining inputs and results when switching.
+
+On Apple silicon macOS, extract `BasisCharacter-0.4.2-macOS-arm64.zip` and open `BasisCharacter.app`. On Windows, Linux or Mac, download any standalone language HTML file, save it locally and open it in a browser. No network or developer tools are needed.
+
+The integrated app lives in `basis-character-prototype/` and uses its own `basis-v0.4.2` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
+
 Enter the character vector **c** to calculate irrep multiplicities **a** and the representation decomposition:
 
 $$\mathbf a=\frac1h X^*W\mathbf c$$

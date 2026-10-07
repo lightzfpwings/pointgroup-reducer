@@ -1,0 +1,7487 @@
+{
+  "date": "2026-10-07",
+  "version": "0.4.0",
+  "status": "passed",
+  "originalReducerExecuted": true,
+  "vectorsChecked": 1245,
+  "maximumMultiplicityError": 8.159718606934744e-15,
+  "matchedValidFlags": true,
+  "matchedIntegerMultiplicities": true,
+  "sourceSHA256": {
+    "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+    "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+    "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+  },
+  "checks": [
+    {
+      "kind": "original-first-irrep",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 7.642869566678793e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.59712045343996e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 4.903703224783781e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 2.2212424631224204e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 1.6222529579629905e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.5959455978986625e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 5.100087019371813e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 3.4706460597319637e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 3.458979989548151e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.1102981298556365e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 3.442390790543721e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 1.0769809369853351e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.1455669976349068e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 6.361418531351673e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 1.0283319479348786e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C13",
+      "valid": true,
+      "multiplicityError": 7.175039871619831e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C13v",
+      "valid": true,
+      "multiplicityError": 2.962373935898853e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C13h",
+      "valid": true,
+      "multiplicityError": 7.344562135659496e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D13",
+      "valid": true,
+      "multiplicityError": 2.962373935898853e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D13h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D13d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S26",
+      "valid": true,
+      "multiplicityError": 1.3384647459308628e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C14",
+      "valid": true,
+      "multiplicityError": 1.6222529579629905e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C14v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C14h",
+      "valid": true,
+      "multiplicityError": 1.6199256591678557e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D14",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D14h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D14d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S28",
+      "valid": true,
+      "multiplicityError": 1.1466249802508104e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C15",
+      "valid": true,
+      "multiplicityError": 7.774226131841654e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C15v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C15h",
+      "valid": true,
+      "multiplicityError": 7.568042905175367e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D15",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D15h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D15d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S30",
+      "valid": true,
+      "multiplicityError": 1.2120355284274268e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C16",
+      "valid": true,
+      "multiplicityError": 5.100087019371813e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C16v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C16h",
+      "valid": true,
+      "multiplicityError": 4.895255670125338e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D16",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D16h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D16d",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S32",
+      "valid": true,
+      "multiplicityError": 1.061051717783846e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C17",
+      "valid": true,
+      "multiplicityError": 1.2081991353929884e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C17v",
+      "valid": true,
+      "multiplicityError": 2.6122894697062513e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C17h",
+      "valid": true,
+      "multiplicityError": 1.1755331980218366e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D17",
+      "valid": true,
+      "multiplicityError": 2.6122894697062513e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D17h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D17d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S34",
+      "valid": true,
+      "multiplicityError": 1.9363624974409693e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C18",
+      "valid": true,
+      "multiplicityError": 1.1102981298556365e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C18v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C18h",
+      "valid": true,
+      "multiplicityError": 1.1164017498240624e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D18",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D18h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D18d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S36",
+      "valid": true,
+      "multiplicityError": 1.334674180676994e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C19",
+      "valid": true,
+      "multiplicityError": 7.632559624836006e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C19v",
+      "valid": true,
+      "multiplicityError": 3.652049423109068e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C19h",
+      "valid": true,
+      "multiplicityError": 7.771561172376096e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D19",
+      "valid": true,
+      "multiplicityError": 3.652049423109068e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D19h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D19d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S38",
+      "valid": true,
+      "multiplicityError": 1.5455473704689842e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C20",
+      "valid": true,
+      "multiplicityError": 1.0769809369853351e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C20v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C20h",
+      "valid": true,
+      "multiplicityError": 1.0769324850244554e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D20",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D20h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D20d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S40",
+      "valid": true,
+      "multiplicityError": 1.4821795732818685e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C21",
+      "valid": true,
+      "multiplicityError": 1.734168984387017e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C21v",
+      "valid": true,
+      "multiplicityError": 6.542385680826816e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C21h",
+      "valid": true,
+      "multiplicityError": 1.7129259212417867e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D21",
+      "valid": true,
+      "multiplicityError": 6.542385680826816e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D21h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D21d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S42",
+      "valid": true,
+      "multiplicityError": 2.079052517245437e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C22",
+      "valid": true,
+      "multiplicityError": 1.1455669976349068e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C22v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C22h",
+      "valid": true,
+      "multiplicityError": 1.154380446926714e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D22",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D22h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D22d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S44",
+      "valid": true,
+      "multiplicityError": 2.5712299357805433e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C23",
+      "valid": true,
+      "multiplicityError": 1.1778576104026486e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C23v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C23h",
+      "valid": true,
+      "multiplicityError": 1.1826302593724174e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D23",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D23h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D23d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S46",
+      "valid": true,
+      "multiplicityError": 1.7980789991842425e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C24",
+      "valid": true,
+      "multiplicityError": 1.0283319479348786e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C24v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C24h",
+      "valid": true,
+      "multiplicityError": 1.0322244321537443e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D24",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D24h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D24d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S48",
+      "valid": true,
+      "multiplicityError": 2.458106899429048e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C25",
+      "valid": true,
+      "multiplicityError": 1.3189590879628259e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C25v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C25h",
+      "valid": true,
+      "multiplicityError": 1.3156789577668528e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D25",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D25h",
+      "valid": true,
+      "multiplicityError": 2.498001805406602e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D25d",
+      "valid": true,
+      "multiplicityError": 2.498001805406602e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S50",
+      "valid": true,
+      "multiplicityError": 2.1249748629843154e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C26",
+      "valid": true,
+      "multiplicityError": 1.3384647459308628e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C26v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C26h",
+      "valid": true,
+      "multiplicityError": 1.347490636076642e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D26",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D26h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D26d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S52",
+      "valid": true,
+      "multiplicityError": 1.9215488204431415e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C27",
+      "valid": true,
+      "multiplicityError": 1.233606864581615e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C27v",
+      "valid": true,
+      "multiplicityError": 3.328099113170319e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C27h",
+      "valid": true,
+      "multiplicityError": 1.2243317142193596e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D27",
+      "valid": true,
+      "multiplicityError": 3.328099113170319e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D27h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D27d",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S54",
+      "valid": true,
+      "multiplicityError": 2.1649390508628996e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C28",
+      "valid": true,
+      "multiplicityError": 1.1466249802508104e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C28v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C28h",
+      "valid": true,
+      "multiplicityError": 1.1399664209371493e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D28",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D28h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D28d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S56",
+      "valid": true,
+      "multiplicityError": 1.8358373548035724e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C29",
+      "valid": true,
+      "multiplicityError": 1.7993287249167983e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C29v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C29h",
+      "valid": true,
+      "multiplicityError": 1.8052015453261703e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D29",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D29h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D29d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S58",
+      "valid": true,
+      "multiplicityError": 1.6040907604473445e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C30",
+      "valid": true,
+      "multiplicityError": 1.2120355284274268e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C30v",
+      "valid": true,
+      "multiplicityError": 6.661338147750939e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C30h",
+      "valid": true,
+      "multiplicityError": 1.3322676295501878e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D30",
+      "valid": true,
+      "multiplicityError": 6.661338147750939e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D30h",
+      "valid": true,
+      "multiplicityError": 6.661338147750939e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D30d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S60",
+      "valid": true,
+      "multiplicityError": 2.322220020788237e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C31",
+      "valid": true,
+      "multiplicityError": 1.862309804920036e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C31v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C31h",
+      "valid": true,
+      "multiplicityError": 1.8677299225781514e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D31",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D31h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D31d",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S62",
+      "valid": true,
+      "multiplicityError": 2.759465733109008e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C32",
+      "valid": true,
+      "multiplicityError": 1.061051717783846e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C32v",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C32h",
+      "valid": true,
+      "multiplicityError": 1.0610539821523303e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D32",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D32h",
+      "valid": true,
+      "multiplicityError": 3.8163916471489756e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D32d",
+      "valid": true,
+      "multiplicityError": 5.204170427930421e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S64",
+      "valid": true,
+      "multiplicityError": 1.7339725010188324e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C33",
+      "valid": true,
+      "multiplicityError": 1.615034453965261e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C33v",
+      "valid": true,
+      "multiplicityError": 2.264602646820632e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C33h",
+      "valid": true,
+      "multiplicityError": 1.587972243033322e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D33",
+      "valid": true,
+      "multiplicityError": 2.264602646820632e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D33h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D33d",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S66",
+      "valid": true,
+      "multiplicityError": 2.6371909869470846e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C34",
+      "valid": true,
+      "multiplicityError": 1.9363624974409693e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C34v",
+      "valid": true,
+      "multiplicityError": 7.142979018728028e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C34h",
+      "valid": true,
+      "multiplicityError": 1.933912163993246e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D34",
+      "valid": true,
+      "multiplicityError": 7.142979018728028e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D34h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D34d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S68",
+      "valid": true,
+      "multiplicityError": 5.4074532987889164e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C35",
+      "valid": true,
+      "multiplicityError": 8.661191881371045e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C35v",
+      "valid": true,
+      "multiplicityError": 1.20935008039526e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C35h",
+      "valid": true,
+      "multiplicityError": 1.6653345369377348e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D35",
+      "valid": true,
+      "multiplicityError": 1.20935008039526e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D35h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D35d",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S70",
+      "valid": true,
+      "multiplicityError": 2.4337828408247e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C36",
+      "valid": true,
+      "multiplicityError": 1.334674180676994e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C36v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C36h",
+      "valid": true,
+      "multiplicityError": 1.6653345369377348e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D36",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D36h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D36d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S72",
+      "valid": true,
+      "multiplicityError": 2.3145148294395685e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C37",
+      "valid": true,
+      "multiplicityError": 2.211509728364514e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C37v",
+      "valid": true,
+      "multiplicityError": 2.362974680790029e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C37h",
+      "valid": true,
+      "multiplicityError": 2.2047107864676865e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D37",
+      "valid": true,
+      "multiplicityError": 2.362974680790029e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D37h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D37d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S74",
+      "valid": true,
+      "multiplicityError": 2.4864361722418545e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C38",
+      "valid": true,
+      "multiplicityError": 1.5455473704689842e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C38v",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C38h",
+      "valid": true,
+      "multiplicityError": 1.553582079624771e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D38",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D38h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D38d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S76",
+      "valid": true,
+      "multiplicityError": 2.5158971607900046e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C39",
+      "valid": true,
+      "multiplicityError": 1.8361466325338124e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C39v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C39h",
+      "valid": true,
+      "multiplicityError": 1.8365179012648388e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D39",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D39h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D39d",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S78",
+      "valid": true,
+      "multiplicityError": 2.3806558158154004e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C40",
+      "valid": true,
+      "multiplicityError": 1.4821795732818685e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C40v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C40h",
+      "valid": true,
+      "multiplicityError": 1.5543122344752192e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D40",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D40h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D40d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S80",
+      "valid": true,
+      "multiplicityError": 3.561734392955368e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C41",
+      "valid": true,
+      "multiplicityError": 1.429751951535668e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C41v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C41h",
+      "valid": true,
+      "multiplicityError": 1.3779775952711165e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D41",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D41h",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D41d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S82",
+      "valid": true,
+      "multiplicityError": 3.533777185130837e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C42",
+      "valid": true,
+      "multiplicityError": 2.079052517245437e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C42v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C42h",
+      "valid": true,
+      "multiplicityError": 2.090948032041838e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D42",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D42h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D42d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S84",
+      "valid": true,
+      "multiplicityError": 3.753614814826278e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C43",
+      "valid": true,
+      "multiplicityError": 1.9313873711052605e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C43v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C43h",
+      "valid": true,
+      "multiplicityError": 1.926984310746135e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D43",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D43h",
+      "valid": true,
+      "multiplicityError": 5.273559366969494e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D43d",
+      "valid": true,
+      "multiplicityError": 5.273559366969494e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S86",
+      "valid": true,
+      "multiplicityError": 4.0807151659888725e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C44",
+      "valid": true,
+      "multiplicityError": 2.5712299357805433e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C44v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C44h",
+      "valid": true,
+      "multiplicityError": 2.5623460280737293e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D44",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D44h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D44d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S88",
+      "valid": true,
+      "multiplicityError": 2.5636065917091284e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C45",
+      "valid": true,
+      "multiplicityError": 1.7591710996573933e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C45v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C45h",
+      "valid": true,
+      "multiplicityError": 1.768997162766193e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D45",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D45h",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D45d",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S90",
+      "valid": true,
+      "multiplicityError": 2.2457538391162355e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C46",
+      "valid": true,
+      "multiplicityError": 1.7980789991842425e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C46v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C46h",
+      "valid": true,
+      "multiplicityError": 1.795062089471835e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D46",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D46h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D46d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S92",
+      "valid": true,
+      "multiplicityError": 3.620292887214581e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C47",
+      "valid": true,
+      "multiplicityError": 1.7102240375737493e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C47v",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C47h",
+      "valid": true,
+      "multiplicityError": 1.7037670794463902e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D47",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D47h",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D47d",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S94",
+      "valid": true,
+      "multiplicityError": 3.832097207660969e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C48",
+      "valid": true,
+      "multiplicityError": 2.458106899429048e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C48v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C48h",
+      "valid": true,
+      "multiplicityError": 2.4572361621412446e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D48",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D48h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D48d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S96",
+      "valid": true,
+      "multiplicityError": 3.733131369082675e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C49",
+      "valid": true,
+      "multiplicityError": 2.3518665635680194e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C49v",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C49h",
+      "valid": true,
+      "multiplicityError": 2.3507403722759958e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D49",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D49h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D49d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S98",
+      "valid": true,
+      "multiplicityError": 3.885503420480434e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C50",
+      "valid": true,
+      "multiplicityError": 2.1249748629843154e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C50v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C50h",
+      "valid": true,
+      "multiplicityError": 2.1283088496231322e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D50",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D50h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D50d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S100",
+      "valid": true,
+      "multiplicityError": 3.313468935315168e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C51",
+      "valid": true,
+      "multiplicityError": 1.6240694193448341e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C51v",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C51h",
+      "valid": true,
+      "multiplicityError": 1.6185502130646992e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D51",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D51h",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D51d",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S102",
+      "valid": true,
+      "multiplicityError": 2.323861058677232e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C52",
+      "valid": true,
+      "multiplicityError": 1.9215488204431415e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C52v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C52h",
+      "valid": true,
+      "multiplicityError": 1.9055486227190768e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D52",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D52h",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D52d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S104",
+      "valid": true,
+      "multiplicityError": 2.3792633212390655e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C53",
+      "valid": true,
+      "multiplicityError": 1.1858293946750533e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C53v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C53h",
+      "valid": true,
+      "multiplicityError": 1.1878158734040285e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D53",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D53h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D53d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S106",
+      "valid": true,
+      "multiplicityError": 4.534137070948655e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C54",
+      "valid": true,
+      "multiplicityError": 2.1649390508628996e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C54v",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C54h",
+      "valid": true,
+      "multiplicityError": 2.159795252786242e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D54",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D54h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D54d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S108",
+      "valid": true,
+      "multiplicityError": 5.8201977765928575e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C55",
+      "valid": true,
+      "multiplicityError": 1.942974053650636e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C55v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C55h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D55",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D55h",
+      "valid": true,
+      "multiplicityError": 1.4432899320127035e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D55d",
+      "valid": true,
+      "multiplicityError": 1.4432899320127035e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S110",
+      "valid": true,
+      "multiplicityError": 5.00306970585449e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C56",
+      "valid": true,
+      "multiplicityError": 1.8358373548035724e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C56v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C56h",
+      "valid": true,
+      "multiplicityError": 1.8369489220685067e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D56",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D56h",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D56d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S112",
+      "valid": true,
+      "multiplicityError": 2.961795008414837e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C57",
+      "valid": true,
+      "multiplicityError": 2.595524223185452e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C57v",
+      "valid": true,
+      "multiplicityError": 3.434067723167247e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C57h",
+      "valid": true,
+      "multiplicityError": 2.5958249082848337e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D57",
+      "valid": true,
+      "multiplicityError": 3.434067723167247e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D57h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D57d",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S114",
+      "valid": true,
+      "multiplicityError": 3.2956296373999787e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C58",
+      "valid": true,
+      "multiplicityError": 1.6040907604473445e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C58v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C58h",
+      "valid": true,
+      "multiplicityError": 1.887379141862766e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D58",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D58h",
+      "valid": true,
+      "multiplicityError": 1.2212453270876722e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D58d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S116",
+      "valid": true,
+      "multiplicityError": 3.222524217218352e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C59",
+      "valid": true,
+      "multiplicityError": 2.3051240782398517e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C59v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C59h",
+      "valid": true,
+      "multiplicityError": 2.3027747720471947e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D59",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D59h",
+      "valid": true,
+      "multiplicityError": 7.771561172376096e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D59d",
+      "valid": true,
+      "multiplicityError": 7.771561172376096e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S118",
+      "valid": true,
+      "multiplicityError": 3.6545670256901455e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C60",
+      "valid": true,
+      "multiplicityError": 2.322220020788237e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C60v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "C60h",
+      "valid": true,
+      "multiplicityError": 2.3236083190928394e-15
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D60",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D60h",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "D60d",
+      "valid": true,
+      "multiplicityError": 8.881784197001252e-16
+    },
+    {
+      "kind": "original-first-irrep",
+      "group": "S120",
+      "valid": true,
+      "multiplicityError": 4.3617895910878056e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C1",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Cs",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ci",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.8184022174837167e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.8184022174837167e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.8184022174837167e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 7.642869566678793e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 7.642869566678793e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 3.8201998307141894e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 3.9968028886505636e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 7.642869566678793e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 3.1086244689504386e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 4.218847493575595e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5",
+      "valid": true,
+      "multiplicityError": 7.642869566678793e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 7.777993967195579e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 6.476300976980079e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 6.047741968246175e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 7.218821541692089e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 6.476300976980079e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 2.2212424631224204e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 2.2212424631224204e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 6.984878098754322e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 7.066306083109815e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 2.2212424631224204e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 5.195316987460531e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 9.75410228777816e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 7.379741341276258e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7",
+      "valid": true,
+      "multiplicityError": 2.2212424631224204e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 9.43689570931383e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 5.51091059616309e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 3.4706460597319637e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 3.4706460597319637e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 1.0115365335473648e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 1.300009586665192e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 3.4706460597319637e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 1.0855514018557085e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 1.4812222630807097e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 1.3245927510935823e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9",
+      "valid": true,
+      "multiplicityError": 3.4706460597319637e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 1.509903313490213e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 1.2989609388114333e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 1.372551802039154e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 7.882583474838612e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 1.3100631690576848e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 1.5139425908188757e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 1.3469438893901914e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 1.8582587386651607e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 1.6891728758628258e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 1.3469438893901914e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 3.4488466675883937e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 4.113822019402337e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 2.011039952223814e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 1.4952059652991982e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 4.1225621388641784e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.4734574955241538e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 2.220446049250315e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 3.700743415417189e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6v",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 1.2688263138573217e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 2.9202726068702946e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 3.626298205111071e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 9.868649107779169e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 1.1394772748417557e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 3.9371475079792114e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.206115220709469e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9v",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 9.43689570931383e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 6.661338147750939e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 3.3306690738754695e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 4.685941593207004e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11v",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12v",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C2h",
+      "valid": true,
+      "multiplicityError": 6.123233995736766e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.59712045343996e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.59712045343996e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.8184022174837167e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.59712045343996e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.5905203907920316e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C3h",
+      "valid": true,
+      "multiplicityError": 2.59712045343996e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C4h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 3.663735981263017e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 3.9968028886505636e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 4.3794041556113377e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 3.1086244689504386e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 4.218847493575595e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 4.903703224783781e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 4.903703224783781e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 7.763122990163452e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 6.570773889645036e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 4.903703224783781e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 6.028604425665998e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 7.330018117582181e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 6.570773889645036e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C6h",
+      "valid": true,
+      "multiplicityError": 4.903703224783781e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 7.203393382149403e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 7.066306083109815e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 1.0390633974921062e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 9.777686967753793e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 7.379741341276258e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C7h",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.5959455978986625e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.5959455978986625e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.0130785099704553e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.5959455978986625e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 9.43689570931383e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 5.51091059616309e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.0130785099704553e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C8h",
+      "valid": true,
+      "multiplicityError": 1.5959455978986625e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 3.458979989548151e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 3.458979989548151e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 1.2260991373519323e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 1.3634420257857178e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 3.458979989548151e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 1.3114509478384662e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 1.4475537224895361e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 1.3260997238578259e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C9h",
+      "valid": true,
+      "multiplicityError": 3.458979989548151e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 3.442390790543721e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 3.442390790543721e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 1.5261427923575951e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 1.304512053934559e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 3.442390790543721e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 1.372551802039154e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 8.189353020564573e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 1.3287472722447174e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C10h",
+      "valid": true,
+      "multiplicityError": 3.442390790543721e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 1.3519732497647305e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 1.3519732497647305e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 1.7704819761797202e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 1.6891728758628258e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 1.34740703443144e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C11h",
+      "valid": true,
+      "multiplicityError": 6.964137673057488e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 6.361418531351673e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 6.361418531351673e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 3.504244472837621e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 4.1273220938170595e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 6.361418531351673e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 1.973922559198162e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 1.480301245425126e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 4.108818376739973e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "C12h",
+      "valid": true,
+      "multiplicityError": 6.361418531351673e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.4734574955241538e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 2.220446049250315e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5",
+      "valid": true,
+      "multiplicityError": 1.1102230246251563e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 3.700743415417189e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6",
+      "valid": true,
+      "multiplicityError": 6.47630097698008e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 1.2688263138573217e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 2.9202726068702946e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 3.626298205111071e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 9.868649107779169e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 1.1394772748417557e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 3.9371475079792114e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.206115220709469e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9",
+      "valid": true,
+      "multiplicityError": 4.317533984653386e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 9.43689570931383e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 6.661338147750939e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 3.3306690738754695e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 4.685941593207004e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3h",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 7.864079757761527e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 6.017824106047377e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 2.6061655487163624e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 1.3877787807814457e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 1.136917259556868e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 4.26182460268143e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9h",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 8.049116928532385e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.2204460492503126e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 6.03892475600291e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12h",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D2d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D3d",
+      "valid": true,
+      "multiplicityError": 3.70074341541719e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D4d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 3.173015830957773e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 3.885780586188049e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D5d",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 1.249000902703301e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 1.6190752442450199e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 4.625929269271484e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D6d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1872467149883654e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 5.015352970748761e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 5.842468846338274e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D7d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 1.249000902703301e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D8d",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 4.689020409735022e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 5.127690633418844e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D9d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 7.494005416219807e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D10d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 3.3306690738754696e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D11d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 4.163336342344337e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 4.440892098500626e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "D12d",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 1.8369701987210297e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S4",
+      "valid": true,
+      "multiplicityError": 8.326672684688674e-17
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 1.1943401194869635e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 6.476300976980079e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 6.123694088358105e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 1.9091137796487724e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 7.218821541692089e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 7.218821541692089e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S6",
+      "valid": true,
+      "multiplicityError": 4.996860190949943e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 6.453171330633722e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 4.2862637970157356e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 6.453544378663091e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 5.51091059616309e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 5.835275607609835e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S8",
+      "valid": true,
+      "multiplicityError": 1.5265566588595902e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 7.993605777301127e-16
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 1.2989609388114333e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 5.621630614271135e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 5.51091059616309e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 7.882583474838612e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 6.11026247635183e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S10",
+      "valid": true,
+      "multiplicityError": 3.3335590258932494e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 4.4177624521542685e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 4.113822019402337e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 8.234284040111372e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 3.131095517341205e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 1.4952059652991982e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S12",
+      "valid": true,
+      "multiplicityError": 6.245175841880031e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 1.6222529579629905e-15
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 1.6222529579629905e-15
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 2.0301221021717147e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 1.3164073006269712e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 8.628916924917864e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 3.788790419485756e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 2.1368519389623446e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 9.358229338353553e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S14",
+      "valid": true,
+      "multiplicityError": 1.6222529579629905e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 5.100087019371813e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 5.100087019371813e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 4.4360444241835986e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 4.322930902134203e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 1.1405297042855461e-15
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 1.5544758242299198e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 1.0828232312538133e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 9.992007221626409e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S16",
+      "valid": true,
+      "multiplicityError": 5.100087019371813e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.1102981298556365e-15
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.1102981298556365e-15
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.6596054937118524e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.4309574438491702e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 6.832885020622318e-16
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 2.266342371492184e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 2.107402879833654e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.8752265580331395e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S18",
+      "valid": true,
+      "multiplicityError": 1.1102981298556365e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 1.0769809369853351e-15
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 1.0769809369853351e-15
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 5.3669724368148345e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 5.639932965095796e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 1.0104769172572057e-15
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 3.0184188481996443e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 2.275957200481571e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 4.946043574705073e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S20",
+      "valid": true,
+      "multiplicityError": 1.0769809369853351e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.1455669976349068e-15
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.1455669976349068e-15
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 4.218356184956255e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.5797667540599973e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 5.3133173761326826e-15
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 3.4673119292572302e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.910419874026307e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 2.1160594360315887e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S22",
+      "valid": true,
+      "multiplicityError": 1.1455669976349068e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 1.0283319479348786e-15
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 1.0283319479348786e-15
+    },
+    {
+      "kind": "geometric-p",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 6.4355871382532725e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 6.61619339679659e-15
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 1.8330265628514623e-15
+    },
+    {
+      "kind": "geometric-d",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 5.649236141356033e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 8.159718606934744e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 3.9055212907244585e-15
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "S24",
+      "valid": true,
+      "multiplicityError": 1.0283319479348786e-15
+    },
+    {
+      "kind": "geometric-s",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "T",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Th",
+      "valid": true,
+      "multiplicityError": 2.220446049250313e-16
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Td",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "O",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 5.551115123125783e-17
+    },
+    {
+      "kind": "geometric-p",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 2.960594732333751e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 2.960594732333751e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "I",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "geometric-s",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-block-s",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "geometric-p",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 2.960594732333751e-17
+    },
+    {
+      "kind": "geometric-block-p",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 2.960594732333751e-17
+    },
+    {
+      "kind": "geometric-d",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "geometric-block-d",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 2.7755575615628914e-17
+    },
+    {
+      "kind": "example-benzene",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-benzene",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-benzene",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-benzene",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-benzene",
+      "group": "D6h",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-water",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-water",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-oh",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-oh",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-c2v",
+      "group": "C2v",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-oh",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "example-central-d-oh",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-central-d-oh",
+      "group": "Oh",
+      "valid": true,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "example-icosahedron",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "example-icosahedron",
+      "group": "Ih",
+      "valid": true,
+      "multiplicityError": 1.1102230246251565e-16
+    },
+    {
+      "kind": "manual-validation",
+      "group": "C2v",
+      "valid": false,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "manual-validation",
+      "group": "C2v",
+      "valid": false,
+      "multiplicityError": 0.0
+    },
+    {
+      "kind": "manual-validation",
+      "group": "C3",
+      "valid": true,
+      "multiplicityError": 2.228142592429445e-16
+    }
+  ]
+}

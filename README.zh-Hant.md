@@ -2,6 +2,16 @@
 
 [English](README.en.md) · [简体中文](README.md)
 
+## 點群與基函數整合版 0.4.2
+
+[下載整合版](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.2) · [完整說明](basis-character-prototype/README.zh-Hant.md)
+
+新增完整流程：位置與 s/p/d 基函數 → 可約特徵標 → 全體與各封閉塊的不可約組成。幾何入口支援 87 個真實空間點群，手動約化入口支援 423 個點群。介面、公式、上下標及 LaTeX 輸出統一，繁體中文／简体中文／English 可切換並保留輸入與結果。
+
+Apple 晶片 Mac 下載 `BasisCharacter-0.4.2-macOS-arm64.zip`，完整解壓縮後開啟 `BasisCharacter.app`。Windows、Linux 與 Mac 均可下載任一三語離線 HTML，儲存後以瀏覽器開啟。無須網路或開發環境。
+
+整合版位於 `basis-character-prototype/`，使用獨立版本標籤 `basis-v0.4.2`。原 Python/Tk 約化程式及 CLI 保留，原生 Windows 舊版見 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。以下為原 Python/Tk 版本說明。
+
 輸入表示的特徵標向量 **c**，計算重數 **a**，輸出不可約表示分解。
 
 $$\mathbf a=\frac1h X^*W\mathbf c$$

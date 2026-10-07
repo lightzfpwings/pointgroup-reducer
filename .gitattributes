@@ -1,0 +1,2 @@
+# UI message fragments intentionally retain separator spaces.
+basis-character-prototype/localization/messages.tsv whitespace=-blank-at-eol

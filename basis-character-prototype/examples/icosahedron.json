@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "application": "basis-character-prototype",
+  "version": "0.2.0",
+  "input": {
+    "schemaVersion": 1,
+    "group": "Ih",
+    "tolerance": 0.000001,
+    "sites": [
+      {
+        "id": "X0",
+        "kind": "X",
+        "position": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "id": "X1",
+        "kind": "X",
+        "position": [
+          0.85065080835204,
+          -0.276393202250021,
+          0.447213595499958
+        ]
+      },
+      {
+        "id": "X2",
+        "kind": "X",
+        "position": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "id": "X3",
+        "kind": "X",
+        "position": [
+          0.5257311121191337,
+          0.7236067977499789,
+          0.447213595499958
+        ]
+      },
+      {
+        "id": "X4",
+        "kind": "X",
+        "position": [
+          -0.85065080835204,
+          0.276393202250021,
+          -0.447213595499958
+        ]
+      },
+      {
+        "id": "X5",
+        "kind": "X",
+        "position": [
+          -0.5257311121191335,
+          0.7236067977499792,
+          0.447213595499958
+        ]
+      },
+      {
+        "id": "X6",
+        "kind": "X",
+        "position": [
+          -0.5257311121191337,
+          -0.7236067977499789,
+          -0.447213595499958
+        ]
+      },
+      {
+        "id": "X7",
+        "kind": "X",
+        "position": [
+          -0.8506508083520401,
+          -0.2763932022500208,
+          0.447213595499958
+        ]
+      },
+      {
+        "id": "X8",
+        "kind": "X",
+        "position": [
+          0,
+          -0.8944271909999159,
+          0.4472135954999583
+        ]
+      },
+      {
+        "id": "X9",
+        "kind": "X",
+        "position": [
+          0.5257311121191335,
+          -0.7236067977499792,
+          -0.447213595499958
+        ]
+      },
+      {
+        "id": "X10",
+        "kind": "X",
+        "position": [
+          0.8506508083520401,
+          0.2763932022500208,
+          -0.447213595499958
+        ]
+      },
+      {
+        "id": "X11",
+        "kind": "X",
+        "position": [
+          0,
+          0.8944271909999159,
+          -0.4472135954999583
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "id": "X0:s:s",
+        "site": "X0",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X0 s"
+      },
+      {
+        "id": "X1:s:s",
+        "site": "X1",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X1 s"
+      },
+      {
+        "id": "X2:s:s",
+        "site": "X2",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X2 s"
+      },
+      {
+        "id": "X3:s:s",
+        "site": "X3",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X3 s"
+      },
+      {
+        "id": "X4:s:s",
+        "site": "X4",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X4 s"
+      },
+      {
+        "id": "X5:s:s",
+        "site": "X5",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X5 s"
+      },
+      {
+        "id": "X6:s:s",
+        "site": "X6",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X6 s"
+      },
+      {
+        "id": "X7:s:s",
+        "site": "X7",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X7 s"
+      },
+      {
+        "id": "X8:s:s",
+        "site": "X8",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X8 s"
+      },
+      {
+        "id": "X9:s:s",
+        "site": "X9",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X9 s"
+      },
+      {
+        "id": "X10:s:s",
+        "site": "X10",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X10 s"
+      },
+      {
+        "id": "X11:s:s",
+        "site": "X11",
+        "radial": "s",
+        "family": "s",
+        "direction": null,
+        "batch": "X s",
+        "label": "X11 s"
+      }
+    ],
+    "note": "单位球面上的正二十面体 12 个顶点；每个顶点一个 s 函数。"
+  }
+}

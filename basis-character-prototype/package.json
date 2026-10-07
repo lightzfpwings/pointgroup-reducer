@@ -1,0 +1,7 @@
+{
+  "name": "basis-character-prototype",
+  "version": "0.4.2",
+  "private": true,
+  "description": "Trilingual offline basis characters and irreducible reduction",
+  "scripts": {"test": "node --test tests/*.test.js"}
+}

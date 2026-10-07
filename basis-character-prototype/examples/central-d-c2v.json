@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "application": "basis-character-prototype",
+  "version": "0.3.0",
+  "input": {
+    "schemaVersion": 1,
+    "group": "C2v",
+    "tolerance": 0.000001,
+    "sites": [
+      {
+        "id": "M0",
+        "kind": "M",
+        "position": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "id": "M0:3d:dxy",
+        "site": "M0",
+        "radial": "3d",
+        "family": "d",
+        "component": "dxy",
+        "frame": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "batch": "M dxy",
+        "label": "M0 3dxy"
+      },
+      {
+        "id": "M0:3d:dxz",
+        "site": "M0",
+        "radial": "3d",
+        "family": "d",
+        "component": "dxz",
+        "frame": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "batch": "M dxz",
+        "label": "M0 3dxz"
+      },
+      {
+        "id": "M0:3d:dyz",
+        "site": "M0",
+        "radial": "3d",
+        "family": "d",
+        "component": "dyz",
+        "frame": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "batch": "M dyz",
+        "label": "M0 3dyz"
+      },
+      {
+        "id": "M0:3d:dx2-y2",
+        "site": "M0",
+        "radial": "3d",
+        "family": "d",
+        "component": "dx2-y2",
+        "frame": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "batch": "M dx2-y2",
+        "label": "M0 3dx2-y2"
+      },
+      {
+        "id": "M0:3d:dz2",
+        "site": "M0",
+        "radial": "3d",
+        "family": "d",
+        "component": "dz2",
+        "frame": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "batch": "M dz2",
+        "label": "M0 3dz2"
+      }
+    ],
+    "note": "教学几何；只定义对称变换，不计算能量。"
+  }
+}

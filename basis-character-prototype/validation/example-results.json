@@ -1,0 +1,3556 @@
+[
+  {
+    "name": "benzene",
+    "version": "0.4.1",
+    "dimension": 30,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20
+        ],
+        "functionIds": [
+          "C0:2s:s",
+          "C1:2s:s",
+          "C2:2s:s",
+          "C3:2s:s",
+          "C4:2s:s",
+          "C5:2s:s"
+        ],
+        "batches": [
+          "C 2s"
+        ],
+        "dimension": 6,
+        "characters": [
+          6,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          6,
+          0,
+          2
+        ]
+      },
+      {
+        "id": "block-2",
+        "indices": [
+          1,
+          2,
+          5,
+          6,
+          9,
+          10,
+          13,
+          14,
+          17,
+          18,
+          21,
+          22
+        ],
+        "functionIds": [
+          "C0:2p:px",
+          "C0:2p:py",
+          "C1:2p:px",
+          "C1:2p:py",
+          "C2:2p:px",
+          "C2:2p:py",
+          "C3:2p:px",
+          "C3:2p:py",
+          "C4:2p:px",
+          "C4:2p:py",
+          "C5:2p:px",
+          "C5:2p:py"
+        ],
+        "batches": [
+          "C 2px",
+          "C 2py"
+        ],
+        "dimension": 12,
+        "characters": [
+          12,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "block-3",
+        "indices": [
+          3,
+          7,
+          11,
+          15,
+          19,
+          23
+        ],
+        "functionIds": [
+          "C0:2p:pz",
+          "C1:2p:pz",
+          "C2:2p:pz",
+          "C3:2p:pz",
+          "C4:2p:pz",
+          "C5:2p:pz"
+        ],
+        "batches": [
+          "C 2pz"
+        ],
+        "dimension": 6,
+        "characters": [
+          6,
+          0,
+          0,
+          0,
+          -2,
+          0,
+          0,
+          0,
+          0,
+          -6,
+          0,
+          2
+        ]
+      },
+      {
+        "id": "block-4",
+        "indices": [
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "functionIds": [
+          "H0:1s:s",
+          "H1:1s:s",
+          "H2:1s:s",
+          "H3:1s:s",
+          "H4:1s:s",
+          "H5:1s:s"
+        ],
+        "batches": [
+          "H 1s"
+        ],
+        "dimension": 6,
+        "characters": [
+          6,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          6,
+          0,
+          2
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "D6h:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "D6h:class:1",
+        "label": "C₆",
+        "display": "2C₆",
+        "size": 2,
+        "operationIndexes": [
+          1,
+          14
+        ],
+        "representative": 1
+      },
+      {
+        "id": "D6h:class:2",
+        "label": "C₃",
+        "display": "2C₃",
+        "size": 2,
+        "operationIndexes": [
+          4,
+          16
+        ],
+        "representative": 4
+      },
+      {
+        "id": "D6h:class:3",
+        "label": "C₂(z)",
+        "display": "C₂(z)",
+        "size": 1,
+        "operationIndexes": [
+          9
+        ],
+        "representative": 9
+      },
+      {
+        "id": "D6h:class:4",
+        "label": "C₂′",
+        "display": "3C₂′",
+        "size": 3,
+        "operationIndexes": [
+          2,
+          10,
+          13
+        ],
+        "representative": 2
+      },
+      {
+        "id": "D6h:class:5",
+        "label": "C₂″",
+        "display": "3C₂″",
+        "size": 3,
+        "operationIndexes": [
+          5,
+          7,
+          17
+        ],
+        "representative": 5
+      },
+      {
+        "id": "D6h:class:6",
+        "label": "i",
+        "display": "i",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      },
+      {
+        "id": "D6h:class:7",
+        "label": "S₃",
+        "display": "2S₃",
+        "size": 2,
+        "operationIndexes": [
+          6,
+          21
+        ],
+        "representative": 6
+      },
+      {
+        "id": "D6h:class:8",
+        "label": "S₆",
+        "display": "2S₆",
+        "size": 2,
+        "operationIndexes": [
+          11,
+          22
+        ],
+        "representative": 11
+      },
+      {
+        "id": "D6h:class:9",
+        "label": "σₕ(xy)",
+        "display": "σₕ(xy)",
+        "size": 1,
+        "operationIndexes": [
+          18
+        ],
+        "representative": 18
+      },
+      {
+        "id": "D6h:class:10",
+        "label": "σᵈ",
+        "display": "3σᵈ",
+        "size": 3,
+        "operationIndexes": [
+          8,
+          19,
+          20
+        ],
+        "representative": 8
+      },
+      {
+        "id": "D6h:class:11",
+        "label": "σᵥ",
+        "display": "3σᵥ",
+        "size": 3,
+        "operationIndexes": [
+          12,
+          15,
+          23
+        ],
+        "representative": 12
+      }
+    ],
+    "totalCharacters": [
+      30,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      18,
+      0,
+      6
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "D6h",
+      "classes": [
+        "E",
+        "C6",
+        "C3",
+        "C2",
+        "C2'(x)",
+        "C2''(phi=pi/6)",
+        "i",
+        "S3^5",
+        "S6^5",
+        "sigma_h(xy)",
+        "sigma_d(yz)",
+        "sigma_v(phi=2*pi/3)"
+      ],
+      "class_sizes": [
+        1,
+        2,
+        2,
+        1,
+        3,
+        3,
+        1,
+        2,
+        2,
+        1,
+        3,
+        3
+      ],
+      "irreps": [
+        "A1g",
+        "A2g",
+        "B1g",
+        "B2g",
+        "E1g",
+        "E2g",
+        "A1u",
+        "A2u",
+        "B1u",
+        "B2u",
+        "E1u",
+        "E2u"
+      ],
+      "total": {
+        "point_group": "D6h",
+        "c": [
+          30,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          18,
+          0,
+          6
+        ],
+        "a": [
+          3,
+          1,
+          0,
+          1,
+          1,
+          4,
+          0,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "integer_a": [
+          3,
+          1,
+          0,
+          1,
+          1,
+          4,
+          0,
+          1,
+          3,
+          1,
+          4,
+          1
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          30,
+          3.1086244689504383e-15,
+          -2.6645352591003757e-15,
+          0,
+          2,
+          0,
+          0,
+          4.440892098500626e-16,
+          -4.440892098500626e-15,
+          18,
+          0,
+          6
+        ],
+        "residual": 4.440892098500626e-15,
+        "integer_residual": 4.440892098500626e-15,
+        "dimension": 30,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "A1g",
+            "multiplicity": 3,
+            "dimension": 1
+          },
+          {
+            "irrep": "A2g",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B2g",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "E1g",
+            "multiplicity": 1,
+            "dimension": 2
+          },
+          {
+            "irrep": "E2g",
+            "multiplicity": 4,
+            "dimension": 2
+          },
+          {
+            "irrep": "A2u",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B1u",
+            "multiplicity": 3,
+            "dimension": 1
+          },
+          {
+            "irrep": "B2u",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "E1u",
+            "multiplicity": 4,
+            "dimension": 2
+          },
+          {
+            "irrep": "E2u",
+            "multiplicity": 1,
+            "dimension": 2
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "C 2s",
+          "dimension": 6,
+          "c": [
+            6,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            2
+          ],
+          "point_group": "D6h",
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            6,
+            6.661338147750939e-16,
+            -4.440892098500626e-16,
+            0,
+            2,
+            0,
+            0,
+            2.220446049250313e-16,
+            -1.3322676295501878e-15,
+            6,
+            0,
+            2
+          ],
+          "residual": 1.3322676295501878e-15,
+          "integer_residual": 1.3322676295501878e-15,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1g",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E2g",
+              "multiplicity": 1,
+              "dimension": 2
+            },
+            {
+              "irrep": "B1u",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E1u",
+              "multiplicity": 1,
+              "dimension": 2
+            }
+          ]
+        },
+        {
+          "id": "block-2",
+          "label": "C 2px + C 2py",
+          "dimension": 12,
+          "c": [
+            12,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            12,
+            0,
+            0
+          ],
+          "point_group": "D6h",
+          "a": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            0
+          ],
+          "integer_a": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            1,
+            1,
+            2,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            12,
+            1.3322676295501878e-15,
+            -8.881784197001252e-16,
+            0,
+            0,
+            0,
+            0,
+            4.440892098500626e-16,
+            -2.6645352591003757e-15,
+            12,
+            0,
+            0
+          ],
+          "residual": 2.6645352591003757e-15,
+          "integer_residual": 2.6645352591003757e-15,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1g",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "A2g",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E2g",
+              "multiplicity": 2,
+              "dimension": 2
+            },
+            {
+              "irrep": "B1u",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "B2u",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E1u",
+              "multiplicity": 2,
+              "dimension": 2
+            }
+          ]
+        },
+        {
+          "id": "block-3",
+          "label": "C 2pz",
+          "dimension": 6,
+          "c": [
+            6,
+            0,
+            0,
+            0,
+            -2,
+            0,
+            0,
+            0,
+            0,
+            -6,
+            0,
+            2
+          ],
+          "point_group": "D6h",
+          "a": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "integer_a": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            6,
+            6.661338147750939e-16,
+            -4.440892098500626e-16,
+            0,
+            -2,
+            0,
+            0,
+            -2.220446049250313e-16,
+            1.3322676295501878e-15,
+            -6,
+            0,
+            2
+          ],
+          "residual": 1.3322676295501878e-15,
+          "integer_residual": 1.3322676295501878e-15,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "B2g",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E1g",
+              "multiplicity": 1,
+              "dimension": 2
+            },
+            {
+              "irrep": "A2u",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E2u",
+              "multiplicity": 1,
+              "dimension": 2
+            }
+          ]
+        },
+        {
+          "id": "block-4",
+          "label": "H 1s",
+          "dimension": 6,
+          "c": [
+            6,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            6,
+            0,
+            2
+          ],
+          "point_group": "D6h",
+          "a": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            6,
+            6.661338147750939e-16,
+            -4.440892098500626e-16,
+            0,
+            2,
+            0,
+            0,
+            2.220446049250313e-16,
+            -1.3322676295501878e-15,
+            6,
+            0,
+            2
+          ],
+          "residual": 1.3322676295501878e-15,
+          "integer_residual": 1.3322676295501878e-15,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1g",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E2g",
+              "multiplicity": 1,
+              "dimension": 2
+            },
+            {
+              "irrep": "B1u",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "E1u",
+              "multiplicity": 1,
+              "dimension": 2
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "D6h:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C6",
+          "source_index": 1,
+          "source_class_id": "D6h:class:1"
+        },
+        {
+          "target_index": 2,
+          "target_class": "C3",
+          "source_index": 2,
+          "source_class_id": "D6h:class:2"
+        },
+        {
+          "target_index": 3,
+          "target_class": "C2",
+          "source_index": 3,
+          "source_class_id": "D6h:class:3"
+        },
+        {
+          "target_index": 4,
+          "target_class": "C2'(x)",
+          "source_index": 4,
+          "source_class_id": "D6h:class:4"
+        },
+        {
+          "target_index": 5,
+          "target_class": "C2''(phi=pi/6)",
+          "source_index": 5,
+          "source_class_id": "D6h:class:5"
+        },
+        {
+          "target_index": 6,
+          "target_class": "i",
+          "source_index": 6,
+          "source_class_id": "D6h:class:6"
+        },
+        {
+          "target_index": 7,
+          "target_class": "S3^5",
+          "source_index": 7,
+          "source_class_id": "D6h:class:7"
+        },
+        {
+          "target_index": 8,
+          "target_class": "S6^5",
+          "source_index": 8,
+          "source_class_id": "D6h:class:8"
+        },
+        {
+          "target_index": 9,
+          "target_class": "sigma_h(xy)",
+          "source_index": 9,
+          "source_class_id": "D6h:class:9"
+        },
+        {
+          "target_index": 10,
+          "target_class": "sigma_d(yz)",
+          "source_index": 10,
+          "source_class_id": "D6h:class:10"
+        },
+        {
+          "target_index": 11,
+          "target_class": "sigma_v(phi=2*pi/3)",
+          "source_index": 11,
+          "source_class_id": "D6h:class:11"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 24,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 3.885780586188048e-16,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "water",
+    "version": "0.4.1",
+    "dimension": 2,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0,
+          1
+        ],
+        "functionIds": [
+          "H0:1s:s",
+          "H1:1s:s"
+        ],
+        "batches": [
+          "H 1s"
+        ],
+        "dimension": 2,
+        "characters": [
+          2,
+          0,
+          2,
+          0
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "C2v:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "C2v:class:1",
+        "label": "C₂(z)",
+        "display": "C₂(z)",
+        "size": 1,
+        "operationIndexes": [
+          1
+        ],
+        "representative": 1
+      },
+      {
+        "id": "C2v:class:2",
+        "label": "σᵥ(xz)",
+        "display": "σᵥ(xz)",
+        "size": 1,
+        "operationIndexes": [
+          2
+        ],
+        "representative": 2
+      },
+      {
+        "id": "C2v:class:3",
+        "label": "σᵥ(yz)",
+        "display": "σᵥ(yz)",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      }
+    ],
+    "totalCharacters": [
+      2,
+      0,
+      2,
+      0
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "C2v",
+      "classes": [
+        "E",
+        "C2",
+        "sigma_v(xz)",
+        "sigma_v(yz)"
+      ],
+      "class_sizes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "irreps": [
+        "A1",
+        "A2",
+        "B1",
+        "B2"
+      ],
+      "total": {
+        "point_group": "C2v",
+        "c": [
+          2,
+          0,
+          2,
+          0
+        ],
+        "a": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "integer_a": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          2,
+          0,
+          2,
+          0
+        ],
+        "residual": 0,
+        "integer_residual": 0,
+        "dimension": 2,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "A1",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B1",
+            "multiplicity": 1,
+            "dimension": 1
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "H 1s",
+          "dimension": 2,
+          "c": [
+            2,
+            0,
+            2,
+            0
+          ],
+          "point_group": "C2v",
+          "a": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            2,
+            0,
+            2,
+            0
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "B1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "C2v:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C2",
+          "source_index": 1,
+          "source_class_id": "C2v:class:1"
+        },
+        {
+          "target_index": 2,
+          "target_class": "sigma_v(xz)",
+          "source_index": 2,
+          "source_class_id": "C2v:class:2"
+        },
+        {
+          "target_index": 3,
+          "target_class": "sigma_v(yz)",
+          "source_index": 3,
+          "source_class_id": "C2v:class:3"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 4,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 0,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "central-c2v",
+    "version": "0.4.1",
+    "dimension": 3,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0
+        ],
+        "functionIds": [
+          "X0:p:px"
+        ],
+        "batches": [
+          "X px"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          -1,
+          1,
+          -1
+        ]
+      },
+      {
+        "id": "block-2",
+        "indices": [
+          1
+        ],
+        "functionIds": [
+          "X0:p:py"
+        ],
+        "batches": [
+          "X py"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          -1,
+          -1,
+          1
+        ]
+      },
+      {
+        "id": "block-3",
+        "indices": [
+          2
+        ],
+        "functionIds": [
+          "X0:p:pz"
+        ],
+        "batches": [
+          "X pz"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "C2v:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "C2v:class:1",
+        "label": "C₂(z)",
+        "display": "C₂(z)",
+        "size": 1,
+        "operationIndexes": [
+          1
+        ],
+        "representative": 1
+      },
+      {
+        "id": "C2v:class:2",
+        "label": "σᵥ(xz)",
+        "display": "σᵥ(xz)",
+        "size": 1,
+        "operationIndexes": [
+          2
+        ],
+        "representative": 2
+      },
+      {
+        "id": "C2v:class:3",
+        "label": "σᵥ(yz)",
+        "display": "σᵥ(yz)",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      }
+    ],
+    "totalCharacters": [
+      3,
+      -1,
+      1,
+      1
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "C2v",
+      "classes": [
+        "E",
+        "C2",
+        "sigma_v(xz)",
+        "sigma_v(yz)"
+      ],
+      "class_sizes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "irreps": [
+        "A1",
+        "A2",
+        "B1",
+        "B2"
+      ],
+      "total": {
+        "point_group": "C2v",
+        "c": [
+          3,
+          -1,
+          1,
+          1
+        ],
+        "a": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "integer_a": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          3,
+          -1,
+          1,
+          1
+        ],
+        "residual": 0,
+        "integer_residual": 0,
+        "dimension": 3,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "A1",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B1",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B2",
+            "multiplicity": 1,
+            "dimension": 1
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "X px",
+          "dimension": 1,
+          "c": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "point_group": "C2v",
+          "a": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "B1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-2",
+          "label": "X py",
+          "dimension": 1,
+          "c": [
+            1,
+            -1,
+            -1,
+            1
+          ],
+          "point_group": "C2v",
+          "a": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "integer_a": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            -1,
+            -1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "B2",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-3",
+          "label": "X pz",
+          "dimension": 1,
+          "c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "point_group": "C2v",
+          "a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "C2v:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C2",
+          "source_index": 1,
+          "source_class_id": "C2v:class:1"
+        },
+        {
+          "target_index": 2,
+          "target_class": "sigma_v(xz)",
+          "source_index": 2,
+          "source_class_id": "C2v:class:2"
+        },
+        {
+          "target_index": 3,
+          "target_class": "sigma_v(yz)",
+          "source_index": 3,
+          "source_class_id": "C2v:class:3"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 4,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 0,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "central-oh",
+    "version": "0.4.1",
+    "dimension": 3,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0,
+          1,
+          2
+        ],
+        "functionIds": [
+          "X0:p:px",
+          "X0:p:py",
+          "X0:p:pz"
+        ],
+        "batches": [
+          "X px",
+          "X py",
+          "X pz"
+        ],
+        "dimension": 3,
+        "characters": [
+          3,
+          1,
+          0,
+          -3,
+          -1,
+          -1,
+          -1,
+          0,
+          1,
+          1
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "Oh:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "Oh:class:1",
+        "label": "C₄",
+        "display": "6C₄",
+        "size": 6,
+        "operationIndexes": [
+          1,
+          10,
+          13,
+          17,
+          19,
+          25
+        ],
+        "representative": 1
+      },
+      {
+        "id": "Oh:class:2",
+        "label": "C₃",
+        "display": "8C₃",
+        "size": 8,
+        "operationIndexes": [
+          2,
+          8,
+          11,
+          15,
+          21,
+          23,
+          26,
+          28
+        ],
+        "representative": 2
+      },
+      {
+        "id": "Oh:class:3",
+        "label": "i",
+        "display": "i",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      },
+      {
+        "id": "Oh:class:4",
+        "label": "C₂(坐标轴)",
+        "display": "3C₂(坐标轴)",
+        "size": 3,
+        "operationIndexes": [
+          4,
+          37,
+          39
+        ],
+        "representative": 4
+      },
+      {
+        "id": "Oh:class:5",
+        "label": "C₂(棱轴)",
+        "display": "6C₂(棱轴)",
+        "size": 6,
+        "operationIndexes": [
+          5,
+          7,
+          31,
+          33,
+          35,
+          42
+        ],
+        "representative": 5
+      },
+      {
+        "id": "Oh:class:6",
+        "label": "i·C₄",
+        "display": "6i·C₄",
+        "size": 6,
+        "operationIndexes": [
+          6,
+          20,
+          24,
+          29,
+          30,
+          36
+        ],
+        "representative": 6
+      },
+      {
+        "id": "Oh:class:7",
+        "label": "i·C₃",
+        "display": "8i·C₃",
+        "size": 8,
+        "operationIndexes": [
+          9,
+          18,
+          22,
+          27,
+          32,
+          34,
+          38,
+          40
+        ],
+        "representative": 9
+      },
+      {
+        "id": "Oh:class:8",
+        "label": "i·C₂(坐标轴)",
+        "display": "3i·C₂(坐标轴)",
+        "size": 3,
+        "operationIndexes": [
+          12,
+          45,
+          46
+        ],
+        "representative": 12
+      },
+      {
+        "id": "Oh:class:9",
+        "label": "i·C₂(棱轴)",
+        "display": "6i·C₂(棱轴)",
+        "size": 6,
+        "operationIndexes": [
+          14,
+          16,
+          41,
+          43,
+          44,
+          47
+        ],
+        "representative": 14
+      }
+    ],
+    "totalCharacters": [
+      3,
+      1,
+      0,
+      -3,
+      -1,
+      -1,
+      -1,
+      0,
+      1,
+      1
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "Oh",
+      "classes": [
+        "E",
+        "C3",
+        "C2",
+        "C4",
+        "C2(edge)",
+        "i",
+        "S6^5",
+        "sigma_h",
+        "S4^3",
+        "sigma_d"
+      ],
+      "class_sizes": [
+        1,
+        8,
+        3,
+        6,
+        6,
+        1,
+        8,
+        3,
+        6,
+        6
+      ],
+      "irreps": [
+        "A1g",
+        "A2g",
+        "Eg",
+        "T1g",
+        "T2g",
+        "A1u",
+        "A2u",
+        "Eu",
+        "T1u",
+        "T2u"
+      ],
+      "total": {
+        "point_group": "Oh",
+        "c": [
+          3,
+          0,
+          -1,
+          1,
+          -1,
+          -3,
+          0,
+          1,
+          -1,
+          1
+        ],
+        "a": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "integer_a": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          3,
+          0,
+          -1,
+          1,
+          -1,
+          -3,
+          0,
+          1,
+          -1,
+          1
+        ],
+        "residual": 0,
+        "integer_residual": 0,
+        "dimension": 3,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "T1u",
+            "multiplicity": 1,
+            "dimension": 3
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "X px + X py + X pz",
+          "dimension": 3,
+          "c": [
+            3,
+            0,
+            -1,
+            1,
+            -1,
+            -3,
+            0,
+            1,
+            -1,
+            1
+          ],
+          "point_group": "Oh",
+          "a": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            3,
+            0,
+            -1,
+            1,
+            -1,
+            -3,
+            0,
+            1,
+            -1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "T1u",
+              "multiplicity": 1,
+              "dimension": 3
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "Oh:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C3",
+          "source_index": 2,
+          "source_class_id": "Oh:class:2"
+        },
+        {
+          "target_index": 2,
+          "target_class": "C2",
+          "source_index": 4,
+          "source_class_id": "Oh:class:4"
+        },
+        {
+          "target_index": 3,
+          "target_class": "C4",
+          "source_index": 1,
+          "source_class_id": "Oh:class:1"
+        },
+        {
+          "target_index": 4,
+          "target_class": "C2(edge)",
+          "source_index": 5,
+          "source_class_id": "Oh:class:5"
+        },
+        {
+          "target_index": 5,
+          "target_class": "i",
+          "source_index": 3,
+          "source_class_id": "Oh:class:3"
+        },
+        {
+          "target_index": 6,
+          "target_class": "S6^5",
+          "source_index": 7,
+          "source_class_id": "Oh:class:7"
+        },
+        {
+          "target_index": 7,
+          "target_class": "sigma_h",
+          "source_index": 8,
+          "source_class_id": "Oh:class:8"
+        },
+        {
+          "target_index": 8,
+          "target_class": "S4^3",
+          "source_index": 6,
+          "source_class_id": "Oh:class:6"
+        },
+        {
+          "target_index": 9,
+          "target_class": "sigma_d",
+          "source_index": 9,
+          "source_class_id": "Oh:class:9"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 48,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 0,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "icosahedron",
+    "version": "0.4.1",
+    "dimension": 12,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "functionIds": [
+          "X0:s:s",
+          "X1:s:s",
+          "X2:s:s",
+          "X3:s:s",
+          "X4:s:s",
+          "X5:s:s",
+          "X6:s:s",
+          "X7:s:s",
+          "X8:s:s",
+          "X9:s:s",
+          "X10:s:s",
+          "X11:s:s"
+        ],
+        "batches": [
+          "X s"
+        ],
+        "dimension": 12,
+        "characters": [
+          12,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          4
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "Ih:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "Ih:class:1",
+        "label": "C₅",
+        "display": "12C₅",
+        "size": 12,
+        "operationIndexes": [
+          1,
+          13,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          27,
+          29,
+          31,
+          32
+        ],
+        "representative": 1
+      },
+      {
+        "id": "Ih:class:2",
+        "label": "C₃",
+        "display": "20C₃",
+        "size": 20,
+        "operationIndexes": [
+          2,
+          8,
+          11,
+          15,
+          34,
+          36,
+          38,
+          39,
+          41,
+          63,
+          66,
+          67,
+          71,
+          73,
+          76,
+          80,
+          82,
+          84,
+          91,
+          92
+        ],
+        "representative": 2
+      },
+      {
+        "id": "Ih:class:3",
+        "label": "i",
+        "display": "i",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      },
+      {
+        "id": "Ih:class:4",
+        "label": "C₅²",
+        "display": "12C₅²",
+        "size": 12,
+        "operationIndexes": [
+          4,
+          10,
+          43,
+          46,
+          57,
+          59,
+          69,
+          78,
+          86,
+          89,
+          94,
+          96
+        ],
+        "representative": 4
+      },
+      {
+        "id": "Ih:class:5",
+        "label": "C₂",
+        "display": "15C₂",
+        "size": 15,
+        "operationIndexes": [
+          5,
+          7,
+          48,
+          50,
+          52,
+          53,
+          55,
+          61,
+          100,
+          102,
+          104,
+          106,
+          108,
+          110,
+          113
+        ],
+        "representative": 5
+      },
+      {
+        "id": "Ih:class:6",
+        "label": "i·C₅",
+        "display": "12i·C₅",
+        "size": 12,
+        "operationIndexes": [
+          6,
+          25,
+          30,
+          33,
+          35,
+          37,
+          40,
+          42,
+          44,
+          45,
+          47,
+          49
+        ],
+        "representative": 6
+      },
+      {
+        "id": "Ih:class:7",
+        "label": "i·C₃",
+        "display": "20i·C₃",
+        "size": 20,
+        "operationIndexes": [
+          9,
+          19,
+          23,
+          28,
+          51,
+          54,
+          56,
+          58,
+          60,
+          81,
+          83,
+          85,
+          88,
+          90,
+          93,
+          97,
+          98,
+          99,
+          105,
+          107
+        ],
+        "representative": 9
+      },
+      {
+        "id": "Ih:class:8",
+        "label": "i·C₅²",
+        "display": "12i·C₅²",
+        "size": 12,
+        "operationIndexes": [
+          12,
+          21,
+          62,
+          64,
+          75,
+          77,
+          87,
+          95,
+          101,
+          103,
+          109,
+          111
+        ],
+        "representative": 12
+      },
+      {
+        "id": "Ih:class:9",
+        "label": "i·C₂",
+        "display": "15i·C₂",
+        "size": 15,
+        "operationIndexes": [
+          14,
+          17,
+          65,
+          68,
+          70,
+          72,
+          74,
+          79,
+          112,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119
+        ],
+        "representative": 14
+      }
+    ],
+    "totalCharacters": [
+      12,
+      2,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      4
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "Ih",
+      "classes": [
+        "E",
+        "C5",
+        "C5^2",
+        "C3",
+        "C2",
+        "i",
+        "S10^7",
+        "S10^9",
+        "S6^5",
+        "sigma"
+      ],
+      "class_sizes": [
+        1,
+        12,
+        12,
+        20,
+        15,
+        1,
+        12,
+        12,
+        20,
+        15
+      ],
+      "irreps": [
+        "Ag",
+        "T1g",
+        "T2g",
+        "Gg",
+        "Hg",
+        "Au",
+        "T1u",
+        "T2u",
+        "Gu",
+        "Hu"
+      ],
+      "total": {
+        "point_group": "Ih",
+        "c": [
+          12,
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4
+        ],
+        "a": [
+          1,
+          1.1102230246251565e-16,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "integer_a": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          12,
+          2,
+          2,
+          0,
+          0,
+          0,
+          2.220446049250313e-16,
+          0,
+          0,
+          4
+        ],
+        "residual": 2.220446049250313e-16,
+        "integer_residual": 0,
+        "dimension": 12,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "Ag",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "Hg",
+            "multiplicity": 1,
+            "dimension": 5
+          },
+          {
+            "irrep": "T1u",
+            "multiplicity": 1,
+            "dimension": 3
+          },
+          {
+            "irrep": "T2u",
+            "multiplicity": 1,
+            "dimension": 3
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "X s",
+          "dimension": 12,
+          "c": [
+            12,
+            2,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4
+          ],
+          "point_group": "Ih",
+          "a": [
+            1,
+            1.1102230246251565e-16,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            12,
+            2,
+            2,
+            0,
+            0,
+            0,
+            2.220446049250313e-16,
+            0,
+            0,
+            4
+          ],
+          "residual": 2.220446049250313e-16,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "Ag",
+              "multiplicity": 1,
+              "dimension": 1
+            },
+            {
+              "irrep": "Hg",
+              "multiplicity": 1,
+              "dimension": 5
+            },
+            {
+              "irrep": "T1u",
+              "multiplicity": 1,
+              "dimension": 3
+            },
+            {
+              "irrep": "T2u",
+              "multiplicity": 1,
+              "dimension": 3
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "Ih:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C5",
+          "source_index": 1,
+          "source_class_id": "Ih:class:1"
+        },
+        {
+          "target_index": 2,
+          "target_class": "C5^2",
+          "source_index": 4,
+          "source_class_id": "Ih:class:4"
+        },
+        {
+          "target_index": 3,
+          "target_class": "C3",
+          "source_index": 2,
+          "source_class_id": "Ih:class:2"
+        },
+        {
+          "target_index": 4,
+          "target_class": "C2",
+          "source_index": 5,
+          "source_class_id": "Ih:class:5"
+        },
+        {
+          "target_index": 5,
+          "target_class": "i",
+          "source_index": 3,
+          "source_class_id": "Ih:class:3"
+        },
+        {
+          "target_index": 6,
+          "target_class": "S10^7",
+          "source_index": 6,
+          "source_class_id": "Ih:class:6"
+        },
+        {
+          "target_index": 7,
+          "target_class": "S10^9",
+          "source_index": 8,
+          "source_class_id": "Ih:class:8"
+        },
+        {
+          "target_index": 8,
+          "target_class": "S6^5",
+          "source_index": 7,
+          "source_class_id": "Ih:class:7"
+        },
+        {
+          "target_index": 9,
+          "target_class": "sigma",
+          "source_index": 9,
+          "source_class_id": "Ih:class:9"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 120,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 0,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "central-d-c2v",
+    "version": "0.4.1",
+    "dimension": 5,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0
+        ],
+        "functionIds": [
+          "M0:3d:dxy"
+        ],
+        "batches": [
+          "M dxy"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          1,
+          -1,
+          -1
+        ]
+      },
+      {
+        "id": "block-2",
+        "indices": [
+          1
+        ],
+        "functionIds": [
+          "M0:3d:dxz"
+        ],
+        "batches": [
+          "M dxz"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          -1,
+          1,
+          -1
+        ]
+      },
+      {
+        "id": "block-3",
+        "indices": [
+          2
+        ],
+        "functionIds": [
+          "M0:3d:dyz"
+        ],
+        "batches": [
+          "M dyz"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          -1,
+          -1,
+          1
+        ]
+      },
+      {
+        "id": "block-4",
+        "indices": [
+          3
+        ],
+        "functionIds": [
+          "M0:3d:dx2-y2"
+        ],
+        "batches": [
+          "M dx2-y2"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "block-5",
+        "indices": [
+          4
+        ],
+        "functionIds": [
+          "M0:3d:dz2"
+        ],
+        "batches": [
+          "M dz2"
+        ],
+        "dimension": 1,
+        "characters": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "C2v:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "C2v:class:1",
+        "label": "C₂(z)",
+        "display": "C₂(z)",
+        "size": 1,
+        "operationIndexes": [
+          1
+        ],
+        "representative": 1
+      },
+      {
+        "id": "C2v:class:2",
+        "label": "σᵥ(xz)",
+        "display": "σᵥ(xz)",
+        "size": 1,
+        "operationIndexes": [
+          2
+        ],
+        "representative": 2
+      },
+      {
+        "id": "C2v:class:3",
+        "label": "σᵥ(yz)",
+        "display": "σᵥ(yz)",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      }
+    ],
+    "totalCharacters": [
+      5,
+      1,
+      1,
+      1
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "C2v",
+      "classes": [
+        "E",
+        "C2",
+        "sigma_v(xz)",
+        "sigma_v(yz)"
+      ],
+      "class_sizes": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "irreps": [
+        "A1",
+        "A2",
+        "B1",
+        "B2"
+      ],
+      "total": {
+        "point_group": "C2v",
+        "c": [
+          5,
+          1,
+          1,
+          1
+        ],
+        "a": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "integer_a": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          5,
+          1,
+          1,
+          1
+        ],
+        "residual": 0,
+        "integer_residual": 0,
+        "dimension": 5,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "A1",
+            "multiplicity": 2,
+            "dimension": 1
+          },
+          {
+            "irrep": "A2",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B1",
+            "multiplicity": 1,
+            "dimension": 1
+          },
+          {
+            "irrep": "B2",
+            "multiplicity": 1,
+            "dimension": 1
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "M dxy",
+          "dimension": 1,
+          "c": [
+            1,
+            1,
+            -1,
+            -1
+          ],
+          "point_group": "C2v",
+          "a": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "integer_a": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            1,
+            -1,
+            -1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A2",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-2",
+          "label": "M dxz",
+          "dimension": 1,
+          "c": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "point_group": "C2v",
+          "a": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "integer_a": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            -1,
+            1,
+            -1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "B1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-3",
+          "label": "M dyz",
+          "dimension": 1,
+          "c": [
+            1,
+            -1,
+            -1,
+            1
+          ],
+          "point_group": "C2v",
+          "a": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "integer_a": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            -1,
+            -1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "B2",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-4",
+          "label": "M dx2-y2",
+          "dimension": 1,
+          "c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "point_group": "C2v",
+          "a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        },
+        {
+          "id": "block-5",
+          "label": "M dz2",
+          "dimension": 1,
+          "c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "point_group": "C2v",
+          "a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "integer_a": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "A1",
+              "multiplicity": 1,
+              "dimension": 1
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "C2v:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C2",
+          "source_index": 1,
+          "source_class_id": "C2v:class:1"
+        },
+        {
+          "target_index": 2,
+          "target_class": "sigma_v(xz)",
+          "source_index": 2,
+          "source_class_id": "C2v:class:2"
+        },
+        {
+          "target_index": 3,
+          "target_class": "sigma_v(yz)",
+          "source_index": 3,
+          "source_class_id": "C2v:class:3"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 4,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 0,
+      "representationError": 0,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  },
+  {
+    "name": "central-d-oh",
+    "version": "0.4.1",
+    "dimension": 5,
+    "blocks": [
+      {
+        "id": "block-1",
+        "indices": [
+          0,
+          1,
+          2
+        ],
+        "functionIds": [
+          "M0:3d:dxy",
+          "M0:3d:dxz",
+          "M0:3d:dyz"
+        ],
+        "batches": [
+          "M dxy",
+          "M dxz",
+          "M dyz"
+        ],
+        "dimension": 3,
+        "characters": [
+          3,
+          -1,
+          0,
+          3,
+          -1,
+          1,
+          -1,
+          0,
+          -1,
+          1
+        ]
+      },
+      {
+        "id": "block-2",
+        "indices": [
+          3,
+          4
+        ],
+        "functionIds": [
+          "M0:3d:dx2-y2",
+          "M0:3d:dz2"
+        ],
+        "batches": [
+          "M dx2-y2",
+          "M dz2"
+        ],
+        "dimension": 2,
+        "characters": [
+          2,
+          0,
+          -1,
+          2,
+          2,
+          0,
+          0,
+          -1,
+          2,
+          0
+        ]
+      }
+    ],
+    "classes": [
+      {
+        "id": "Oh:class:0",
+        "label": "E",
+        "display": "E",
+        "size": 1,
+        "operationIndexes": [
+          0
+        ],
+        "representative": 0
+      },
+      {
+        "id": "Oh:class:1",
+        "label": "C₄",
+        "display": "6C₄",
+        "size": 6,
+        "operationIndexes": [
+          1,
+          10,
+          13,
+          17,
+          19,
+          25
+        ],
+        "representative": 1
+      },
+      {
+        "id": "Oh:class:2",
+        "label": "C₃",
+        "display": "8C₃",
+        "size": 8,
+        "operationIndexes": [
+          2,
+          8,
+          11,
+          15,
+          21,
+          23,
+          26,
+          28
+        ],
+        "representative": 2
+      },
+      {
+        "id": "Oh:class:3",
+        "label": "i",
+        "display": "i",
+        "size": 1,
+        "operationIndexes": [
+          3
+        ],
+        "representative": 3
+      },
+      {
+        "id": "Oh:class:4",
+        "label": "C₂(坐标轴)",
+        "display": "3C₂(坐标轴)",
+        "size": 3,
+        "operationIndexes": [
+          4,
+          37,
+          39
+        ],
+        "representative": 4
+      },
+      {
+        "id": "Oh:class:5",
+        "label": "C₂(棱轴)",
+        "display": "6C₂(棱轴)",
+        "size": 6,
+        "operationIndexes": [
+          5,
+          7,
+          31,
+          33,
+          35,
+          42
+        ],
+        "representative": 5
+      },
+      {
+        "id": "Oh:class:6",
+        "label": "i·C₄",
+        "display": "6i·C₄",
+        "size": 6,
+        "operationIndexes": [
+          6,
+          20,
+          24,
+          29,
+          30,
+          36
+        ],
+        "representative": 6
+      },
+      {
+        "id": "Oh:class:7",
+        "label": "i·C₃",
+        "display": "8i·C₃",
+        "size": 8,
+        "operationIndexes": [
+          9,
+          18,
+          22,
+          27,
+          32,
+          34,
+          38,
+          40
+        ],
+        "representative": 9
+      },
+      {
+        "id": "Oh:class:8",
+        "label": "i·C₂(坐标轴)",
+        "display": "3i·C₂(坐标轴)",
+        "size": 3,
+        "operationIndexes": [
+          12,
+          45,
+          46
+        ],
+        "representative": 12
+      },
+      {
+        "id": "Oh:class:9",
+        "label": "i·C₂(棱轴)",
+        "display": "6i·C₂(棱轴)",
+        "size": 6,
+        "operationIndexes": [
+          14,
+          16,
+          41,
+          43,
+          44,
+          47
+        ],
+        "representative": 14
+      }
+    ],
+    "totalCharacters": [
+      5,
+      -1,
+      -1,
+      5,
+      1,
+      1,
+      -1,
+      -1,
+      1,
+      1
+    ],
+    "reduction": {
+      "schemaVersion": 1,
+      "reductionIntegrated": true,
+      "point_group": "Oh",
+      "classes": [
+        "E",
+        "C3",
+        "C2",
+        "C4",
+        "C2(edge)",
+        "i",
+        "S6^5",
+        "sigma_h",
+        "S4^3",
+        "sigma_d"
+      ],
+      "class_sizes": [
+        1,
+        8,
+        3,
+        6,
+        6,
+        1,
+        8,
+        3,
+        6,
+        6
+      ],
+      "irreps": [
+        "A1g",
+        "A2g",
+        "Eg",
+        "T1g",
+        "T2g",
+        "A1u",
+        "A2u",
+        "Eu",
+        "T1u",
+        "T2u"
+      ],
+      "total": {
+        "point_group": "Oh",
+        "c": [
+          5,
+          -1,
+          1,
+          -1,
+          1,
+          5,
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "a": [
+          0,
+          0,
+          0.9999999999999999,
+          0,
+          1,
+          0,
+          0,
+          2.7755575615628914e-17,
+          0,
+          0
+        ],
+        "integer_a": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "valid": true,
+        "reconstructed_c": [
+          5,
+          -0.9999999999999999,
+          0.9999999999999998,
+          -1,
+          1,
+          5,
+          -0.9999999999999999,
+          0.9999999999999998,
+          -1,
+          1
+        ],
+        "residual": 2.220446049250313e-16,
+        "integer_residual": 0,
+        "dimension": 5,
+        "tolerance": 1e-7,
+        "terms": [
+          {
+            "irrep": "Eg",
+            "multiplicity": 1,
+            "dimension": 2
+          },
+          {
+            "irrep": "T2g",
+            "multiplicity": 1,
+            "dimension": 3
+          }
+        ]
+      },
+      "blocks": [
+        {
+          "id": "block-1",
+          "label": "M dxy + M dxz + M dyz",
+          "dimension": 3,
+          "c": [
+            3,
+            0,
+            -1,
+            -1,
+            1,
+            3,
+            0,
+            -1,
+            -1,
+            1
+          ],
+          "point_group": "Oh",
+          "a": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "integer_a": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            3,
+            0,
+            -1,
+            -1,
+            1,
+            3,
+            0,
+            -1,
+            -1,
+            1
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "T2g",
+              "multiplicity": 1,
+              "dimension": 3
+            }
+          ]
+        },
+        {
+          "id": "block-2",
+          "label": "M dx2-y2 + M dz2",
+          "dimension": 2,
+          "c": [
+            2,
+            -1,
+            2,
+            0,
+            0,
+            2,
+            -1,
+            2,
+            0,
+            0
+          ],
+          "point_group": "Oh",
+          "a": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "integer_a": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "valid": true,
+          "reconstructed_c": [
+            2,
+            -1,
+            2,
+            0,
+            0,
+            2,
+            -1,
+            2,
+            0,
+            0
+          ],
+          "residual": 0,
+          "integer_residual": 0,
+          "tolerance": 1e-7,
+          "terms": [
+            {
+              "irrep": "Eg",
+              "multiplicity": 1,
+              "dimension": 2
+            }
+          ]
+        }
+      ],
+      "mapping": [
+        {
+          "target_index": 0,
+          "target_class": "E",
+          "source_index": 0,
+          "source_class_id": "Oh:class:0"
+        },
+        {
+          "target_index": 1,
+          "target_class": "C3",
+          "source_index": 2,
+          "source_class_id": "Oh:class:2"
+        },
+        {
+          "target_index": 2,
+          "target_class": "C2",
+          "source_index": 4,
+          "source_class_id": "Oh:class:4"
+        },
+        {
+          "target_index": 3,
+          "target_class": "C4",
+          "source_index": 1,
+          "source_class_id": "Oh:class:1"
+        },
+        {
+          "target_index": 4,
+          "target_class": "C2(edge)",
+          "source_index": 5,
+          "source_class_id": "Oh:class:5"
+        },
+        {
+          "target_index": 5,
+          "target_class": "i",
+          "source_index": 3,
+          "source_class_id": "Oh:class:3"
+        },
+        {
+          "target_index": 6,
+          "target_class": "S6^5",
+          "source_index": 7,
+          "source_class_id": "Oh:class:7"
+        },
+        {
+          "target_index": 7,
+          "target_class": "sigma_h",
+          "source_index": 8,
+          "source_class_id": "Oh:class:8"
+        },
+        {
+          "target_index": 8,
+          "target_class": "S4^3",
+          "source_index": 6,
+          "source_class_id": "Oh:class:6"
+        },
+        {
+          "target_index": 9,
+          "target_class": "sigma_d",
+          "source_index": 9,
+          "source_class_id": "Oh:class:9"
+        }
+      ],
+      "provenance": {
+        "repository": "https://github.com/lightzfpwings/pointgroup-reducer",
+        "retrievedDate": "2026-10-07",
+        "sourceSHA256": {
+          "core.py": "faa5398ff2f51b30dfd68dce9e74e9d73433ce4437d15f67be87600f13ed5b08",
+          "exact_numbers.py": "14bbfd63cfe42fed7c1a335b026e3133d4a45ff6511eb6888a379af8edace0da",
+          "operation_labels.py": "80f8857ae9c75e1b2712c43d051fdfe2164fb266257790aaf013e9998630c326"
+        },
+        "basisScope": "87 shared finite groups; numeric characters; complete complex irreps"
+      }
+    },
+    "checks": {
+      "spatialGroupOrder": 48,
+      "positionBijections": true,
+      "basisClosed": true,
+      "basisIndependent": true,
+      "maxAngularResidual": 2.7755575615628914e-16,
+      "representationError": 4.440892098500626e-16,
+      "representationChecked": "identity and every generator times every operation",
+      "classTracesConsistent": true
+    }
+  }
+]

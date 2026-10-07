@@ -1,0 +1,30 @@
+✔ nine supported groups have expected orders and conjugacy class counts (5.463333ms)
+✔ D6h class order and multiplicities match documented convention (0.312167ms)
+✔ seed orbit distinguishes ring, origin and general positions (0.457417ms)
+✔ one s seed produces analytic benzene ring positions and trace (1.530667ms)
+✔ benzene four invariant spaces are derived from five input batches (4.199292ms)
+✔ water in xz gives two-H-s characters [2,0,2,0] (0.140667ms)
+✔ central C2v keeps three Cartesian p spaces independent (0.126292ms)
+✔ central Oh dynamically joins all three p directions (0.351666ms)
+✔ partial benzene px selection fails rather than projecting out py (0.8445ms)
+✔ partial central Oh px/py selection also fails closure (0.155292ms)
+✔ missing geometric image stops the calculation (0.106584ms)
+✔ site matching preserves element/equivalence kind (0.0905ms)
+✔ radial functions cannot be substituted merely by angular shape (0.468459ms)
+✔ duplicate s function is rejected (0.054709ms)
+✔ opposite p directions are linearly dependent, not another orbital (0.054208ms)
+✔ custom nonorthogonal complete p basis preserves full-shell trace (0.166875ms)
+✔ p phases and function/site ordering do not change characters (3.849667ms)
+✔ multiple equivalent radial copies retain all dimensions (0.10125ms)
+✔ every benzene representation product obeys the group law (10.11475ms)
+✔ project JSON roundtrip reconstructs matrices and classes (3.76975ms)
+✔ unsupported group, zero direction, bad tolerance and duplicate sites fail (0.125125ms)
+✔ every supported group yields a valid full central p representation (0.682375ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 71.177458

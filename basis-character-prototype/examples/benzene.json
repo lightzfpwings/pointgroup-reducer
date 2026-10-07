@@ -1,0 +1,465 @@
+{
+  "schemaVersion": 1,
+  "application": "basis-character-prototype",
+  "version": "0.2.0",
+  "input": {
+    "schemaVersion": 1,
+    "group": "D6h",
+    "tolerance": 0.000001,
+    "sites": [
+      {
+        "id": "C0",
+        "kind": "C",
+        "position": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C1",
+        "kind": "C",
+        "position": [
+          0.5000000000000001,
+          0.8660254037844386,
+          0
+        ]
+      },
+      {
+        "id": "C2",
+        "kind": "C",
+        "position": [
+          -0.4999999999999998,
+          0.8660254037844387,
+          0
+        ]
+      },
+      {
+        "id": "C3",
+        "kind": "C",
+        "position": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "C4",
+        "kind": "C",
+        "position": [
+          -0.5000000000000004,
+          -0.8660254037844385,
+          0
+        ]
+      },
+      {
+        "id": "C5",
+        "kind": "C",
+        "position": [
+          0.5000000000000001,
+          -0.8660254037844386,
+          0
+        ]
+      },
+      {
+        "id": "H0",
+        "kind": "H",
+        "position": [
+          1.75,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "H1",
+        "kind": "H",
+        "position": [
+          0.8750000000000002,
+          1.5155444566227676,
+          0
+        ]
+      },
+      {
+        "id": "H2",
+        "kind": "H",
+        "position": [
+          -0.8749999999999996,
+          1.5155444566227678,
+          0
+        ]
+      },
+      {
+        "id": "H3",
+        "kind": "H",
+        "position": [
+          -1.75,
+          0,
+          0
+        ]
+      },
+      {
+        "id": "H4",
+        "kind": "H",
+        "position": [
+          -0.8750000000000008,
+          -1.5155444566227674,
+          0
+        ]
+      },
+      {
+        "id": "H5",
+        "kind": "H",
+        "position": [
+          0.8750000000000002,
+          -1.5155444566227676,
+          0
+        ]
+      }
+    ],
+    "functions": [
+      {
+        "id": "C0:2s:s",
+        "site": "C0",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C0 2s"
+      },
+      {
+        "id": "C0:2p:px",
+        "site": "C0",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C0 2px"
+      },
+      {
+        "id": "C0:2p:py",
+        "site": "C0",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C0 2py"
+      },
+      {
+        "id": "C0:2p:pz",
+        "site": "C0",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C0 2pz"
+      },
+      {
+        "id": "C1:2s:s",
+        "site": "C1",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C1 2s"
+      },
+      {
+        "id": "C1:2p:px",
+        "site": "C1",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C1 2px"
+      },
+      {
+        "id": "C1:2p:py",
+        "site": "C1",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C1 2py"
+      },
+      {
+        "id": "C1:2p:pz",
+        "site": "C1",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C1 2pz"
+      },
+      {
+        "id": "C2:2s:s",
+        "site": "C2",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C2 2s"
+      },
+      {
+        "id": "C2:2p:px",
+        "site": "C2",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C2 2px"
+      },
+      {
+        "id": "C2:2p:py",
+        "site": "C2",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C2 2py"
+      },
+      {
+        "id": "C2:2p:pz",
+        "site": "C2",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C2 2pz"
+      },
+      {
+        "id": "C3:2s:s",
+        "site": "C3",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C3 2s"
+      },
+      {
+        "id": "C3:2p:px",
+        "site": "C3",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C3 2px"
+      },
+      {
+        "id": "C3:2p:py",
+        "site": "C3",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C3 2py"
+      },
+      {
+        "id": "C3:2p:pz",
+        "site": "C3",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C3 2pz"
+      },
+      {
+        "id": "C4:2s:s",
+        "site": "C4",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C4 2s"
+      },
+      {
+        "id": "C4:2p:px",
+        "site": "C4",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C4 2px"
+      },
+      {
+        "id": "C4:2p:py",
+        "site": "C4",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C4 2py"
+      },
+      {
+        "id": "C4:2p:pz",
+        "site": "C4",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C4 2pz"
+      },
+      {
+        "id": "C5:2s:s",
+        "site": "C5",
+        "radial": "2s",
+        "family": "s",
+        "direction": null,
+        "batch": "C 2s",
+        "label": "C5 2s"
+      },
+      {
+        "id": "C5:2p:px",
+        "site": "C5",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "batch": "C 2px",
+        "label": "C5 2px"
+      },
+      {
+        "id": "C5:2p:py",
+        "site": "C5",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "batch": "C 2py",
+        "label": "C5 2py"
+      },
+      {
+        "id": "C5:2p:pz",
+        "site": "C5",
+        "radial": "2p",
+        "family": "p",
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "batch": "C 2pz",
+        "label": "C5 2pz"
+      },
+      {
+        "id": "H0:1s:s",
+        "site": "H0",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H0 1s"
+      },
+      {
+        "id": "H1:1s:s",
+        "site": "H1",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H1 1s"
+      },
+      {
+        "id": "H2:1s:s",
+        "site": "H2",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H2 1s"
+      },
+      {
+        "id": "H3:1s:s",
+        "site": "H3",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H3 1s"
+      },
+      {
+        "id": "H4:1s:s",
+        "site": "H4",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H4 1s"
+      },
+      {
+        "id": "H5:1s:s",
+        "site": "H5",
+        "radial": "1s",
+        "family": "s",
+        "direction": null,
+        "batch": "H 1s",
+        "label": "H5 1s"
+      }
+    ],
+    "note": "理想正六边形；半径为示意值，坐标单位自定，不代表实验键长。"
+  }
+}
