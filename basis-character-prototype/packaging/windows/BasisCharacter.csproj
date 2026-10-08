@@ -21,4 +21,8 @@
     <PackageReference Include="Jint" Version="4.17.0" />
     <Content Include="bridge.js;self-check.js" CopyToOutputDirectory="PreserveNewest" TargetPath="Resources/%(Filename)%(Extension)" />
   </ItemGroup>
+  <!-- 本程序只用 WinForms，移除 SDK 自动附加的 WPF 引用以避免 WindowsBase 冲突。 -->
+  <Target Name="RemoveUnusedWebView2WpfReference" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup><Reference Remove="Microsoft.Web.WebView2.Wpf" /></ItemGroup>
+  </Target>
 </Project>

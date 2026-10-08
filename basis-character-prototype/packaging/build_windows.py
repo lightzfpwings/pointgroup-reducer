@@ -71,8 +71,13 @@ print("Downloading Microsoft's full offline WebView2 installer", flush=True)
 with urllib.request.urlopen(source_url, timeout=120) as response, installer.open("wb") as destination:
     shutil.copyfileobj(response, destination)
 runtime_report = BUILD / "webview2-installer-check.json"
-run(["powershell", "-NoProfile", "-NonInteractive", "-File", str(NATIVE / "verify-runtime.ps1"),
-     "-Installer", str(installer), "-Report", str(runtime_report)])
+# CI 的 PowerShell 7 模块路径不能传给 Windows PowerShell 5。
+shell = shutil.which("pwsh") or "powershell"
+shell_env = os.environ.copy()
+if Path(shell).stem.lower() == "powershell":
+    shell_env.pop("PSModulePath", None)
+run([shell, "-NoProfile", "-NonInteractive", "-File", str(NATIVE / "verify-runtime.ps1"),
+     "-Installer", str(installer), "-Report", str(runtime_report)], env=shell_env)
 runtime = json.loads(runtime_report.read_text(encoding="utf-8-sig"))
 check_path = BUILD / "native-self-check.json"
 check_path.unlink(missing_ok=True)
