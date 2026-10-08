@@ -1,16 +1,17 @@
 {
-  "date": "2026-10-07",
-  "version": "0.4.2",
+  "date": "2026-10-08",
+  "version": "0.4.3",
   "status": "automated_checks_passed",
   "tests": {
-    "total": 82,
-    "passed": 82,
+    "total": 85,
+    "passed": 85,
     "failed": 0,
     "math_engine": 28,
     "d_and_alignment": 11,
     "reduction_integration": 8,
-    "application_events_and_offline_bundle": 27,
-    "math_notation": 8
+    "application_events_and_offline_bundle": 28,
+    "math_notation": 8,
+    "windows_bridge": 2
   },
   "groups": [
     "C1",
@@ -118,9 +119,10 @@
   "independence": {
     "geometryModuleIndependent": true,
     "originalPythonRuntimeRequired": false,
-    "modifiesOriginalRepository": false,
+    "modifiesOriginalRepository": true,
     "syncedSourcesEdited": false,
-    "reductionIntegrated": true
+    "reductionIntegrated": true,
+    "modifiesLegacyPythonCode": false
   },
   "limits": {
     "sites": 120,
@@ -132,10 +134,10 @@
     ]
   },
   "macOSPackaging": {
-    "date": "2026-10-07",
-    "version": "0.4.2",
-    "archive": "BasisCharacter-0.4.2-macOS-arm64.zip",
-    "sha256": "d4b63d0f4db688834ecd17cefa4618a8b532d03da2f72358c47ed7360c34dc59",
+    "date": "2026-10-08",
+    "version": "0.4.3",
+    "archive": "BasisCharacter-0.4.3-macOS-arm64.zip",
+    "sha256": "50fedb47cd7177bc696fd859f8e81cfa34302eb772ee52d0357daf8e1eb895c9",
     "relocatedExecutableSmoke": "passed",
     "relocatedSignatureVerification": "passed",
     "embeddedHTMLMatchesSource": true,
@@ -152,7 +154,8 @@
     "signature": "ad-hoc",
     "notarized": false,
     "reductionIntegrated": true,
-    "releaseReadiness": "user-approved; rebuilt with publication documentation"
+    "releaseReadiness": "user-approved; paired Windows artifact verified",
+    "uiLaunched": false
   },
   "reducerAlignment": {
     "sharedPointGroups": 87,
@@ -207,5 +210,56 @@
     "date": "2026-10-07",
     "publicationApproved": true,
     "source": "explicit user approval in this conversation"
+  },
+  "positionToleranceRegression": {
+    "status": "passed",
+    "languages": [
+      "zh-Hans",
+      "zh-Hant",
+      "en"
+    ],
+    "validEditsPersist": true,
+    "invalidEditsRestorePreviousValue": true
+  },
+  "windowsPackaging": {
+    "status": "passed",
+    "version": "0.4.3",
+    "architecture": "x64",
+    "archive": "BasisCharacter-0.4.3-Windows-x64.zip",
+    "sha256": "8304994e566fcec050c7c7285600810c9c6e311ab7e92915be4034d7d91f3304",
+    "dotnetBundled": true,
+    "webview2OfflineInstaller": {
+      "signature": "Valid",
+      "signer": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+      "bytes": 212358352,
+      "status": "passed",
+      "certificateThumbprint": "4028CAD637509D4744B17EC5B42AED8D7A31E6AF",
+      "fileVersion": "1.3.275.13",
+      "sha256": "ac22ecdc19c5b88b87f3fa752c00da9541653a8f5c0c5fc4a3b2b6ebe6591f69",
+      "source": "https://go.microsoft.com/fwlink/p/?LinkId=2124701"
+    },
+    "appAuthenticodeSigned": false,
+    "resourcesPresent": true,
+    "jsonSavePayloadChecks": "passed",
+    "originChecks": "passed",
+    "zipCRC": "passed",
+    "PEArchitecture": "x64",
+    "embeddedHTMLMatchesSource": true,
+    "bundledScriptsMatchSource": true,
+    "nativeBuildCommit": "bd9ff9141d4cffa05d74d90395c6f5b8768509cf",
+    "ciRun": "https://github.com/lightzfpwings/pointgroup-reducer/actions/runs/37728301351",
+    "supportedSpatialPointGroups": 87,
+    "supportedReductionPointGroups": 423,
+    "nativeExamples": 7,
+    "languages": [
+      "zh-Hans",
+      "zh-Hant",
+      "en"
+    ],
+    "uiVisualVerification": false,
+    "sourceComparison": "UTF-8 text with CRLF normalized to LF",
+    "buildWarnings": [
+      "The WebView2 SDK adds an unused WPF reference with a WindowsBase version warning; this WinForms app does not use WPF."
+    ]
   }
 }

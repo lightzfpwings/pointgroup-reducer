@@ -1,0 +1,2206 @@
+{
+  "status": "passed",
+  "runtime": "Jint (pure ECMAScript)",
+  "version": "0.4.3",
+  "reductionVersion": "0.4.3",
+  "examples": [
+    {
+      "name": "benzene",
+      "dimension": 30,
+      "blocks": 4,
+      "characters": [
+        30,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        18,
+        0,
+        6
+      ],
+      "reductionResidual": 4.440892098500626e-15
+    },
+    {
+      "name": "water",
+      "dimension": 2,
+      "blocks": 1,
+      "characters": [
+        2,
+        0,
+        2,
+        0
+      ],
+      "reductionResidual": 0
+    },
+    {
+      "name": "central-c2v",
+      "dimension": 3,
+      "blocks": 3,
+      "characters": [
+        3,
+        -1,
+        1,
+        1
+      ],
+      "reductionResidual": 0
+    },
+    {
+      "name": "central-oh",
+      "dimension": 3,
+      "blocks": 1,
+      "characters": [
+        3,
+        1,
+        0,
+        -3,
+        -1,
+        -1,
+        -1,
+        0,
+        1,
+        1
+      ],
+      "reductionResidual": 0
+    },
+    {
+      "name": "icosahedron",
+      "dimension": 12,
+      "blocks": 1,
+      "characters": [
+        12,
+        2,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "reductionResidual": 0
+    },
+    {
+      "name": "central-d-c2v",
+      "dimension": 5,
+      "blocks": 5,
+      "characters": [
+        5,
+        1,
+        1,
+        1
+      ],
+      "reductionResidual": 0
+    },
+    {
+      "name": "central-d-oh",
+      "dimension": 5,
+      "blocks": 2,
+      "characters": [
+        5,
+        -1,
+        -1,
+        5,
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      "reductionResidual": 0
+    }
+  ],
+  "supportedPointGroups": 87,
+  "expandedGroupChecks": [
+    {
+      "group": "C1",
+      "dTraceError": 0
+    },
+    {
+      "group": "Cs",
+      "dTraceError": 0
+    },
+    {
+      "group": "Ci",
+      "dTraceError": 0
+    },
+    {
+      "group": "C2",
+      "dTraceError": 0
+    },
+    {
+      "group": "C3",
+      "dTraceError": 7.771561172376096e-16
+    },
+    {
+      "group": "C4",
+      "dTraceError": 0
+    },
+    {
+      "group": "C5",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "C6",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C7",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "C8",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "C9",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C10",
+      "dTraceError": 0
+    },
+    {
+      "group": "C11",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "C12",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C2v",
+      "dTraceError": 0
+    },
+    {
+      "group": "C3v",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "C4v",
+      "dTraceError": 0
+    },
+    {
+      "group": "C5v",
+      "dTraceError": 2.220446049250313e-16
+    },
+    {
+      "group": "C6v",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "C7v",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "C8v",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "C9v",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C10v",
+      "dTraceError": 0
+    },
+    {
+      "group": "C11v",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "C12v",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C2h",
+      "dTraceError": 0
+    },
+    {
+      "group": "C3h",
+      "dTraceError": 2.6645352591003757e-15
+    },
+    {
+      "group": "C4h",
+      "dTraceError": 0
+    },
+    {
+      "group": "C5h",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "C6h",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "C7h",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "C8h",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "C9h",
+      "dTraceError": 2.6645352591003757e-15
+    },
+    {
+      "group": "C10h",
+      "dTraceError": 0
+    },
+    {
+      "group": "C11h",
+      "dTraceError": 1.7763568394002505e-15
+    },
+    {
+      "group": "C12h",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D2",
+      "dTraceError": 0
+    },
+    {
+      "group": "D3",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D4",
+      "dTraceError": 0
+    },
+    {
+      "group": "D5",
+      "dTraceError": 2.220446049250313e-16
+    },
+    {
+      "group": "D6",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D7",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D8",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D9",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D10",
+      "dTraceError": 0
+    },
+    {
+      "group": "D11",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D12",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D2h",
+      "dTraceError": 0
+    },
+    {
+      "group": "D3h",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D4h",
+      "dTraceError": 0
+    },
+    {
+      "group": "D5h",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "D6h",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D7h",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D8h",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D9h",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D10h",
+      "dTraceError": 0
+    },
+    {
+      "group": "D11h",
+      "dTraceError": 1.7763568394002505e-15
+    },
+    {
+      "group": "D12h",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D2d",
+      "dTraceError": 0
+    },
+    {
+      "group": "D3d",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "D4d",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D5d",
+      "dTraceError": 0
+    },
+    {
+      "group": "D6d",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "D7d",
+      "dTraceError": 5.551115123125783e-16
+    },
+    {
+      "group": "D8d",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "D9d",
+      "dTraceError": 9.992007221626409e-16
+    },
+    {
+      "group": "D10d",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "D11d",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "D12d",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "S4",
+      "dTraceError": 0
+    },
+    {
+      "group": "S6",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "S8",
+      "dTraceError": 1.1102230246251565e-16
+    },
+    {
+      "group": "S10",
+      "dTraceError": 0
+    },
+    {
+      "group": "S12",
+      "dTraceError": 1.3322676295501878e-15
+    },
+    {
+      "group": "S14",
+      "dTraceError": 5.551115123125783e-16
+    },
+    {
+      "group": "S16",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "S18",
+      "dTraceError": 9.992007221626409e-16
+    },
+    {
+      "group": "S20",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "S22",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "S24",
+      "dTraceError": 8.881784197001252e-16
+    },
+    {
+      "group": "T",
+      "dTraceError": 7.771561172376096e-16
+    },
+    {
+      "group": "Th",
+      "dTraceError": 7.771561172376096e-16
+    },
+    {
+      "group": "Td",
+      "dTraceError": 4.440892098500626e-16
+    },
+    {
+      "group": "O",
+      "dTraceError": 0
+    },
+    {
+      "group": "Oh",
+      "dTraceError": 0
+    },
+    {
+      "group": "I",
+      "dTraceError": 2.220446049250313e-16
+    },
+    {
+      "group": "Ih",
+      "dTraceError": 2.220446049250313e-16
+    }
+  ],
+  "reductionTables": [
+    {
+      "group": "C1",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "Cs",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "Ci",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "C2",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "C3",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "C4",
+      "orthogonalityError": 8.226161367281941e-17
+    },
+    {
+      "group": "C5",
+      "orthogonalityError": 1.5959455978986625e-16
+    },
+    {
+      "group": "C6",
+      "orthogonalityError": 2.636779683484747e-16
+    },
+    {
+      "group": "C2v",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "C3v",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "C4v",
+      "orthogonalityError": 5.551115123125783e-17
+    },
+    {
+      "group": "C5v",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "C6v",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "C2h",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "C3h",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "C4h",
+      "orthogonalityError": 8.276417025985308e-17
+    },
+    {
+      "group": "C6h",
+      "orthogonalityError": 2.5673907444456745e-16
+    },
+    {
+      "group": "D2",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "D3",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "D4",
+      "orthogonalityError": 5.551115123125783e-17
+    },
+    {
+      "group": "D5",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "D6",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "D2h",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "D3h",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "D4h",
+      "orthogonalityError": 5.551115123125783e-17
+    },
+    {
+      "group": "D5h",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "D6h",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "D2d",
+      "orthogonalityError": 5.551115123125783e-17
+    },
+    {
+      "group": "D3d",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "D4d",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D5d",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "D6d",
+      "orthogonalityError": 4.163336342344337e-16
+    },
+    {
+      "group": "S4",
+      "orthogonalityError": 8.226161367281941e-17
+    },
+    {
+      "group": "S6",
+      "orthogonalityError": 2.636779683484747e-16
+    },
+    {
+      "group": "S8",
+      "orthogonalityError": 6.522560269672795e-16
+    },
+    {
+      "group": "T",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "Th",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "Td",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "O",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "Oh",
+      "orthogonalityError": 0
+    },
+    {
+      "group": "I",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "Ih",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "C5h",
+      "orthogonalityError": 1.3530843112619095e-16
+    },
+    {
+      "group": "S10",
+      "orthogonalityError": 1.106753577673203e-15
+    },
+    {
+      "group": "S12",
+      "orthogonalityError": 1.9290125052862095e-15
+    },
+    {
+      "group": "C7",
+      "orthogonalityError": 8.396061623727746e-16
+    },
+    {
+      "group": "C7v",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "C7h",
+      "orthogonalityError": 8.36136715420821e-16
+    },
+    {
+      "group": "D7",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "D7h",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "D7d",
+      "orthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "group": "S14",
+      "orthogonalityError": 1.700029006457271e-15
+    },
+    {
+      "group": "C8",
+      "orthogonalityError": 6.522560269672795e-16
+    },
+    {
+      "group": "C8v",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "C8h",
+      "orthogonalityError": 6.522560269672795e-16
+    },
+    {
+      "group": "D8",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D8h",
+      "orthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "group": "D8d",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "S16",
+      "orthogonalityError": 1.9845236565174673e-15
+    },
+    {
+      "group": "C9",
+      "orthogonalityError": 6.38378239159465e-16
+    },
+    {
+      "group": "C9v",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "C9h",
+      "orthogonalityError": 6.38378239159465e-16
+    },
+    {
+      "group": "D9",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "D9h",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "D9d",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "S18",
+      "orthogonalityError": 2.0261570199409107e-15
+    },
+    {
+      "group": "C10",
+      "orthogonalityError": 1.106753577673203e-15
+    },
+    {
+      "group": "C10v",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "C10h",
+      "orthogonalityError": 1.1084883011491797e-15
+    },
+    {
+      "group": "D10",
+      "orthogonalityError": 1.6653345369377348e-16
+    },
+    {
+      "group": "D10h",
+      "orthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "group": "D10d",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "S20",
+      "orthogonalityError": 2.2551405187698492e-15
+    },
+    {
+      "group": "C11",
+      "orthogonalityError": 1.5612511283791264e-15
+    },
+    {
+      "group": "C11v",
+      "orthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "group": "C11h",
+      "orthogonalityError": 1.5577816814271728e-15
+    },
+    {
+      "group": "D11",
+      "orthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "group": "D11h",
+      "orthogonalityError": 4.926614671774132e-16
+    },
+    {
+      "group": "D11d",
+      "orthogonalityError": 4.926614671774132e-16
+    },
+    {
+      "group": "S22",
+      "orthogonalityError": 2.3037127760972e-15
+    },
+    {
+      "group": "C12",
+      "orthogonalityError": 1.9290125052862095e-15
+    },
+    {
+      "group": "C12v",
+      "orthogonalityError": 4.163336342344337e-16
+    },
+    {
+      "group": "C12h",
+      "orthogonalityError": 1.9359513991901167e-15
+    },
+    {
+      "group": "D12",
+      "orthogonalityError": 4.163336342344337e-16
+    },
+    {
+      "group": "D12h",
+      "orthogonalityError": 4.163336342344337e-16
+    },
+    {
+      "group": "D12d",
+      "orthogonalityError": 1.5890067039947553e-15
+    },
+    {
+      "group": "S24",
+      "orthogonalityError": 2.886579864025407e-15
+    },
+    {
+      "group": "C13",
+      "orthogonalityError": 1.429412144204889e-15
+    },
+    {
+      "group": "C13v",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "C13h",
+      "orthogonalityError": 1.4363510381087963e-15
+    },
+    {
+      "group": "D13",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "D13h",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "D13d",
+      "orthogonalityError": 7.771561172376096e-16
+    },
+    {
+      "group": "S26",
+      "orthogonalityError": 3.615163723935666e-15
+    },
+    {
+      "group": "C14",
+      "orthogonalityError": 1.700029006457271e-15
+    },
+    {
+      "group": "C14v",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "C14h",
+      "orthogonalityError": 1.6965595595053173e-15
+    },
+    {
+      "group": "D14",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "D14h",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "D14d",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "S28",
+      "orthogonalityError": 3.1780134079895106e-15
+    },
+    {
+      "group": "C15",
+      "orthogonalityError": 1.6731407925796304e-15
+    },
+    {
+      "group": "C15v",
+      "orthogonalityError": 6.123573870198129e-16
+    },
+    {
+      "group": "C15h",
+      "orthogonalityError": 1.6757428777935957e-15
+    },
+    {
+      "group": "D15",
+      "orthogonalityError": 6.123573870198129e-16
+    },
+    {
+      "group": "D15h",
+      "orthogonalityError": 6.114900252818245e-16
+    },
+    {
+      "group": "D15d",
+      "orthogonalityError": 6.114900252818245e-16
+    },
+    {
+      "group": "S30",
+      "orthogonalityError": 3.552713678800501e-15
+    },
+    {
+      "group": "C16",
+      "orthogonalityError": 1.9845236565174673e-15
+    },
+    {
+      "group": "C16v",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "C16h",
+      "orthogonalityError": 1.9914625504213745e-15
+    },
+    {
+      "group": "D16",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "D16h",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "D16d",
+      "orthogonalityError": 1.915134717478395e-15
+    },
+    {
+      "group": "S32",
+      "orthogonalityError": 3.885780586188048e-15
+    },
+    {
+      "group": "C17",
+      "orthogonalityError": 2.3245294578089215e-15
+    },
+    {
+      "group": "C17v",
+      "orthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "group": "C17h",
+      "orthogonalityError": 2.327998904760875e-15
+    },
+    {
+      "group": "D17",
+      "orthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "group": "D17h",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "D17d",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "S34",
+      "orthogonalityError": 5.360295540768334e-15
+    },
+    {
+      "group": "C18",
+      "orthogonalityError": 2.0261570199409107e-15
+    },
+    {
+      "group": "C18v",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "C18h",
+      "orthogonalityError": 2.040034807748725e-15
+    },
+    {
+      "group": "D18",
+      "orthogonalityError": 6.661338147750939e-16
+    },
+    {
+      "group": "D18h",
+      "orthogonalityError": 6.591949208711867e-16
+    },
+    {
+      "group": "D18d",
+      "orthogonalityError": 1.9290125052862095e-15
+    },
+    {
+      "group": "S36",
+      "orthogonalityError": 3.986394547794703e-15
+    },
+    {
+      "group": "C19",
+      "orthogonalityError": 2.7582103268031233e-15
+    },
+    {
+      "group": "C19v",
+      "orthogonalityError": 8.153200337090993e-16
+    },
+    {
+      "group": "C19h",
+      "orthogonalityError": 2.7599450502791e-15
+    },
+    {
+      "group": "D19",
+      "orthogonalityError": 8.153200337090993e-16
+    },
+    {
+      "group": "D19h",
+      "orthogonalityError": 8.170547571850761e-16
+    },
+    {
+      "group": "D19d",
+      "orthogonalityError": 8.170547571850761e-16
+    },
+    {
+      "group": "S38",
+      "orthogonalityError": 4.763550665032312e-15
+    },
+    {
+      "group": "C20",
+      "orthogonalityError": 2.2551405187698492e-15
+    },
+    {
+      "group": "C20v",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "C20h",
+      "orthogonalityError": 2.237793284010081e-15
+    },
+    {
+      "group": "D20",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "D20h",
+      "orthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "group": "D20d",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "S40",
+      "orthogonalityError": 4.0870085094013575e-15
+    },
+    {
+      "group": "C21",
+      "orthogonalityError": 2.1718737919229625e-15
+    },
+    {
+      "group": "C21v",
+      "orthogonalityError": 1.4432899320127035e-15
+    },
+    {
+      "group": "C21h",
+      "orthogonalityError": 2.168404344971009e-15
+    },
+    {
+      "group": "D21",
+      "orthogonalityError": 1.4432899320127035e-15
+    },
+    {
+      "group": "D21h",
+      "orthogonalityError": 1.6653345369377348e-15
+    },
+    {
+      "group": "D21d",
+      "orthogonalityError": 1.6653345369377348e-15
+    },
+    {
+      "group": "S42",
+      "orthogonalityError": 6.17214612752548e-15
+    },
+    {
+      "group": "C22",
+      "orthogonalityError": 2.3037127760972e-15
+    },
+    {
+      "group": "C22v",
+      "orthogonalityError": 1.0685896612017132e-15
+    },
+    {
+      "group": "C22h",
+      "orthogonalityError": 2.3037127760972e-15
+    },
+    {
+      "group": "D22",
+      "orthogonalityError": 1.0685896612017132e-15
+    },
+    {
+      "group": "D22h",
+      "orthogonalityError": 1.0755285551056204e-15
+    },
+    {
+      "group": "D22d",
+      "orthogonalityError": 2.456368441983159e-15
+    },
+    {
+      "group": "S44",
+      "orthogonalityError": 5.717648576819556e-15
+    },
+    {
+      "group": "C23",
+      "orthogonalityError": 3.885780586188048e-15
+    },
+    {
+      "group": "C23v",
+      "orthogonalityError": 3.219646771412954e-15
+    },
+    {
+      "group": "C23h",
+      "orthogonalityError": 3.885780586188048e-15
+    },
+    {
+      "group": "D23",
+      "orthogonalityError": 3.219646771412954e-15
+    },
+    {
+      "group": "D23h",
+      "orthogonalityError": 3.219646771412954e-15
+    },
+    {
+      "group": "D23d",
+      "orthogonalityError": 3.219646771412954e-15
+    },
+    {
+      "group": "S46",
+      "orthogonalityError": 6.13398221105399e-15
+    },
+    {
+      "group": "C24",
+      "orthogonalityError": 2.886579864025407e-15
+    },
+    {
+      "group": "C24v",
+      "orthogonalityError": 1.5890067039947553e-15
+    },
+    {
+      "group": "C24h",
+      "orthogonalityError": 2.886579864025407e-15
+    },
+    {
+      "group": "D24",
+      "orthogonalityError": 1.5890067039947553e-15
+    },
+    {
+      "group": "D24h",
+      "orthogonalityError": 1.5716594692349872e-15
+    },
+    {
+      "group": "D24d",
+      "orthogonalityError": 3.12944115066216e-15
+    },
+    {
+      "group": "S48",
+      "orthogonalityError": 5.6968318951078345e-15
+    },
+    {
+      "group": "C25",
+      "orthogonalityError": 3.802513859341161e-15
+    },
+    {
+      "group": "C25v",
+      "orthogonalityError": 1.4242079737769586e-15
+    },
+    {
+      "group": "C25h",
+      "orthogonalityError": 3.816391647148976e-15
+    },
+    {
+      "group": "D25",
+      "orthogonalityError": 1.4242079737769586e-15
+    },
+    {
+      "group": "D25h",
+      "orthogonalityError": 1.4059933772792022e-15
+    },
+    {
+      "group": "D25d",
+      "orthogonalityError": 1.4059933772792022e-15
+    },
+    {
+      "group": "S50",
+      "orthogonalityError": 6.6856242764146145e-15
+    },
+    {
+      "group": "C26",
+      "orthogonalityError": 3.615163723935666e-15
+    },
+    {
+      "group": "C26v",
+      "orthogonalityError": 1.942890293094024e-15
+    },
+    {
+      "group": "C26h",
+      "orthogonalityError": 3.611694276983712e-15
+    },
+    {
+      "group": "D26",
+      "orthogonalityError": 1.942890293094024e-15
+    },
+    {
+      "group": "D26h",
+      "orthogonalityError": 1.942890293094024e-15
+    },
+    {
+      "group": "D26d",
+      "orthogonalityError": 3.4763858458575214e-15
+    },
+    {
+      "group": "S52",
+      "orthogonalityError": 7.431555371084642e-15
+    },
+    {
+      "group": "C27",
+      "orthogonalityError": 3.0322966360074588e-15
+    },
+    {
+      "group": "C27v",
+      "orthogonalityError": 1.9984014443252818e-15
+    },
+    {
+      "group": "C27h",
+      "orthogonalityError": 3.0427049768633196e-15
+    },
+    {
+      "group": "D27",
+      "orthogonalityError": 1.9984014443252818e-15
+    },
+    {
+      "group": "D27h",
+      "orthogonalityError": 1.9984014443252818e-15
+    },
+    {
+      "group": "D27d",
+      "orthogonalityError": 1.9984014443252818e-15
+    },
+    {
+      "group": "S54",
+      "orthogonalityError": 6.054184931159057e-15
+    },
+    {
+      "group": "C28",
+      "orthogonalityError": 3.1780134079895106e-15
+    },
+    {
+      "group": "C28v",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "C28h",
+      "orthogonalityError": 3.184952301893418e-15
+    },
+    {
+      "group": "D28",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "D28h",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "D28d",
+      "orthogonalityError": 3.95516952522712e-15
+    },
+    {
+      "group": "S56",
+      "orthogonalityError": 6.734196533741965e-15
+    },
+    {
+      "group": "C29",
+      "orthogonalityError": 3.400058012914542e-15
+    },
+    {
+      "group": "C29v",
+      "orthogonalityError": 1.6982942829812941e-15
+    },
+    {
+      "group": "C29h",
+      "orthogonalityError": 3.3931191190106347e-15
+    },
+    {
+      "group": "D29",
+      "orthogonalityError": 1.6982942829812941e-15
+    },
+    {
+      "group": "D29h",
+      "orthogonalityError": 1.7095699855751434e-15
+    },
+    {
+      "group": "D29d",
+      "orthogonalityError": 1.7095699855751434e-15
+    },
+    {
+      "group": "S58",
+      "orthogonalityError": 6.6231742312794495e-15
+    },
+    {
+      "group": "C30",
+      "orthogonalityError": 3.552713678800501e-15
+    },
+    {
+      "group": "C30v",
+      "orthogonalityError": 1.429412144204889e-15
+    },
+    {
+      "group": "C30h",
+      "orthogonalityError": 3.552713678800501e-15
+    },
+    {
+      "group": "D30",
+      "orthogonalityError": 1.429412144204889e-15
+    },
+    {
+      "group": "D30h",
+      "orthogonalityError": 1.429412144204889e-15
+    },
+    {
+      "group": "D30d",
+      "orthogonalityError": 3.3931191190106347e-15
+    },
+    {
+      "group": "S60",
+      "orthogonalityError": 6.140921104957897e-15
+    },
+    {
+      "group": "C31",
+      "orthogonalityError": 4.9404924595819466e-15
+    },
+    {
+      "group": "C31v",
+      "orthogonalityError": 4.107825191113079e-15
+    },
+    {
+      "group": "C31h",
+      "orthogonalityError": 4.9404924595819466e-15
+    },
+    {
+      "group": "D31",
+      "orthogonalityError": 4.107825191113079e-15
+    },
+    {
+      "group": "D31h",
+      "orthogonalityError": 3.9968028886505635e-15
+    },
+    {
+      "group": "D31d",
+      "orthogonalityError": 3.9968028886505635e-15
+    },
+    {
+      "group": "S62",
+      "orthogonalityError": 6.512151928816934e-15
+    },
+    {
+      "group": "C32",
+      "orthogonalityError": 3.885780586188048e-15
+    },
+    {
+      "group": "C32v",
+      "orthogonalityError": 1.915134717478395e-15
+    },
+    {
+      "group": "C32h",
+      "orthogonalityError": 3.885780586188048e-15
+    },
+    {
+      "group": "D32",
+      "orthogonalityError": 1.915134717478395e-15
+    },
+    {
+      "group": "D32h",
+      "orthogonalityError": 1.9012569296705806e-15
+    },
+    {
+      "group": "D32d",
+      "orthogonalityError": 3.878841692284141e-15
+    },
+    {
+      "group": "S64",
+      "orthogonalityError": 6.0958182945825e-15
+    },
+    {
+      "group": "C33",
+      "orthogonalityError": 4.021089017314239e-15
+    },
+    {
+      "group": "C33v",
+      "orthogonalityError": 1.8665624601510444e-15
+    },
+    {
+      "group": "C33h",
+      "orthogonalityError": 4.022823740790216e-15
+    },
+    {
+      "group": "D33",
+      "orthogonalityError": 1.8665624601510444e-15
+    },
+    {
+      "group": "D33h",
+      "orthogonalityError": 1.8214596497756474e-15
+    },
+    {
+      "group": "D33d",
+      "orthogonalityError": 1.8214596497756474e-15
+    },
+    {
+      "group": "S66",
+      "orthogonalityError": 6.153064169289735e-15
+    },
+    {
+      "group": "C34",
+      "orthogonalityError": 5.360295540768334e-15
+    },
+    {
+      "group": "C34v",
+      "orthogonalityError": 2.4841240175987878e-15
+    },
+    {
+      "group": "C34h",
+      "orthogonalityError": 5.344683029484543e-15
+    },
+    {
+      "group": "D34",
+      "orthogonalityError": 2.4841240175987878e-15
+    },
+    {
+      "group": "D34h",
+      "orthogonalityError": 2.518818487118324e-15
+    },
+    {
+      "group": "D34d",
+      "orthogonalityError": 4.3021142204224816e-15
+    },
+    {
+      "group": "S68",
+      "orthogonalityError": 8.014422459012849e-15
+    },
+    {
+      "group": "C35",
+      "orthogonalityError": 4.198030811863873e-15
+    },
+    {
+      "group": "C35v",
+      "orthogonalityError": 2.050443148604586e-15
+    },
+    {
+      "group": "C35h",
+      "orthogonalityError": 4.208439152719734e-15
+    },
+    {
+      "group": "D35",
+      "orthogonalityError": 2.050443148604586e-15
+    },
+    {
+      "group": "D35h",
+      "orthogonalityError": 2.0521778720805628e-15
+    },
+    {
+      "group": "D35d",
+      "orthogonalityError": 2.0521778720805628e-15
+    },
+    {
+      "group": "S70",
+      "orthogonalityError": 7.020425907278138e-15
+    },
+    {
+      "group": "C36",
+      "orthogonalityError": 3.986394547794703e-15
+    },
+    {
+      "group": "C36v",
+      "orthogonalityError": 1.9290125052862095e-15
+    },
+    {
+      "group": "C36h",
+      "orthogonalityError": 3.991598718222633e-15
+    },
+    {
+      "group": "D36",
+      "orthogonalityError": 1.9290125052862095e-15
+    },
+    {
+      "group": "D36h",
+      "orthogonalityError": 1.908195823574488e-15
+    },
+    {
+      "group": "D36d",
+      "orthogonalityError": 4.073130721593543e-15
+    },
+    {
+      "group": "S72",
+      "orthogonalityError": 8.833211939673902e-15
+    },
+    {
+      "group": "C37",
+      "orthogonalityError": 4.2847669856627135e-15
+    },
+    {
+      "group": "C37v",
+      "orthogonalityError": 2.4667767828390197e-15
+    },
+    {
+      "group": "C37h",
+      "orthogonalityError": 4.279562815234783e-15
+    },
+    {
+      "group": "D37",
+      "orthogonalityError": 2.4667767828390197e-15
+    },
+    {
+      "group": "D37h",
+      "orthogonalityError": 2.482389294122811e-15
+    },
+    {
+      "group": "D37d",
+      "orthogonalityError": 2.482389294122811e-15
+    },
+    {
+      "group": "S74",
+      "orthogonalityError": 8.219119829178112e-15
+    },
+    {
+      "group": "C38",
+      "orthogonalityError": 4.763550665032312e-15
+    },
+    {
+      "group": "C38v",
+      "orthogonalityError": 2.1441182163073336e-15
+    },
+    {
+      "group": "C38h",
+      "orthogonalityError": 4.754877047652428e-15
+    },
+    {
+      "group": "D38",
+      "orthogonalityError": 2.1441182163073336e-15
+    },
+    {
+      "group": "D38h",
+      "orthogonalityError": 2.1545265571631944e-15
+    },
+    {
+      "group": "D38d",
+      "orthogonalityError": 4.215378046623641e-15
+    },
+    {
+      "group": "S76",
+      "orthogonalityError": 8.441164434103143e-15
+    },
+    {
+      "group": "C39",
+      "orthogonalityError": 3.937822290467352e-15
+    },
+    {
+      "group": "C39v",
+      "orthogonalityError": 2.9976021664879227e-15
+    },
+    {
+      "group": "C39h",
+      "orthogonalityError": 3.929148673087468e-15
+    },
+    {
+      "group": "D39",
+      "orthogonalityError": 2.9976021664879227e-15
+    },
+    {
+      "group": "D39h",
+      "orthogonalityError": 3.1086244689504383e-15
+    },
+    {
+      "group": "D39d",
+      "orthogonalityError": 3.1086244689504383e-15
+    },
+    {
+      "group": "S78",
+      "orthogonalityError": 6.8486882831564344e-15
+    },
+    {
+      "group": "C40",
+      "orthogonalityError": 4.0870085094013575e-15
+    },
+    {
+      "group": "C40v",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "C40h",
+      "orthogonalityError": 4.0696612746415894e-15
+    },
+    {
+      "group": "D40",
+      "orthogonalityError": 2.220446049250313e-15
+    },
+    {
+      "group": "D40h",
+      "orthogonalityError": 2.4424906541753444e-15
+    },
+    {
+      "group": "D40d",
+      "orthogonalityError": 3.712308238590367e-15
+    },
+    {
+      "group": "S80",
+      "orthogonalityError": 9.030970415935258e-15
+    },
+    {
+      "group": "C41",
+      "orthogonalityError": 5.950101522600448e-15
+    },
+    {
+      "group": "C41v",
+      "orthogonalityError": 1.8908485888147197e-15
+    },
+    {
+      "group": "C41h",
+      "orthogonalityError": 5.944897352172518e-15
+    },
+    {
+      "group": "D41",
+      "orthogonalityError": 1.8908485888147197e-15
+    },
+    {
+      "group": "D41h",
+      "orthogonalityError": 1.889113865338743e-15
+    },
+    {
+      "group": "D41d",
+      "orthogonalityError": 1.889113865338743e-15
+    },
+    {
+      "group": "S82",
+      "orthogonalityError": 7.029099524658022e-15
+    },
+    {
+      "group": "C42",
+      "orthogonalityError": 6.17214612752548e-15
+    },
+    {
+      "group": "C42v",
+      "orthogonalityError": 1.9914625504213745e-15
+    },
+    {
+      "group": "C42h",
+      "orthogonalityError": 6.180819744905364e-15
+    },
+    {
+      "group": "D42",
+      "orthogonalityError": 1.9914625504213745e-15
+    },
+    {
+      "group": "D42h",
+      "orthogonalityError": 1.994931997373328e-15
+    },
+    {
+      "group": "D42d",
+      "orthogonalityError": 6.217248937900877e-15
+    },
+    {
+      "group": "S84",
+      "orthogonalityError": 1.3719927971500567e-14
+    },
+    {
+      "group": "C43",
+      "orthogonalityError": 6.161737786669619e-15
+    },
+    {
+      "group": "C43v",
+      "orthogonalityError": 2.44205697330635e-15
+    },
+    {
+      "group": "C43h",
+      "orthogonalityError": 6.161737786669619e-15
+    },
+    {
+      "group": "D43",
+      "orthogonalityError": 2.44205697330635e-15
+    },
+    {
+      "group": "D43h",
+      "orthogonalityError": 2.4422738137408473e-15
+    },
+    {
+      "group": "D43d",
+      "orthogonalityError": 2.4422738137408473e-15
+    },
+    {
+      "group": "S86",
+      "orthogonalityError": 1.5329751357207044e-14
+    },
+    {
+      "group": "C44",
+      "orthogonalityError": 5.717648576819556e-15
+    },
+    {
+      "group": "C44v",
+      "orthogonalityError": 2.456368441983159e-15
+    },
+    {
+      "group": "C44h",
+      "orthogonalityError": 5.717648576819556e-15
+    },
+    {
+      "group": "D44",
+      "orthogonalityError": 2.456368441983159e-15
+    },
+    {
+      "group": "D44h",
+      "orthogonalityError": 2.4494295480792516e-15
+    },
+    {
+      "group": "D44d",
+      "orthogonalityError": 7.098488463697095e-15
+    },
+    {
+      "group": "S88",
+      "orthogonalityError": 1.4046055984984207e-14
+    },
+    {
+      "group": "C45",
+      "orthogonalityError": 6.151329445813758e-15
+    },
+    {
+      "group": "C45v",
+      "orthogonalityError": 5.88418203051333e-15
+    },
+    {
+      "group": "C45h",
+      "orthogonalityError": 6.142655828433874e-15
+    },
+    {
+      "group": "D45",
+      "orthogonalityError": 5.88418203051333e-15
+    },
+    {
+      "group": "D45h",
+      "orthogonalityError": 6.106226635438361e-15
+    },
+    {
+      "group": "D45d",
+      "orthogonalityError": 6.106226635438361e-15
+    },
+    {
+      "group": "S90",
+      "orthogonalityError": 1.558822515512759e-14
+    },
+    {
+      "group": "C46",
+      "orthogonalityError": 6.13398221105399e-15
+    },
+    {
+      "group": "C46v",
+      "orthogonalityError": 3.309852392163748e-15
+    },
+    {
+      "group": "C46h",
+      "orthogonalityError": 6.1201044232461754e-15
+    },
+    {
+      "group": "D46",
+      "orthogonalityError": 3.309852392163748e-15
+    },
+    {
+      "group": "D46h",
+      "orthogonalityError": 3.3306690738754696e-15
+    },
+    {
+      "group": "D46d",
+      "orthogonalityError": 8.708311849403572e-15
+    },
+    {
+      "group": "S92",
+      "orthogonalityError": 1.5024440025435126e-14
+    },
+    {
+      "group": "C47",
+      "orthogonalityError": 5.842548667089886e-15
+    },
+    {
+      "group": "C47v",
+      "orthogonalityError": 4.64103581954145e-15
+    },
+    {
+      "group": "C47h",
+      "orthogonalityError": 5.835609773185979e-15
+    },
+    {
+      "group": "D47",
+      "orthogonalityError": 4.64103581954145e-15
+    },
+    {
+      "group": "D47h",
+      "orthogonalityError": 4.624230685867925e-15
+    },
+    {
+      "group": "D47d",
+      "orthogonalityError": 4.624230685867925e-15
+    },
+    {
+      "group": "S94",
+      "orthogonalityError": 1.56697571584985e-14
+    },
+    {
+      "group": "C48",
+      "orthogonalityError": 5.6968318951078345e-15
+    },
+    {
+      "group": "C48v",
+      "orthogonalityError": 3.12944115066216e-15
+    },
+    {
+      "group": "C48h",
+      "orthogonalityError": 5.693362448155881e-15
+    },
+    {
+      "group": "D48",
+      "orthogonalityError": 3.12944115066216e-15
+    },
+    {
+      "group": "D48h",
+      "orthogonalityError": 3.146788385421928e-15
+    },
+    {
+      "group": "D48d",
+      "orthogonalityError": 6.657868700798986e-15
+    },
+    {
+      "group": "S96",
+      "orthogonalityError": 1.477810929184642e-14
+    },
+    {
+      "group": "C49",
+      "orthogonalityError": 6.342149028171207e-15
+    },
+    {
+      "group": "C49v",
+      "orthogonalityError": 3.96340946173801e-15
+    },
+    {
+      "group": "C49h",
+      "orthogonalityError": 6.349087922075114e-15
+    },
+    {
+      "group": "D49",
+      "orthogonalityError": 3.96340946173801e-15
+    },
+    {
+      "group": "D49h",
+      "orthogonalityError": 3.980106175194287e-15
+    },
+    {
+      "group": "D49d",
+      "orthogonalityError": 3.980106175194287e-15
+    },
+    {
+      "group": "S98",
+      "orthogonalityError": 1.5681900222830336e-14
+    },
+    {
+      "group": "C50",
+      "orthogonalityError": 6.6856242764146145e-15
+    },
+    {
+      "group": "C50v",
+      "orthogonalityError": 3.9065972678997696e-15
+    },
+    {
+      "group": "C50h",
+      "orthogonalityError": 6.673481212082777e-15
+    },
+    {
+      "group": "D50",
+      "orthogonalityError": 3.9065972678997696e-15
+    },
+    {
+      "group": "D50h",
+      "orthogonalityError": 3.896188927043909e-15
+    },
+    {
+      "group": "D50d",
+      "orthogonalityError": 7.462780393652224e-15
+    },
+    {
+      "group": "S100",
+      "orthogonalityError": 1.5189238755652923e-14
+    },
+    {
+      "group": "C51",
+      "orthogonalityError": 6.012551567735613e-15
+    },
+    {
+      "group": "C51v",
+      "orthogonalityError": 4.197163450125885e-15
+    },
+    {
+      "group": "C51h",
+      "orthogonalityError": 6.017755738163544e-15
+    },
+    {
+      "group": "D51",
+      "orthogonalityError": 4.197163450125885e-15
+    },
+    {
+      "group": "D51h",
+      "orthogonalityError": 4.20800547185074e-15
+    },
+    {
+      "group": "D51d",
+      "orthogonalityError": 4.20800547185074e-15
+    },
+    {
+      "group": "S102",
+      "orthogonalityError": 1.702804564018834e-14
+    },
+    {
+      "group": "C52",
+      "orthogonalityError": 7.431555371084642e-15
+    },
+    {
+      "group": "C52v",
+      "orthogonalityError": 3.4763858458575214e-15
+    },
+    {
+      "group": "C52h",
+      "orthogonalityError": 7.42114703022878e-15
+    },
+    {
+      "group": "D52",
+      "orthogonalityError": 3.4763858458575214e-15
+    },
+    {
+      "group": "D52h",
+      "orthogonalityError": 3.4590386110977533e-15
+    },
+    {
+      "group": "D52d",
+      "orthogonalityError": 8.583411759133242e-15
+    },
+    {
+      "group": "S104",
+      "orthogonalityError": 1.467402588328781e-14
+    },
+    {
+      "group": "C53",
+      "orthogonalityError": 6.463579671489583e-15
+    },
+    {
+      "group": "C53v",
+      "orthogonalityError": 3.864096542738338e-15
+    },
+    {
+      "group": "C53h",
+      "orthogonalityError": 6.46531439496556e-15
+    },
+    {
+      "group": "D53",
+      "orthogonalityError": 3.864096542738338e-15
+    },
+    {
+      "group": "D53h",
+      "orthogonalityError": 3.874938564463193e-15
+    },
+    {
+      "group": "D53d",
+      "orthogonalityError": 3.874938564463193e-15
+    },
+    {
+      "group": "S106",
+      "orthogonalityError": 1.482668154917377e-14
+    },
+    {
+      "group": "C54",
+      "orthogonalityError": 6.054184931159057e-15
+    },
+    {
+      "group": "C54v",
+      "orthogonalityError": 3.2959746043559335e-15
+    },
+    {
+      "group": "C54h",
+      "orthogonalityError": 6.05245020768308e-15
+    },
+    {
+      "group": "D54",
+      "orthogonalityError": 3.2959746043559335e-15
+    },
+    {
+      "group": "D54h",
+      "orthogonalityError": 3.2855662635000726e-15
+    },
+    {
+      "group": "D54d",
+      "orthogonalityError": 7.563394355258879e-15
+    },
+    {
+      "group": "S108",
+      "orthogonalityError": 1.5301995781591415e-14
+    },
+    {
+      "group": "C55",
+      "orthogonalityError": 5.738465258531278e-15
+    },
+    {
+      "group": "C55v",
+      "orthogonalityError": 4.773959005888173e-15
+    },
+    {
+      "group": "C55h",
+      "orthogonalityError": 5.728056917675417e-15
+    },
+    {
+      "group": "D55",
+      "orthogonalityError": 4.773959005888173e-15
+    },
+    {
+      "group": "D55h",
+      "orthogonalityError": 4.551914400963142e-15
+    },
+    {
+      "group": "D55d",
+      "orthogonalityError": 4.551914400963142e-15
+    },
+    {
+      "group": "S110",
+      "orthogonalityError": 1.560383766641138e-14
+    },
+    {
+      "group": "C56",
+      "orthogonalityError": 6.734196533741965e-15
+    },
+    {
+      "group": "C56v",
+      "orthogonalityError": 3.95516952522712e-15
+    },
+    {
+      "group": "C56h",
+      "orthogonalityError": 6.7394007041698956e-15
+    },
+    {
+      "group": "D56",
+      "orthogonalityError": 3.95516952522712e-15
+    },
+    {
+      "group": "D56h",
+      "orthogonalityError": 3.975986206938842e-15
+    },
+    {
+      "group": "D56d",
+      "orthogonalityError": 8.76382300063483e-15
+    },
+    {
+      "group": "S112",
+      "orthogonalityError": 1.508168590014236e-14
+    },
+    {
+      "group": "C57",
+      "orthogonalityError": 6.553785292240377e-15
+    },
+    {
+      "group": "C57v",
+      "orthogonalityError": 5.093364965902403e-15
+    },
+    {
+      "group": "C57h",
+      "orthogonalityError": 6.5520505687644004e-15
+    },
+    {
+      "group": "D57",
+      "orthogonalityError": 5.093364965902403e-15
+    },
+    {
+      "group": "D57h",
+      "orthogonalityError": 5.0724398639734325e-15
+    },
+    {
+      "group": "D57d",
+      "orthogonalityError": 5.0724398639734325e-15
+    },
+    {
+      "group": "S114",
+      "orthogonalityError": 1.7723669754055038e-14
+    },
+    {
+      "group": "C58",
+      "orthogonalityError": 6.6231742312794495e-15
+    },
+    {
+      "group": "C58v",
+      "orthogonalityError": 3.747002708109903e-15
+    },
+    {
+      "group": "C58h",
+      "orthogonalityError": 6.642256189515194e-15
+    },
+    {
+      "group": "D58",
+      "orthogonalityError": 3.747002708109903e-15
+    },
+    {
+      "group": "D58h",
+      "orthogonalityError": 3.760880495917718e-15
+    },
+    {
+      "group": "D58d",
+      "orthogonalityError": 6.8209327075408055e-15
+    },
+    {
+      "group": "S116",
+      "orthogonalityError": 1.5857107293903994e-14
+    },
+    {
+      "group": "C59",
+      "orthogonalityError": 7.032568971609976e-15
+    },
+    {
+      "group": "C59v",
+      "orthogonalityError": 4.567960593115927e-15
+    },
+    {
+      "group": "C59h",
+      "orthogonalityError": 7.013487013374231e-15
+    },
+    {
+      "group": "D59",
+      "orthogonalityError": 4.567960593115927e-15
+    },
+    {
+      "group": "D59h",
+      "orthogonalityError": 4.5599374970395345e-15
+    },
+    {
+      "group": "D59d",
+      "orthogonalityError": 4.5599374970395345e-15
+    },
+    {
+      "group": "S118",
+      "orthogonalityError": 1.532107773982716e-14
+    },
+    {
+      "group": "C60",
+      "orthogonalityError": 6.140921104957897e-15
+    },
+    {
+      "group": "C60v",
+      "orthogonalityError": 3.3931191190106347e-15
+    },
+    {
+      "group": "C60h",
+      "orthogonalityError": 6.1374516580059435e-15
+    },
+    {
+      "group": "D60",
+      "orthogonalityError": 3.3931191190106347e-15
+    },
+    {
+      "group": "D60h",
+      "orthogonalityError": 3.41740524767431e-15
+    },
+    {
+      "group": "D60d",
+      "orthogonalityError": 6.3629657098829284e-15
+    },
+    {
+      "group": "S120",
+      "orthogonalityError": 1.5959455978986625e-14
+    }
+  ],
+  "languages": [
+    {
+      "language": "zh-Hans",
+      "title": "点群与基函数"
+    },
+    {
+      "language": "zh-Hant",
+      "title": "點群與基函數"
+    },
+    {
+      "language": "en",
+      "title": "Point Groups & Basis Functions"
+    }
+  ],
+  "reductionIntegrated": true,
+  "uiLaunched": false,
+  "jsonSavePayloadChecks": "passed",
+  "originChecks": "passed",
+  "resourcesPresent": true,
+  "date": "2026-10-08",
+  "architecture": "x64",
+  "platform": "Windows",
+  "dotnetBundled": true,
+  "webview2OfflineInstaller": {
+    "signature": "Valid",
+    "signer": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+    "bytes": 212358352,
+    "status": "passed",
+    "certificateThumbprint": "4028CAD637509D4744B17EC5B42AED8D7A31E6AF",
+    "fileVersion": "1.3.275.13",
+    "sha256": "ac22ecdc19c5b88b87f3fa752c00da9541653a8f5c0c5fc4a3b2b6ebe6591f69",
+    "source": "https://go.microsoft.com/fwlink/p/?LinkId=2124701"
+  },
+  "appAuthenticodeSigned": false,
+  "archive": "BasisCharacter-0.4.3-Windows-x64.zip",
+  "sha256": "8304994e566fcec050c7c7285600810c9c6e311ab7e92915be4034d7d91f3304",
+  "zipCRC": "passed",
+  "PEArchitecture": "x64",
+  "embeddedHTMLMatchesSource": true,
+  "bundledScriptsMatchSource": true,
+  "sourceComparison": "UTF-8 text with CRLF normalized to LF",
+  "nativeBuildCommit": "bd9ff9141d4cffa05d74d90395c6f5b8768509cf",
+  "ciRun": "https://github.com/lightzfpwings/pointgroup-reducer/actions/runs/37728301351"
+}

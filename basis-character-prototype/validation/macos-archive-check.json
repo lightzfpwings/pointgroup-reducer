@@ -1,23 +1,11 @@
 {
-  "date": "2026-10-07",
-  "version": "0.4.2",
-  "archive": "BasisCharacter-0.4.2-macOS-arm64.zip",
-  "sha256": "d4b63d0f4db688834ecd17cefa4618a8b532d03da2f72358c47ed7360c34dc59",
+  "version": "0.4.3",
+  "archive": "BasisCharacter-0.4.3-macOS-arm64.zip",
+  "sha256": "50fedb47cd7177bc696fd859f8e81cfa34302eb772ee52d0357daf8e1eb895c9",
   "relocatedExecutableSmoke": "passed",
   "relocatedSignatureVerification": "passed",
   "embeddedHTMLMatchesSource": true,
   "defaultLanguageHTMLFilesMatchSource": true,
-  "supportedSpatialPointGroups": 87,
-  "supportedReductionPointGroups": 423,
-  "nativeExamples": 7,
-  "languages": [
-    "zh-Hans",
-    "zh-Hant",
-    "en"
-  ],
-  "uiInteraction": "not visually verified",
-  "signature": "ad-hoc",
-  "notarized": false,
-  "reductionIntegrated": true,
-  "releaseReadiness": "user-approved; rebuilt with publication documentation"
+  "uiLaunched": false,
+  "zipCRC": "passed"
 }
