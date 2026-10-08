@@ -1,16 +1,18 @@
-# 点群与基函数 0.4.2
+# 点群与基函数 0.4.3
 
 [English](README.en.md) · [繁體中文](README.zh-Hant.md)
 
-[正式发布 0.4.2](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.2)
+[正式发布 0.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.3)
 
-将位置与 s/p/d 基函数计算、可约特征标和不可约分解整合在同一离线应用中。保留简洁白底单栏，公式、表格、复制文本与 LaTeX 使用一致的数学约定。右上角或 Mac“语言”菜单可切换简体中文、繁体中文和 English，切换保留输入、结果与查看状态，并记住偏好。
+将位置与 s/p/d 基函数计算、可约特征标和不可约分解整合在同一离线应用中。保留简洁白底单栏，公式、表格、复制文本与 LaTeX 使用一致的数学约定。右上角或桌面“语言”菜单可切换简体中文、繁体中文和 English，切换保留输入、结果与查看状态，并记住偏好。
 
 ## 启动
 
-Mac Apple 芯片：解压 `dist/BasisCharacter-0.4.2-macOS-arm64.zip`，退出旧版后打开 `BasisCharacter.app`。支持 macOS 12+，不需要 Python、Node、浏览器或联网。ZIP 的 `offline/` 目录另有三种默认语言的 HTML 版本。
+Mac Apple 芯片：解压 `dist/BasisCharacter-0.4.3-macOS-arm64.zip`，退出旧版后打开 `BasisCharacter.app`。支持 macOS 12+，不需要 Python、Node、浏览器或联网。ZIP 的 `offline/` 目录另有三种默认语言的 HTML 版本。
 
-浏览器版：直接打开 `dist/BasisCharacterPrototype-0.4.2-zh-Hans.html`、`…-zh-Hant.html` 或 `…-en.html`。每份文件均包含全部功能和三语切换。开发页 `index.html` 需要同目录九个 JS 文件。
+Windows x64：完整解压 `dist/BasisCharacter-0.4.3-Windows-x64.zip`，双击 `BasisCharacter.exe`。适用 Windows 11 及 Windows 10 x64（1809+）；系统支持周期遵循微软。已包含 .NET，无需 Python 或 Node。若提示缺少 WebView2，先运行同文件夹中的微软离线安装器，再打开软件。
+
+浏览器版：直接打开 `dist/BasisCharacterPrototype-0.4.3-zh-Hans.html`、`…-zh-Hant.html` 或 `…-en.html`。每份文件均包含全部功能和三语切换。开发页 `index.html` 需要同目录九个 JS 文件。
 
 应用仍使用本地临时签名，未 Apple 开发者签名或公证。自动化检查覆盖计算与应用事件；自动化未进行桌面窗口、浏览器排版和系统文件对话框的视觉验收；本版本已获用户试用后的发布批准。
 
@@ -53,3 +55,5 @@ d 的中心可在原点或对称相容的非原点位置。JSON 使用 `family:"
 0.4.2 修正数学排版：p/d 与方向分量使用正规下标，群名及不可约符号上下标一致，角度以 φ 和 π 分数显示；科学计数法使用 ×10 的幂，复数单位 i 与函数名直立。约化公式使用粗体 a/X/W/c，星号明确表示逐项复共轭，不含转置。MathML 与 LaTeX 共用表达式树，保留负号、分数、幂与括号的数值含义；小的非零数不再显示为零。
 
 0.4.2 修复数学表头变成 `[object MathMLMathElement]` 的问题。表头与正文共用节点插入逻辑；三语的特征标表、基函数结果表、手动输入结果表与向量表均检查数学表头节点。
+
+0.4.3 新增 Windows x64 原生封装，含系统 JSON 对话框、剪贴板和三语菜单，附带微软签名的 WebView2 离线安装器。Windows 应用尚未 Authenticode 签名。开发封装：在 Windows x64 安装 .NET 10 SDK 后运行 `python packaging/build_windows.py`；构建会下载并校验微软安装器。原生自检通过 Jint 执行纯数学脚本，不启动浏览器；视觉与文件对话框交互仍需实际试用。修复位置容差编辑时翻译函数被变量遮蔽的问题。

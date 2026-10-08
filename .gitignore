@@ -7,3 +7,6 @@ dist/
 release/
 .DS_Store
 
+
+basis-character-prototype/packaging/windows/bin/
+basis-character-prototype/packaging/windows/obj/

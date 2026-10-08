@@ -85,6 +85,14 @@ test('cleared or invalid numeric fields restore the previous value', () => {
   const h = harness(); const input = h.descendants(h.$('sites-table')).find(n => n.attributes['aria-label'] === 'C0 x'); input.value = ''; input.onchange(); assert.equal(input.value, '1');
   h.set('tolerance', 1, true); assert.equal(h.$('tolerance').value, '0.000001'); h.set('tolerance', '', true); assert.equal(h.$('tolerance').value, '0.000001');
 });
+test('valid position tolerance edits persist in each language and invalid edits restore that value', async () => {
+  for(const language of ['zh-Hans','zh-Hant','en']) {
+    const h=harness();h.set('language',language,true);h.set('tolerance',2e-6,true);
+    h.click('save-project');const saved=JSON.parse(await h.downloads.at(-1).blob.text());
+    assert.equal(saved.input.tolerance,2e-6);h.set('tolerance',1,true);assert.equal(h.$('tolerance').value,'0.000002');
+    h.click('calculate');h.flush();assert.equal(h.$('export-result').disabled,false);
+  }
+});
 test('project save/import and result export contain real reconstructible data', async () => {
   const h = harness(); h.click('save-project'); const saved = JSON.parse(await h.downloads.at(-1).blob.text()); assert.equal(saved.input.functions.length, 30);
   h.click('new-project'); h.$('project-file').files = [{ size: 1000, text: async () => JSON.stringify(saved) }]; await h.$('project-file').onchange(); assert.equal(h.$('function-count').textContent, '30 个函数'); assert.equal(h.$('export-result').disabled, true);

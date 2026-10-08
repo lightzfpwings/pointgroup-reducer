@@ -110,6 +110,6 @@
     const result=sum();if(i!==tokens.length||!finite(result))fail('invalid_expression');return pack(z(result));
   }
   function parseVector(text){const parts=/[,;，；]/.test(text)?text.split(/[,;，；]/):text.trim().split(/\s+/);if(parts.some(p=>!p.trim()))fail('invalid_expression');return parts.map(number);}
-  const api={VERSION:'0.4.2',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
+  const api={VERSION:'0.4.3',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.ReductionEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -36,3 +36,32 @@ jobs:
               assert hashlib.sha256((Path('dist') / item['name']).read_bytes()).hexdigest() == item['sha256']
           print('Offline language files and source archive checksums passed')
           PY
+
+  windows:
+    name: Integrated app — Windows x64
+    runs-on: windows-2022
+    timeout-minutes: 25
+    env:
+      PYTHONUTF8: '1'
+    defaults:
+      run:
+        working-directory: basis-character-prototype
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-dotnet@e2cf7c663b93c38144629f5d40b62d3eaaa63a03
+        with:
+          dotnet-version: '10.0.x'
+      - name: Native build, signed offline runtime and pure mathematics self-check
+        run: python packaging/build_windows.py
+      - name: Store Windows package and evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Integrated-Windows-x64
+          path: |
+            basis-character-prototype/dist/BasisCharacter-*-Windows-x64.zip
+            basis-character-prototype/dist/WINDOWS-SHA256SUMS.txt
+            basis-character-prototype/validation/windows-package-check.json
+            basis-character-prototype/packaging/windows/packages.lock.json
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30

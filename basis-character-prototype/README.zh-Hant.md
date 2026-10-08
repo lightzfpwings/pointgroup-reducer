@@ -1,12 +1,14 @@
-# 點群與基函數 0.4.2
+# 點群與基函數 0.4.3
 
 [简体中文](README.md) · [English](README.en.md)
 
-[正式發布 0.4.2](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.2)
+[正式發布 0.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.3)
 
-在同一離線應用程式中完成位置與 s/p/d 基函數、可約特徵標及不可約分解。採用簡潔白底單欄，統一公式、表格及輸出格式。右上角或 Mac「語言」選單可切換繁體中文、简体中文與 English；保留輸入、結果和檢視狀態，並記住偏好。
+在同一離線應用程式中完成位置與 s/p/d 基函數、可約特徵標及不可約分解。採用簡潔白底單欄，統一公式、表格及輸出格式。右上角或桌面「語言」選單可切換繁體中文、简体中文與 English；保留輸入、結果和檢視狀態，並記住偏好。
 
 解壓 Mac Apple 晶片版 ZIP，結束舊版後開啟 `BasisCharacter.app`。支援 macOS 12+，不需要 Python、Node、瀏覽器或網路。`offline/` 另有三種預設語言的獨立 HTML 檔，每份都能切換三語。
+
+Windows x64：完整解壓 Windows ZIP 後開啟 `BasisCharacter.exe`，適用 Windows 11 和 Windows 10 x64（1809+）；支援版本遵循微軟系統生命週期。已包含 .NET，不需要 Python 或 Node。如提示缺少 WebView2，先執行同資料夾中的微軟離線安裝器，再開啟軟體。Windows 應用尚未 Authenticode 簽署。
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
@@ -27,3 +29,5 @@ d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²�
 0.4.2 修正軌道與方向下標、群名及不可約符號上下標、角度分數、科學記號，以及直立的虛數單位與函數名稱。粗體 a/X/W/c 的星號明確表示逐項複共軛，不含轉置。MathML 與 LaTeX 共用運算式樹，保留負號、分數、冪及括號的數值含義；小的非零數不再顯示為零。
 
 0.4.2 修復數學表頭顯示為 `[object MathMLMathElement]` 的問題。表頭與正文共用節點插入邏輯；三語特徵標表、基函數結果表、手動結果表及向量表均檢查數學表頭節點。
+
+0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，附微軟簽署的 WebView2 離線安裝器。開發封裝：在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py`。原生自檢以 Jint 執行純數學腳本，不啟動瀏覽器；視覺排版及系統對話框仍需實際試用。位置容差編輯已修復翻譯函數被變數遮蔽的問題。

@@ -195,7 +195,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         NSApp.mainMenu = bar
     }
     @objc private func showAbout() {
-        NSApp.orderFrontStandardAboutPanel(options: [.applicationName: l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions"), .applicationVersion: "0.4.2"])
+        NSApp.orderFrontStandardAboutPanel(options: [.applicationName: l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions"), .applicationVersion: "0.4.3"])
     }
     @objc private func changeLanguage(_ sender: NSMenuItem) {
         guard let value = sender.representedObject as? String, ["zh-Hans", "zh-Hant", "en"].contains(value) else { return }

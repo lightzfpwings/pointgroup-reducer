@@ -39,7 +39,7 @@ files += [str(path.relative_to(ROOT)) for path in sorted((ROOT/'localization').g
 files += [str(path.relative_to(ROOT)) for path in sorted((ROOT / "compatibility").glob("*")) if path.is_file()]
 files += [str(path.relative_to(ROOT)) for path in sorted((ROOT / "tests").glob("*.test.js"))]
 files += [str(path.relative_to(ROOT)) for path in sorted((ROOT / "tests").rglob("*.json"))]
-files += [str(path.relative_to(ROOT)) for path in sorted((ROOT / "packaging").rglob("*")) if path.is_file() and path.suffix in (".py", ".swift", ".md")]
+files += [str(path.relative_to(ROOT)) for path in sorted((ROOT / "packaging").rglob("*")) if path.is_file() and not any(part in ("obj", "bin") for part in path.parts) and path.suffix in (".py", ".swift", ".md", ".cs", ".csproj", ".js", ".json", ".manifest", ".ps1")]
 archive = DIST / f"BasisCharacterPrototype-{VERSION}-source.zip"
 with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as out:
     for name in files:

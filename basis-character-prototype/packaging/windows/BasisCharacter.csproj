@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>BasisCharacter</AssemblyName>
+    <RootNamespace>BasisCharacter</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PublishTrimmed>false</PublishTrimmed>
+    <Version>0.4.3</Version>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+    <!-- Jint 只用于纯计算自检，不提供浏览器、联网或 CLR 访问。 -->
+    <PackageReference Include="Jint" Version="4.17.0" />
+    <Content Include="bridge.js;self-check.js" CopyToOutputDirectory="PreserveNewest" TargetPath="Resources/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

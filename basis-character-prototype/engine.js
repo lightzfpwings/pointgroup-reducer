@@ -2,7 +2,7 @@
 (function (root) {
   'use strict';
   const EPS = 1e-9;
-  const VERSION = '0.4.2';
+  const VERSION = '0.4.3';
   class BasisError extends Error {
     constructor(code, message, detail = {}) { super(message); this.name = 'BasisError'; this.code = code; this.detail = detail; }
   }

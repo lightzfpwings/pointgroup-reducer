@@ -1,12 +1,14 @@
-# Point Groups & Basis Functions 0.4.2
+# Point Groups & Basis Functions 0.4.3
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
-[Published release 0.4.2](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.2)
+[Published release 0.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.3)
 
-An offline application that connects positions and s/p/d basis functions to reducible characters and irreducible decompositions. Both workflows share a simple white interface, class conventions, mathematical tables, and output formatting. Switch between English, Simplified Chinese and Traditional Chinese using the top-right selector or the Mac Language menu. Inputs, results and inspector selections are preserved; the preference is remembered.
+An offline application that connects positions and s/p/d basis functions to reducible characters and irreducible decompositions. Both workflows share a simple white interface, class conventions, mathematical tables, and output formatting. Switch between English, Simplified Chinese and Traditional Chinese using the top-right selector or the desktop Language menu. Inputs, results and inspector selections are preserved; the preference is remembered.
 
 On an Apple silicon Mac running macOS 12+, extract the ZIP, quit the previous version, and open `BasisCharacter.app`. No Python, Node, browser or network is required. The `offline/` folder also contains standalone HTML files starting in each of the three languages; every file supports switching languages.
+
+On Windows x64 (Windows 11, or Windows 10 1809+; supported editions follow Microsoft lifecycle), extract the ENTIRE Windows ZIP and open `BasisCharacter.exe`. .NET is bundled; no Python or Node is needed. If WebView2 is missing, run the supplied Microsoft-signed offline installer, then reopen the app. The application executable is not Authenticode signed.
 
 **From basis functions** supports 87 verified spatial point groups. Expand representative positions by symmetry or enter individual sites, add s, p and five real d harmonics, and calculate. The application constructs the full representation matrices, identifies closed blocks in the chosen basis, computes characters, and reduces both the total space and each block.
 
@@ -27,3 +29,5 @@ The Mac app uses an ad-hoc local signature and is not Apple Developer signed or 
 Version 0.4.2 corrects orbital and direction subscripts, group/irrep scripts, angle fractions, scientific notation, and upright imaginary units and function names. Bold a/X/W/c use a star explicitly defined as elementwise conjugation without transposition. MathML and LaTeX share an expression tree that preserves signs, fractions, powers and grouping; small nonzero values are retained.
 
 Version 0.4.2 fixes mathematical table headers displaying `[object MathMLMathElement]`. Headers and body cells share node insertion. Regression checks cover character, basis-result, manual-result and vector tables in all three languages.
+
+Version 0.4.3 adds the Windows x64 wrapper, native JSON dialogs, clipboard, remembered language menus, and Microsoft-signed offline WebView2 installer. Build on Windows x64 with .NET 10 SDK: `python packaging/build_windows.py`. Native self-checks use Jint for pure mathematics without launching a browser; visual layout and native dialogs still require user testing. Position-tolerance editing now correctly retains the translation function.

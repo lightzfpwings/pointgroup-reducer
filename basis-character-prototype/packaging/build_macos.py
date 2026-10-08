@@ -3,6 +3,7 @@
 No pip/npm install, network access, or dependency on Point Group Reducer.
 """
 from pathlib import Path
+import datetime
 import hashlib
 import json
 import os
@@ -50,7 +51,7 @@ info = {
     "CFBundleName": "BasisCharacter", "CFBundleDisplayName": "点群与基函数",
     "CFBundleIdentifier": "org.symmetrygroup.basischaracter.prototype",
     "CFBundleExecutable": "BasisCharacter", "CFBundlePackageType": "APPL",
-    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "6",
+    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "7",
     "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"], "CFBundleDevelopmentRegion": "en",
     "LSMinimumSystemVersion": "12.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Integrated basis characters and irreducible reduction.",
@@ -69,7 +70,7 @@ run(["codesign", "--force", "--sign", "-", "--timestamp=none", str(APP)])
 run(["codesign", "--verify", "--deep", "--strict", "--verbose=2", str(APP)])
 check = subprocess.check_output([str(macos / "BasisCharacter"), "--self-check"], text=True)
 report = json.loads(check)
-report.update({"date": "2026-10-07", "architecture": "arm64", "minimumMacOS": "12.0",
+report.update({"date": datetime.date.today().isoformat(), "architecture": "arm64", "minimumMacOS": "12.0",
                "signature": "ad-hoc local signature", "notarized": False})
 (ROOT / "validation" / "macos-package-check.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 readme = f"""点群与基函数 {VERSION} — Mac Apple 芯片整合版
