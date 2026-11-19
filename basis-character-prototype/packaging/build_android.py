@@ -55,8 +55,9 @@ def build_apk(sdk, work, manifest, sources, target, assets=None):
         link += ["--java", generated, "-A", assets, resources]
     run(link)
     src = [*sources.glob("*.java"), *generated.rglob("*.java")]
-    run(["javac", "-encoding", "UTF-8", "-source", "8", "-target", "8", "-bootclasspath",
-         jar, "-d", classes, *src])
+    # javac needs the Java 8 LambdaMetafactory signatures; the Android stubs
+    # intentionally omit them. D8 desugars the resulting lambda call sites.
+    run(["javac", "-encoding", "UTF-8", "--release", "8", "-classpath", jar, "-d", classes, *src])
     class_jar = work / "code.jar"
     with zipfile.ZipFile(class_jar, "w") as archive:
         for path in sorted(classes.rglob("*.class")):
