@@ -3,7 +3,7 @@
   const E = window.BasisEngine, R = window.ReductionEngine, I = window.I18n, M = window.MathFormat, t = I.translate, $ = id => document.getElementById(id);
   let spec = { schemaVersion: 1, group: 'D6h', tolerance: 1e-6, sites: [], functions: [], note: '' }, result = null, selection = new Set(), history = [], serial = 0;
   let mode = 'basis', manual = {group:'D6h',text:'',tolerance:1e-7}, reduction = null, revision = 0, lastMessage = '', lastKind = '', lastDetail = null;
-  let salc = null;
+  let salc = null, spectrum = null;
   const clone = x => JSON.parse(JSON.stringify(x));
   const fmt = x => Math.abs(x) < 1e-10 ? '0' : Math.abs(x - Math.round(x)) < 1e-10 ? String(Math.round(x)) : Number(x.toPrecision(7)).toString();
   // 表头与正文共用内容插入：MathML/HTML 节点直接插入，文本才设置 textContent。
@@ -16,7 +16,7 @@
   function numberInput(id, label) { const v = $(id).value.trim(), n = Number(v); if (!v || !Number.isFinite(n)) throw new Error(label + t('需要填写有限数值。')); return n; }
   function checkpoint() { history.push({ spec: clone(spec), selection: [...selection], mode, manual:clone(manual) }); if (history.length > 30) history.shift(); $('undo').disabled = false; }
   function invalidate(message) {
-    salc = null;
+    salc = null; spectrum = null;
     $('salc-card').classList.add('hidden'); $('salc-output').classList.add('hidden');
     $('calculate-salc').disabled = false; $('salc-irrep').replaceChildren(); $('salc-copy').replaceChildren(); $('salc-table').replaceChildren();
     revision++; result = null; reduction = null; $('export-result').disabled = true; $('export-aligned').disabled = true; $('inspector-card').classList.add('hidden'); $('alignment-card').classList.add('hidden'); $('copy-card').classList.add('hidden'); $('copy-content').value='';
@@ -39,9 +39,9 @@
         const input = document.createElement('input'); input.type = 'number'; input.step = 'any'; input.value = String(value); input.setAttribute('aria-label', site.id + ' ' + ['x', 'y', 'z'][axis]);
         input.onchange = protect(() => { if (!input.value.trim() || !Number.isFinite(Number(input.value))) { input.value = String(site.position[axis]); throw new Error(t('坐标需要有限数值。')); } checkpoint(); site.position[axis] = Number(input.value); invalidate(); }); return input;
       });
-      return [checkbox, site.id, kind, ...coords, removeButton(() => { checkpoint(); spec.sites = spec.sites.filter(s => s.id !== site.id); spec.functions = spec.functions.filter(f => f.site !== site.id); selection.delete(site.id); invalidate(t('已移除中心及引用它的函数，可撤销。')); render(); })];
+      return [...(mode === 'basis' ? [checkbox] : []), site.id, kind, ...coords, removeButton(() => { checkpoint(); spec.sites = spec.sites.filter(s => s.id !== site.id); spec.functions = spec.functions.filter(f => f.site !== site.id); selection.delete(site.id); invalidate(t('已移除中心及引用它的函数，可撤销。')); render(); })];
     });
-    makeTable($('sites-table'), [t('选择'), t('中心'), t('类型'), 'x', 'y', 'z', ''], rows); updateSelection();
+    makeTable($('sites-table'), [...(mode === 'basis' ? [t('选择')] : []), t('中心'), t('类型'), 'x', 'y', 'z', ''], rows); updateSelection();
   }
   function renderFunctions() {
     $('function-count').textContent = spec.functions.length + t(' 个函数'); const batchCounts = new Map(); spec.functions.forEach(f => batchCounts.set(f.batch, (batchCounts.get(f.batch) || 0) + 1));
@@ -55,14 +55,16 @@
   }
   function render() {
     $('group').value = spec.group; $('tolerance').value = String(spec.tolerance); $('workflow').value=mode;$('manual-group').value=manual.group;$('manual-characters').value=manual.text;$('reduction-tolerance').value=String(manual.tolerance);
-    for(const id of ['positions-section','basis-section','group'])$(id).classList[mode==='basis'?'remove':'add']('hidden');
+    for(const id of ['positions-section','group','coordinate-settings'])$(id).classList[mode==='manual'?'add':'remove']('hidden');
+    for(const id of ['basis-section','site-selection'])$(id).classList[mode==='basis'?'remove':'add']('hidden');
+    $('vibration-input-note').classList[mode==='vibrations'?'remove':'add']('hidden');
     for(const id of ['manual-section','manual-group'])$(id).classList[mode==='manual'?'remove':'add']('hidden');
-    $('group-note').textContent = mode==='basis'?t(E.group(spec.group).note):t('手动约化支持 423 个点群；输入向量须符合当前表的列顺序。');
+    $('group-note').textContent = mode!=='manual'?t(E.group(spec.group).note):t('手动约化支持 423 个点群；输入向量须符合当前表的列顺序。');
     $('project-note').textContent = t(spec.note || ''); renderSites(); renderFunctions(); renderCharacterTable();
-    $('calculate').textContent=t(mode==='basis'?t('计算并分解'):t('分解特征标'));
+    $('calculate').textContent=t({basis:'计算并分解',manual:'分解特征标',vibrations:'计算振动与光谱活性'}[mode]);
   }
   function renderCharacterTable(){
-    const table=R.table(mode==='basis'?spec.group:manual.group);
+    const table=R.table(mode==='manual'?manual.group:spec.group);
     makeTable($('character-table'),['',...table.classes.map(c=>M.label(c))],table.irreps.map((label,i)=>[M.label(label),...table.expressions[i].map(x=>M.expression(x))]));
     $('table-note').textContent=t('完整复不可约特征标表；复共轭表示分别保留。')+' h = '+table.h;
     $('manual-columns').textContent=t('需要 ')+table.classes.length+t(' 个特征标。');
@@ -171,6 +173,34 @@
     $('calculate-salc').disabled = true; $('salc-output').classList.remove('hidden');
     renderCopy();
   }
+  const vibrationRows = [['cartesian','笛卡尔位移'],['translations','整体平移'],['rotations','整体转动'],['vibrations','分子振动'],['irDipole','红外偶极矩'],['ramanTensor','拉曼极化率张量']];
+  function renderSpectrum() {
+    const body = $('result-body'), s = spectrum;
+    body.replaceChildren(); body.className = '';
+    const geometry = {atomic:'单原子',linear:'线形分子',nonlinear:'非线形分子'}[s.geometry];
+    body.append(el('p', t(geometry) + ' · ' + t('振动自由度') + ' ' + s.degreesOfFreedom, 'summaryline'));
+    const summary = el('div', undefined, 'decomposition'); summary.append(M.decomposition(s.vibrations)); body.append(summary);
+    body.append(el('p',t('按所选点群计数的基频')+' · '+t('红外允许')+' '+s.counts.irBands+' · '+t('拉曼允许')+' '+s.counts.ramanBands+' · '+t('静默')+' '+s.counts.silentBands));
+    if (s.activities.length) {
+      const table = el('div', undefined, 'scroll');
+      const allowed = flag => flag ? t('允许') : '—';
+      makeTable(table,[t('不可约表示'),t('重数'),t('简并度'),t('振动自由度'),t('红外'),t('拉曼')],s.activities.map(a => {
+        const irreps = el('span');
+        a.irreps.forEach((irrep, i) => { if (i) irreps.append(' + '); irreps.append(M.label(irrep)); });
+        return [irreps,a.multiplicity,a.degeneracy,a.degreesOfFreedom,allowed(a.irActive),allowed(a.ramanActive)];
+      }));
+      body.append(table);
+    }
+    body.append(el('p',t('红外按偶极矩、拉曼按对称极化率张量判定。计数按对称性允许的基频给出，峰位和强度还需力常数及性质导数。'),'sub'));
+    if (s.geometry === 'linear') body.append(el('p',t('线形分子仅扣除两个整体转动。此处使用所选有限点群的标签与简并度，较低对称性可能拆分同一弯曲振动。'),'sub'));
+    const details = el('details'), table = el('div', undefined, 'scroll');
+    details.append(el('summary', t('位移、刚体运动与选择定则')));
+    const rows = vibrationRows.map(([key,label])=>[t(label),s[key].dimension,M.decomposition(s[key]),...s[key].c.map(v=>M.number(v))]);
+    rows.unshift([t('固定原子数'),'—','—',...s.fixedAtoms]);
+    makeTable(table,[t('量'),t('维数'),t('不可约组成'),...s.classes.map(c=>M.label(c))],rows);
+    details.append(table); body.append(details);
+    $('export-result').disabled = false; renderCopy();
+  }
   function renderManualResult(){
     const body=$('result-body');body.replaceChildren();body.className='';const r=reduction.total;
     if(!r.valid){body.append(el('div',t('输入不是容差内的合法表示特征标；重数须为非负整数且能重建输入。'),'notice error'));}
@@ -184,6 +214,22 @@
   }
   function plainDecomposition(r){return 'Γ = '+(r.valid?(r.terms.map(term=>(term.multiplicity===1?'':term.multiplicity)+term.irrep).join(' + ')||'0'):t('无合法不可约组成'));}
   const escapeLatex = s => String(s).replace(/[\\{}%&#_$^~]/g,c=>({'\\':'\\textbackslash{}','^':'\\textasciicircum{}','~':'\\textasciitilde{}'}[c]||'\\'+c));
+  function spectrumText(latex) {
+    const s = spectrum;
+    if (latex) {
+      const lines = vibrationRows.map(([key,label]) => '\\Gamma_{\\text{'+escapeLatex(t(label))+'}} &= '+(s[key].terms.map(a=>(a.multiplicity===1?'':a.multiplicity)+M.latexLabel(a.irrep)).join(' + ')||'0'));
+      for (const [label,flag] of [['红外允许','irActive'],['拉曼允许','ramanActive']]) {
+        const terms = s.activities.filter(a=>a[flag]).map(a=>a.irreps.map(M.latexLabel).join(' + ')).join(',\\; ');
+        lines.push('\\text{'+escapeLatex(t(label))+'} &\\quad '+(terms||'\\varnothing'));
+      }
+      return '\\begin{aligned}\n'+lines.join(' \\\\\n')+'\n\\end{aligned}';
+    }
+    const lines = [s.group, ...vibrationRows.map(([key,label])=>t(label)+'  '+plainDecomposition(s[key])), t('振动自由度')+' = '+s.degreesOfFreedom,
+      t('按所选点群计数的基频')+'  '+t('红外允许')+' '+s.counts.irBands+'  '+t('拉曼允许')+' '+s.counts.ramanBands+'  '+t('静默')+' '+s.counts.silentBands];
+    lines.push([t('不可约表示'),t('重数'),t('简并度'),t('红外'),t('拉曼')].join('\t'));
+    for (const a of s.activities) lines.push([a.irreps.join(' + '),a.multiplicity,a.degeneracy,a.irActive?t('允许'):'—',a.ramanActive?t('允许'):'—'].join('\t'));
+    return lines.join('\n');
+  }
   function salcText(latex) {
     if (!salc) return '';
     const space = salc.spaces.find(s=>s.irrep===$('salc-irrep').value), index = Number($('salc-copy').value);
@@ -196,6 +242,7 @@
     return '\n\n'+label+'\n'+[t('编号'),...vectors.map((_,j)=>'ψ'+(j+1))].join('\t')+'\n'+result.functions.map((f,i)=>[f.id,...vectors.map(v=>M.numberText(v.coefficients[i]))].join('\t')).join('\n');
   }
   function resultText(latex=false){
+    if(spectrum) return spectrumText(latex);
     if(!reduction)return '';
     const table=R.table(reduction.point_group),rows=[{label:t('全体'),...reduction.total},...reduction.blocks];
     const plainNumber=v=>{const a=R.z(v);return a.im===0?String(a.re):a.re+(a.im<0?' - ':' + ')+Math.abs(a.im)+'i';};
@@ -239,13 +286,19 @@
     makeTable($('mapping-table'), [t('原中心'), t('目标中心'), t('变换后坐标')], result.sites.map((s, i) => [s.id, result.sites[op.sitePermutation[i]].id, '(' + E.apply(op.matrix, s.position).map(fmt).join(', ') + ')']));
   }
   function loadTemplate(name) {
-    checkpoint(); mode='basis';spec = E.template(name);manual.group=spec.group; selection = new Set(spec.sites.filter(s => name === 'benzene' ? s.kind === 'C' : true).map(s => s.id)); invalidate(t('已载入示例。坐标与轨道均可编辑。')); render();
+    const geometryOnly = ['methane','carbon-dioxide'].includes(name);
+    const input = geometryOnly ? window.VibrationEngine.template(name) : E.template(name);
+    checkpoint();
+    mode = geometryOnly || (mode === 'vibrations' && !name.startsWith('central-')) ? 'vibrations' : 'basis';
+    spec = input; manual.group = spec.group;
+    selection = new Set(spec.sites.filter(s => name !== 'benzene' || s.kind === 'C').map(s => s.id));
+    invalidate(t(mode==='vibrations'?'已载入分子坐标。':'已载入示例。坐标与轨道均可编辑。')); render();
   }
   E.groupNames.forEach(name => option($('group'), name, M.plainLabel(name)));
   R.groupNames.forEach(name=>option($('manual-group'),name,M.plainLabel(name)));
   document.querySelectorAll('[data-template]').forEach(b => b.onclick = protect(() => loadTemplate(b.dataset.template)));
   $('group').onchange = protect(() => { checkpoint(); spec.group = $('group').value; invalidate(t('点群已改变；已有位置和函数已保留，需要重新验证。')); render(); });
-  $('workflow').onchange=protect(()=>{checkpoint();mode=$('workflow').value==='manual'?'manual':'basis';if(mode==='manual')manual.group=spec.group;invalidate();render();});
+  $('workflow').onchange=protect(()=>{checkpoint();mode=$('workflow').value;if(mode==='manual')manual.group=spec.group;invalidate();render();});
   $('manual-group').onchange=protect(()=>{R.table($('manual-group').value);checkpoint();manual.group=$('manual-group').value;invalidate();render();});
   $('manual-characters').oninput=()=>{manual.text=$('manual-characters').value;invalidate();};
   $('reduction-tolerance').onchange=protect(()=>{const n=numberInput('reduction-tolerance',t('约化容差'));if(n<=0||n>=.01){$('reduction-tolerance').value=String(manual.tolerance);throw new R.ReductionError('invalid_reduction_tolerance');}checkpoint();manual.tolerance=n;invalidate();});
@@ -281,10 +334,11 @@
   $('add-functions').onclick = protect(addFunctions);
   $('clear-functions').onclick = protect(() => { checkpoint(); spec.functions = []; invalidate(t('已清空函数；中心坐标保留，可撤销。')); renderFunctions(); });
   $('calculate').onclick = () => {
-    invalidate(); $('calculate').disabled = true; status(t('正在逐函数检查变换、分组和群关系…'));
+    invalidate(); $('calculate').disabled = true; status(t(mode==='basis'?'正在逐函数检查变换、分组和群关系…':'正在计算…'));
     const current=revision,input=clone(spec),manualInput=clone(manual),method=mode;
     setTimeout(() => { try { if(current!==revision)return;
       if(method==='basis'){const basis=E.calculate(input),integrated=R.integrate(basis,window.ReducerAdapter);result=basis;result.conventions.reductionIntegrated=true;result.reduction=integrated;reduction=integrated;renderResult();status(t('已生成 ') + result.blocks.length + t(' 个封闭空间的特征标，共 ') + result.dimension + t(' 个基函数。'), 'success');}
+      else if (method === 'vibrations') { spectrum = window.VibrationEngine.calculate(input); renderSpectrum(); status(t('振动与光谱活性计算完成。'),'success'); }
       else{const total=R.reduce(manualInput.group,R.parseVector(manualInput.text),manualInput.tolerance);reduction={schemaVersion:1,reductionIntegrated:true,point_group:manualInput.group,total,blocks:[]};renderManualResult();status(total.valid?t('不可约分解已完成。'):t('特征标未通过合法表示检查。'),total.valid?'success':'error');}
     }
       catch (error) { protect(() => { throw error; })(); $('result-body').textContent = t('输入未通过验证，尚未生成可约表示特征标。'); }
@@ -301,8 +355,21 @@
   $('salc-irrep').onchange = protect(() => { selectSalcSpace(); renderCopy(); });
   $('salc-copy').onchange = protect(() => { renderSalcTable(); renderCopy(); });
   $('export-aligned').onclick = protect(() => { if (!result) throw new Error(t('请先生成结果。')); download('reducer-input-' + spec.group + '.json', {...window.ReducerAdapter.align(result),reductionIntegrated:true,reduction}); });
-  $('save-project').onclick = protect(() => download('symmetry-input-' + (mode==='basis'?spec.group:manual.group) + '.json', { schemaVersion: 1, application: 'symmetry-integrated', version: E.VERSION, language:I.language(), input: mode==='basis'?spec:{mode:'manual',...manual} }));
-  $('export-result').onclick = protect(() => { if (!reduction) throw new Error(t('请先生成结果。')); const exportReduction={...reduction,table:R.payload(reduction.point_group)};download('symmetry-result-' + reduction.point_group + '.json', mode==='basis'?{ ...result,reduction:exportReduction, input: spec,language:I.language(), ...(salc ? {salc} : {}) }:{schemaVersion:1,engineVersion:E.VERSION,status:reduction.total.valid?'valid':'invalid',reductionIntegrated:true,reduction:exportReduction,language:I.language(),input:{mode:'manual',...manual}}); });
+  function projectInput() {
+    if (mode === 'manual') return {mode, ...manual};
+    return mode === 'vibrations' ? {...spec, mode} : spec;
+  }
+  $('save-project').onclick = protect(() => {
+    const input = projectInput();
+    download('symmetry-input-'+input.group+'.json', {schemaVersion:1,application:'symmetry-integrated',version:E.VERSION,language:I.language(),input});
+  });
+  $('export-result').onclick = protect(() => {
+    const input = projectInput(), envelope = {schemaVersion:1,engineVersion:E.VERSION,language:I.language(),input};
+    if (spectrum) return download('vibrations-'+input.group+'.json',{...envelope,status:'valid',spectrum});
+    if (!reduction) throw new Error(t('请先生成结果。'));
+    const exportReduction = {...reduction,table:R.payload(reduction.point_group)};
+    download('symmetry-result-'+input.group+'.json',{...envelope,...(result || {status:reduction.total.valid?'valid':'invalid',reductionIntegrated:true}),reduction:exportReduction,...(salc ? {salc} : {})});
+  });
   $('copy-text').onclick=protect(()=>copyResult(false));$('copy-latex').onclick=protect(()=>copyResult(true));
   $('load-project').onclick = protect(() => {
     const nativeOpen = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.openJSON;
@@ -311,19 +378,20 @@
   });
   function importProjectText(text) {
       const data = JSON.parse(text); if (data.schemaVersion !== 1) throw new Error(t('不支持的输入版本。'));
-      const input = data.input || data;
+      let input = data.input || data;
       if(input&&input.mode==='manual'){
         R.table(input.group);if(typeof input.text!=='string'||input.text.length>32768||typeof input.tolerance!=='number'||!Number.isFinite(input.tolerance)||input.tolerance<=0||input.tolerance>=.01)throw new Error(t('手动特征标输入格式有误。'));
         checkpoint();mode='manual';manual={group:input.group,text:input.text,tolerance:input.tolerance};invalidate(t('已载入输入。请重新计算，不沿用文件中的旧结果。'));render();return;
       }
-      if (!input || (input.mode && input.mode !== 'basis') || !Array.isArray(input.sites) || !Array.isArray(input.functions) || input.sites.length > 120 || input.functions.length > 180) throw new Error(t('输入结构或数量有误。'));
+      if (input.mode === 'vibrations' && input.functions === undefined) input = {...input, functions:[]};
+      if (!input || (input.mode && !['basis','vibrations'].includes(input.mode)) || !Array.isArray(input.sites) || !Array.isArray(input.functions) || input.sites.length > 120 || input.functions.length > 180) throw new Error(t('输入结构或数量有误。'));
       E.group(input.group);
       if (typeof input.tolerance !== 'number' || !Number.isFinite(input.tolerance) || input.tolerance < 1e-10 || input.tolerance > 0.01) throw new Error(t('输入容差无效。'));
       if (input.sites.some(s => typeof s.id !== 'string' || typeof s.kind !== 'string' || !Array.isArray(s.position) || s.position.length !== 3 || s.position.some(x => typeof x !== 'number' || !Number.isFinite(x)))) throw new Error(t('中心数据格式有误。'));
       if (new Set(input.sites.map(s => s.id)).size !== input.sites.length || input.functions.some(f => typeof f.id !== 'string' || typeof f.site !== 'string' || typeof f.radial !== 'string' || !['s', 'p', 'd'].includes(f.family) || (f.family === 'p' && (!Array.isArray(f.direction) || f.direction.length !== 3 || f.direction.some(x => typeof x !== 'number' || !Number.isFinite(x)))))) throw new Error(t('基函数数据格式有误。'));
       input.functions.filter(f => f.family === 'd').forEach(f => E.dTensor(f.component, f.frame));
       const ids = new Set(input.sites.map(s => s.id)); if (new Set(input.functions.map(f => f.id)).size !== input.functions.length || input.functions.some(f => !ids.has(f.site))) throw new Error(t('函数编号重复或引用了不存在的中心。'));
-      checkpoint(); mode='basis';spec = { schemaVersion: 1, group: input.group, tolerance: input.tolerance, sites: input.sites.map(s => ({ id: s.id, kind: s.kind, position: s.position.slice() })), functions: input.functions.map(f => ({ ...f, label: String(f.label || f.id), batch: String(f.batch || f.family) })), note: String(input.note || '') }; selection = new Set(spec.sites.map(s => s.id)); invalidate(t('已载入输入。请重新计算，不沿用文件中的旧结果。')); render();
+      checkpoint(); mode=input.mode==='vibrations'?'vibrations':'basis';spec = { schemaVersion: 1, group: input.group, tolerance: input.tolerance, sites: input.sites.map(s => ({ id: s.id, kind: s.kind, position: s.position.slice() })), functions: input.functions.map(f => ({ ...f, label: String(f.label || f.id), batch: String(f.batch || f.family) })), note: String(input.note || '') }; selection = new Set(spec.sites.map(s => s.id)); invalidate(t('已载入输入。请重新计算，不沿用文件中的旧结果。')); render();
   }
   window.BasisDesktop = { importJSON: text => protect(() => importProjectText(text))(),setLanguage:language=>I.setLanguage(language) };
   $('project-file').onchange = async () => {
@@ -338,6 +406,7 @@
   I.onChange(()=>{
     const view=['inspect-class','inspect-operation','inspect-block','alignment-vector'].map(id=>[id,$(id).value]);
     I.apply(document);$('language').value=I.language();render();
+    if(spectrum) renderSpectrum();
     if(reduction){if(mode==='basis'){renderResult();view.forEach(([id,value])=>$(id).value=value);populateOperations();$('inspect-operation').value=view[1][1];renderInspector();renderAlignment();if(salc)showSalcs();}else renderManualResult();}
     status(lastMessage,lastKind,lastDetail);
   });

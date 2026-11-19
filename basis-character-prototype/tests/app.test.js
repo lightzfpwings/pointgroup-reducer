@@ -45,7 +45,7 @@ function harness(bundled = false,languageVariant = '') {
     const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
-  } else for(const name of ['salc.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
+  } else for(const name of ['salc.js','vibrations.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);
   return { $, downloads, elements, document, context,statics,preferences, template: name => templates.find(t => t.dataset.template === name).click(), click: id => $(id).click(), flush: () => { while (timers.length) timers.shift()(); }, set: (id, value, changed = false) => { $(id).value = String(value); if (changed && $(id).onchange) $(id).onchange(); }, descendants: function walk(node) { return node.children.flatMap(c => [c, ...walk(c)]); } };
 }
@@ -232,4 +232,34 @@ test('SALC coefficients follow the selected irrep and copy through language, cli
   h.template('central-d-c2v'); h.click('calculate'); h.flush(); h.click('calculate-salc'); h.set('salc-copy', 1, true);
   h.set('language', 'zh-Hant', true); assert.equal(h.$('salc-copy').value,'1');
   h.click('clear-functions'); assert(h.$('salc-card').classList.contains('hidden')); assert(h.$('export-result').disabled);
+});
+
+test('vibrations use every atom, load geometry-only projects and discard stored results', async () => {
+  const h = harness(); h.template('water'); h.set('workflow','vibrations',true);
+  assert(h.$('basis-section').classList.contains('hidden')); assert(!h.$('positions-section').classList.contains('hidden'));
+  h.click('calculate'); h.flush(); h.set('language','en',true);
+  assert.equal(h.$('export-result').disabled,false); assert(h.$('result-body').textContent.includes('IR allowed 3'));
+  assert(!/[\u4e00-\u9fff]/.test(h.$('result-body').textContent));
+  h.click('copy-text'); assert(h.$('copy-content').value.includes('2A1 + B1'));
+  h.click('copy-latex'); assert(h.$('copy-content').value.includes('Raman allowed'));
+  h.click('export-result'); const exported = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.equal(exported.input.mode,'vibrations'); assert.equal(exported.spectrum.atomCount,3);
+  delete exported.input.functions; exported.spectrum.degreesOfFreedom = 99;
+  h.click('new-project'); h.context.BasisDesktop.importJSON(JSON.stringify(exported)); assert(h.$('export-result').disabled);
+  h.click('calculate'); h.flush(); h.click('export-result');
+  assert.equal(JSON.parse(await h.downloads.at(-1).blob.text()).spectrum.degreesOfFreedom,3);
+  h.set('workflow','basis',true); h.click('calculate'); h.flush();
+  assert(h.$('export-result').disabled); assert(h.$('status').className.includes('error'));
+});
+
+test('spectroscopy templates preserve mode on save and undo and report IR/Raman bands in the bundle', async () => {
+  const h = harness(true,'en');
+  for (const [name, count, ir, raman] of [['methane',9,2,4],['carbon-dioxide',4,2,1]]) {
+    h.template(name); assert.equal(h.$('workflow').value,'vibrations'); h.click('calculate'); h.flush();
+    assert(h.$('result-body').textContent.includes('IR allowed '+ir+' · Raman allowed '+raman));
+    h.click('export-result'); const result = JSON.parse(await h.downloads.at(-1).blob.text());
+    assert.equal(result.spectrum.degreesOfFreedom,count);
+    h.click('save-project'); const saved = JSON.parse(await h.downloads.at(-1).blob.text()); assert.equal(saved.input.mode,'vibrations');
+    h.set('workflow','manual',true); h.click('undo'); assert.equal(h.$('workflow').value,'vibrations'); assert(h.$('export-result').disabled);
+  }
 });

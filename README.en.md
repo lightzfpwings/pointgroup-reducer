@@ -2,6 +2,10 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
+## 0.5.0 spectroscopy development preview
+
+The development branch includes a vibrational symmetry prototype. Try the water, methane and CO₂ examples to inspect selection rules for fundamentals. [Spectroscopy design and acceptance examples (Chinese)](basis-character-prototype/SPECTROSCOPY_DESIGN.md)
+
 ## Integrated Point Groups & Basis Functions 0.4.5
 
 Construct symmetry-adapted linear combinations (SALCs) from s/p/d functions and inspect the input coefficients for each irrep copy. This update fixes checks on atom permutations, expansion in nonorthogonal angular bases and precision loss in complex arithmetic. The geometry workflow supports 87 spatial point groups and manual character reduction supports 423 finite groups.

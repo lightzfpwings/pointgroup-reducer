@@ -1,4 +1,6 @@
-# Point Groups & Basis Functions 0.4.5
+# Point Groups & Basis Functions 0.5.0
+
+The development branch includes a vibrational symmetry prototype. Try the water, methane and CO₂ examples to inspect selection rules for fundamentals. [Spectroscopy design and acceptance examples (Chinese)](SPECTROSCOPY_DESIGN.md)
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
@@ -33,3 +35,9 @@ Version 0.4.2 corrects orbital and direction subscripts, group/irrep scripts, an
 Version 0.4.2 fixes mathematical table headers displaying `[object MathMLMathElement]`. Headers and body cells share node insertion. Regression checks cover character, basis-result, manual-result and vector tables in all three languages.
 
 Version 0.4.3 adds the Windows x64 wrapper, native JSON dialogs, clipboard support and remembered language menus. It also fixes position-tolerance editing. Run `python packaging/build_windows.py` on Windows x64 with the .NET 10 SDK to build the package. The package self-check runs the shared calculation script through Jint. The 0.4.4 Windows executable has no Authenticode signature. The original release includes the offline WebView2 installer, and the lightweight ZIP includes a download shortcut.
+
+## 0.5.0 spectroscopy development preview
+
+**Vibrations (IR and Raman)** uses the selected spatial point group and the coordinates of every atom, including atoms at the symmetry centre. Choose **Calculate vibrations and activity**. For each operation, the Cartesian displacement character is the number of fixed atoms times the trace of its spatial matrix. Removing translations and rotations leaves 3N−6 vibrational degrees of freedom for a nonlinear molecule, 3N−5 for a linear molecule and zero for a single atom. Electric-dipole IR activity follows the vector representation. Raman activity follows the six components of the symmetric polarizability tensor.
+
+Each degenerate multiplet counts as one fundamental, with complex conjugate rows paired for real displacements. When a finite subgroup is selected, its symmetry determines the degeneracies and counts. Frequencies require masses and force constants. Intensities also require dipole or polarizability derivatives. Load the methane (Td) or carbon dioxide (D4h) vibration example to try the calculation. Methane has nine vibrational degrees of freedom and four fundamentals, A1 + E + 2T2. Two are IR allowed and all four are Raman allowed. The symmetry assignments agree with the experimental compilation. [NIST methane data](https://cccbdb.nist.gov/exp2x.asp?casno=74828)

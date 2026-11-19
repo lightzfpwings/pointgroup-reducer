@@ -228,6 +228,8 @@ C₆ 沿 z；C₂′ 穿过 +x；σᵥ 包含 xz。苯模板的对位碳位于 x
 。	。	.
 ；	；	; 
 X 的行对应不可约表示、列对应共轭类；星号表示逐项复共轭，不含转置。	X 的行對應不可約表示、欄對應共軛類；星號表示逐項複共軛，不含轉置。	Rows of X are irreps and columns are classes. The star means elementwise complex conjugation, without transposition.
+振动光谱（红外与拉曼）	振動光譜（紅外與拉曼）	Vibrations (IR and Raman)
+请列出分子的全部原子，包括位于对称中心的原子。	請列出分子的全部原子，包括位於對稱中心的原子。	Enter every atom in the molecule, including atoms at the symmetry center.
 对称适应线性组合（SALC）	對稱適應線性組合（SALC）	Symmetry-adapted linear combinations (SALCs)
 生成 SALC 系数	產生 SALC 係數	Generate SALC coefficients
 已生成 SALC 系数。	已產生 SALC 係數。	SALC coefficients are ready.
@@ -235,3 +237,33 @@ X 的行对应不可约表示、列对应共轭类；星号表示逐项复共轭
 编号	編號	ID
 每列是一组 SALC 系数。按同中心同径向的角向内积归一化，其余中心、径向或角动量之间取零重叠。整体相位及简并空间内的基可任选。	每欄是一組 SALC 係數。按同中心同徑向的角向內積歸一化，其餘中心、徑向或角動量之間取零重疊。整體相位及簡併空間內的基可任選。	Each column gives one SALC. Normalization uses angular overlaps within a site and radial shell. Different sites, radial shells and angular momenta are treated as orthogonal. Overall phases and bases within degenerate spaces are arbitrary.
 复制包含当前副本，导出 JSON 包含全部 SALC 系数。	複製包含目前副本，匯出 JSON 包含全部 SALC 係數。	Copy includes the selected copy. The JSON export includes every SALC coefficient.
+计算振动与光谱活性	計算振動與光譜活性	Calculate vibrations and activity
+笛卡尔位移	笛卡兒位移	Cartesian displacements
+整体平移	整體平移	Translations
+整体转动	整體轉動	Rotations
+分子振动	分子振動	Molecular vibrations
+红外偶极矩	紅外偶極矩	IR dipole moment
+拉曼极化率张量	拉曼極化率張量	Raman polarizability tensor
+振动自由度	振動自由度	Vibrational degrees of freedom
+单原子	單原子	Single atom
+线形分子	線形分子	Linear molecule
+非线形分子	非線形分子	Nonlinear molecule
+按所选点群计数的基频	依所選點群計數的基頻	Fundamentals in the selected point group
+红外允许	紅外允許	IR allowed
+拉曼允许	拉曼允許	Raman allowed
+静默	靜默	Silent
+允许	允許	Allowed
+简并度	簡併度	Degeneracy
+红外	紅外	IR
+拉曼	拉曼	Raman
+红外按偶极矩、拉曼按对称极化率张量判定。计数按对称性允许的基频给出，峰位和强度还需力常数及性质导数。	紅外按偶極矩、拉曼按對稱極化率張量判定。計數依對稱性允許的基頻給出，峰位和強度還需力常數及性質導數。	IR activity uses the dipole moment and Raman activity uses the symmetric polarizability tensor. Predicting peak positions and intensities also requires force constants and property derivatives.
+线形分子仅扣除两个整体转动。此处使用所选有限点群的标签与简并度，较低对称性可能拆分同一弯曲振动。	線形分子僅扣除兩個整體轉動。此處使用所選有限點群的標籤與簡併度，較低對稱性可能拆分同一彎曲振動。	Two rotations are removed for a linear molecule. Labels and degeneracies use the selected finite group. Lower symmetry can split the components of one bending vibration.
+位移、刚体运动与选择定则	位移、剛體運動與選擇定則	Displacements, rigid motions and selection rules
+量	量	Quantity
+固定原子数	固定原子數	Fixed atoms
+已载入分子坐标。	已載入分子座標。	Molecular coordinates loaded.
+振动与光谱活性计算完成。	振動與光譜活性計算完成。	Vibrations and spectral activities calculated.
+正在计算…	正在計算…	Calculating…
+甲烷振动 · Td	甲烷振動 · Td	Methane vibrations · Td
+二氧化碳振动 · D₄ₕ	二氧化碳振動 · D₄ₕ	CO₂ vibrations · D₄ₕ
+开发预览	開發預覽	development preview
