@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Point Groups &amp; Basis Functions</string>
+    <string name="update_webview">Update Android System WebView or Chrome to version 109 or later, then reopen the app.</string>
+    <string name="file_error">The file operation could not be completed.</string>
+    <string name="file_large">Project files must be 2 MiB or smaller.</string>
+    <string name="clipboard_error">Android could not copy this result to the clipboard.</string>
+</resources>

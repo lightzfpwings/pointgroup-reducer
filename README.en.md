@@ -2,13 +2,11 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
-## Integrated Point Groups & Basis Functions 0.4.5
+## Integrated Point Groups & Basis Functions 0.4.6
 
-Construct symmetry-adapted linear combinations (SALCs) from s/p/d functions and inspect the input coefficients for each irrep copy. This update fixes checks on atom permutations, expansion in nonorthogonal angular bases and precision loss in complex arithmetic. The geometry workflow supports 87 spatial point groups and manual character reduction supports 423 finite groups.
+Version 0.4.6 packages the SALC calculations from 0.4.5 for Linux, macOS, Windows and Android. All four packages use the same offline engine, support 87 spatial groups and 423 manual reduction tables, and offer three interface languages. Vibrational spectroscopy is in development for 0.5.0.
 
-For Windows or macOS, download a standalone HTML file and open it offline in a browser. Each file offers all three languages and starts in English, Simplified Chinese or Traditional Chinese according to its suffix. The release includes the module source ZIP and SHA-256 checksums. [Download 0.4.5](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5) · [User guide](basis-character-prototype/README.en.md)
-
-The previous release provides native packages for Windows x64 and Apple silicon Macs. Updated native packages are pending publisher signing and verification. [0.4.4 native downloads](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+[Download 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6) · [User guide](basis-character-prototype/README.en.md)
 
 The integrated app lives in `basis-character-prototype/` and uses its own `basis-v*` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
 

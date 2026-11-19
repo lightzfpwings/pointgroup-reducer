@@ -2,13 +2,11 @@
 
 [English](README.en.md) · [简体中文](README.md)
 
-## 點群與基函數整合版 0.4.5
+## 點群與基函數整合版 0.4.6
 
-由 s/p/d 基函數產生對稱適應線性組合（SALC），依不可約表示與副本檢視原軌域係數。此版修正原子置換對群乘法的驗證、非正交角向基的展開，以及複數運算式的數值精度。幾何計算支援 87 個空間點群，手動約化支援 423 個有限點群。
+0.4.6 將 0.4.5 的 SALC 計算封裝到 Linux、macOS、Windows 和 Android。四種封裝共用離線引擎，支援 87 個空間點群、423 張手動約化表及三語切換。0.5.0 的振動光譜設計在獨立開發線上繼續。
 
-Windows 與 macOS 使用者可下載任一獨立 HTML，在瀏覽器中離線開啟。三份 HTML 分別預設繁體中文、簡體中文和英語，皆可切換語言。附件另含整合模組原始碼 ZIP 及 SHA-256 校驗檔。[下載 0.4.5 離線版](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5) · [操作說明](basis-character-prototype/README.zh-Hant.md)
-
-需要原生程式時可下載 0.4.4 的 Windows x64 或 Apple 晶片 Mac 套件。新版原生套件等待發行者簽章與驗證。[0.4.4 原生下載](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+[下載 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6) · [操作說明](basis-character-prototype/README.zh-Hant.md)
 
 整合版位於 `basis-character-prototype/`，使用獨立版本標籤 `basis-v*`。原 Python/Tk 約化程式及 CLI 保留，原生 Windows 舊版見 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。以下為原 Python/Tk 版本說明。
 

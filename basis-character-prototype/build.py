@@ -91,7 +91,7 @@ def source_archive():
         ("tests", "*.test.js"), ("tests/fixtures", "*.json"),
     ):
         files.extend(sorted((ROOT / folder).glob(pattern)))
-    packaging_types = {".py", ".swift", ".md", ".cs", ".csproj", ".js", ".json", ".manifest", ".ps1"}
+    packaging_types = {".py", ".swift", ".md", ".cs", ".csproj", ".js", ".json", ".manifest", ".ps1", ".java", ".xml", ".desktop", ".sh", ".svg"}
     files.extend(path for path in sorted((ROOT / "packaging").rglob("*"))
                  if path.is_file() and path.suffix in packaging_types
                  and not {"obj", "bin", "__pycache__"}.intersection(path.relative_to(ROOT).parts))

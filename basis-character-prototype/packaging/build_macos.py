@@ -124,13 +124,23 @@ def build_disk_image(destination, app_report, identity, profile, keychain):
             applications = Path(mount) / "Applications"
             if not applications.is_symlink() or os.readlink(applications) != "/Applications":
                 raise SystemExit("The disk image does not contain the expected Applications shortcut.")
-            verify_packaged_app(Path(mount) / APP.name, executable_hash, distribution=distribution)
+            mounted_app = Path(mount) / APP.name
+            verify_packaged_app(mounted_app, executable_hash, distribution=distribution)
+            if sha256(mounted_app / "Contents/Resources/index.html") != app_report["offlineHTMLSha256"]:
+                raise SystemExit("The mounted app contains a different offline page.")
+            check = subprocess.check_output([str(mounted_app / "Contents/MacOS/BasisCharacter"),
+                                             "--self-check"], text=True, timeout=120)
+            mounted_report = json.loads(check)
+            if (mounted_report.get("version") != VERSION or mounted_report.get("status") != "passed"
+                    or mounted_report.get("waterSalcChecks") != app_report["waterSalcChecks"]):
+                raise SystemExit("The mounted app failed its calculation self-check.")
         finally:
             run(["/usr/bin/hdiutil", "detach", mount])
 
     return image, {"status": "passed", "version": VERSION, "architecture": "arm64",
                    "minimumMacOS": app_report["minimumMacOS"], "imageSha256": sha256(image),
-                   "appExecutableSha256": executable_hash, **signing}
+                   "appExecutableSha256": executable_hash, "offlineHTMLSha256": app_report["offlineHTMLSha256"],
+                   "mountedSelfCheck": "passed", **signing}
 
 
 parser = argparse.ArgumentParser(description=__doc__)
@@ -171,7 +181,7 @@ info = {
     "CFBundleName": "BasisCharacter", "CFBundleDisplayName": "点群与基函数",
     "CFBundleIdentifier": BUNDLE_ID,
     "CFBundleExecutable": "BasisCharacter", "CFBundlePackageType": "APPL",
-    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "9",
+    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "10",
     "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"], "CFBundleDevelopmentRegion": "en",
     "LSMinimumSystemVersion": "12.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Integrated basis characters and irreducible reduction.",
@@ -194,7 +204,8 @@ check = subprocess.check_output([str(macos / "BasisCharacter"), "--self-check"],
 report = json.loads(check)
 report.update({"date": datetime.date.today().isoformat(), "architecture": "arm64", "minimumMacOS": "12.0",
                "signature": "ad-hoc local signature", "notarized": False, "stapled": False,
-               "gatekeeper": "not checked", "appExecutableSha256": sha256(macos / "BasisCharacter")})
+               "gatekeeper": "not checked", "appExecutableSha256": sha256(macos / "BasisCharacter"),
+               "offlineHTMLSha256": sha256(bundle)})
 signing_note = "此包使用本地临时签名，尚未经过 Apple 开发者签名和公证。"
 if args.sign_and_notarize:
     signing = run(["codesign", "--display", "--verbose=4", str(APP)], stderr=subprocess.PIPE, text=True)

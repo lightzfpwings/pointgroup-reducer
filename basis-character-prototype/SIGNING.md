@@ -1,10 +1,12 @@
-# 桌面版签名与公证
+# 四平台直接分发与签名
 
-0.4.5 的公开附件为适用于 Windows 和 macOS 的独立 HTML、整合模块源码及 SHA-256 校验文件。正式原生包另需发布者签名。0.4.4 的 Apple 芯片 Mac 和 Windows x64 安装包仍可单独下载。该版本的 Mac 应用使用临时签名，Windows 可执行文件没有 Authenticode 签名。[0.4.5 离线版](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5) · [0.4.4 原生下载](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+0.4.6 提供 Linux 的 DEB、Apple 芯片 Mac 的 DMG、Windows x64 的完整 ZIP，以及 Android 的 APK。各文件的 SHA-256 列在同页的 `SHA256SUMS.txt`。[0.4.6 下载页](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6)
 
-以下流程用于维护者构建后续原生发行包。Mac 使用 Developer ID Application、强化运行时和 Apple 公证。Windows 使用受系统信任的 Authenticode 发布者签名及时间戳。SmartScreen 还会根据文件信誉显示提示。
+本次直接分发的 Mac 应用使用临时签名，DMG 未经 Apple 公证。Windows 主程序没有 Authenticode 发布者签名，完整 ZIP 内的 WebView2 离线安装程序带有微软签名。Linux DEB 安装离线页面和桌面入口。Android APK 采用项目独立的签名身份，可直接在设备上安装。请长期保管项目的 Android 私钥和备份，后续 APK 使用同一签名身份，便于现有用户覆盖更新。
 
-- Mac 安装可使用 `BasisCharacter-<版本>-macOS-arm64.dmg`。打开后将应用拖入「应用程序」。正式发布时，应用与外层 DMG 都带有 Developer ID 签名和 Apple 公证凭据。开发用 DMG 仍可能触发 Gatekeeper 提示。 [Apple 的软件封装指南](https://developer.apple.com/documentation/xcode/packaging-mac-software-for-distribution)
+以下是维护者构建受信任发布者签名桌面包的流程。Mac 使用 Developer ID Application、强化运行时和 Apple 公证。Windows 使用受系统信任的 Authenticode 发布者签名及时间戳。SmartScreen 还会根据文件信誉显示提示。
+
+- Mac 安装可使用 `BasisCharacter-<版本>-macOS-arm64.dmg`。打开后将应用拖入「应用程序」。选择签名与公证构建时，应用与外层 DMG 都带有 Developer ID 签名和 Apple 公证凭据。开发用 DMG 仍可能触发 Gatekeeper 提示。 [Apple 的软件封装指南](https://developer.apple.com/documentation/xcode/packaging-mac-software-for-distribution)
 - [Apple 的下载应用提示](https://support.apple.com/102445)
 - [Microsoft 的 SmartScreen 信誉说明](https://learn.microsoft.com/windows/apps/package-and-deploy/smartscreen-reputation)
 
@@ -63,4 +65,4 @@ python packaging/build_windows.py --with-full --require-signature --sign-thumbpr
 
 若签名服务需独立步骤，先用 `--build-only` 生成程序，对 `build/windows-x64/BasisCharacter/` 下的 `BasisCharacter.exe` 和 `BasisCharacter.dll` 签名并加可信时间戳，再用 `--package-only --with-full --require-signature --expected-signer-subject "$subject"` 复验及打包。使用干净的 Windows 信任存储运行校验。
 
-GitHub 的整合版发布任务要求两平台的签名报告及包校验全部通过。分支合并且凭据配置完成后，可从 Actions 的 **Integrated basis app checks** 选择 `main` 并启用 `publish`。发布后在使用默认安全策略的另一台 Mac 上实际下载 DMG，拖到「应用程序」并启动。在另一台 Windows 电脑上下载并解压 ZIP，在文件属性的「数字签名」页核对发布者后启动。
+GitHub 的受信任签名发布任务要求两平台的签名报告及包校验全部通过。分支合并且凭据配置完成后，可从 Actions 的 **Integrated basis app checks** 选择 `main` 并启用 `publish`。发布后在使用默认安全策略的另一台 Mac 上实际下载 DMG，拖到「应用程序」并启动。在另一台 Windows 电脑上下载并解压 ZIP，在文件属性的「数字签名」页核对发布者后启动。

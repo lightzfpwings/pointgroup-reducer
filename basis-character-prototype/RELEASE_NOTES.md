@@ -1,23 +1,42 @@
-## 简体中文 · 点群与基函数 0.4.5
+## 点群与基函数 0.4.6
 
-本次修复了位置容差下原子置换不满足群乘法却通过验证的问题，改善了非正交 p/d 基的展开，并修复复数运算丢失小虚部和整数幂产生伪虚部的问题。
+0.4.6 将 0.4.5 的 SALC 计算封装到 Linux、macOS、Windows 和 Android。四种封装共用离线引擎，支持 87 个空间点群、423 张手动约化表和三语切换。0.5.0 的振动光谱设计在独立开发线上继续。
 
-在「从基函数计算」中完成分解后，点击「生成 SALC 系数」，即可按不可约表示和副本查看并导出组合系数。水分子位于 xz 平面时，两个 H 1s 轨道给出 A₁ 的归一化和与 B₁ 的归一化差。
+| 平台 | 下载 | 安装与启动 |
+|---|---|---|
+| Debian / Ubuntu 图形桌面 | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | 在下载目录执行 `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb`，从应用菜单打开「点群与基函数」或运行 `basis-character`。系统通过 xdg-utils 在默认图形浏览器中打开本地页面。 |
+| Apple 芯片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | 打开 DMG，将 `BasisCharacter.app` 拖入「应用程序」后启动。 |
+| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | 完整解压 ZIP 后打开 `BasisCharacter.exe`。若缺少 WebView2，先运行随包提供的微软离线运行时安装程序。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | 在设备上打开 APK 并按系统提示安装。应用需要 Android System WebView 或 Chrome 内核 109 及以上，可通过系统文件选择器保存和载入 JSON。 |
 
-Windows 和 macOS 用户请在附件中下载任一独立 HTML 并在浏览器中离线打开。三个后缀 `-zh-Hans.html`、`-zh-Hant.html`、`-en.html` 指定默认语言，均可在界面内切换。附件还包括整合模块源码 ZIP 和 `SHA256SUMS.txt`。0.4.5 原生包等待发布者签名及验证。[0.4.4 原生下载](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+Mac 应用使用临时签名，DMG 未经 Apple 公证。Windows 主程序没有 Authenticode 发布者签名，包内的 WebView2 安装程序带有微软签名。Android APK 使用项目的独立签名密钥，后续覆盖安装须使用同一签名身份。系统可能提示无法验证桌面软件发布者。 如需直接使用浏览器，可下载三语独立 HTML。发布页还提供源码与 `SHA256SUMS.txt`。
 
-## English · Point Groups & Basis Functions 0.4.5
+## 點群與基函數 0.4.6
 
-This release fixes atom permutations that could pass position-tolerance checks while violating the group multiplication law. It improves expansion in nonorthogonal p/d bases and fixes loss of small imaginary components and spurious imaginary parts in integer powers.
+0.4.6 將 0.4.5 的 SALC 計算封裝到 Linux、macOS、Windows 和 Android。四種封裝共用離線引擎，支援 87 個空間點群、423 張手動約化表及三語切換。0.5.0 的振動光譜設計在獨立開發線上繼續。
 
-After reducing a basis, choose **Generate SALC coefficients** to inspect and export combinations by irrep and copy. For the xz-plane water example, the two H 1s orbitals yield the normalized sum (A₁) and difference (B₁).
+| 平台 | 下載 | 安裝與啟動 |
+|---|---|---|
+| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
+| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
+| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，可透過系統檔案選擇器儲存與載入 JSON。 |
 
-On Windows or macOS, download any standalone HTML attachment and open it offline in a browser. Each file supports all three languages. Its suffix selects the default language. The release also contains the module source ZIP and `SHA256SUMS.txt`. New native packages are pending publisher signing and verification. [0.4.4 native downloads](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+Mac 應用程式使用臨時簽章，DMG 未經 Apple 公證。Windows 主程式沒有 Authenticode 發行者簽章，內含的 WebView2 安裝程式帶有微軟簽章。Android APK 使用專案的獨立簽署金鑰，之後的覆蓋安裝須使用相同的簽署身分。系統可能提示無法驗證桌面軟體發行者。 如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。
 
-## 繁體中文 · 點群與基函數 0.4.5
+## Point Groups & Basis Functions 0.4.6
 
-此版修正位置容差下原子置換違反群乘法卻通過驗證的問題，改善非正交 p/d 基的展開，並修正複數運算遺失微小虛部及整數冪產生虛假虛部的問題。
+Version 0.4.6 packages the SALC calculations from 0.4.5 for Linux, macOS, Windows and Android. All four packages use the same offline engine, support 87 spatial groups and 423 manual reduction tables, and offer three interface languages. Vibrational spectroscopy is in development for 0.5.0.
 
-在「由基函數計算」中完成分解後，點選「產生 SALC 係數」，即可依不可約表示與副本檢視及匯出組合係數。水分子位於 xz 平面時，兩個 H 1s 軌域給出 A₁ 的正規化和與 B₁ 的正規化差。
+| Platform | Download | Install and launch |
+|---|---|---|
+| Debian or Ubuntu desktop | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | Run `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb` in the download directory. Open Point Groups & Basis Functions from the applications menu or run `basis-character`. The launcher uses xdg-utils to open the local page in your default graphical browser. |
+| Apple silicon Mac, macOS 12 or later | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | Open the DMG and drag `BasisCharacter.app` into Applications. |
+| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | Extract the entire ZIP and open `BasisCharacter.exe`. If WebView2 is missing, install it using the bundled Microsoft offline runtime installer. |
+| Android 8.0 or later | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | Open the APK on your device and follow the installation prompts. The app requires Android System WebView or a Chrome WebView provider version 109 or later. Use the system file picker to save and load JSON. |
 
-Windows 與 macOS 使用者可下載任一獨立 HTML 附件，在瀏覽器中離線開啟。三份檔案均可切換語言，檔名後綴指定預設語言。附件另含整合模組原始碼 ZIP 與 `SHA256SUMS.txt`。新版原生套件等待發行者簽章與驗證。[0.4.4 原生下載](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+The Mac app has an ad hoc signature and the DMG is unnotarized. The Windows application has no Authenticode publisher signature. Its bundled WebView2 installer is signed by Microsoft. The Android APK uses a dedicated project signing key for installation and future updates. macOS and Windows may display an unverified-publisher warning. Standalone HTML files are also available in all three languages, alongside the source archive and `SHA256SUMS.txt`.
+
+Android APK certificate SHA-256 (io.github.lightzfpwings.basischaracter)
+
+`CC:A2:98:BF:FF:A4:D5:91:3A:AD:4B:07:4E:3C:FD:ED:88:44:02:8F:28:EB:33:6F:08:99:DB:54:D1:A1:5E:52`

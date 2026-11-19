@@ -8,6 +8,10 @@ on:
     paths: ['basis-character-prototype/**', 'packaging/publish_basis.py', '.github/workflows/basis-ci.yml']
   workflow_dispatch:
     inputs:
+      full_windows:
+        description: Include the offline WebView2 installer in the Windows build
+        type: boolean
+        default: false
       publish:
         description: Publish signed desktop packages from main after both platforms pass
         type: boolean
@@ -75,16 +79,70 @@ jobs:
       - uses: actions/setup-dotnet@e2cf7c663b93c38144629f5d40b62d3eaaa63a03
         with:
           dotnet-version: '10.0.x'
-      - run: python packaging/build_windows.py
+      - name: Build and verify Windows package
+        env:
+          FULL_WINDOWS: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_windows) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-packages]')) }}
+        run: |
+          if ($env:FULL_WINDOWS -eq 'true') { python packaging/build_windows.py --with-full }
+          else { python packaging/build_windows.py }
+          exit $LASTEXITCODE
       - name: Store Windows development package and evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: Integrated-Windows-development
           path: |
-            basis-character-prototype/dist/BasisCharacter-*-Windows-x64-lite.zip
+            basis-character-prototype/dist/BasisCharacter-*-Windows-x64*.zip
+            basis-character-prototype/dist/WINDOWS-SHA256SUMS.txt
             basis-character-prototype/dist/windows-package-check.json
           if-no-files-found: error
           compression-level: 0
+
+  linux:
+    name: Integrated app — Debian/Ubuntu package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: basis-character-prototype
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: python3 packaging/build_linux.py
+      - name: Install the package and verify its offline interface
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends python3-selenium desktop-file-utils ./dist/BasisCharacter-*-Linux-all.deb
+          /usr/bin/python3 packaging/linux/check_installed.py
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Basis-Linux-deb
+          path: |
+            basis-character-prototype/dist/BasisCharacter-*-Linux-all.deb
+            basis-character-prototype/dist/linux-package-check.json
+          if-no-files-found: error
+
+  android:
+    name: Integrated app — Android APK and emulator
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: basis-character-prototype
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Set up Android SDK and a test device
+        run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" 'platforms;android-35' 'build-tools;35.0.0' 'platform-tools' 'emulator' 'system-images;android-35;google_apis;x86_64'
+          sudo setfacl -m "u:$(id -un):rw" /dev/kvm
+          echo no | "$ANDROID_HOME/cmdline-tools/latest/bin/avdmanager" create avd -n basis-smoke -k 'system-images;android-35;google_apis;x86_64' --force
+      - name: Build the APK and test a separate signed copy on the emulator
+        run: python3 packaging/build_android.py --smoke --avd basis-smoke
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Basis-Android-unsigned
+          path: |
+            basis-character-prototype/dist/BasisCharacter-*-Android-unsigned.apk
+            basis-character-prototype/dist/android-package-check.json
+          if-no-files-found: error
 
   windows-release:
     name: Integrated app — Windows x64 signed release

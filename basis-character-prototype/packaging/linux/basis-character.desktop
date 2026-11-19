@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Point Groups & Basis Functions
+Name[zh_CN]=点群与基函数
+Name[zh_TW]=點群與基函數
+Comment=Calculate characters and symmetry-adapted linear combinations offline
+Comment[zh_CN]=离线计算特征标与对称适应线性组合
+Comment[zh_TW]=離線計算特徵標與對稱適應線性組合
+Exec=basis-character
+Icon=applications-science
+Terminal=false
+Categories=Education;Science;Chemistry;
+Keywords=SALC;symmetry;point group;chemistry;

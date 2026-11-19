@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">点群与基函数</string>
+    <string name="update_webview">请将 Android System WebView 或 Chrome 更新至 109 或以上版本，然后重新打开应用。</string>
+    <string name="file_error">文件操作未能完成。</string>
+    <string name="file_large">输入文件不能超过 2 MiB。</string>
+    <string name="clipboard_error">Android 未能将结果复制到剪贴板。</string>
+</resources>

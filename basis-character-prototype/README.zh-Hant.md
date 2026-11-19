@@ -1,12 +1,21 @@
-# 點群與基函數 0.4.5
+# 點群與基函數 0.4.6
 
 [简体中文](README.md) · [English](README.en.md)
 
 可從 s/p/d 基函數及分子幾何建立表示矩陣、約化特徵標，再產生各不可約副本的 SALC 係數。亦可直接輸入特徵標進行約化。
 
-在 Windows 或 macOS 上下載並用瀏覽器開啟 `BasisCharacterPrototype-0.4.5-zh-Hant.html`。檔案可離線使用，右上角可切換繁體中文、简体中文與 English。需要簡體或英文作為預設語言時，選擇 `-zh-Hans.html` 或 `-en.html`。附件另含原始碼 ZIP 與 `SHA256SUMS.txt`。[0.4.5 下載頁](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5)
+## 下載與安裝
 
-先前發布的原生套件為 0.4.4，涵蓋 Windows x64 與 Apple 晶片 Mac。0.4.5 原生套件等待發行者簽章與驗證。[0.4.4 原生下載](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4) · [簽章與公證說明](SIGNING.md)
+| 平台 | 下載 | 安裝與啟動 |
+|---|---|---|
+| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
+| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
+| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，可透過系統檔案選擇器儲存與載入 JSON。 |
+
+Mac 應用程式使用臨時簽章，DMG 未經 Apple 公證。Windows 主程式沒有 Authenticode 發行者簽章，內含的 WebView2 安裝程式帶有微軟簽章。Android APK 使用專案的獨立簽署金鑰，之後的覆蓋安裝須使用相同的簽署身分。系統可能提示無法驗證桌面軟體發行者。 [簽章說明](SIGNING.md)
+
+如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6)
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
