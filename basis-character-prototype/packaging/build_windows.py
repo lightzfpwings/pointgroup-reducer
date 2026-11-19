@@ -1,9 +1,9 @@
-"""Build the x64 Windows app on Windows; bundle .NET and an offline WebView2 installer."""
-from pathlib import Path
+"""Build the x64 Windows app with a bundled .NET runtime."""
+import argparse
 import datetime
-import hashlib
 import json
 import os
+from pathlib import Path
 import shutil
 import subprocess
 import sys
@@ -11,104 +11,149 @@ import urllib.request
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-DIST = ROOT / "dist"
-VERSION = json.loads((ROOT / "package.json").read_text())["version"]
+sys.path.insert(0, str(ROOT))
+from build import CORE_SCRIPTS, DIST, VERSION, build_html, language_pages, sha256
+
 BUILD = ROOT / "build" / "windows-x64"
-PACKAGE = BUILD / "BasisCharacter"
 NATIVE = ROOT / "packaging" / "windows"
+WEBVIEW2_URL = "https://developer.microsoft.com/microsoft-edge/webview2/#download"
+WEBVIEW2_INSTALLER = "MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
+WEBVIEW2_OFFLINE_URL = "https://go.microsoft.com/fwlink/p/?LinkId=2124701"
 
-def run(args, **kwargs):
-    return subprocess.run(args, check=True, **kwargs)
 
-if sys.platform != "win32":
-    raise SystemExit("This builder requires Windows x64 and the .NET 10 SDK.")
-if os.environ.get("PROCESSOR_ARCHITECTURE", "").upper() != "AMD64":
-    raise SystemExit("Build on a native x64 Windows host.")
-DIST.mkdir(exist_ok=True)
-BUILD.mkdir(parents=True, exist_ok=True)
-run([sys.executable, str(ROOT / "build.py")])
-if PACKAGE.exists():
-    # 仅清理本脚本专用的构建目录，不触碰用户程序或历史发布包。
-    if PACKAGE.parent != BUILD:
-        raise SystemExit("Invalid build directory")
-    shutil.rmtree(PACKAGE)
-run(["dotnet", "publish", str(NATIVE / "BasisCharacter.csproj"), "-c", "Release", "-r", "win-x64",
-     "--self-contained", "true", "-p:Version=" + VERSION, "-o", str(PACKAGE)])
-resources = PACKAGE / "Resources"
-resources.mkdir(exist_ok=True)
-shutil.copy2(DIST / f"BasisCharacterPrototype-{VERSION}.html", resources / "index.html")
-for name in ["engine.js", "reducer-catalog.js", "reducer-adapter.js", "reduction-catalog.js", "reduction-engine.js", "messages-data.js", "i18n.js", "math-format.js"]:
-    shutil.copy2(ROOT / name, resources / name)
-for language in ["zh-Hans", "zh-Hant", "en"]:
-    offline = PACKAGE / "offline"
+def stage_distribution(package, bundle):
+    resources = package / "Resources"
+    resources.mkdir(exist_ok=True)
+    shutil.copy2(bundle, resources / "index.html")
+    # The executable's headless self-check loads the modules individually.
+    for name in CORE_SCRIPTS:
+        shutil.copy2(ROOT / name, resources / name)
+
+    offline = package / "offline"
     offline.mkdir(exist_ok=True)
-    path = DIST / f"BasisCharacterPrototype-{VERSION}-{language}.html"
-    shutil.copy2(path, offline / path.name)
-shutil.copytree(ROOT / "examples", PACKAGE / "examples")
-for source, target in [("README.md", "使用说明.md"), ("README.en.md", "README-English.md"), ("README.zh-Hant.md", "使用說明.md")]:
-    shutil.copy2(ROOT / source, PACKAGE / target)
+    shutil.copy2(bundle, offline / bundle.name)
+    shutil.copytree(ROOT / "examples", package / "examples", dirs_exist_ok=True)
+    for source, target in (
+        ("README.md", "使用说明.md"), ("README.en.md", "README-English.md"),
+        ("README.zh-Hant.md", "使用說明.md"),
+    ):
+        shutil.copy2(ROOT / source, package / target)
+    (package / "Download-WebView2.url").write_bytes(
+        f"[InternetShortcut]\r\nURL={WEBVIEW2_URL}\r\n".encode("ascii")
+    )
+    write_start_here(package, full=False)
 
-# 随包保存 NuGet 自带许可证；不修改微软离线安装器。
-licenses = PACKAGE / "licenses"
-licenses.mkdir(exist_ok=True)
-assets = json.loads((NATIVE / "obj" / "project.assets.json").read_text(encoding="utf-8"))
-for library in assets["libraries"].values():
-    if library.get("type") != "package":
-        continue
-    for folder in assets["packageFolders"]:
-        source = Path(folder) / library["path"]
-        if not source.exists():
-            continue
-        for path in source.rglob("*"):
-            if path.is_file() and any(word in path.name.lower() for word in ("license", "thirdpartynotice", "copying")) and path.suffix.lower() in (".txt", ".md", "", ".html"):
-                target = licenses / library["path"] / path.relative_to(source)
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(path, target)
 
-installer = PACKAGE / "MicrosoftEdgeWebView2RuntimeInstallerX64.exe"
-source_url = "https://go.microsoft.com/fwlink/p/?LinkId=2124701"
-print("Downloading Microsoft's full offline WebView2 installer", flush=True)
-with urllib.request.urlopen(source_url, timeout=120) as response, installer.open("wb") as destination:
-    shutil.copyfileobj(response, destination)
-runtime_report = BUILD / "webview2-installer-check.json"
-# CI 的 PowerShell 7 模块路径不能传给 Windows PowerShell 5。
-shell = shutil.which("pwsh") or "powershell"
-shell_env = os.environ.copy()
-if Path(shell).stem.lower() == "powershell":
-    shell_env.pop("PSModulePath", None)
-run([shell, "-NoProfile", "-NonInteractive", "-File", str(NATIVE / "verify-runtime.ps1"),
-     "-Installer", str(installer), "-Report", str(runtime_report)], env=shell_env)
-runtime = json.loads(runtime_report.read_text(encoding="utf-8-sig"))
-check_path = BUILD / "native-self-check.json"
-check_path.unlink(missing_ok=True)
-run([str(PACKAGE / "BasisCharacter.exe"), "--self-check", str(check_path)], timeout=900)
-report = json.loads(check_path.read_text(encoding="utf-8"))
-report.update({"date": datetime.date.today().isoformat(), "architecture": "x64", "platform": "Windows",
-               "dotnetBundled": True, "webview2OfflineInstaller": runtime, "appAuthenticodeSigned": False})
-report_path = ROOT / "validation" / "windows-package-check.json"
-report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-shutil.copy2(report_path, PACKAGE / report_path.name)
-(PACKAGE / "START-HERE.txt").write_text(f"""点群与基函数 / 點群與基函數 / Point Groups & Basis Functions {VERSION}
+def write_start_here(package, *, full):
+    if full:
+        english = f"If WebView2 is missing, run {WEBVIEW2_INSTALLER} from this folder, then reopen the app."
+        simplified = f"若提示缺少 WebView2，运行本目录的 {WEBVIEW2_INSTALLER}，安装后重开应用。"
+        traditional = f"若提示缺少 WebView2，執行此資料夾的 {WEBVIEW2_INSTALLER}，安裝後重新開啟應用程式。"
+    else:
+        english = """If WebView2 is missing, open Download-WebView2.url and choose Evergreen Standalone
+Installer (x64). Install it, then reopen the app. For an offline PC, download it on another PC."""
+        simplified = "若提示缺少 WebView2，打开 Download-WebView2.url，下载 Evergreen 独立安装程序 x64。安装后重开应用。"
+        traditional = "若提示缺少 WebView2，開啟 Download-WebView2.url，下載 Evergreen 獨立安裝程式 x64。安裝後重新開啟應用程式。"
+    (package / "START-HERE.txt").write_text(f"""点群与基函数 / 點群與基函數 / Point Groups & Basis Functions {VERSION}
 
-Windows x64: Extract the ENTIRE ZIP, then open BasisCharacter.exe.
-Windows 11 and Windows 10 x64 (1809 or later); supported Windows editions follow Microsoft's lifecycle.
-No Python, Node.js or separate .NET installation is needed.
-If asked for WebView2, run MicrosoftEdgeWebView2RuntimeInstallerX64.exe in this folder, then reopen the app.
-The supplied Microsoft-signed installer works offline. It is not run automatically.
+Windows x64: Extract the entire ZIP and open BasisCharacter.exe. .NET is included.
+{english}
+The offline folder contains HTML you can open and switch between all three languages.
 
-请完整解压 ZIP，再双击 BasisCharacter.exe。无需 Python、Node 或另装 .NET。
-如提示缺少 WebView2，运行同文件夹中的微软离线安装器，再重新打开软件。
-請完整解壓 ZIP，再雙擊 BasisCharacter.exe。無需 Python、Node 或另裝 .NET。
-如提示缺少 WebView2，執行同資料夾中的微軟離線安裝器，再重新開啟軟體。
+请完整解压 ZIP 后打开 BasisCharacter.exe。已包含 .NET。
+{simplified}
+offline 文件夹里的 HTML 可离线打开并切换三语。
 
-简体中文 / 繁體中文 / English: upper-right selector or native Language menu.
-This executable is not Authenticode signed. UI rendering and native dialog interactions have not been visually automated.
+請完整解壓 ZIP 後開啟 BasisCharacter.exe。已包含 .NET。
+{traditional}
+offline 資料夾內的 HTML 可離線開啟並切換三語。
 """, encoding="utf-8")
-archive = DIST / f"BasisCharacter-{VERSION}-Windows-x64.zip"
-with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as output:
-    for path in sorted(PACKAGE.rglob("*")):
-        if path.is_file():
-            output.write(path, "BasisCharacter/" + str(path.relative_to(PACKAGE)).replace("\\", "/"))
-digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-(DIST / "WINDOWS-SHA256SUMS.txt").write_text(digest + "  " + archive.name + "\n", encoding="utf-8")
-print(json.dumps({"archive": str(archive), "bytes": archive.stat().st_size, "sha256": digest, "selfCheck": "passed"}, indent=2))
+
+
+def install_full_resources(package, bundle):
+    installer = package / WEBVIEW2_INSTALLER
+    with urllib.request.urlopen(WEBVIEW2_OFFLINE_URL, timeout=120) as response, installer.open("wb") as destination:
+        shutil.copyfileobj(response, destination)
+    report = BUILD / "webview2-installer-check.json"
+    shell = shutil.which("pwsh") or "powershell"
+    env = os.environ.copy()
+    if Path(shell).stem.lower() == "powershell":
+        env.pop("PSModulePath", None)
+    subprocess.run([shell, "-NoProfile", "-NonInteractive", "-File", str(NATIVE / "verify-runtime.ps1"),
+                    "-Installer", str(installer), "-Report", str(report)], check=True, env=env)
+
+    offline = package / "offline"
+    (offline / bundle.name).unlink()
+    for page in language_pages(bundle.read_text(encoding="utf-8")):
+        shutil.copy2(page, offline / page.name)
+    write_start_here(package, full=True)
+    return json.loads(report.read_text(encoding="utf-8-sig"))
+
+
+def copy_licenses(package):
+    assets = json.loads((NATIVE / "obj" / "project.assets.json").read_text(encoding="utf-8"))
+    for library in assets["libraries"].values():
+        if library.get("type") != "package":
+            continue
+        for folder in assets["packageFolders"]:
+            source = Path(folder) / library["path"]
+            if not source.exists():
+                continue
+            for path in source.rglob("*"):
+                if path.is_file() and any(word in path.name.lower() for word in ("license", "thirdpartynotice", "copying")) and path.suffix.lower() in (".txt", ".md", "", ".html"):
+                    target = package / "licenses" / library["path"] / path.relative_to(source)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(path, target)
+
+
+def archive_distribution(package, *, full=False):
+    suffix = "" if full else "-lite"
+    archive = DIST / f"BasisCharacter-{VERSION}-Windows-x64{suffix}.zip"
+    with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as output:
+        for path in sorted(package.rglob("*")):
+            if path.is_file():
+                compression = zipfile.ZIP_STORED if path.name == WEBVIEW2_INSTALLER else zipfile.ZIP_DEFLATED
+                output.write(path, f"BasisCharacter/{path.relative_to(package).as_posix()}", compress_type=compression)
+    return archive
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--with-full", action="store_true", help="Also build the ZIP with the signed offline WebView2 installer.")
+    args = parser.parse_args()
+    if sys.platform != "win32" or os.environ.get("PROCESSOR_ARCHITECTURE", "").upper() != "AMD64":
+        raise SystemExit("Build on native Windows x64 with the .NET 10 SDK.")
+    bundle = build_html()
+    package = BUILD / "BasisCharacter"
+    if package.exists():
+        shutil.rmtree(package)
+    subprocess.run(
+        ["dotnet", "publish", str(NATIVE / "BasisCharacter.csproj"), "-c", "Release",
+         "-r", "win-x64", "--self-contained", "true", f"-p:Version={VERSION}", "-o", str(package)],
+        check=True,
+    )
+    stage_distribution(package, bundle)
+    copy_licenses(package)
+    check_path = BUILD / "native-self-check.json"
+    check_path.unlink(missing_ok=True)
+    subprocess.run([str(package / "BasisCharacter.exe"), "--self-check", str(check_path)], check=True, timeout=900)
+    report = json.loads(check_path.read_text(encoding="utf-8"))
+    report.update({"date": datetime.date.today().isoformat(), "architecture": "x64", "platform": "Windows",
+                   "dotnetBundled": True, "webview2OfflineInstaller": "separate download", "appAuthenticodeSigned": False})
+    report_path = DIST / "windows-package-check.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    shutil.copy2(report_path, package / report_path.name)
+    archives = [archive_distribution(package)]
+    if args.with_full:
+        report["webview2OfflineInstaller"] = install_full_resources(package, bundle)
+        (package / report_path.name).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        archives.append(archive_distribution(package, full=True))
+    results = [{"archive": archive.name, "bytes": archive.stat().st_size, "sha256": sha256(archive)} for archive in archives]
+    (DIST / "WINDOWS-SHA256SUMS.txt").write_text(
+        "".join(f"{result['sha256']}  {result['archive']}\n" for result in results), encoding="utf-8"
+    )
+    print(json.dumps({"packages": results, "selfCheck": "passed"}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

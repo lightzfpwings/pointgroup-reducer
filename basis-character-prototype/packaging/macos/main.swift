@@ -21,106 +21,35 @@ func jsonPayload(name: String, text: String) throws -> Data {
 // Headless verification uses JavaScriptCore, not a browser or desktop UI.
 func selfCheck() throws {
     guard let html = Bundle.main.url(forResource: "index", withExtension: "html"),
-          let engine = Bundle.main.url(forResource: "engine", withExtension: "js"),
-          let catalog = Bundle.main.url(forResource: "reducer-catalog", withExtension: "js"),
-          let adapter = Bundle.main.url(forResource: "reducer-adapter", withExtension: "js") else {
+          let checks = Bundle.main.url(forResource: "self-check", withExtension: "js"),
+          let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
         throw PackageError.invalidResource
     }
     let page = try String(contentsOf: html, encoding: .utf8)
-    guard page.contains("id=\"calculate\""), !page.contains("<script src=") else {
+    guard page.contains("id=\"calculate\""), !page.contains("<script src="),
+          let start = page.range(of: "<script data-basis-core>"),
+          let end = page.range(of: "</script>", range: start.upperBound..<page.endIndex) else {
         throw PackageError.invalidResource
     }
     guard let context = JSContext() else { throw PackageError.engineFailure("No JSContext") }
-    context.evaluateScript(try String(contentsOf: engine, encoding: .utf8))
-    context.evaluateScript(try String(contentsOf: catalog, encoding: .utf8))
-    context.evaluateScript(try String(contentsOf: adapter, encoding: .utf8))
-    for name in ["reduction-catalog", "reduction-engine", "messages-data", "i18n", "math-format"] {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "js") else { throw PackageError.invalidResource }
-        context.evaluateScript(try String(contentsOf: url, encoding: .utf8))
-        if let exception = context.exception { throw PackageError.engineFailure(exception.toString()) }
-    }
+    context.evaluateScript(String(page[start.upperBound..<end.lowerBound]))
     if let exception = context.exception { throw PackageError.engineFailure(exception.toString()) }
-    let script = """
-    JSON.stringify(['benzene','water','central-c2v','central-oh','icosahedron','central-d-c2v','central-d-oh'].map(name => {
-      const r = BasisEngine.calculate(BasisEngine.template(name));
-      const reduced = ReductionEngine.integrate(r, ReducerAdapter);
-      return {name, dimension:r.dimension, blocks:r.blocks.length, characters:r.totalCharacters, checks:r.checks,
-              reduced:reduced.total.valid, terms:reduced.total.terms, reductionResidual:reduced.total.integer_residual};
-    }))
-    """
+    let script = try String(contentsOf: checks, encoding: .utf8)
     guard let output = context.evaluateScript(script)?.toString(), context.exception == nil,
-          let data = output.data(using: .utf8),
-          let results = try JSONSerialization.jsonObject(with: data) as? [[String: Any]],
-          results.count == 7 else { throw PackageError.engineFailure(context.exception?.toString() ?? "No results") }
-    let expectedDimensions = [30, 2, 3, 3, 12, 5, 5]
-    let expectedBlocks = [4, 1, 3, 1, 1, 5, 2]
-    for (i, result) in results.enumerated() {
-        guard result["dimension"] as? Int == expectedDimensions[i],
-              result["blocks"] as? Int == expectedBlocks[i] else {
-            throw PackageError.engineFailure("Example mismatch")
-        }
-        guard result["reduced"] as? Bool == true else { throw PackageError.engineFailure("Reduction failed") }
-    }
-    guard let benzene = results[0]["characters"] as? [Int],
-          benzene == [30,0,0,0,2,0,0,0,0,18,0,6] else {
-        throw PackageError.engineFailure("Benzene characters mismatch")
-    }
-    let allGroups = """
-    JSON.stringify(BasisEngine.groupNames.map(name => {
-      const g = BasisEngine.group(name);
-      const pInput = BasisEngine.template('central-c2v'); pInput.group = name;
-      const dInput = BasisEngine.template('central-d-oh'); dInput.group = name;
-      const p = BasisEngine.calculate(pInput), d = BasisEngine.calculate(dInput), aligned = ReducerAdapter.align(d);
-      // 完整 d 的独立检验式：χ₂(R) = [(tr R)² + tr(R²)]/2 − 1。
-      const traces = g.classes.map(c => {
-        const m = g.matrices[c.representative], square = BasisEngine.matmul(m,m);
-        const tr = m[0][0]+m[1][1]+m[2][2];
-        return (tr*tr+square[0][0]+square[1][1]+square[2][2])/2-1;
-      });
-      const error = Math.max(...traces.map((v,i)=>Math.abs(v-d.totalCharacters[i])));
-      return {group:name, order:g.size, classes:g.classes.length, dimension:p.dimension, dDimension:d.dimension,
-              representationError:Math.max(p.checks.representationError,d.checks.representationError),
-              dTraceError:error, alignedClasses:aligned.classes.length};
-    }))
-    """
-    guard let groupsText = context.evaluateScript(allGroups)?.toString(), context.exception == nil,
-          let groupsData = groupsText.data(using: .utf8),
-          let groups = try JSONSerialization.jsonObject(with: groupsData) as? [[String: Any]], groups.count == 87,
-          context.evaluateScript("BasisEngine.VERSION")?.toString() == Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else {
-        throw PackageError.engineFailure(context.exception?.toString() ?? "Expanded groups/version mismatch")
-    }
-    guard groups.allSatisfy({ ($0["dimension"] as? Int) == 3 && ($0["dDimension"] as? Int) == 5 &&
-        ($0["representationError"] as? Double ?? 1) < 1e-7 && ($0["dTraceError"] as? Double ?? 1) < 1e-7 &&
-        ($0["classes"] as? Int) == ($0["alignedClasses"] as? Int) }) else {
-        throw PackageError.engineFailure("Expanded group representation mismatch")
-    }
-    let integratedScript = """
-    JSON.stringify({tables:ReductionEngine.groupNames.map(name=>{
-      const t=ReductionEngine.table(name),r=ReductionEngine.reduce(name,t.X[0]);
-      if(!r.valid||r.integer_a[0]!==1)throw Error(name);
-      return {group:name,classes:t.classes.length,orthogonalityError:t.orthogonalityError};
-    }),languages:I18n.languages.map(language=>{I18n.setLanguage(language);return {language,title:I18n.translate('点群与基函数')};}),
-    parser:ReductionEngine.number('sqrt(3)/2'),integrated:true})
-    """
-    guard let integrationText = context.evaluateScript(integratedScript)?.toString(), context.exception == nil,
-          let integrationData = integrationText.data(using: .utf8),
-          let integration = try JSONSerialization.jsonObject(with: integrationData) as? [String: Any],
-          let tables = integration["tables"] as? [[String: Any]], tables.count == 423,
-          let languages = integration["languages"] as? [[String: Any]], languages.count == 3,
-          languages[2]["title"] as? String == "Point Groups & Basis Functions" else {
-        throw PackageError.engineFailure(context.exception?.toString() ?? "Integration or language mismatch")
+          var report = try JSONSerialization.jsonObject(with: Data(output.utf8)) as? [String: Any],
+          report["status"] as? String == "passed",
+          report["version"] as? String == version,
+          report["reductionVersion"] as? String == version else {
+        throw PackageError.engineFailure(context.exception?.toString() ?? "Invalid self-check report")
     }
     _ = try jsonPayload(name: "basis.json", text: "{\"ok\":true}")
     do { _ = try jsonPayload(name: "../basis.json", text: "{}"); throw PackageError.engineFailure("Invalid filename accepted") }
     catch PackageError.invalidName { }
     do { _ = try jsonPayload(name: "basis.json", text: "not json"); throw PackageError.engineFailure("Invalid JSON accepted") }
     catch PackageError.invalidJSON { }
-    let report: [String: Any] = [
-        "status": "passed", "runtime": "Apple JavaScriptCore", "examples": results,
-        "supportedPointGroups": groups.count, "expandedGroupChecks": groups,
-        "jsonSavePayloadChecks": "passed", "resourcesPresent": true,
-        "uiLaunched": false, "reductionIntegrated": true, "reductionTables": tables, "languages": languages
-    ]
+    report["runtime"] = "Apple JavaScriptCore"
+    report["jsonSavePayloadChecks"] = "passed"
+    report["resourcesPresent"] = true
     let reportData = try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys])
     FileHandle.standardOutput.write(reportData)
     FileHandle.standardOutput.write(Data("\n".utf8))
@@ -128,12 +57,23 @@ func selfCheck() throws {
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+    private enum BridgeMessage: String, CaseIterable {
+        case saveJSON, openJSON, copyText, languageChanged
+    }
+
     private var window: NSWindow!
     private var webView: WKWebView!
     private var contentURL: URL!
     private var language = UserDefaults.standard.string(forKey: "symmetry-language") ?? "zh-Hans"
+    private let languages = [("zh-Hans", "简体中文"), ("zh-Hant", "繁體中文"), ("en", "English")]
+    private var appName: String { l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions") }
+
     private func l(_ simplified: String, _ traditional: String, _ english: String) -> String {
         language == "en" ? english : language == "zh-Hant" ? traditional : simplified
+    }
+
+    private func supportsLanguage(_ value: String) -> Bool {
+        languages.contains { $0.0 == value }
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -142,13 +82,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
             NSApp.terminate(nil); return
         }
         contentURL = resource.standardizedFileURL
-        if !["zh-Hans", "zh-Hant", "en"].contains(language) { language = "zh-Hans" }
+        if !supportsLanguage(language) { language = "zh-Hans" }
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = .nonPersistent()
-        configuration.userContentController.add(self, name: "saveJSON")
-        configuration.userContentController.add(self, name: "openJSON")
-        configuration.userContentController.add(self, name: "copyText")
-        configuration.userContentController.add(self, name: "languageChanged")
+        for message in BridgeMessage.allCases {
+            configuration.userContentController.add(self, name: message.rawValue)
+        }
         configuration.userContentController.addUserScript(WKUserScript(source: "window.BasisPreferredLanguage='\(language)';", injectionTime: .atDocumentStart, forMainFrameOnly: true))
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = self
@@ -156,7 +95,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 800),
                           styleMask: [.titled, .closable, .miniaturizable, .resizable],
                           backing: .buffered, defer: false)
-        window.title = l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions")
+        window.title = appName
         window.minSize = NSSize(width: 740, height: 580)
         window.contentView = webView
         window.isReleasedWhenClosed = false
@@ -171,34 +110,39 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
 
     private func installMenu() {
         let bar = NSMenu()
-        let appItem = NSMenuItem(); bar.addItem(appItem)
-        let appMenu = NSMenu(title: l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions")); appItem.submenu = appMenu
+        func addMenu(_ title: String) -> NSMenu {
+            let item = NSMenuItem()
+            bar.addItem(item)
+            let menu = NSMenu(title: title)
+            item.submenu = menu
+            return menu
+        }
+
+        let appMenu = addMenu(appName)
         let about = NSMenuItem(title: l("关于点群与基函数", "關於點群與基函數", "About Point Groups & Basis Functions"), action: #selector(showAbout), keyEquivalent: ""); about.target = self; appMenu.addItem(about)
         appMenu.addItem(.separator())
         appMenu.addItem(withTitle: l("退出", "結束", "Quit"), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
-        let fileItem = NSMenuItem(); bar.addItem(fileItem)
-        let fileMenu = NSMenu(title: l("文件", "檔案", "File")); fileItem.submenu = fileMenu
+        let fileMenu = addMenu(l("文件", "檔案", "File"))
         for (title, action, key) in [(l("新建", "新增", "New"), #selector(newProject), "n"), (l("载入", "開啟", "Open"), #selector(loadProject), "o"), (l("保存输入", "儲存輸入", "Save Input"), #selector(saveProject), "s"), (l("导出结果", "匯出結果", "Export Results"), #selector(exportResult), "e")] {
             let item = NSMenuItem(title: title, action: action, keyEquivalent: key); item.target = self; fileMenu.addItem(item)
         }
-        let editItem = NSMenuItem(); bar.addItem(editItem)
-        let editMenu = NSMenu(title: l("编辑", "編輯", "Edit")); editItem.submenu = editMenu
+        let editMenu = addMenu(l("编辑", "編輯", "Edit"))
         for (title, action, key) in [(l("剪切", "剪下", "Cut"), #selector(NSText.cut(_:)), "x"), (l("复制", "複製", "Copy"), #selector(NSText.copy(_:)), "c"), (l("粘贴", "貼上", "Paste"), #selector(NSText.paste(_:)), "v"), (l("全选", "全選", "Select All"), #selector(NSText.selectAll(_:)), "a")] {
             editMenu.addItem(withTitle: title, action: action, keyEquivalent: key)
         }
-        let languageItem = NSMenuItem(); bar.addItem(languageItem)
-        let languageMenu = NSMenu(title: l("语言", "語言", "Language")); languageItem.submenu = languageMenu
-        for (value, title) in [("zh-Hans", "简体中文"), ("zh-Hant", "繁體中文"), ("en", "English")] {
+        let languageMenu = addMenu(l("语言", "語言", "Language"))
+        for (value, title) in languages {
             let item = NSMenuItem(title: title, action: #selector(changeLanguage(_:)), keyEquivalent: "")
             item.target = self; item.representedObject = value; item.state = language == value ? .on : .off; languageMenu.addItem(item)
         }
         NSApp.mainMenu = bar
     }
     @objc private func showAbout() {
-        NSApp.orderFrontStandardAboutPanel(options: [.applicationName: l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions"), .applicationVersion: "0.4.3"])
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        NSApp.orderFrontStandardAboutPanel(options: [.applicationName: appName, .applicationVersion: version])
     }
     @objc private func changeLanguage(_ sender: NSMenuItem) {
-        guard let value = sender.representedObject as? String, ["zh-Hans", "zh-Hant", "en"].contains(value) else { return }
+        guard let value = sender.representedObject as? String, supportsLanguage(value) else { return }
         webView.evaluateJavaScript("window.BasisDesktop.setLanguage('\(value)')", completionHandler: nil)
     }
 
@@ -210,14 +154,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
     @objc private func saveProject() { clickControl("save-project") }
     @objc private func exportResult() { clickControl("export-result") }
 
-    private func presentOpenPanel() {
+    private func chooseJSON(_ completion: @escaping ([URL]?) -> Void) {
         let panel = NSOpenPanel()
         panel.title = l("载入计算输入", "開啟計算輸入", "Open Calculation Input")
         panel.allowedContentTypes = [.json]
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
         panel.beginSheetModal(for: window) { response in
-            guard response == .OK, let url = panel.url else { return }
+            completion(response == .OK ? panel.urls : nil)
+        }
+    }
+
+    private func presentOpenPanel() {
+        chooseJSON { urls in
+            guard let url = urls?.first else { return }
             do {
                 let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
                 guard size <= 2 * 1024 * 1024 else { self.showError(self.l("输入文件不能超过 2 MiB。", "輸入檔案不能超過 2 MiB。", "Input file cannot exceed 2 MiB.")); return }
@@ -225,9 +175,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
                 let argument = try JSONSerialization.data(withJSONObject: [text], options: [])
                 guard let encoded = String(data: argument, encoding: .utf8) else { return }
                 self.webView.evaluateJavaScript("window.BasisDesktop.importJSON(\(encoded)[0])") { _, error in
-                    if let error { self.showError(self.l("载入失败：", "開啟失敗：", "Open failed: ") + error.localizedDescription) }
+                    if let error { self.showOpenError(error) }
                 }
-            } catch { self.showError(self.l("载入失败：", "開啟失敗：", "Open failed: ") + error.localizedDescription) }
+            } catch { self.showOpenError(error) }
         }
     }
 
@@ -240,27 +190,34 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
 
     func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
-        let panel = NSOpenPanel()
-        panel.title = l("载入计算输入", "開啟計算輸入", "Open Calculation Input")
-        panel.allowedContentTypes = [.json]
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.beginSheetModal(for: window) { response in completionHandler(response == .OK ? panel.urls : nil) }
+        chooseJSON(completionHandler)
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.frameInfo.isMainFrame,
-              message.frameInfo.request.url?.standardizedFileURL == contentURL else { return }
-        if message.name == "openJSON" { presentOpenPanel(); return }
-        if message.name == "languageChanged", let body = message.body as? [String: Any], let value = body["language"] as? String, ["zh-Hans", "zh-Hant", "en"].contains(value) {
-            language = value; UserDefaults.standard.set(value, forKey: "symmetry-language")
-            window.title = l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions"); installMenu(); return
+              message.frameInfo.request.url?.standardizedFileURL == contentURL,
+              let command = BridgeMessage(rawValue: message.name) else { return }
+        let body = message.body as? [String: Any]
+        switch command {
+        case .openJSON:
+            presentOpenPanel()
+        case .languageChanged:
+            guard let value = body?["language"] as? String, supportsLanguage(value) else { return }
+            language = value
+            UserDefaults.standard.set(value, forKey: "symmetry-language")
+            window.title = appName
+            installMenu()
+        case .copyText:
+            guard let text = body?["text"] as? String, text.utf8.count <= 8 * 1024 * 1024 else { return }
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(text, forType: .string)
+        case .saveJSON:
+            guard let name = body?["name"] as? String, let text = body?["text"] as? String else { return }
+            presentSavePanel(name: name, text: text)
         }
-        if message.name == "copyText", let body = message.body as? [String: Any], let text = body["text"] as? String, text.utf8.count <= 8 * 1024 * 1024 {
-            NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string); return
-        }
-        guard message.name == "saveJSON", let body = message.body as? [String: Any],
-              let name = body["name"] as? String, let text = body["text"] as? String else { return }
+    }
+
+    private func presentSavePanel(name: String, text: String) {
         do {
             let data = try jsonPayload(name: name, text: text)
             let panel = NSSavePanel()
@@ -276,8 +233,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         } catch { showError(l("导出数据无效：", "匯出資料無效：", "Invalid export data: ") + error.localizedDescription) }
     }
 
+    private func showOpenError(_ error: Error) {
+        showError(l("载入失败：", "開啟失敗：", "Open failed: ") + error.localizedDescription)
+    }
+
     private func showError(_ message: String) {
-        let alert = NSAlert(); alert.messageText = l("点群与基函数", "點群與基函數", "Point Groups & Basis Functions"); alert.informativeText = message
+        let alert = NSAlert(); alert.messageText = appName; alert.informativeText = message
         if let window { alert.beginSheetModal(for: window) } else { alert.runModal() }
     }
 }

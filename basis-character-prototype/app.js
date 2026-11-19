@@ -204,7 +204,15 @@
   $('manual-group').onchange=protect(()=>{R.table($('manual-group').value);checkpoint();manual.group=$('manual-group').value;invalidate();render();});
   $('manual-characters').oninput=()=>{manual.text=$('manual-characters').value;invalidate();};
   $('reduction-tolerance').onchange=protect(()=>{const n=numberInput('reduction-tolerance',t('约化容差'));if(n<=0||n>=.01){$('reduction-tolerance').value=String(manual.tolerance);throw new R.ReductionError('invalid_reduction_tolerance');}checkpoint();manual.tolerance=n;invalidate();});
-  for(const [id,l] of [['manual-s',0],['manual-p',1],['manual-d',2]])$(id).onclick=protect(()=>{checkpoint();const table=R.table(manual.group),meta=window.ReductionCatalog.groups[manual.group];manual.text=meta.orbital[l].map(String).join(', ');invalidate();render();});
+  for (const [id, degree] of [['manual-s', 0], ['manual-p', 1], ['manual-d', 2]]) {
+    $(id).onclick = protect(() => {
+      checkpoint();
+      const { orbital } = R.table(manual.group);
+      manual.text = orbital[degree].map(String).join(', ');
+      invalidate();
+      render();
+    });
+  }
   $('tolerance').onchange = protect(() => { let value; try { value = numberInput('tolerance', t('容差')); if (value < 1e-10 || value > 0.01) throw new Error(t('容差需在 1e−10 至 0.01 之间。')); } catch (error) { $('tolerance').value = String(spec.tolerance); throw error; } checkpoint(); spec.tolerance = value; invalidate(); });
   $('expand-seed').onclick = protect(() => {
     const seed = ['seed-x', 'seed-y', 'seed-z'].map(id => numberInput(id, t('代表坐标'))), orbit = E.orbit(spec.group, seed, spec.tolerance), count = $('seed-count').value.trim();

@@ -3,13 +3,21 @@ name: Integrated basis app checks
 on:
   push:
     branches: [main]
-    paths: ['basis-character-prototype/**', '.github/workflows/basis-ci.yml']
+    paths: ['basis-character-prototype/**', 'packaging/publish_basis.py', '.github/workflows/basis-ci.yml']
   pull_request:
-    paths: ['basis-character-prototype/**', '.github/workflows/basis-ci.yml']
+    paths: ['basis-character-prototype/**', 'packaging/publish_basis.py', '.github/workflows/basis-ci.yml']
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the integrated app from main after native builds pass
+        type: boolean
+        default: false
 
 permissions:
   contents: read
+
+env:
+  BASIS_PUBLISH: ${{ github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish)) }}
 
 jobs:
   test:
@@ -26,6 +34,9 @@ jobs:
         run: |
           node --version
           node --test tests/*.test.js
+      - name: Test the original desktop transitions
+        working-directory: .
+        run: python3 -B -m unittest -v test_motion
       - name: Verify distributable checksums
         run: |
           python3 - <<'PY'
@@ -36,6 +47,16 @@ jobs:
               assert hashlib.sha256((Path('dist') / item['name']).read_bytes()).hexdigest() == item['sha256']
           print('Offline language files and source archive checksums passed')
           PY
+      - name: Store offline pages and source archive
+        if: env.BASIS_PUBLISH == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Integrated-offline
+          path: |
+            basis-character-prototype/dist/BasisCharacterPrototype-*-*.html
+            basis-character-prototype/dist/BasisCharacterPrototype-*-source.zip
+            basis-character-prototype/dist/manifest.json
+          if-no-files-found: error
 
   windows:
     name: Integrated app — Windows x64
@@ -51,17 +72,59 @@ jobs:
       - uses: actions/setup-dotnet@e2cf7c663b93c38144629f5d40b62d3eaaa63a03
         with:
           dotnet-version: '10.0.x'
-      - name: Native build, signed offline runtime and pure mathematics self-check
-        run: python packaging/build_windows.py
+      - name: Native build and pure mathematics self-check
+        run: |
+          if ($env:BASIS_PUBLISH -eq "true") {
+            python packaging/build_windows.py --with-full
+          } else {
+            python packaging/build_windows.py
+          }
+          exit $LASTEXITCODE
       - name: Store Windows package and evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: Integrated-Windows-x64
           path: |
-            basis-character-prototype/dist/BasisCharacter-*-Windows-x64.zip
+            basis-character-prototype/dist/BasisCharacter-*-Windows-x64*.zip
             basis-character-prototype/dist/WINDOWS-SHA256SUMS.txt
-            basis-character-prototype/validation/windows-package-check.json
-            basis-character-prototype/packaging/windows/packages.lock.json
+            basis-character-prototype/dist/windows-package-check.json
           if-no-files-found: error
           compression-level: 0
           retention-days: 30
+
+  macos:
+    name: Integrated app — macOS Apple silicon
+    if: github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: python3 packaging/build_macos.py --with-full
+        working-directory: basis-character-prototype
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Integrated-macOS-arm64
+          path: |
+            basis-character-prototype/dist/BasisCharacter-*-macOS-arm64*.zip
+            basis-character-prototype/dist/MACOS-SHA256SUMS.txt
+          if-no-files-found: error
+
+  publish:
+    if: github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))
+    needs: [test, windows, macos]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    concurrency: integrated-basis-release
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          pattern: Integrated-*
+          merge-multiple: true
+          path: release-assets
+      - run: python3 packaging/publish_basis.py

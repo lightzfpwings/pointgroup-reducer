@@ -42,7 +42,8 @@ function harness(bundled = false,languageVariant = '') {
   const sandbox = vm.createContext(context);
   if (bundled) {
     assert(!/<script\s+src=/.test(html), 'offline build must not reference external scripts');
-    const scripts = [...html.matchAll(/<script>\s*([\s\S]*?)<\/script>/g)]; assert.equal(scripts.length, languageVariant?10:9);
+    const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
+    assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
   } else for(const name of ['messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);

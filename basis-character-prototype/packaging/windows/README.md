@@ -4,11 +4,13 @@ Build on native Windows x64 with Python 3.12 and .NET 10 SDK:
 
     python packaging/build_windows.py
 
-The bundle includes .NET, the common trilingual HTML, JSON examples, a pure-calculation self-check, and Microsoft's signed full offline WebView2 installer. It does not automatically install the runtime or download anything at application startup. Extract the entire ZIP and launch BasisCharacter.exe. When the runtime is absent, run the bundled installer and reopen the app.
+Add `--with-full` to also build the complete archive with three language-specific HTML files and Microsoft's offline installer. The builder verifies the installer signature before packaging it.
+
+The lightweight ZIP includes .NET, a trilingual offline HTML page, JSON examples, and a calculation self-check. Extract the entire ZIP and launch `BasisCharacter.exe`. If WebView2 is missing, open `Download-WebView2.url`, download the Evergreen Standalone Installer for x64, install it, then reopen the app. Copy the installer from an online computer for offline deployment. [Microsoft WebView2 downloads](https://developer.microsoft.com/microsoft-edge/webview2/#download)
 
 Four existing desktop operations are bridged through top-level WebView2 messages. Both the document source and current navigation must equal the packaged virtual page; all other navigations, frames, requests, popups and downloads are blocked. Input limits and native JSON validation match the Mac package. Preferences live under LocalAppData/SymmetryGroup/BasisCharacter.
 
-The builder validates Microsoft Authenticode signatures, checks pure ECMAScript mathematics using Jint, and emits SHA-256 checksums. No browser DOM or UI rendering is used by the self-check. Native window rendering, keyboard interaction and dialogs need actual Windows user testing. The application executable is not Authenticode signed.
+The builder runs the shared calculation self-check in Jint and writes its report and SHA-256 checksums to `dist/`. The application executable is not Authenticode signed.
 
 Runtime distribution: [Microsoft WebView2 offline deployment](https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution#offline-deployment).
 Supported systems: [Microsoft .NET Windows support](https://learn.microsoft.com/en-us/dotnet/core/install/windows#supported-versions).

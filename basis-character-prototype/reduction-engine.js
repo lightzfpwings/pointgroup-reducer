@@ -22,7 +22,7 @@
     if(b==='0')return a;if(a==='0')return b==='1'?'i':b==='-1'?'-i':'('+b+')*i';
     return '('+a+')+('+b+')*i';
   }
-  function cyclic(n,s){
+  function cyclic(n){
     const order=[0,...(n%2===0?[n/2]:[])];for(let k=1;k<Math.floor((n+1)/2);k++)order.push(k,n-k);
     return {X:order.map(k=>Array.from({length:n},(_,p)=>pack({re:Math.cos(2*Math.PI*k*p/n),im:Math.sin(2*Math.PI*k*p/n)}))),
       expressions:order.map(k=>Array.from({length:n},(_,p)=>unitExpression(k*p,n)))};
@@ -44,7 +44,7 @@
   function recipe(name){
     if(catalog.explicit[name])return catalog.explicit[name];
     const [,family,nText,suffix]=name.match(/^([CDS])(\d+)([vhd]?)$/)||[];const n=Number(nText);
-    if(family==='S')return cyclic(n,true);
+    if(family==='S')return cyclic(n);
     if(family==='C')return suffix==='h'?product(cyclic(n)):suffix==='v'?dihedral(n,true):cyclic(n);
     if(family==='D')return suffix==='h'||suffix==='d'&&n%2?product(dihedral(n,false)):dihedral(suffix==='d'?2*n:n,false);
     fail('unsupported_reducer_group');
@@ -110,6 +110,6 @@
     const result=sum();if(i!==tokens.length||!finite(result))fail('invalid_expression');return pack(z(result));
   }
   function parseVector(text){const parts=/[,;，；]/.test(text)?text.split(/[,;，；]/):text.trim().split(/\s+/);if(parts.some(p=>!p.trim()))fail('invalid_expression');return parts.map(number);}
-  const api={VERSION:'0.4.3',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
+  const api={VERSION:'0.4.4',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.ReductionEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

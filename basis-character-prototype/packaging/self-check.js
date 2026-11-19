@@ -7,7 +7,8 @@
     const r = BasisEngine.calculate(BasisEngine.template(name));
     const reduced = ReductionEngine.integrate(r, ReducerAdapter);
     assert(r.dimension === dimensions[i] && r.blocks.length === blocks[i] && reduced.total.valid, name);
-    return {name, dimension:r.dimension, blocks:r.blocks.length, characters:r.totalCharacters, reductionResidual:reduced.total.integer_residual};
+    return {name, dimension:r.dimension, blocks:r.blocks.length, characters:r.totalCharacters, checks:r.checks,
+      reduced:reduced.total.valid, terms:reduced.total.terms, reductionResidual:reduced.total.integer_residual};
   });
   assert(JSON.stringify(examples[0].characters) === '[30,0,0,0,2,0,0,0,0,18,0,6]', 'benzene characters');
   const groups = BasisEngine.groupNames.map(name => {
@@ -19,15 +20,21 @@
       const m = g.matrices[c.representative], square = BasisEngine.matmul(m,m), tr = m[0][0]+m[1][1]+m[2][2];
       return Math.abs((tr*tr+square[0][0]+square[1][1]+square[2][2])/2-1-d.totalCharacters[i]);
     }));
-    assert(p.dimension === 3 && d.dimension === 5 && error < 1e-7 && Math.max(p.checks.representationError,d.checks.representationError) < 1e-7 && a.classes.length === g.classes.length, name);
-    return {group:name, dTraceError:error};
+    const representationError = Math.max(p.checks.representationError, d.checks.representationError);
+    assert(p.dimension === 3 && d.dimension === 5 && error < 1e-7 &&
+      representationError < 1e-7 && a.classes.length === g.classes.length, name);
+    return {group:name, order:g.size, classes:g.classes.length, dimension:p.dimension,
+      dDimension:d.dimension, representationError, dTraceError:error, alignedClasses:a.classes.length};
   });
   const tables = ReductionEngine.groupNames.map(name => {
     const table = ReductionEngine.table(name), r = ReductionEngine.reduce(name,table.X[0]);
     assert(r.valid && r.integer_a[0] === 1, name);
-    return {group:name, orthogonalityError:table.orthogonalityError};
+    return {group:name, classes:table.classes.length, orthogonalityError:table.orthogonalityError};
   });
   const languages = I18n.languages.map(language => { I18n.setLanguage(language); return {language,title:I18n.translate('点群与基函数')}; });
   assert(groups.length === 87 && tables.length === 423 && languages.length === 3 && languages[2].title === 'Point Groups & Basis Functions', 'catalog/language count');
-  return JSON.stringify({status:'passed',runtime:'Jint (pure ECMAScript)',version:BasisEngine.VERSION,reductionVersion:ReductionEngine.VERSION,examples,supportedPointGroups:groups.length,expandedGroupChecks:groups,reductionTables:tables,languages,reductionIntegrated:true,uiLaunched:false});
+  assert(Math.abs(ReductionEngine.number('sqrt(3)/2') - Math.sqrt(3)/2) < 1e-12, 'expression parser');
+  return JSON.stringify({status:'passed', runtime:'Jint (pure ECMAScript)', version:BasisEngine.VERSION, reductionVersion:ReductionEngine.VERSION,
+    examples, supportedPointGroups:groups.length, expandedGroupChecks:groups,
+    reductionTables:tables, languages, reductionIntegrated:true, uiLaunched:false});
 })();

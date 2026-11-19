@@ -1,14 +1,16 @@
-# 點群與基函數 0.4.3
+# 點群與基函數 0.4.4
 
 [简体中文](README.md) · [English](README.en.md)
 
-[正式發布 0.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.3)
+[正式發布 0.4.4](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
 
 在同一離線應用程式中完成位置與 s/p/d 基函數、可約特徵標及不可約分解。採用簡潔白底單欄，統一公式、表格及輸出格式。右上角或桌面「語言」選單可切換繁體中文、简体中文與 English；保留輸入、結果和檢視狀態，並記住偏好。
 
-解壓 Mac Apple 晶片版 ZIP，結束舊版後開啟 `BasisCharacter.app`。支援 macOS 12+，不需要 Python、Node、瀏覽器或網路。`offline/` 另有三種預設語言的獨立 HTML 檔，每份都能切換三語。
+解壓 Mac Apple 晶片版 ZIP，結束舊版後開啟 `BasisCharacter.app`。程式使用系統 WebKit，支援 macOS 12+ 和離線使用。`offline/` 內有一份可切換三語的獨立 HTML。
 
-Windows x64：完整解壓 Windows ZIP 後開啟 `BasisCharacter.exe`，適用 Windows 11 和 Windows 10 x64（1809+）；支援版本遵循微軟系統生命週期。已包含 .NET，不需要 Python 或 Node。如提示缺少 WebView2，先執行同資料夾中的微軟離線安裝器，再開啟軟體。Windows 應用尚未 Authenticode 簽署。
+完整解壓 Windows x64 輕量 ZIP 後開啟 `BasisCharacter.exe`。ZIP 包含 .NET 和可切換三語的離線 HTML。如提示缺少 WebView2，請開啟 `Download-WebView2.url`，下載 Evergreen 獨立安裝程式 x64，安裝後重新開啟應用程式。離線電腦可先在另一部電腦下載並複製安裝程式。[微軟 WebView2 下載頁](https://developer.microsoft.com/microsoft-edge/webview2/#download)
+
+完整包的檔名省去 `-lite`，並包含三份依語言預設的 HTML。Windows 完整包也包含微軟簽署的離線 WebView2 安裝程式。在對應的原生建置指令加上 `--with-full` 即可產生兩種 ZIP。
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
@@ -30,4 +32,4 @@ d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²�
 
 0.4.2 修復數學表頭顯示為 `[object MathMLMathElement]` 的問題。表頭與正文共用節點插入邏輯；三語特徵標表、基函數結果表、手動結果表及向量表均檢查數學表頭節點。
 
-0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，附微軟簽署的 WebView2 離線安裝器。開發封裝：在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py`。原生自檢以 Jint 執行純數學腳本，不啟動瀏覽器；視覺排版及系統對話框仍需實際試用。位置容差編輯已修復翻譯函數被變數遮蔽的問題。
+0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，並修復位置容差編輯。在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py` 即可封裝。封裝自檢以 Jint 執行與 Mac 共用的計算指令碼。Windows 應用程式尚未經 Authenticode 簽章。原始發布版附 WebView2 離線安裝程式，輕量包提供微軟下載捷徑。

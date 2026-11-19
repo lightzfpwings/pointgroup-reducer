@@ -1,18 +1,20 @@
-# 点群与基函数 0.4.3
+# 点群与基函数 0.4.4
 
 [English](README.en.md) · [繁體中文](README.zh-Hant.md)
 
-[正式发布 0.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.3)
+[正式发布 0.4.4](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
 
 将位置与 s/p/d 基函数计算、可约特征标和不可约分解整合在同一离线应用中。保留简洁白底单栏，公式、表格、复制文本与 LaTeX 使用一致的数学约定。右上角或桌面“语言”菜单可切换简体中文、繁体中文和 English，切换保留输入、结果与查看状态，并记住偏好。
 
 ## 启动
 
-Mac Apple 芯片：解压 `dist/BasisCharacter-0.4.3-macOS-arm64.zip`，退出旧版后打开 `BasisCharacter.app`。支持 macOS 12+，不需要 Python、Node、浏览器或联网。ZIP 的 `offline/` 目录另有三种默认语言的 HTML 版本。
+Mac Apple 芯片版支持 macOS 12+。解压 `dist/BasisCharacter-0.4.4-macOS-arm64-lite.zip`，退出旧版后打开 `BasisCharacter.app`。应用使用系统 WebKit，在离线环境下可运行。ZIP 的 `offline/` 目录含一份可切换三语的 HTML。
 
-Windows x64：完整解压 `dist/BasisCharacter-0.4.3-Windows-x64.zip`，双击 `BasisCharacter.exe`。适用 Windows 11 及 Windows 10 x64（1809+）；系统支持周期遵循微软。已包含 .NET，无需 Python 或 Node。若提示缺少 WebView2，先运行同文件夹中的微软离线安装器，再打开软件。
+Windows x64 轻量包为 `dist/BasisCharacter-0.4.4-Windows-x64-lite.zip`。完整解压后打开 `BasisCharacter.exe`。ZIP 包含 .NET 和可切换三语的离线 HTML。若提示缺少 WebView2，打开包内的 `Download-WebView2.url` 获取 Evergreen 独立安装程序 x64，安装后重开应用。离线电脑可提前在另一台电脑下载并拷贝安装器。[微软 WebView2 下载页](https://developer.microsoft.com/microsoft-edge/webview2/#download)
 
-浏览器版：直接打开 `dist/BasisCharacterPrototype-0.4.3-zh-Hans.html`、`…-zh-Hant.html` 或 `…-en.html`。每份文件均包含全部功能和三语切换。开发页 `index.html` 需要同目录九个 JS 文件。
+两个平台也提供文件名省去 `-lite` 的完整包，含三份按语言预设的 HTML。Windows 完整包还包含微软签名的离线 WebView2 安装器。向对应的原生构建命令加 `--with-full` 可同时生成两种 ZIP。
+
+浏览器版：直接打开 `dist/BasisCharacterPrototype-0.4.4-zh-Hans.html`、`…-zh-Hant.html` 或 `…-en.html`。每份文件均包含全部功能和三语切换。开发页 `index.html` 需要同目录九个 JS 文件。
 
 Mac 应用仍使用本地临时签名，未 Apple 开发者签名或公证。自动化检查覆盖计算与应用事件；自动化未进行桌面窗口、浏览器排版和系统文件对话框的视觉验收；整合界面已获用户试用后的发布批准。
 
@@ -50,10 +52,10 @@ d 的中心可在原点或对称相容的非原点位置。JSON 使用 `family:"
 
 原数学约定来源：[core.py](https://github.com/lightzfpwings/pointgroup-reducer/blob/main/core.py)、[operation_labels.py](https://github.com/lightzfpwings/pointgroup-reducer/blob/main/operation_labels.py)。固定快照记录检索日期和源文件 SHA-256。测试逐项比较原表数值、列/行名称及每个原不可约行的约化结果，并核验基函数链、复数解析、错误处理、三语切换、复制和旧文件兼容性。
 
-开发：先 `python3 build.py`，再 `node --test tests/*.test.js`。Mac 封装 `python3 packaging/build_macos.py`，需要 Apple 命令行工具；构建后执行签名校验与 Apple JavaScriptCore 自检。DOM 替身测试与数学节点检查不等于浏览器渲染验收。独立结果和测试证据见 `validation/`。
+运行 `python3 build.py` 生成离线网页和源码 ZIP，再用 `node --test tests/*.test.js` 执行测试。源码 ZIP 含独立构建所需的文件与测试数据。用 `python3 packaging/build_macos.py` 构建 Mac 应用，需要 Apple 命令行工具。构建会校验签名，并用 JavaScriptCore 运行计算自检。当前封装的自检报告在 `dist/`，历史核验记录随仓库保存在 `validation/`。
 
 0.4.2 修正数学排版：p/d 与方向分量使用正规下标，群名及不可约符号上下标一致，角度以 φ 和 π 分数显示；科学计数法使用 ×10 的幂，复数单位 i 与函数名直立。约化公式使用粗体 a/X/W/c，星号明确表示逐项复共轭，不含转置。MathML 与 LaTeX 共用表达式树，保留负号、分数、幂与括号的数值含义；小的非零数不再显示为零。
 
 0.4.2 修复数学表头变成 `[object MathMLMathElement]` 的问题。表头与正文共用节点插入逻辑；三语的特征标表、基函数结果表、手动输入结果表与向量表均检查数学表头节点。
 
-0.4.3 新增 Windows x64 原生封装，含系统 JSON 对话框、剪贴板和三语菜单，附带微软签名的 WebView2 离线安装器。Windows 应用尚未 Authenticode 签名。开发封装：在 Windows x64 安装 .NET 10 SDK 后运行 `python packaging/build_windows.py`；构建会下载并校验微软安装器。原生自检通过 Jint 执行纯数学脚本，不启动浏览器；视觉与文件对话框交互仍需实际试用。修复位置容差编辑时翻译函数被变量遮蔽的问题。
+0.4.3 新增 Windows x64 原生封装，含系统 JSON 对话框、剪贴板和三语菜单，也修复了位置容差编辑。用 Windows x64 上的 .NET 10 SDK 运行 `python packaging/build_windows.py` 构建，封装自检通过 Jint 执行与 Mac 共用的计算脚本。Windows 应用尚未 Authenticode 签名。原始发布版随包提供 WebView2 离线安装器，轻量包附微软下载入口。
