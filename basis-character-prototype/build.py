@@ -54,7 +54,7 @@ def build_html():
     html = html.replace(core_tags, f"{CORE_OPEN}\n{core}\n</script>")
     html = html.replace(app_tag, f"<script>\n{inline_script(APP_SCRIPT)}\n</script>")
     target = DIST / f"{PAGE_NAME}.html"
-    target.write_text(html, encoding="utf-8")
+    target.write_bytes(html.encode("utf-8"))
     return target
 
 
@@ -76,7 +76,7 @@ def language_pages(html):
         if language != "zh-Hans":
             variant = STATIC_TEXT.sub(localize, variant)
         target = DIST / f"{PAGE_NAME}-{language}.html"
-        target.write_text(variant, encoding="utf-8")
+        target.write_bytes(variant.encode("utf-8"))
         yield target
 
 
