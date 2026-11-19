@@ -45,7 +45,7 @@ function harness(bundled = false,languageVariant = '') {
     const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
-  } else for(const name of ['messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
+  } else for(const name of ['salc.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);
   return { $, downloads, elements, document, context,statics,preferences, template: name => templates.find(t => t.dataset.template === name).click(), click: id => $(id).click(), flush: () => { while (timers.length) timers.shift()(); }, set: (id, value, changed = false) => { $(id).value = String(value); if (changed && $(id).onchange) $(id).onchange(); }, descendants: function walk(node) { return node.children.flatMap(c => [c, ...walk(c)]); } };
 }
@@ -215,4 +215,21 @@ test('mathematical table headers remain MathML nodes in basis, manual and vector
     h.set('workflow','manual',true);h.set('manual-group','Oh',true);h.click('manual-d');h.click('calculate');h.flush();
     check(h.$('character-table'),1,10);check(h.$('result-body'),1,10);
   }
+});
+
+test('SALC coefficients follow the selected irrep and copy through language, clipboard and export', async () => {
+  const h = harness(true);
+  h.template('water'); h.click('calculate'); h.flush(); h.click('calculate-salc');
+  assert(!h.$('salc-output').classList.contains('hidden'));
+  h.set('salc-irrep', 'B1', true); h.set('language', 'en', true);
+  assert.equal(h.$('salc-irrep').value, 'B1');
+  assert(h.$('copy-content').value.includes('SALC B1 · Copy 1'));
+  assert(h.$('salc-table').textContent.includes('H1:1s:s'));
+  h.click('copy-latex'); assert(h.$('copy-content').value.includes('\\psi_{1}'));
+  h.click('export-result'); const exported = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.deepEqual(exported.salc.functionIds, exported.input.functions.map(f => f.id));
+  assert.deepEqual(exported.salc.spaces.map(s => s.irrep), ['A1','B1']);
+  h.template('central-d-c2v'); h.click('calculate'); h.flush(); h.click('calculate-salc'); h.set('salc-copy', 1, true);
+  h.set('language', 'zh-Hant', true); assert.equal(h.$('salc-copy').value,'1');
+  h.click('clear-functions'); assert(h.$('salc-card').classList.contains('hidden')); assert(h.$('export-result').disabled);
 });

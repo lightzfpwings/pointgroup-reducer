@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+from uuid import UUID
 import zipfile
 
 from publish_release import api, upload_asset
@@ -28,6 +29,38 @@ def file_digest(path):
         return digest(source)
 
 
+def verify_mac_signing(report, binary_sha256):
+    assert report["signature"] == "Developer ID Application"
+    assert report["notarized"] is True and report["stapled"] is True
+    assert report["gatekeeper"] == "passed"
+    assert re.fullmatch(r"[A-Z0-9]{10}", report["teamIdentifier"])
+    UUID(report["notarizationId"])
+    assert report["appExecutableSha256"] == binary_sha256
+    return report["teamIdentifier"], report["notarizationId"]
+
+
+def verify_release_signing(archive, report, *, windows, binary_sha256):
+    if not windows:
+        return verify_mac_signing(report, binary_sha256)
+
+    assert report["appAuthenticodeSigned"] is True
+    signing = report["appAuthenticode"]
+    assert signing["status"] == "passed"
+    files = {item["path"]: item for item in signing["files"]}
+    assert len(signing["files"]) == 2 and files.keys() == {"BasisCharacter.exe", "BasisCharacter.dll"}
+    for name, item in files.items():
+        actual = binary_sha256
+        if name == "BasisCharacter.dll":
+            with archive.open("BasisCharacter/" + name) as source:
+                actual = digest(source)
+        assert item["sha256"] == actual, name
+        assert item["subject"] and item["timestampSubject"], name
+        for field in ("thumbprint", "timestampThumbprint"):
+            assert re.fullmatch(r"[0-9a-fA-F]{40}", item[field]), name
+    assert files["BasisCharacter.exe"]["subject"] == files["BasisCharacter.dll"]["subject"]
+    return tuple((files[name]["subject"], files[name]["sha256"]) for name in sorted(files))
+
+
 def checked_assets(version):
     checks = {}
     offline_name = f"BasisCharacterPrototype-{version}"
@@ -38,6 +71,7 @@ def checked_assets(version):
         executable = "BasisCharacter/BasisCharacter.exe" if windows else "BasisCharacter.app/Contents/MacOS/BasisCharacter"
         prefix = "BasisCharacter/" if windows else ""
         binaries = []
+        signers = []
         for suffix in ("", "-lite"):
             path = ASSETS / f"BasisCharacter-{version}-{platform}{suffix}.zip"
             checks[path] = file_digest(path)
@@ -53,6 +87,7 @@ def checked_assets(version):
                 assert actual_pages == {f"{prefix}offline/{page}.html" for page in pages}, path.name
                 with archive.open(executable) as source:
                     binaries.append(digest(source))
+                signers.append(verify_release_signing(archive, report, windows=windows, binary_sha256=binaries[-1]))
                 if windows and not suffix:
                     runtime = report["webview2OfflineInstaller"]
                     assert runtime["status"] == "passed" and runtime["signature"] == "Valid", path.name
@@ -61,6 +96,17 @@ def checked_assets(version):
                 else:
                     assert INSTALLER not in archive.namelist(), path.name
         assert binaries[0] == binaries[1], platform
+        assert signers[0] == signers[1], platform
+        if not windows:
+            image = ASSETS / f"BasisCharacter-{version}-macOS-arm64.dmg"
+            checks[image] = file_digest(image)
+            report = json.loads((ASSETS / "macos-dmg-check.json").read_text(encoding="utf-8"))
+            assert report["status"] == "passed" and report["version"] == version, image.name
+            assert report["architecture"] == "arm64" and report["minimumMacOS"] == "12.0", image.name
+            assert report["imageSha256"] == checks[image] == sums[image.name], image.name
+            team, _ = verify_mac_signing(report, binaries[0])
+            assert team == signers[0][0], image.name
+            assert report["appNotarizationId"] == signers[0][1], image.name
 
     manifest = json.loads((ASSETS / "manifest.json").read_text())
     assert manifest["version"] == version

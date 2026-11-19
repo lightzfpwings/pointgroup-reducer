@@ -11,6 +11,13 @@
       reduced:reduced.total.valid, terms:reduced.total.terms, reductionResidual:reduced.total.integer_residual};
   });
   assert(JSON.stringify(examples[0].characters) === '[30,0,0,0,2,0,0,0,0,18,0,6]', 'benzene characters');
+  const water = BasisEngine.template('water');
+  const salc = SalcEngine.calculate(BasisEngine.calculate(water));
+  assert(salc.spaces.map(s => s.irrep).join(',') === 'A1,B1', 'water SALC symmetry');
+  for (const [i, space] of salc.spaces.entries()) {
+    const [a, b] = space.copies[0].vectors[0].coefficients;
+    assert(Math.abs(a*a - .5) < 1e-8 && Math.abs(a*b - (i ? -.5 : .5)) < 1e-8, 'water SALC coefficients');
+  }
   const groups = BasisEngine.groupNames.map(name => {
     const g = BasisEngine.group(name);
     const pInput = BasisEngine.template('central-c2v'), dInput = BasisEngine.template('central-d-oh');
@@ -35,6 +42,6 @@
   assert(groups.length === 87 && tables.length === 423 && languages.length === 3 && languages[2].title === 'Point Groups & Basis Functions', 'catalog/language count');
   assert(Math.abs(ReductionEngine.number('sqrt(3)/2') - Math.sqrt(3)/2) < 1e-12, 'expression parser');
   return JSON.stringify({status:'passed', runtime:'Jint (pure ECMAScript)', version:BasisEngine.VERSION, reductionVersion:ReductionEngine.VERSION,
-    examples, supportedPointGroups:groups.length, expandedGroupChecks:groups,
+    examples, waterSalcChecks:salc.checks, supportedPointGroups:groups.length, expandedGroupChecks:groups,
     reductionTables:tables, languages, reductionIntegrated:true, uiLaunched:false});
 })();

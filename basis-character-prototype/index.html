@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<header><h1><span data-i18n="点群与基函数">点群与基函数</span></h1><span class="version">0.4.4</span><label class="language-field"><span data-i18n="语言">语言</span> <select id="language" aria-label="语言" data-i18n-aria-label="语言"><option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option><option value="en">English</option></select></label></header>
+<header><h1><span data-i18n="点群与基函数">点群与基函数</span></h1><span class="version">0.4.5</span><label class="language-field"><span data-i18n="语言">语言</span> <select id="language" aria-label="语言" data-i18n-aria-label="语言"><option value="zh-Hans">简体中文</option><option value="zh-Hant">繁體中文</option><option value="en">English</option></select></label></header>
 <main class="workspace">
 <div class="toolbar">
 <button id="new-project"><span data-i18n="新建">新建</span></button><button id="undo" disabled><span data-i18n="撤销">撤销</span></button><button id="save-project"><span data-i18n="保存">保存</span></button><button id="load-project"><span data-i18n="载入">载入</span></button>
@@ -62,6 +62,18 @@
 <section id="result-card" class="section">
 <div class="sectionhead"><h2 style="margin:0"><span data-i18n="结果">结果</span></h2><div class="row"><button id="calculate" class="primary"><span data-i18n="计算并分解">计算并分解</span></button><button id="export-result" disabled><span data-i18n="导出">导出</span></button></div></div>
 <div id="result-body" class="empty"><span data-i18n="选择位置和基函数后计算。">选择位置和基函数后计算。</span></div>
+<section id="salc-card" class="hidden">
+<h3 data-i18n="对称适应线性组合（SALC）">对称适应线性组合（SALC）</h3>
+<button id="calculate-salc" class="small" data-i18n="生成 SALC 系数">生成 SALC 系数</button>
+<div id="salc-output" class="hidden">
+<div class="fields">
+<label class="field medium"><span data-i18n="不可约表示">不可约表示</span><select id="salc-irrep"></select></label>
+<label class="field narrow"><span data-i18n="副本">副本</span><select id="salc-copy"></select></label>
+</div>
+<div id="salc-table" class="scroll"></div>
+<div class="sub" data-i18n="每列是一组 SALC 系数。按同中心同径向的角向内积归一化，其余中心、径向或角动量之间取零重叠。整体相位及简并空间内的基可任选。">每列是一组 SALC 系数。按同中心同径向的角向内积归一化，其余中心、径向或角动量之间取零重叠。整体相位及简并空间内的基可任选。</div>
+<div class="sub" data-i18n="复制包含当前副本，导出 JSON 包含全部 SALC 系数。">复制包含当前副本，导出 JSON 包含全部 SALC 系数。</div>
+</div></section>
 <details id="alignment-card" class="hidden"><summary><span data-i18n="特征标向量与导出">特征标向量与导出</span></summary><div class="sub"><span data-i18n="全体和每个封闭空间使用相同共轭类顺序；每类一个特征标，不乘类大小。">全体和每个封闭空间使用相同共轭类顺序；每类一个特征标，不乘类大小。</span></div><label class="field"><span data-i18n="选择向量">选择向量</span><select id="alignment-vector"></select></label><div id="alignment-table" class="scroll"></div><textarea id="alignment-text" rows="2" readonly aria-label="原模块特征标向量" data-i18n-aria-label="原模块特征标向量"></textarea><button id="export-aligned" class="small" disabled><span data-i18n="导出向量">导出向量</span></button></details>
 </section>
 <details id="copy-card" class="result hidden"><summary><span data-i18n="复制结果">复制结果</span></summary><div class="row"><button id="copy-text" class="small"><span data-i18n="复制文本">复制文本</span></button><button id="copy-latex" class="small"><span data-i18n="复制 LaTeX">复制 LaTeX</span></button></div><textarea id="copy-content" readonly rows="5" aria-label="复制内容" data-i18n-aria-label="复制内容"></textarea></details>
@@ -70,13 +82,13 @@
 <div class="inspector-grid"><div><h3><span data-i18n="空间矩阵 R(g)">空间矩阵 R(g)</span></h3><pre id="operation-matrix" class="matrix"></pre><div id="fixed-sites" class="notice"></div></div><div><h3><span data-i18n="函数变换">函数变换</span></h3><div id="transform-table" class="scroll"></div></div></div>
 <details><summary><span data-i18n="位置映射">位置映射</span></summary><div id="mapping-table" class="scroll short"></div></details>
 </details>
-<p class="footer"><span data-i18n="s/p/d 基函数 → 可约特征标 → 不可约组成；尚未计算 SALC 系数。">s/p/d 基函数 → 可约特征标 → 不可约组成；尚未计算 SALC 系数。</span></p>
 </main>
 <script src="engine.js"></script>
 <script src="reducer-catalog.js"></script>
 <script src="reducer-adapter.js"></script>
 <script src="reduction-catalog.js"></script>
 <script src="reduction-engine.js"></script>
+<script src="salc.js"></script>
 <script src="messages-data.js"></script>
 <script src="i18n.js"></script>
 <script src="math-format.js"></script>

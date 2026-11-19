@@ -1,22 +1,14 @@
-# 点群与基函数 0.4.4
+# 点群与基函数 0.4.5
 
 [English](README.en.md) · [繁體中文](README.zh-Hant.md)
 
-[正式发布 0.4.4](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+可从 s/p/d 基函数及分子几何构建表示矩阵、约化特征标，进而生成各不可约副本的 SALC 系数。也可直接输入特征标进行约化。
 
-将位置与 s/p/d 基函数计算、可约特征标和不可约分解整合在同一离线应用中。保留简洁白底单栏，公式、表格、复制文本与 LaTeX 使用一致的数学约定。右上角或桌面“语言”菜单可切换简体中文、繁体中文和 English，切换保留输入、结果与查看状态，并记住偏好。
+## 下载与启动
 
-## 启动
+在 Windows 或 macOS 上下载并用浏览器打开 `BasisCharacterPrototype-0.4.5-zh-Hans.html`。文件可离线运行，右上角可切换简体中文、繁体中文和 English。需要繁体或英文作为默认语言时，选择 `-zh-Hant.html` 或 `-en.html`。附件还包括源码 ZIP 和 `SHA256SUMS.txt`。[0.4.5 下载页](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5)
 
-Mac Apple 芯片版支持 macOS 12+。解压 `dist/BasisCharacter-0.4.4-macOS-arm64-lite.zip`，退出旧版后打开 `BasisCharacter.app`。应用使用系统 WebKit，在离线环境下可运行。ZIP 的 `offline/` 目录含一份可切换三语的 HTML。
-
-Windows x64 轻量包为 `dist/BasisCharacter-0.4.4-Windows-x64-lite.zip`。完整解压后打开 `BasisCharacter.exe`。ZIP 包含 .NET 和可切换三语的离线 HTML。若提示缺少 WebView2，打开包内的 `Download-WebView2.url` 获取 Evergreen 独立安装程序 x64，安装后重开应用。离线电脑可提前在另一台电脑下载并拷贝安装器。[微软 WebView2 下载页](https://developer.microsoft.com/microsoft-edge/webview2/#download)
-
-两个平台也提供文件名省去 `-lite` 的完整包，含三份按语言预设的 HTML。Windows 完整包还包含微软签名的离线 WebView2 安装器。向对应的原生构建命令加 `--with-full` 可同时生成两种 ZIP。
-
-浏览器版：直接打开 `dist/BasisCharacterPrototype-0.4.4-zh-Hans.html`、`…-zh-Hant.html` 或 `…-en.html`。每份文件均包含全部功能和三语切换。开发页 `index.html` 需要同目录九个 JS 文件。
-
-Mac 应用仍使用本地临时签名，未 Apple 开发者签名或公证。自动化检查覆盖计算与应用事件；自动化未进行桌面窗口、浏览器排版和系统文件对话框的视觉验收；整合界面已获用户试用后的发布批准。
+之前发布的原生包为 0.4.4，涵盖 Windows x64 和 Apple 芯片 Mac。0.4.5 原生包等待发布者签名及验证。[0.4.4 原生下载](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4) · [签名与公证说明](SIGNING.md)
 
 ## 两种计算方式
 
@@ -25,6 +17,12 @@ Mac 应用仍使用本地临时签名，未 Apple 开发者签名或公证。自
 **手动输入特征标**：保留原程序可选的 423 个有限点群，轴向族 n 至 60、S 至 120。按当前表列顺序输入每类一个值，不乘类大小。逗号或分号分隔，可用 i、π、sqrt、cos、sin、exp、四则运算和幂。保留完整复不可约表示，E+/E− 不合并成一行。分解仍采用 `a = X.conj() @ W @ c / h`，检查非负整数重数及重建误差；非法输入不会输出成功分解。
 
 两条入口使用同一特征标表、类顺序、MathML 数学排版和结果格式。展示 X 的精确公式与根式；实际计算使用双精度，导出保留完整精度及容差，不把数值结果冒充符号证明。输入框的表达式有长度和复杂度限制，不调用 eval。
+
+## SALC 系数
+
+在「从基函数计算」中完成分解后，点击「生成 SALC 系数」，按不可约表示和副本查看。每列给出一个组合 $\psi = \sum_j c_j \phi_j$，行对应原输入函数。复制包含当前副本，完整结果 JSON 包含已生成的全部副本。水示例取 xz 为分子平面，两个 H 1s 函数分别给出 A1 的归一化和与 B1 的归一化差，各系数的绝对值均为 1/√2。
+
+计算使用特征标投影算符 $P_\alpha = \frac{d_\alpha}{|G|}\sum_{g\in G}\chi_\alpha(g)^*D(g)$，星号表示复共轭。对于重复出现的多维表示，程序逐副本构造伙伴函数，检查正交性、生成元下的封闭性及特征标。各中心、径向标识与角动量的组合彼此正交，同组 p 使用方向内积，d 使用张量 Frobenius 内积。整体相位、简并空间中的基和等价副本的选取具有自由度。[MIT 群表示讲义](https://ocw.mit.edu/courses/18-712-introduction-to-representation-theory-fall-2010/24d8b3fa2ce48e48ee6c2d8d5e3562f6_MIT18_712F10_replect.pdf)
 
 ## 示例与保存
 
@@ -38,13 +36,13 @@ Mac 应用仍使用本地临时签名，未 Apple 开发者签名或公证。自
 
 ## d 和变换约定
 
-主动操作 `U(g)φ_j = Σ_i φ_i D_ij(g)`；位置 `r → Rr`、p 方向 `u → Ru`。每个中心/径向类型最多三个独立 p；非正交方向通过 Gram 矩阵准确展开，不丢弃残差。
+主动操作 `U(g)φ_j = Σ_i φ_i D_ij(g)`；位置 `r → Rr`、p 方向 `u → Ru`。每个中心/径向类型最多三个独立 p；非正交角向基通过 QR 分解展开，并检查重建残差。
 
 d 为五维实球谐函数 dxy、dxz、dyz、dx²−y²、dz²（即 2z²−x²−y²）。对称无迹张量 Q 满足 `f(x)=xᵀQx`；标准张量按 Frobenius 内积正交归一，变换为 `Q → RQRᵀ`。局部轴矩阵 A 的列为 x′/y′/z′ 在全局坐标中的方向，轨道为 `AQ₀Aᵀ`。高级设置输入垂直的 x′、z′，系统生成右手 y′。同批中心共用轴；不同中心可分别选中添加。
 
 d 的中心可在原点或对称相容的非原点位置。JSON 使用 `family:"d"`、`component:"dxy"` 等标识和可选 `frame`；缺省为单位矩阵。径向 ID 是副本标识，不是量子化学基组库。最多 120 个中心、180 个函数。
 
-“封闭计算块”不一定不可约，也不保证是最小不变空间；换基会改变当前块结构。各独立等价副本均保留。六维 Cartesian d、自动点群识别、XYZ 导入、实际 AO 重叠积分、SALC 系数及电子能量尚未实现。
+“封闭计算块”不一定不可约，也不保证是最小不变空间；换基会改变当前块结构。各独立等价副本均保留。六维 Cartesian d、自动点群识别、XYZ 导入、实际 AO 重叠积分及电子能量尚未实现。
 
 ## 模块与验证
 
@@ -58,4 +56,4 @@ d 的中心可在原点或对称相容的非原点位置。JSON 使用 `family:"
 
 0.4.2 修复数学表头变成 `[object MathMLMathElement]` 的问题。表头与正文共用节点插入逻辑；三语的特征标表、基函数结果表、手动输入结果表与向量表均检查数学表头节点。
 
-0.4.3 新增 Windows x64 原生封装，含系统 JSON 对话框、剪贴板和三语菜单，也修复了位置容差编辑。用 Windows x64 上的 .NET 10 SDK 运行 `python packaging/build_windows.py` 构建，封装自检通过 Jint 执行与 Mac 共用的计算脚本。Windows 应用尚未 Authenticode 签名。原始发布版随包提供 WebView2 离线安装器，轻量包附微软下载入口。
+0.4.3 新增 Windows x64 原生封装，含系统 JSON 对话框、剪贴板和三语菜单，也修复了位置容差编辑。用 Windows x64 上的 .NET 10 SDK 运行 `python packaging/build_windows.py` 构建，封装自检通过 Jint 执行与 Mac 共用的计算脚本。0.4.4 的 Windows 应用未使用 Authenticode 签名。原始发布版随包提供 WebView2 离线安装器，轻量包附微软下载入口。

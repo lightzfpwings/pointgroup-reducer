@@ -2,15 +2,15 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
-## Integrated Point Groups & Basis Functions 0.4.4
+## Integrated Point Groups & Basis Functions 0.4.5
 
-[Download the integrated app](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4) · [Full guide](basis-character-prototype/README.en.md)
+Construct symmetry-adapted linear combinations (SALCs) from s/p/d functions and inspect the input coefficients for each irrep copy. This update fixes checks on atom permutations, expansion in nonorthogonal angular bases and precision loss in complex arithmetic. The geometry workflow supports 87 spatial point groups and manual character reduction supports 423 finite groups.
 
-Positions and s/p/d functions now lead directly to reducible characters and irreducible decompositions of the total space and each closed block. The geometry workflow supports 87 spatial groups; manual reduction supports 423 groups. A consistent mathematical interface supports English, Simplified Chinese and Traditional Chinese, retaining inputs and results when switching.
+For Windows or macOS, download a standalone HTML file and open it offline in a browser. Each file offers all three languages and starts in English, Simplified Chinese or Traditional Chinese according to its suffix. The release includes the module source ZIP and SHA-256 checksums. [Download 0.4.5](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5) · [User guide](basis-character-prototype/README.en.md)
 
-Full and lightweight archives are available for Windows x64 and Apple silicon macOS. The lightweight files end in `-lite.zip`. Extract the entire archive and open `BasisCharacter.exe` or `BasisCharacter.app`. The full Windows archive includes Microsoft's signed offline WebView2 installer. Both archives include trilingual offline HTML.
+The previous release provides native packages for Windows x64 and Apple silicon Macs. Updated native packages are pending publisher signing and verification. [0.4.4 native downloads](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
 
-The integrated app lives in `basis-character-prototype/` and uses its own `basis-v0.4.4` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
+The integrated app lives in `basis-character-prototype/` and uses its own `basis-v*` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
 
 Enter the character vector **c** to calculate irrep multiplicities **a** and the representation decomposition:
 

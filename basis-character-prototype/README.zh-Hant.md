@@ -1,16 +1,12 @@
-# 點群與基函數 0.4.4
+# 點群與基函數 0.4.5
 
 [简体中文](README.md) · [English](README.en.md)
 
-[正式發布 0.4.4](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
+可從 s/p/d 基函數及分子幾何建立表示矩陣、約化特徵標，再產生各不可約副本的 SALC 係數。亦可直接輸入特徵標進行約化。
 
-在同一離線應用程式中完成位置與 s/p/d 基函數、可約特徵標及不可約分解。採用簡潔白底單欄，統一公式、表格及輸出格式。右上角或桌面「語言」選單可切換繁體中文、简体中文與 English；保留輸入、結果和檢視狀態，並記住偏好。
+在 Windows 或 macOS 上下載並用瀏覽器開啟 `BasisCharacterPrototype-0.4.5-zh-Hant.html`。檔案可離線使用，右上角可切換繁體中文、简体中文與 English。需要簡體或英文作為預設語言時，選擇 `-zh-Hans.html` 或 `-en.html`。附件另含原始碼 ZIP 與 `SHA256SUMS.txt`。[0.4.5 下載頁](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5)
 
-解壓 Mac Apple 晶片版 ZIP，結束舊版後開啟 `BasisCharacter.app`。程式使用系統 WebKit，支援 macOS 12+ 和離線使用。`offline/` 內有一份可切換三語的獨立 HTML。
-
-完整解壓 Windows x64 輕量 ZIP 後開啟 `BasisCharacter.exe`。ZIP 包含 .NET 和可切換三語的離線 HTML。如提示缺少 WebView2，請開啟 `Download-WebView2.url`，下載 Evergreen 獨立安裝程式 x64，安裝後重新開啟應用程式。離線電腦可先在另一部電腦下載並複製安裝程式。[微軟 WebView2 下載頁](https://developer.microsoft.com/microsoft-edge/webview2/#download)
-
-完整包的檔名省去 `-lite`，並包含三份依語言預設的 HTML。Windows 完整包也包含微軟簽署的離線 WebView2 安裝程式。在對應的原生建置指令加上 `--with-full` 即可產生兩種 ZIP。
+先前發布的原生套件為 0.4.4，涵蓋 Windows x64 與 Apple 晶片 Mac。0.4.5 原生套件等待發行者簽章與驗證。[0.4.4 原生下載](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4) · [簽章與公證說明](SIGNING.md)
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
@@ -18,18 +14,22 @@
 
 兩種方式共用共軛類約定、MathML 數學排版、文字及 LaTeX 複製、輸入儲存與完整結果匯出。0.1–0.3 版基函數 JSON 仍可開啟；開啟後重新計算，不沿用舊結果。
 
+以「由基函數計算」完成分解後，點選「產生 SALC 係數」，依不可約表示和副本檢視。每一欄給出一個組合 $\psi = \sum_j c_j \phi_j$，各列依原輸入函數排列。複製包含當前副本，完整 JSON 匯出包含所有已產生的副本。水範例以 xz 為分子平面，兩個 H 1s 函數分別給出 A1 的正規化和與 B1 的正規化差，係數絕對值均為 1/√2。
+
+特徵標投影算符為 $P_\alpha = \frac{d_\alpha}{|G|}\sum_{g\in G}\chi_\alpha(g)^*D(g)$，星號表示複共軛。對於重複出現的多維表示，程式逐副本建立夥伴函數，檢查正交性、在生成元下的封閉性及特徵標。不同中心、徑向識別碼或角動量之間視為正交，同組 p 使用方向內積，d 使用張量 Frobenius 內積。整體相位、簡併空間內的基與等價副本的選取具有自由度。[MIT 群表示講義](https://ocw.mit.edu/courses/18-712-introduction-to-representation-theory-fall-2010/24d8b3fa2ce48e48ee6c2d8d5e3562f6_MIT18_712F10_replect.pdf)
+
 可先試「中心 d · Oₕ」：五個全域 d 分量自動形成 3+2 維封閉塊，分解為 T2g + Eg。C2v 的五個 d 分量各自封閉，總體為 2A1 + A2 + B1 + B2。水範例的兩個 H s 為 A1 + B1。苯的 30 個函數形成四個封閉塊，各獨立等價副本均保留。
 
 d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²−x²−y²。張量 Q 對稱且無跡，按 Frobenius 內積正交正規化，主動變換為 `Q → RQRᵀ`。局部軸矩陣的欄為 x′/y′/z′ 在全域座標中的方向。進階設定輸入垂直的 x′、z′，系統建立右手 y′；中心不限於原點，但須符合所選對稱性。不同中心可分別選取新增不同局部軸。
 
-目前最多 120 個中心、180 個函數。徑向 ID 是副本識別碼，尚無量子化學基組庫。封閉計算塊不等於不可約表示；換基可能改變塊結構。尚未實作六維 Cartesian d、自動點群辨識、XYZ 匯入、AO 重疊積分、SALC 係數或電子能量。
+對非正交角向基採用 QR 分解展開，並檢查每次變換的重建殘差。
+
+目前最多 120 個中心、180 個函數。徑向 ID 是副本識別碼，尚無量子化學基組庫。封閉計算塊不等於不可約表示；換基可能改變塊結構。尚未實作六維 Cartesian d、自動點群辨識、XYZ 匯入、AO 重疊積分或電子能量。
 
 顯示表格的根式與公式，實際計算採雙精度；匯出保留完整數值和容差，不將數值結果視為符號證明。原有 Python 約化程式保持相容，整合版位於獨立目錄；同步 sources 未修改，執行整合版不依賴原 Python 程式。測試逐項核對原程式的 423 張完整複表與各不可約行，並檢查整合流程、運算式、三語狀態與舊檔相容性。
-
-此應用程式使用本機臨時簽章，尚未經 Apple 開發者簽章或公證。數學、事件與封裝自檢不代表已自動化視覺驗收瀏覽器排版、桌面視窗或系統檔案對話框；此版本已獲使用者試用後的發布批准。
 
 0.4.2 修正軌道與方向下標、群名及不可約符號上下標、角度分數、科學記號，以及直立的虛數單位與函數名稱。粗體 a/X/W/c 的星號明確表示逐項複共軛，不含轉置。MathML 與 LaTeX 共用運算式樹，保留負號、分數、冪及括號的數值含義；小的非零數不再顯示為零。
 
 0.4.2 修復數學表頭顯示為 `[object MathMLMathElement]` 的問題。表頭與正文共用節點插入邏輯；三語特徵標表、基函數結果表、手動結果表及向量表均檢查數學表頭節點。
 
-0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，並修復位置容差編輯。在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py` 即可封裝。封裝自檢以 Jint 執行與 Mac 共用的計算指令碼。Windows 應用程式尚未經 Authenticode 簽章。原始發布版附 WebView2 離線安裝程式，輕量包提供微軟下載捷徑。
+0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，並修復位置容差編輯。在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py` 即可封裝。封裝自檢以 Jint 執行與 Mac 共用的計算指令碼。0.4.4 的 Windows 應用程式未使用 Authenticode 簽章。原始發布版附 WebView2 離線安裝程式，輕量包提供微軟下載捷徑。

@@ -2,7 +2,7 @@
 (function (root) {
   'use strict';
   const EPS = 1e-9;
-  const VERSION = '0.4.4';
+  const VERSION = '0.4.5';
   class BasisError extends Error {
     constructor(code, message, detail = {}) { super(message); this.name = 'BasisError'; this.code = code; this.detail = detail; }
   }
@@ -12,7 +12,7 @@
   const matmul = (a, b) => a.map(r => b[0].map((_, j) => r.reduce((s, v, k) => s + v * b[k][j], 0)));
   const apply = (m, v) => m.map(r => r.reduce((s, x, i) => s + x * v[i], 0));
   const dot = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
-  const norm = a => Math.sqrt(dot(a, a));
+  const norm = a => Math.hypot(...a);
   const distance = (a, b) => norm(a.map((x, i) => x - b[i]));
   const clean = x => Math.abs(x) < 1e-12 ? 0 : Math.abs(x - Math.round(x)) < 1e-12 ? Math.round(x) : x;
   const key = m => m.flat().map(x => Math.round(x * 1e9)).join(',');
@@ -101,7 +101,7 @@
   const groupCache = new Map();
   function group(name) {
     if (groupCache.has(name)) return groupCache.get(name);
-    const definition = definitions[name];
+    const definition = typeof name === 'string' && Object.prototype.hasOwnProperty.call(definitions, name) && definitions[name];
     if (!definition) fail('unsupported_group', '此独立初版尚未提供该点群的真实空间操作。');
     const matrices = closeGroup(definition.generators);
     if (matrices.length !== definition.size) fail('group_size', '空间点群操作数校验失败。');
@@ -205,7 +205,7 @@
     groupCache.set(name, result); return result;
   }
   function vector(value, field) {
-    if (!Array.isArray(value) || value.length !== 3 || value.some(x => typeof x !== 'number' || !Number.isFinite(x))) fail('invalid_vector', field + '必须是三个有限数。');
+    if (!Array.isArray(value) || value.length !== 3 || !Array.from(value).every(Number.isFinite)) fail('invalid_vector', field + '必须是三个有限数。');
     return value.slice();
   }
   function tolerance(spec) {
@@ -226,6 +226,21 @@
     }
     const stabilizerSize = g.matrices.filter(m => distance(apply(m, seed), seed) <= tol).length;
     if (positions.length * stabilizerSize !== g.size) fail('orbit_stabilizer', '位置容差导致展开数量不一致，请调整容差或坐标。');
+    for (const generator of g.generatorIndexes) {
+      const images = new Map();
+      operationToPosition.forEach((source, op) => {
+        const target = operationToPosition[g.multiply[generator][op]];
+        if (images.has(source) && images.get(source) !== target) {
+          fail('orbit_stabilizer', '位置容差导致同一展开位置在对称操作下对应不同目标。');
+        }
+        images.set(source, target);
+      });
+    }
+    // A representative inserted later can be within tolerance of an earlier image.
+    for (const m of g.matrices) {
+      const point = apply(m, seed);
+      if (positions.filter(p => distance(p, point) <= tol).length !== 1) fail('ambiguous_orbit', '位置去重存在多个候选，请减小容差。');
+    }
     return { positions, count: positions.length, stabilizerSize, operationToPosition };
   }
   function validateSites(spec) {
@@ -255,18 +270,44 @@
       return mapping;
     });
   }
-  function inverseSmall(a) {
-    const n = a.length, augmented = a.map((r, i) => [...r, ...Array.from({ length: n }, (_, j) => i === j ? 1 : 0)]);
-    for (let j = 0; j < n; j++) {
-      let p = j; for (let i = j + 1; i < n; i++) if (Math.abs(augmented[i][j]) > Math.abs(augmented[p][j])) p = i;
-      if (Math.abs(augmented[p][j]) < 1e-10) fail('dependent_basis', '同一中心和径向类型的函数线性相关，请去掉重复方向或分量。');
-      [augmented[p], augmented[j]] = [augmented[j], augmented[p]];
-      const scale = augmented[j][j]; augmented[j] = augmented[j].map(v => v / scale);
-      for (let i = 0; i < n; i++) if (i !== j) {
-        const f = augmented[i][j]; augmented[i] = augmented[i].map((v, k) => v - f * augmented[j][k]);
+  function siteAction(spec) {
+    if (!spec || typeof spec !== 'object') fail('invalid_spec', '输入项目格式有误。');
+    const g = group(spec.group), { sites, tol } = validateSites(spec);
+    const permutations = positionMaps(g, sites, tol);
+    // Unique matches within a tolerance can still violate p(ab) = p(a)p(b).
+    for (const generator of g.generatorIndexes) {
+      for (let op = 0; op < g.size; op++) {
+        const product = permutations[g.multiply[generator][op]];
+        if (permutations[op].some((target, i) => permutations[generator][target] !== product[i])) {
+          fail('mapping_bijection', '中心的位置映射未通过群乘法检查，请调整位置或容差。', { generator, operation: op });
+        }
       }
     }
-    return augmented.map(r => r.slice(n));
+    return { group: g, sites, tolerance: tol, permutations };
+  }
+  function angularQR(columns) {
+    const q = [], r = columns.map(() => Array(columns.length).fill(0));
+    columns.forEach((column, j) => {
+      const residual = column.slice();
+      // Reorthogonalized QR avoids squaring the conditioning of the angular basis.
+      for (let pass = 0; pass < 2; pass++) q.forEach((axis, i) => {
+        const projection = dot(axis, residual);
+        r[i][j] += projection;
+        axis.forEach((value, k) => { residual[k] -= projection * value; });
+      });
+      r[j][j] = norm(residual);
+      if (r[j][j] < 1e-5) fail('dependent_basis', '同一中心和径向类型的函数线性相关或接近线性相关，请调整方向或分量。');
+      q.push(residual.map(value => value / r[j][j]));
+    });
+    return { q, r };
+  }
+  function angularCoordinates({ q, r }, moved) {
+    const coeffs = q.map(axis => dot(axis, moved));
+    for (let i = coeffs.length - 1; i >= 0; i--) {
+      for (let j = i + 1; j < coeffs.length; j++) coeffs[i] -= r[i][j] * coeffs[j];
+      coeffs[i] /= r[i][i];
+    }
+    return coeffs;
   }
   const bucketKey = f => JSON.stringify([f.site, f.radial, f.family]);
   // 实球谐 d 的五个正交、单位 Frobenius 范数张量；f(x)=xᵀQx。
@@ -283,7 +324,7 @@
     if (value === undefined || value === null) return eye();
     if (!Array.isArray(value) || value.length !== 3) fail('invalid_frame', '局部坐标系需要三个轴，按矩阵的列排列。');
     const m = value.map(row => vector(row, '局部坐标系'));
-    if (maxdiff(matmul(transpose(m), m), eye()) > 1e-8 || Math.abs(det(m) - 1) > 1e-8) fail('invalid_frame', '局部 x/y/z 轴必须是单位正交的右手坐标系。');
+    if (!(maxdiff(matmul(transpose(m), m), eye()) <= 1e-8 && Math.abs(det(m) - 1) <= 1e-8)) fail('invalid_frame', '局部 x/y/z 轴必须是单位正交的右手坐标系。');
     return m;
   }
   function dTensor(component, localFrame) {
@@ -303,9 +344,11 @@
       if (!['s', 'p', 'd'].includes(f.family)) fail('unsupported_family', '目前支持 s、p 和五维实球谐 d。');
       let direction = null;
       if (f.family === 'p') {
-        direction = vector(f.direction, 'p 方向'); const length = norm(direction);
-        if (length < 1e-10) fail('zero_direction', 'p 方向不能为零向量。');
-        direction = direction.map(x => x / length);
+        direction = vector(f.direction, 'p 方向');
+        const scale = Math.max(...direction.map(Math.abs));
+        if (norm(direction) < 1e-10) fail('zero_direction', 'p 方向不能为零向量。');
+        const scaled = direction.map(x => x / scale), length = norm(scaled);
+        direction = scaled.map(x => x / length);
       }
       const result = { id: f.id, site: f.site, radial: f.radial.trim(), family: f.family, direction, batch: String(f.batch || f.family), label: String(f.label || f.id) };
       if (f.family === 'd') {
@@ -316,16 +359,16 @@
       if (!buckets.has(k)) buckets.set(k, []); buckets.get(k).push(i);
       return result;
     });
-    const inverses = new Map();
+    const angularBases = new Map();
     for (const [k, indexes] of buckets) {
       if (functions[indexes[0]].family === 's') { if (indexes.length > 1) fail('dependent_basis', '同一中心上重复选择了相同径向类型的 s 函数。'); }
       else {
         const family = functions[indexes[0]].family, limit = family === 'd' ? 5 : 3;
         if (indexes.length > limit) fail('dependent_basis', '同一中心和径向类型最多有 ' + limit + ' 个独立 ' + family + ' 函数。');
-        inverses.set(k, inverseSmall(indexes.map(i => indexes.map(j => dot(angularVector(functions[i]), angularVector(functions[j]))))));
+        angularBases.set(k, angularQR(indexes.map(i => angularVector(functions[i]))));
       }
     }
-    return { functions, buckets, inverses };
+    return { functions, buckets, angularBases };
   }
   function sparseProductError(a, b, c) {
     const n = a.length; let err = 0;
@@ -337,9 +380,8 @@
     return err;
   }
   function calculate(spec) {
-    if (!spec || typeof spec !== 'object') fail('invalid_spec', '输入项目格式有误。');
-    const g = group(spec.group), { sites, tol } = validateSites(spec), maps = positionMaps(g, sites, tol);
-    const { functions, buckets, inverses } = validatedFunctions(spec, sites), n = functions.length;
+    const { group: g, sites, tolerance: tol, permutations: maps } = siteAction(spec);
+    const { functions, buckets, angularBases } = validatedFunctions(spec, sites), n = functions.length;
     const siteIndex = new Map(sites.map((s, i) => [s.id, i]));
     let maxResidual = 0;
     const matrices = g.matrices.map((r, gi) => {
@@ -350,8 +392,7 @@
         if (!targets) fail('basis_not_closed', '基函数 ' + f.label + ' 在操作 g' + gi + ' 后，目标中心 ' + targetSite + ' 缺少同径向类型的 ' + f.family + ' 函数。', { operation: gi, matrix: r, function: f.id, targetSite });
         if (f.family === 's') { d[targets[0]][j] = 1; return; }
         const moved = f.family === 'd' ? matmul(r, matmul(f.tensor, transpose(r))).flat() : apply(r, f.direction);
-        const rhs = targets.map(i => dot(angularVector(functions[i]), moved));
-        const coeffs = applyGeneric(inverses.get(targetKey), rhs);
+        const coeffs = angularCoordinates(angularBases.get(targetKey), moved);
         const recovered = Array(moved.length).fill(0);
         coeffs.forEach((coefficient, k) => angularVector(functions[targets[k]]).forEach((v, a) => { recovered[a] += coefficient * v; }));
         const residual = distance(recovered, moved); maxResidual = Math.max(maxResidual, residual);
@@ -402,11 +443,10 @@
       classes: g.classes.map(c => ({ id: c.id, label: c.label, display: c.display, size: c.size, operationIndexes: c.members, representative: c.representative })),
       operations: g.matrices.map((matrix, i) => ({ id: 'g' + i, matrix, sitePermutation: maps[i], diagonalContributions: functions.map((_, j) => matrices[i][j][j]) })),
       functions, sites, batches, blocks, equivalentBlocks, crossBatchLinks: links, totalCharacters,
-      checks: { spatialGroupOrder: g.size, positionBijections: true, basisClosed: true, basisIndependent: true, maxAngularResidual: maxResidual, representationError, representationChecked: 'identity and every generator times every operation', classTracesConsistent: true },
+      checks: { spatialGroupOrder: g.size, positionBijections: true, positionGroupLaw: true, basisClosed: true, basisIndependent: true, maxAngularResidual: maxResidual, representationError, representationChecked: 'identity and every generator times every operation', classTracesConsistent: true },
       representationMatrices: matrices
     };
   }
-  function applyGeneric(m, v) { return m.map(row => dot(row, v)); }
   function template(name) {
     const sites = [], functions = [];
     const add = (site, radial, family, axis, batch) => functions.push({ id: site.id + ':' + radial + ':' + axis, site: site.id, radial, family, direction: family === 'p' ? ({ px: [1, 0, 0], py: [0, 1, 0], pz: [0, 0, 1] })[axis] : null, batch, label: site.id + ' ' + radial + (family === 'p' ? axis.slice(1) : '') });
@@ -431,7 +471,7 @@
     } else fail('template', '未知示例。');
     return { schemaVersion: 1, group: groupName, tolerance: 1e-6, sites, functions, note: name === 'benzene' ? '理想正六边形；半径为示意值，坐标单位自定，不代表实验键长。' : name === 'icosahedron' ? '单位球面上的正二十面体 12 个顶点；每个顶点一个 s 函数。' : '教学几何；只定义对称变换，不计算能量。' };
   }
-  const api = { VERSION, BasisError, groupNames: supportedNames, group, orbit, calculate, template, apply, matmul, transpose, distance, dComponents, dTensor, frame };
+  const api = { VERSION, BasisError, groupNames: supportedNames, group, orbit, siteAction, calculate, template, apply, matmul, transpose, distance, dComponents, dTensor, frame };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.BasisEngine = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

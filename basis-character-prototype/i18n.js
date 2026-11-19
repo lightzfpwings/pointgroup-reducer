@@ -23,6 +23,8 @@
     listeners.forEach(fn=>fn(value));return true;
   }
   const errors={
+    salc_verification:['SALC 未通过投影、维数或正交性校验。','SALC 未通過投影、維數或正交性校驗。','SALC projection, dimension or orthogonality checks failed.'],
+    mapping_bijection:['中心的位置映射未形成一致的群置换，请检查坐标或减小容差。','中心的位置映射未形成一致的群置換，請檢查座標或減小容差。','The site permutations are inconsistent with the group. Check the coordinates or reduce the tolerance.'],
     invalid_json:['JSON 格式无效，请检查输入文件。','JSON 格式無效，請檢查輸入檔案。','Invalid JSON. Check the input file.'],
     invalid_expression:['无效的数值表达式。','無效的數值運算式。','Invalid numeric expression.'],
     expression_limit:['表达式过长或复杂度超限。','運算式過長或複雜度超限。','Expression length or complexity limit exceeded.'],
@@ -61,7 +63,7 @@
     invalid_spec:['输入项目格式有误。','輸入專案格式有誤。','Invalid project input.'],
     template:['未知示例。','未知範例。','Unknown example.']
   };
-  for(const code of ['group_limit','group_size','group_closure','group_orthogonal','group_inverse','operation_label','mapping_bijection'])errors[code]=['空间群操作校验失败。','空間群操作驗證失敗。','Spatial group operation validation failed.'];
+  for(const code of ['group_limit','group_size','group_closure','group_orthogonal','group_inverse','operation_label'])errors[code]=['空间群操作校验失败。','空間群操作驗證失敗。','Spatial group operation validation failed.'];
   Object.values(errors).forEach(([cn,tw,en])=>{if(!messages[cn]){messages[cn]=[tw,en];sorted.push(cn);}});sorted.sort((a,b)=>b.length-a.length);
   function error(e){
     if(e?.name==='SyntaxError')return errors.invalid_json[current==='en'?2:current==='zh-Hant'?1:0];

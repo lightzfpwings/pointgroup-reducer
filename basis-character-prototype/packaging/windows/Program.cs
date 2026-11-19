@@ -41,7 +41,7 @@ internal static class Program
         if (!page.Contains("id=\"calculate\"") || page.Contains("<script src=")) throw new InvalidDataException("HTML resources missing");
         // 不授予 CLR/网络/浏览器权限；仅执行随软件附带的数学脚本。
         var engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMinutes(10)));
-        foreach (var name in new[] { "engine.js", "reducer-catalog.js", "reducer-adapter.js", "reduction-catalog.js", "reduction-engine.js", "messages-data.js", "i18n.js", "math-format.js" })
+        foreach (var name in new[] { "engine.js", "reducer-catalog.js", "reducer-adapter.js", "reduction-catalog.js", "reduction-engine.js", "salc.js", "messages-data.js", "i18n.js", "math-format.js" })
             engine.Execute(ReadResource(name));
         var report = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(engine.Evaluate(ReadResource("self-check.js")).AsString())!;
         if (report["version"].GetString() != Version || report["reductionVersion"].GetString() != Version) throw new InvalidDataException("Version mismatch");

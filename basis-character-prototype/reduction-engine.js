@@ -5,15 +5,52 @@
   class ReductionError extends Error { constructor(code,detail={}){super(code);this.name='ReductionError';this.code=code;this.detail=detail;} }
   const fail=(code,detail)=>{throw new ReductionError(code,detail);};
   const z=a=>typeof a==='number'?{re:a,im:0}:a;
-  const pack=a=>Math.abs(a.im)<1e-12?a.re:a;
+  const pack=a=>a.im===0?a.re:a;
   const add=(a,b)=>{a=z(a);b=z(b);return pack({re:a.re+b.re,im:a.im+b.im});};
   const mul=(a,b)=>{a=z(a);b=z(b);return pack({re:a.re*b.re-a.im*b.im,im:a.re*b.im+a.im*b.re});};
   const conj=a=>{a=z(a);return pack({re:a.re,im:-a.im});};
   const abs=a=>{a=z(a);return Math.hypot(a.re,a.im);};
-  const div=(a,b)=>{const d=abs(b)**2;if(!d)fail('invalid_expression');return mul(mul(a,conj(b)),1/d);};
+  function div(a,b){
+    a=z(a);b=z(b);
+    if(!finite(a)||!finite(b))fail('invalid_expression');
+    if(b.im===0){
+      if(b.re===0)fail('invalid_expression');
+      return pack({re:a.re/b.re,im:a.im/b.re});
+    }
+    // Power-of-two scaling keeps both squared magnitudes and intermediate sums
+    // representable, including when both complex operands are subnormal.
+    const exponent=v=>Math.min(1023,Math.floor(Math.log2(Math.max(Math.abs(v.re),Math.abs(v.im)))));
+    if(a.re===0&&a.im===0)return 0;
+    const ae=exponent(a),be=exponent(b),as=2**ae,bs=2**be;
+    const ar=a.re/as,ai=a.im/as,br=b.re/bs,bi=b.im/bs,d=br*br+bi*bi;
+    const shift=ae-be,first=Math.max(-1022,Math.min(1023,shift));
+    const scale=x=>x===0?0:(x*2**first)*2**(shift-first);
+    return pack({re:scale((ar*br+ai*bi)/d),im:scale((ai*br-ar*bi)/d)});
+  }
   const exp=a=>{a=z(a);return pack({re:Math.exp(a.re)*Math.cos(a.im),im:Math.exp(a.re)*Math.sin(a.im)});};
   const log=a=>{a=z(a);if(!abs(a))fail('invalid_expression');return {re:Math.log(abs(a)),im:Math.atan2(a.im,a.re)};};
-  const power=(a,b)=>{if(abs(b)>100)fail('expression_limit');if(!abs(a)){if(z(b).im||z(b).re<0)fail('invalid_expression');return abs(b)?0:1;}return exp(mul(b,log(a)));};
+  function power(a,b){
+    a=z(a);b=z(b);
+    if(!finite(a)||!finite(b))fail('invalid_expression');
+    if(abs(b)>100)fail('expression_limit');
+    if(a.re===0&&a.im===0){
+      if(b.im||b.re<0)fail('invalid_expression');
+      return b.re===0?1:0;
+    }
+    if(b.im===0){
+      if(a.im===0&&(a.re>=0||Number.isInteger(b.re)))return a.re**b.re;
+      if(a.im===0&&b.re===0.5)return {re:0,im:Math.sqrt(-a.re)};
+      if(Number.isInteger(b.re)){
+        let base=b.re<0?div(1,a):a, result=1;
+        for(let n=Math.abs(b.re);n>0;n=Math.floor(n/2)){
+          if(n%2)result=mul(result,base);
+          if(n>1)base=mul(base,base);
+        }
+        return result;
+      }
+    }
+    return exp(mul(b,log(a)));
+  }
   const gcd=(a,b)=>b?gcd(b,a%b):a;
   function cosine(p,q){p=((p%(2*q))+2*q)%(2*q);const d=gcd(p,q);p/=d;q/=d;return catalog.cosines[p+'/'+q]||'cos('+ (p===1?'':p+'*')+'π/'+q+')';}
   const negExpr=s=>s==='0'?'0':'-('+s+')';
@@ -24,7 +61,12 @@
   }
   function cyclic(n){
     const order=[0,...(n%2===0?[n/2]:[])];for(let k=1;k<Math.floor((n+1)/2);k++)order.push(k,n-k);
-    return {X:order.map(k=>Array.from({length:n},(_,p)=>pack({re:Math.cos(2*Math.PI*k*p/n),im:Math.sin(2*Math.PI*k*p/n)}))),
+    return {X:order.map(k=>Array.from({length:n},(_,p)=>{
+      const phase=(k*p)%n;
+      if(phase===0)return 1;
+      if(2*phase===n)return -1;
+      return {re:(4*phase)%n===0?0:Math.cos(2*Math.PI*phase/n),im:Math.sin(2*Math.PI*phase/n)};
+    })),
       expressions:order.map(k=>Array.from({length:n},(_,p)=>unitExpression(k*p,n)))};
   }
   function dihedral(n,vertical){
@@ -52,7 +94,8 @@
   const cache=new Map();
   function table(name){
     if(cache.has(name))return cache.get(name);
-    const meta=catalog.groups[name];if(!meta)fail('unsupported_reducer_group');
+    if(typeof name!=='string'||!Object.prototype.hasOwnProperty.call(catalog.groups,name))fail('unsupported_reducer_group');
+    const meta=catalog.groups[name];
     const r={...meta,...recipe(name)};const n=r.classes.length;
     if(r.X.length!==n||r.X.some(row=>row.length!==n))fail('table_shape');
     let error=0;
@@ -67,10 +110,10 @@
   function reduce(name,c,tol=1e-7){
     const t=table(name);if(!Number.isFinite(tol)||tol<=0||tol>=.01)fail('invalid_reduction_tolerance');
     if(!Array.isArray(c)||c.length!==t.classes.length)fail('character_count',{expected:t.classes.length});
-    if(!c.every(v=>(typeof v==='number'||v&&typeof v==='object')&&finite(v)))fail('nonfinite_characters');
+    if(!Array.from(c).every(v=>(typeof v==='number'||v&&typeof v==='object')&&finite(v)))fail('nonfinite_characters');
     const a=t.X.map(row=>row.reduce((sum,v,j)=>add(sum,mul(t.sizes[j]/t.h,mul(conj(v),c[j]))),0));
     const nearest=a.map(v=>Math.round(z(v).re)||0);
-    const integral=a.every((v,i)=>abs(add(v,-nearest[i]))<=tol&&nearest[i]>=0);
+    const integral=a.every((v,i)=>Number.isSafeInteger(nearest[i])&&nearest[i]>=0&&abs(add(v,-nearest[i]))<=tol);
     const recovered=t.classes.map((_,j)=>t.X.reduce((sum,row,i)=>add(sum,mul(row[j],a[i])),0));
     const rounded=t.classes.map((_,j)=>t.X.reduce((sum,row,i)=>add(sum,mul(row[j],nearest[i])),0));
     const residual=Math.max(...c.map((v,j)=>abs(add(recovered[j],mul(-1,v))))),integerResidual=Math.max(...c.map((v,j)=>abs(add(rounded[j],mul(-1,v)))));
@@ -102,7 +145,7 @@
         let arg;if(tokens[i]==='('){i++;arg=sum();if(tokens[i++]!==')')fail('invalid_expression');}else if(token==='sqrt')arg=primary();else fail('invalid_expression');
         const v=z(arg);
         value=token==='sqrt'?power(arg,.5):token==='exp'?exp(arg):token==='cos'?pack({re:Math.cos(v.re)*Math.cosh(v.im),im:-Math.sin(v.re)*Math.sinh(v.im)}):pack({re:Math.sin(v.re)*Math.cosh(v.im),im:Math.cos(v.re)*Math.sinh(v.im)});
-      }else fail('invalid_expression');depth--;return value;};
+      }else fail('invalid_expression');if(!finite(value))fail('invalid_expression');depth--;return value;};
     const pow=()=>{let a=primary();if(tokens[i]==='^'){i++;a=power(a,unary());}return a;};
     const unary=()=>{if(tokens[i]==='+'||tokens[i]==='-'){const sign=tokens[i++];return mul(sign==='-'?-1:1,unary());}return pow();};
     const term=()=>{let a=unary();while(i<tokens.length){if(tokens[i]==='*'||tokens[i]==='/'){const op=tokens[i++];a=op==='*'?mul(a,unary()):div(a,unary());}else if(tokens[i]==='('||/^[A-Za-z]/.test(tokens[i]))a=mul(a,unary());else break;}return a;};
@@ -110,6 +153,6 @@
     const result=sum();if(i!==tokens.length||!finite(result))fail('invalid_expression');return pack(z(result));
   }
   function parseVector(text){const parts=/[,;，；]/.test(text)?text.split(/[,;，；]/):text.trim().split(/\s+/);if(parts.some(p=>!p.trim()))fail('invalid_expression');return parts.map(number);}
-  const api={VERSION:'0.4.4',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
+  const api={VERSION:'0.4.5',ReductionError,groupNames:catalog.names,table,reduce,integrate,payload,number,parseVector,z,add,mul,conj,abs};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.ReductionEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

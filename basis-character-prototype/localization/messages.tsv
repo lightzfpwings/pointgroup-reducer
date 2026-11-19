@@ -82,7 +82,6 @@ z′ 的 z	z′ 的 z	z component of z′
 空间矩阵 R(g)	空間矩陣 R(g)	Spatial matrix R(g)
 函数变换	函數變換	Function transformation
 位置映射	位置映射	Site mapping
-s/p/d 基函数 → 可约特征标 → 不可约组成；尚未计算 SALC 系数。	s/p/d 基函數 → 可約特徵標 → 不可約組成；尚未計算 SALC 係數。	s/p/d basis functions → reducible characters → irreducible decomposition. SALC coefficients are not computed yet.
 输入已更新，请重新计算。	輸入已更新，請重新計算。	Input changed. Recalculate to see results.
 查看失败操作与对象	檢視失敗操作與物件	Failed operation and object
 移除	移除	Remove
@@ -229,3 +228,10 @@ C₆ 沿 z；C₂′ 穿过 +x；σᵥ 包含 xz。苯模板的对位碳位于 x
 。	。	.
 ；	；	; 
 X 的行对应不可约表示、列对应共轭类；星号表示逐项复共轭，不含转置。	X 的行對應不可約表示、欄對應共軛類；星號表示逐項複共軛，不含轉置。	Rows of X are irreps and columns are classes. The star means elementwise complex conjugation, without transposition.
+对称适应线性组合（SALC）	對稱適應線性組合（SALC）	Symmetry-adapted linear combinations (SALCs)
+生成 SALC 系数	產生 SALC 係數	Generate SALC coefficients
+已生成 SALC 系数。	已產生 SALC 係數。	SALC coefficients are ready.
+副本	副本	Copy
+编号	編號	ID
+每列是一组 SALC 系数。按同中心同径向的角向内积归一化，其余中心、径向或角动量之间取零重叠。整体相位及简并空间内的基可任选。	每欄是一組 SALC 係數。按同中心同徑向的角向內積歸一化，其餘中心、徑向或角動量之間取零重疊。整體相位及簡併空間內的基可任選。	Each column gives one SALC. Normalization uses angular overlaps within a site and radial shell. Different sites, radial shells and angular momenta are treated as orthogonal. Overall phases and bases within degenerate spaces are arbitrary.
+复制包含当前副本，导出 JSON 包含全部 SALC 系数。	複製包含目前副本，匯出 JSON 包含全部 SALC 係數。	Copy includes the selected copy. The JSON export includes every SALC coefficient.

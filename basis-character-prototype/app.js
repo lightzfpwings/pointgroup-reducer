@@ -3,6 +3,7 @@
   const E = window.BasisEngine, R = window.ReductionEngine, I = window.I18n, M = window.MathFormat, t = I.translate, $ = id => document.getElementById(id);
   let spec = { schemaVersion: 1, group: 'D6h', tolerance: 1e-6, sites: [], functions: [], note: '' }, result = null, selection = new Set(), history = [], serial = 0;
   let mode = 'basis', manual = {group:'D6h',text:'',tolerance:1e-7}, reduction = null, revision = 0, lastMessage = '', lastKind = '', lastDetail = null;
+  let salc = null;
   const clone = x => JSON.parse(JSON.stringify(x));
   const fmt = x => Math.abs(x) < 1e-10 ? '0' : Math.abs(x - Math.round(x)) < 1e-10 ? String(Math.round(x)) : Number(x.toPrecision(7)).toString();
   // 表头与正文共用内容插入：MathML/HTML 节点直接插入，文本才设置 textContent。
@@ -15,6 +16,9 @@
   function numberInput(id, label) { const v = $(id).value.trim(), n = Number(v); if (!v || !Number.isFinite(n)) throw new Error(label + t('需要填写有限数值。')); return n; }
   function checkpoint() { history.push({ spec: clone(spec), selection: [...selection], mode, manual:clone(manual) }); if (history.length > 30) history.shift(); $('undo').disabled = false; }
   function invalidate(message) {
+    salc = null;
+    $('salc-card').classList.add('hidden'); $('salc-output').classList.add('hidden');
+    $('calculate-salc').disabled = false; $('salc-irrep').replaceChildren(); $('salc-copy').replaceChildren(); $('salc-table').replaceChildren();
     revision++; result = null; reduction = null; $('export-result').disabled = true; $('export-aligned').disabled = true; $('inspector-card').classList.add('hidden'); $('alignment-card').classList.add('hidden'); $('copy-card').classList.add('hidden'); $('copy-content').value='';
     $('result-body').className = 'empty'; $('result-body').textContent = t('输入已更新，请重新计算。');
     if (message) status(message); else status('');
@@ -77,12 +81,19 @@
     if (spec.sites.length + added.length > 120) throw new Error(t('初版最多支持 120 个中心。'));
     checkpoint(); spec.sites.push(...added); selection = new Set(selected); invalidate(t('新增 ') + added.length + t(' 个中心；已选择该位置集合。')); render(); return added.length;
   }
-  function direction() { const u = ['direction-x', 'direction-y', 'direction-z'].map(id => numberInput(id, t('p 方向'))); const length = Math.hypot(...u); if (length < 1e-10) throw new Error(t('p 方向不能为零。')); return u.map(v => v / length); }
+  function unitDirection(u, zeroError) {
+    if (Math.hypot(...u) < 1e-10) throw new Error(t(zeroError));
+    const scale = Math.max(...u.map(Math.abs)), scaled = u.map(v => v / scale);
+    const length = Math.hypot(...scaled);
+    return scaled.map(v => v / length);
+  }
+  function direction() {
+    return unitDirection(['x','y','z'].map(c => numberInput('direction-'+c,t('p 方向'))),'p 方向不能为零。');
+  }
   function localDFrame() {
     const axes = ['x', 'z'].map(axis => {
       const u = ['x','y','z'].map(c => numberInput('d-' + axis + '-' + c, t('局部 ') + axis + t(' 轴')));
-      const length = Math.hypot(...u); if (length < 1e-10) throw new Error(t('d 的局部轴不能为零。'));
-      return u.map(v => v / length);
+      return unitDirection(u,'d 的局部轴不能为零。');
     });
     const [x,z] = axes;
     if (Math.abs(x.reduce((sum,v,i) => sum + v*z[i],0)) > 1e-8) throw new Error(t('d 的局部 x′、z′ 轴必须互相垂直。'));
@@ -135,6 +146,29 @@
     populateOperations();
     $('alignment-vector').replaceChildren(); option($('alignment-vector'), 'all', t('全体基函数')); result.blocks.forEach(b => option($('alignment-vector'), b.id, b.batches.join(' + ')));
     renderAlignment(); $('alignment-card').classList.remove('hidden'); $('export-aligned').disabled = false;
+    $('salc-card').classList.remove('hidden');
+    renderCopy();
+  }
+  function renderSalcTable() {
+    const space = salc.spaces.find(s => s.irrep === $('salc-irrep').value);
+    const {vectors} = space.copies[Number($('salc-copy').value)];
+    makeTable($('salc-table'), [t('函数'), t('编号'), ...vectors.map((_, i) => M.component('ψ', String(i+1)))],
+      result.functions.map((f, i) => [M.basisLabel(f.label), f.id, ...vectors.map(v => M.number(v.coefficients[i]))]));
+  }
+  function selectSalcSpace(copyIndex = 0) {
+    const space = salc.spaces.find(s => s.irrep === $('salc-irrep').value);
+    $('salc-copy').replaceChildren();
+    space.copies.forEach((_, i) => option($('salc-copy'), i, String(i + 1)));
+    $('salc-copy').value = String(copyIndex);
+    renderSalcTable();
+  }
+  function showSalcs() {
+    const irrep = $('salc-irrep').value, copy = Number($('salc-copy').value);
+    $('salc-irrep').replaceChildren();
+    salc.spaces.forEach(space => option($('salc-irrep'), space.irrep, M.plainLabel(space.irrep)));
+    if (salc.spaces.some(space => space.irrep === irrep)) $('salc-irrep').value = irrep;
+    selectSalcSpace(copy);
+    $('calculate-salc').disabled = true; $('salc-output').classList.remove('hidden');
     renderCopy();
   }
   function renderManualResult(){
@@ -149,18 +183,29 @@
     $('export-result').disabled=false;renderCopy();
   }
   function plainDecomposition(r){return 'Γ = '+(r.valid?(r.terms.map(term=>(term.multiplicity===1?'':term.multiplicity)+term.irrep).join(' + ')||'0'):t('无合法不可约组成'));}
+  const escapeLatex = s => String(s).replace(/[\\{}%&#_$^~]/g,c=>({'\\':'\\textbackslash{}','^':'\\textasciicircum{}','~':'\\textasciitilde{}'}[c]||'\\'+c));
+  function salcText(latex) {
+    if (!salc) return '';
+    const space = salc.spaces.find(s=>s.irrep===$('salc-irrep').value), index = Number($('salc-copy').value);
+    const {vectors} = space.copies[index];
+    const label = 'SALC '+space.irrep+' · '+t('副本')+' '+(index+1);
+    if (latex) {
+      const rows = result.functions.map((f,i)=>'\\text{'+escapeLatex(f.id)+'} & '+vectors.map(v=>M.latexExpression(M.numberText(v.coefficients[i]))).join(' & '));
+      return '\n\\qquad\\begin{array}{l'+'r'.repeat(vectors.length)+'}\n\\text{'+escapeLatex(label)+'} & '+vectors.map((_,j)=>'\\psi_{'+(j+1)+'}').join(' & ')+' \\\\\n'+rows.join(' \\\\\n')+'\n\\end{array}';
+    }
+    return '\n\n'+label+'\n'+[t('编号'),...vectors.map((_,j)=>'ψ'+(j+1))].join('\t')+'\n'+result.functions.map((f,i)=>[f.id,...vectors.map(v=>M.numberText(v.coefficients[i]))].join('\t')).join('\n');
+  }
   function resultText(latex=false){
     if(!reduction)return '';
     const table=R.table(reduction.point_group),rows=[{label:t('全体'),...reduction.total},...reduction.blocks];
-    const plainNumber=v=>{const a=R.z(v);return Math.abs(a.im)<1e-12?String(a.re):a.re+(a.im<0?' - ':' + ')+Math.abs(a.im)+'i';};
+    const plainNumber=v=>{const a=R.z(v);return a.im===0?String(a.re):a.re+(a.im<0?' - ':' + ')+Math.abs(a.im)+'i';};
     if(latex){
-      const escape=s=>String(s).replace(/[\\{}%&#_$^~]/g,c=>({'\\':'\\textbackslash{}','^':'\\textasciicircum{}','~':'\\textasciitilde{}'}[c]||'\\'+c));
       const latexNumber=v=>M.latexExpression(plainNumber(v));
       const lines=['\\mathbf a &= \\frac{1}{h}\\mathbf X^{*}\\mathbf W\\mathbf c'];
-      rows.forEach(r=>{lines.push('\\text{'+escape(r.label)+'} &\\quad '+M.latexLabel(table.name),'\\mathbf c &= \\left('+r.c.map(latexNumber).join(', ')+'\\right)','\\mathbf a &= \\left('+(r.valid?r.integer_a:r.a).map(latexNumber).join(', ')+'\\right)',r.valid?'\\Gamma &= '+(r.terms.map(term=>(term.multiplicity===1?'':term.multiplicity)+M.latexLabel(term.irrep)).join(' + ')||'0'):'\\text{'+t('无合法不可约组成')+'}','\\dim\\Gamma &= '+latexNumber(r.dimension));});
-      return '\\begin{aligned}\n'+lines.join(' \\\\\n')+'\n\\end{aligned}';
+      rows.forEach(r=>{lines.push('\\text{'+escapeLatex(r.label)+'} &\\quad '+M.latexLabel(table.name),'\\mathbf c &= \\left('+r.c.map(latexNumber).join(', ')+'\\right)','\\mathbf a &= \\left('+(r.valid?r.integer_a:r.a).map(latexNumber).join(', ')+'\\right)',r.valid?'\\Gamma &= '+(r.terms.map(term=>(term.multiplicity===1?'':term.multiplicity)+M.latexLabel(term.irrep)).join(' + ')||'0'):'\\text{'+t('无合法不可约组成')+'}','\\dim\\Gamma &= '+latexNumber(r.dimension));});
+      return '\\begin{aligned}\n'+lines.join(' \\\\\n')+'\n\\end{aligned}'+salcText(true);
     }
-    return table.name+'    h = '+table.h+'\n'+table.classes.join(', ')+'\n'+rows.map(r=>r.label+'\n'+plainDecomposition(r)+'\nc = ['+r.c.map(plainNumber).join(', ')+']\na = ['+(r.valid?r.integer_a:r.a).map(plainNumber).join(', ')+']\n'+t('维数')+' = '+plainNumber(r.dimension)).join('\n\n');
+    return table.name+'    h = '+table.h+'\n'+table.classes.join(', ')+'\n'+rows.map(r=>r.label+'\n'+plainDecomposition(r)+'\nc = ['+r.c.map(plainNumber).join(', ')+']\na = ['+(r.valid?r.integer_a:r.a).map(plainNumber).join(', ')+']\n'+t('维数')+' = '+plainNumber(r.dimension)).join('\n\n')+salcText(false);
   }
   function renderCopy(){ $('copy-card').classList.remove('hidden');$('copy-content').value=resultText(); }
   function copyResult(latex){
@@ -248,9 +293,16 @@
   };
   $('inspect-class').onchange = populateOperations; $('inspect-operation').onchange = renderInspector; $('inspect-block').onchange = renderInspector;
   $('alignment-vector').onchange = protect(renderAlignment);
+  $('calculate-salc').onclick = protect(() => {
+    if (!result) return;
+    salc = window.SalcEngine.calculate(result);
+    showSalcs(); status(t('已生成 SALC 系数。'), 'success');
+  });
+  $('salc-irrep').onchange = protect(() => { selectSalcSpace(); renderCopy(); });
+  $('salc-copy').onchange = protect(() => { renderSalcTable(); renderCopy(); });
   $('export-aligned').onclick = protect(() => { if (!result) throw new Error(t('请先生成结果。')); download('reducer-input-' + spec.group + '.json', {...window.ReducerAdapter.align(result),reductionIntegrated:true,reduction}); });
   $('save-project').onclick = protect(() => download('symmetry-input-' + (mode==='basis'?spec.group:manual.group) + '.json', { schemaVersion: 1, application: 'symmetry-integrated', version: E.VERSION, language:I.language(), input: mode==='basis'?spec:{mode:'manual',...manual} }));
-  $('export-result').onclick = protect(() => { if (!reduction) throw new Error(t('请先生成结果。')); const exportReduction={...reduction,table:R.payload(reduction.point_group)};download('symmetry-result-' + reduction.point_group + '.json', mode==='basis'?{ ...result,reduction:exportReduction, input: spec,language:I.language() }:{schemaVersion:1,engineVersion:E.VERSION,status:reduction.total.valid?'valid':'invalid',reductionIntegrated:true,reduction:exportReduction,language:I.language(),input:{mode:'manual',...manual}}); });
+  $('export-result').onclick = protect(() => { if (!reduction) throw new Error(t('请先生成结果。')); const exportReduction={...reduction,table:R.payload(reduction.point_group)};download('symmetry-result-' + reduction.point_group + '.json', mode==='basis'?{ ...result,reduction:exportReduction, input: spec,language:I.language(), ...(salc ? {salc} : {}) }:{schemaVersion:1,engineVersion:E.VERSION,status:reduction.total.valid?'valid':'invalid',reductionIntegrated:true,reduction:exportReduction,language:I.language(),input:{mode:'manual',...manual}}); });
   $('copy-text').onclick=protect(()=>copyResult(false));$('copy-latex').onclick=protect(()=>copyResult(true));
   $('load-project').onclick = protect(() => {
     const nativeOpen = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.openJSON;
@@ -264,7 +316,7 @@
         R.table(input.group);if(typeof input.text!=='string'||input.text.length>32768||typeof input.tolerance!=='number'||!Number.isFinite(input.tolerance)||input.tolerance<=0||input.tolerance>=.01)throw new Error(t('手动特征标输入格式有误。'));
         checkpoint();mode='manual';manual={group:input.group,text:input.text,tolerance:input.tolerance};invalidate(t('已载入输入。请重新计算，不沿用文件中的旧结果。'));render();return;
       }
-      if (!input || !Array.isArray(input.sites) || !Array.isArray(input.functions) || input.sites.length > 120 || input.functions.length > 180) throw new Error(t('输入结构或数量有误。'));
+      if (!input || (input.mode && input.mode !== 'basis') || !Array.isArray(input.sites) || !Array.isArray(input.functions) || input.sites.length > 120 || input.functions.length > 180) throw new Error(t('输入结构或数量有误。'));
       E.group(input.group);
       if (typeof input.tolerance !== 'number' || !Number.isFinite(input.tolerance) || input.tolerance < 1e-10 || input.tolerance > 0.01) throw new Error(t('输入容差无效。'));
       if (input.sites.some(s => typeof s.id !== 'string' || typeof s.kind !== 'string' || !Array.isArray(s.position) || s.position.length !== 3 || s.position.some(x => typeof x !== 'number' || !Number.isFinite(x)))) throw new Error(t('中心数据格式有误。'));
@@ -286,7 +338,7 @@
   I.onChange(()=>{
     const view=['inspect-class','inspect-operation','inspect-block','alignment-vector'].map(id=>[id,$(id).value]);
     I.apply(document);$('language').value=I.language();render();
-    if(reduction){if(mode==='basis'){renderResult();view.forEach(([id,value])=>$(id).value=value);populateOperations();$('inspect-operation').value=view[1][1];renderInspector();renderAlignment();}else renderManualResult();}
+    if(reduction){if(mode==='basis'){renderResult();view.forEach(([id,value])=>$(id).value=value);populateOperations();$('inspect-operation').value=view[1][1];renderInspector();renderAlignment();if(salc)showSalcs();}else renderManualResult();}
     status(lastMessage,lastKind,lastDetail);
   });
   loadTemplate('benzene'); history = []; $('undo').disabled = true;

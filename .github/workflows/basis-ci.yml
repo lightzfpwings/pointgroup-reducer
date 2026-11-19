@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: Publish the integrated app from main after native builds pass
+        description: Publish signed desktop packages from main after both platforms pass
         type: boolean
         default: false
 
@@ -34,6 +34,8 @@ jobs:
         run: |
           node --version
           node --test tests/*.test.js
+      - name: Test Windows packaging and signature requirements
+        run: python3 -B -m unittest discover -s packaging/windows -p 'test_authenticode.py'
       - name: Test the original desktop transitions
         working-directory: .
         run: python3 -B -m unittest -v test_motion
@@ -59,7 +61,8 @@ jobs:
           if-no-files-found: error
 
   windows:
-    name: Integrated app — Windows x64
+    name: Integrated app — Windows x64 development build
+    if: ${{ !(github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))) }}
     runs-on: windows-2022
     timeout-minutes: 25
     env:
@@ -72,15 +75,86 @@ jobs:
       - uses: actions/setup-dotnet@e2cf7c663b93c38144629f5d40b62d3eaaa63a03
         with:
           dotnet-version: '10.0.x'
-      - name: Native build and pure mathematics self-check
+      - run: python packaging/build_windows.py
+      - name: Store Windows development package and evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: Integrated-Windows-development
+          path: |
+            basis-character-prototype/dist/BasisCharacter-*-Windows-x64-lite.zip
+            basis-character-prototype/dist/windows-package-check.json
+          if-no-files-found: error
+          compression-level: 0
+
+  windows-release:
+    name: Integrated app — Windows x64 signed release
+    if: github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))
+    environment: basis-release-signing
+    runs-on: windows-2022
+    timeout-minutes: 35
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PYTHONUTF8: '1'
+      SIGNER_SUBJECT: ${{ vars.WINDOWS_SIGNER_SUBJECT }}
+    defaults:
+      run:
+        working-directory: basis-character-prototype
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Check Windows signing configuration
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_SIGNING_ENDPOINT: ${{ vars.AZURE_SIGNING_ENDPOINT }}
+          AZURE_SIGNING_ACCOUNT: ${{ vars.AZURE_SIGNING_ACCOUNT }}
+          AZURE_SIGNING_PROFILE: ${{ vars.AZURE_SIGNING_PROFILE }}
         run: |
-          if ($env:BASIS_PUBLISH -eq "true") {
-            python packaging/build_windows.py --with-full
-          } else {
-            python packaging/build_windows.py
+          foreach ($name in @("SIGNER_SUBJECT", "AZURE_CLIENT_ID", "AZURE_TENANT_ID", "AZURE_SUBSCRIPTION_ID", "AZURE_SIGNING_ENDPOINT", "AZURE_SIGNING_ACCOUNT", "AZURE_SIGNING_PROFILE")) {
+            if (-not [Environment]::GetEnvironmentVariable($name)) { throw "Missing signing setting: $name" }
           }
+      - uses: actions/setup-dotnet@e2cf7c663b93c38144629f5d40b62d3eaaa63a03
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build Windows executables
+        run: python packaging/build_windows.py --build-only
+      - name: Authenticate to Azure with OpenID Connect
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Sign Windows executables through Artifact Signing
+        uses: azure/artifact-signing-action@c7ab2a863ab5f9a846ddb8265964877ef296ee82 # v2.0.0
+        with:
+          endpoint: ${{ vars.AZURE_SIGNING_ENDPOINT }}
+          signing-account-name: ${{ vars.AZURE_SIGNING_ACCOUNT }}
+          certificate-profile-name: ${{ vars.AZURE_SIGNING_PROFILE }}
+          files: |
+            ${{ github.workspace }}\basis-character-prototype\build\windows-x64\BasisCharacter\BasisCharacter.exe
+            ${{ github.workspace }}\basis-character-prototype\build\windows-x64\BasisCharacter\BasisCharacter.dll
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+          exclude-environment-credential: true
+          exclude-workload-identity-credential: true
+          exclude-managed-identity-credential: true
+          exclude-shared-token-cache-credential: true
+          exclude-visual-studio-credential: true
+          exclude-visual-studio-code-credential: true
+          exclude-azure-cli-credential: false
+          exclude-azure-powershell-credential: true
+          exclude-azure-developer-cli-credential: true
+          exclude-interactive-browser-credential: true
+      - name: Verify signed executables and package Windows release
+        run: |
+          python packaging/build_windows.py --package-only --with-full --require-signature --expected-signer-subject "$env:SIGNER_SUBJECT"
           exit $LASTEXITCODE
-      - name: Store Windows package and evidence
+      - name: Store signed Windows packages and evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: Integrated-Windows-x64
@@ -93,25 +167,72 @@ jobs:
           retention-days: 30
 
   macos:
-    name: Integrated app — macOS Apple silicon
+    name: Integrated app — macOS Apple silicon signed release
     if: github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))
+    environment: basis-release-signing
     runs-on: macos-15
-    timeout-minutes: 20
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - run: python3 packaging/build_macos.py --with-full
+        with:
+          persist-credentials: false
+      - name: Sign, notarize, and verify Mac ZIP and DMG packages
         working-directory: basis-character-prototype
+        shell: bash
+        env:
+          MACOS_CERTIFICATE_BASE64: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          MACOS_SIGNING_IDENTITY: ${{ vars.MACOS_SIGNING_IDENTITY }}
+          MACOS_NOTARY_KEY_BASE64: ${{ secrets.MACOS_NOTARY_KEY_BASE64 }}
+          MACOS_NOTARY_KEY_ID: ${{ vars.MACOS_NOTARY_KEY_ID }}
+          MACOS_NOTARY_ISSUER_ID: ${{ vars.MACOS_NOTARY_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          for name in MACOS_CERTIFICATE_BASE64 MACOS_CERTIFICATE_PASSWORD MACOS_SIGNING_IDENTITY MACOS_NOTARY_KEY_BASE64 MACOS_NOTARY_KEY_ID MACOS_NOTARY_ISSUER_ID; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "Missing signing setting: $name" >&2
+              exit 1
+            fi
+          done
+          umask 077
+          signing_dir="$(mktemp -d "$RUNNER_TEMP/basis-signing.XXXXXXXX")"
+          export MACOS_SIGNING_KEYCHAIN="$signing_dir/basis-signing.keychain-db"
+          export MACOS_NOTARY_PROFILE="basis-notary"
+          trap 'security delete-keychain "$MACOS_SIGNING_KEYCHAIN" >/dev/null 2>&1 || true; rm -f "$signing_dir/cert.p12" "$signing_dir/notary.p8"; rmdir "$signing_dir" 2>/dev/null || true' EXIT
+          password="$(openssl rand -hex 32)"
+          echo "::add-mask::$password"
+          printf '%s' "$MACOS_CERTIFICATE_BASE64" | base64 -D > "$signing_dir/cert.p12"
+          printf '%s' "$MACOS_NOTARY_KEY_BASE64" | base64 -D > "$signing_dir/notary.p8"
+          security create-keychain -p "$password" "$MACOS_SIGNING_KEYCHAIN"
+          security set-keychain-settings -lut 6600 "$MACOS_SIGNING_KEYCHAIN"
+          security unlock-keychain -p "$password" "$MACOS_SIGNING_KEYCHAIN"
+          keychains=("$MACOS_SIGNING_KEYCHAIN")
+          while IFS= read -r path; do
+            path="${path#*\"}"
+            keychains+=("${path%\"*}")
+          done < <(security list-keychains -d user)
+          security list-keychains -d user -s "${keychains[@]}"
+          security import "$signing_dir/cert.p12" -k "$MACOS_SIGNING_KEYCHAIN" -f pkcs12 -P "$MACOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$password" "$MACOS_SIGNING_KEYCHAIN"
+          xcrun notarytool store-credentials "$MACOS_NOTARY_PROFILE" --keychain "$MACOS_SIGNING_KEYCHAIN" \
+            --key "$signing_dir/notary.p8" --key-id "$MACOS_NOTARY_KEY_ID" --issuer "$MACOS_NOTARY_ISSUER_ID"
+          rm -f "$signing_dir/cert.p12" "$signing_dir/notary.p8"
+          unset MACOS_CERTIFICATE_BASE64 MACOS_CERTIFICATE_PASSWORD MACOS_NOTARY_KEY_BASE64 password
+          umask 022
+          python3 packaging/build_macos.py --with-full --with-dmg --sign-and-notarize
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: Integrated-macOS-arm64
           path: |
             basis-character-prototype/dist/BasisCharacter-*-macOS-arm64*.zip
+            basis-character-prototype/dist/BasisCharacter-*-macOS-arm64.dmg
+            basis-character-prototype/dist/macos-dmg-check.json
             basis-character-prototype/dist/MACOS-SHA256SUMS.txt
           if-no-files-found: error
 
   publish:
     if: github.ref == 'refs/heads/main' && ((github.event_name == 'push' && contains(github.event.head_commit.message, '[basis-release]')) || (github.event_name == 'workflow_dispatch' && inputs.publish))
-    needs: [test, windows, macos]
+    needs: [test, windows-release, macos]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     concurrency: integrated-basis-release

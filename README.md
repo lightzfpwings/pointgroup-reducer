@@ -2,15 +2,15 @@
 
 [English](README.en.md) · [繁體中文](README.zh-Hant.md)
 
-## 点群与基函数整合版 0.4.4
+## 点群与基函数整合版 0.4.5
 
-[下载整合版](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4) · [完整说明](basis-character-prototype/README.md)
+由 s/p/d 基函数生成对称适应线性组合（SALC），按不可约表示和副本查看原轨道系数。本次修复了原子置换对群乘法的验证、非正交角向基的展开，以及复数表达式的数值精度。几何计算支持 87 个空间点群，手动约化支持 423 个有限点群。
 
-新增完整流程：位置与 s/p/d 基函数 → 可约特征标 → 全体及各封闭块的不可约组成。几何入口支持 87 个真实空间点群，手动约化入口支持 423 个点群。界面、数学公式、上下标和 LaTeX 输出统一，简体中文／繁体中文／English 可切换并保留输入与结果。
+Windows 和 macOS 用户可下载任一独立 HTML，在浏览器中离线打开。三份 HTML 分别默认简体中文、繁体中文和英语，均可切换语言。附件还包括整合模块源码 ZIP 和 SHA-256 校验文件。[下载 0.4.5 离线版](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.5) · [操作说明](basis-character-prototype/README.md)
 
-Windows x64 和 Apple 芯片 Mac 均提供完整包和带 `-lite` 后缀的轻量包。完整解压后打开 `BasisCharacter.exe` 或 `BasisCharacter.app`。Windows 完整包随附微软离线 WebView2 安装器。两种封装均支持三语界面和离线 HTML。
+需要原生程序时可下载 0.4.4 的 Windows x64 或 Apple 芯片 Mac 包。新版原生包等待发布者签名和验证。[0.4.4 原生下载](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.4)
 
-整合版位于 `basis-character-prototype/`，使用独立版本标签 `basis-v0.4.4`。原 Python/Tk 约化器及 CLI 保留，原生 Windows 旧版下载见 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。下文介绍原 Python/Tk 版本。
+整合版位于 `basis-character-prototype/`，使用独立版本标签 `basis-v*`。原 Python/Tk 约化器及 CLI 保留，原生 Windows 旧版下载见 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。下文介绍原 Python/Tk 版本。
 
 输入表示的特征标向量 **c**，计算重数 **a**，输出不可约表示分解。
 
