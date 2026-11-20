@@ -120,6 +120,7 @@ internal sealed class MainWindow : Form
             }
         }
         catch { /* 偏好损坏不会阻止计算；按默认语言启动。 */ }
+        Icon = System.Drawing.Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         ClientSize = new Size(1080, 800); MinimumSize = new Size(740, 580); StartPosition = FormStartPosition.CenterScreen;
         Controls.Add(view); Controls.Add(menu); MainMenuStrip = menu; UpdateMenus();
         Shown += async (_, _) => await InitializeWebView();

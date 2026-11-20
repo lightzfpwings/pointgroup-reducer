@@ -98,7 +98,7 @@ public final class MainActivity extends Activity {
                     try {
                         return new WebResourceResponse("text/html", "UTF-8", 200, "OK",
                             Collections.singletonMap("Content-Security-Policy",
-                                "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; frame-src 'none'; base-uri 'none'; form-action 'none'"),
+                                "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; frame-src 'none'; base-uri 'none'; form-action 'none'"),
                             getAssets().open("index.html"));
                     } catch (IOException ignored) { }
                 }

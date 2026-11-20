@@ -23,6 +23,7 @@ def build():
         payload = {
             "usr/bin/basis-character": (LINUX / "basis-character.sh", 0o755),
             "usr/share/applications/basis-character.desktop": (LINUX / "basis-character.desktop", 0o644),
+            "usr/share/icons/hicolor/512x512/apps/basis-character.png": (ROOT / "packaging/icons/basis-character-512.png", 0o644),
             "usr/share/basis-character/index.html": (page, 0o644),
         }
         installed_size = 0

@@ -1,6 +1,6 @@
-# Point Groups & Basis Functions 0.5.0
+# Point Groups & Basis Functions 0.5.1
 
-Run `python3 build.py` in this directory and open the [0.5.0 English offline page](dist/BasisCharacterPrototype-0.5.0-en.html). Select **Vibrations (IR and Raman)**, open the [water XYZ file](examples/water.xyz) and select C₂ᵥ below the preview. Choose **Confirm structure and point group**, then **Calculate vibrations and activity**.
+Run `python3 build.py` in this directory and open the [0.5.1 English offline page](dist/BasisCharacterPrototype-0.5.1-en.html). Select **Vibrations (IR and Raman)**, open the [water XYZ file](examples/water.xyz) and select C₂ᵥ below the preview. Choose **Confirm structure and point group**, then **Calculate vibrations and activity**.
 
 With only a formula, enter `C2H6O` in the same workflow, choose **Find structures**, then select **Ethanol · trans conformer** or **Dimethyl ether**. Review the selected model, coordinates and point group before calculating its IR and Raman activity.
 
@@ -8,18 +8,20 @@ With only a formula, enter `C2H6O` in the same workflow, choose **Find structure
 
 Use positions and s/p/d functions to construct representation matrices, reduce their characters and generate SALC coefficients for every irrep copy. A second workflow reduces characters entered by hand.
 
+Version 0.5.1 adds a jade tetrahedron icon to the four platforms and all three offline web editions.
+
 ## Download and install
 
 | Platform | Download | Install and launch |
 |---|---|---|
-| Debian or Ubuntu desktop | [BasisCharacter-0.5.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Linux-all.deb) | Run `sudo apt install ./BasisCharacter-0.5.0-Linux-all.deb` in the download directory. Open Point Groups & Basis Functions from the applications menu or run `basis-character`. The launcher uses xdg-utils to open the local page in your default graphical browser. |
-| Apple silicon Mac, macOS 12 or later | [BasisCharacter-0.5.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-macOS-arm64.dmg) | Open the DMG and drag `BasisCharacter.app` into Applications. |
-| Windows x64 | [BasisCharacter-0.5.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Windows-x64.zip) | Extract the entire ZIP and open `BasisCharacter.exe`. If WebView2 is missing, install it using the bundled Microsoft offline runtime installer. |
-| Android 8.0 or later | [BasisCharacter-0.5.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Android.apk) | Open the APK on your device and follow the installation prompts. The app requires Android System WebView or a Chrome WebView provider version 109 or later. Use the system picker to open XYZ coordinates and to load or save JSON projects. |
+| Debian or Ubuntu desktop | [BasisCharacter-0.5.1-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Linux-all.deb) | Run `sudo apt install ./BasisCharacter-0.5.1-Linux-all.deb` in the download directory. Open Point Groups & Basis Functions from the applications menu or run `basis-character`. The launcher uses xdg-utils to open the local page in your default graphical browser. |
+| Apple silicon Mac, macOS 12 or later | [BasisCharacter-0.5.1-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-macOS-arm64.dmg) | Open the DMG and drag `BasisCharacter.app` into Applications. |
+| Windows x64 | [BasisCharacter-0.5.1-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Windows-x64.zip) | Extract the entire ZIP and open `BasisCharacter.exe`. If WebView2 is missing, install it using the bundled Microsoft offline runtime installer. |
+| Android 8.0 or later | [BasisCharacter-0.5.1-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Android.apk) | Open the APK on your device and follow the installation prompts. The app requires Android System WebView or a Chrome WebView provider version 109 or later. Use the system picker to open XYZ coordinates and to load or save JSON projects. |
 
 The Mac app has an ad hoc signature and the DMG is unnotarized. The Windows application has no Authenticode publisher signature. Its bundled WebView2 installer is signed by Microsoft. The Android APK uses a dedicated project signing key for installation and future updates. macOS and Windows may display an unverified-publisher warning. [Signing details](SIGNING.md)
 
-Standalone HTML files are also available in all three languages, alongside the source archive and `SHA256SUMS.txt`. [Download 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0)
+Standalone HTML files are also available in all three languages, alongside the source archive and `SHA256SUMS.txt`. [Download 0.5.1](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.1)
 
 **From basis functions** supports 87 verified spatial point groups. Expand representative positions by symmetry or enter individual sites, add s, p and five real d harmonics, and calculate. The application constructs the full representation matrices, identifies closed blocks in the chosen basis, computes characters, and reduces both the total space and each block.
 

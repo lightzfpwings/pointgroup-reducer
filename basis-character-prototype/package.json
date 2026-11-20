@@ -1,6 +1,6 @@
 {
   "name": "basis-character-prototype",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "description": "Offline SALCs and vibrational symmetry analysis",
   "scripts": {"test": "node --test tests/*.test.js"}

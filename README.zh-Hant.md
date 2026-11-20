@@ -2,11 +2,11 @@
 
 [English](README.en.md) · [简体中文](README.md)
 
-## 點群與基函數整合版 0.5.0
+## 點群與基函數整合版 0.5.1
 
-在 Windows、macOS、Linux 和 Android 上可匯入 XYZ 或依化學式選擇候選結構，在三維預覽中確認原子位置與點群，再以 3N 方法計算振動對稱性、紅外偏振和拉曼張量。三語離線網頁版使用相同引擎，頁面首尾各保留 56 像素，表格標題與資料置中。
+在 Windows、macOS、Linux 和 Android 上可匯入 XYZ 或依化學式選擇候選結構，在三維預覽中確認原子位置與點群，再以 3N 方法計算振動對稱性、紅外偏振和拉曼張量。三語離線網頁版使用相同引擎，頁面首尾各保留 56 像素，表格標題與資料置中。0.5.1 為四個平台與三語離線網頁版加入了青綠色正四面體圖示。
 
-[下載 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0) · [操作說明](basis-character-prototype/README.zh-Hant.md)
+[下載 0.5.1](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.1) · [操作說明](basis-character-prototype/README.zh-Hant.md)
 
 整合版位於 `basis-character-prototype/`，使用獨立版本標籤 `basis-v*`。原 Python/Tk 約化程式及 CLI 保留，原生 Windows 舊版見 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。以下為原 Python/Tk 版本說明。
 

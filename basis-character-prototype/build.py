@@ -1,4 +1,5 @@
 """Build standalone offline pages and a source archive."""
+import base64
 import hashlib
 from html import escape, unescape
 import json
@@ -46,6 +47,9 @@ def build_html():
     DIST.mkdir(exist_ok=True)
     runpy.run_path(str(ROOT / "localization" / "build.py"))
     html = (ROOT / "index.html").read_text(encoding="utf-8")
+    favicon = "packaging/icons/favicon.png"
+    encoded_icon = base64.b64encode((ROOT / favicon).read_bytes()).decode("ascii")
+    html = html.replace(f'href="{favicon}"', f'href="data:image/png;base64,{encoded_icon}"')
     core_tags = "\n".join(map(script_tag, CORE_SCRIPTS))
     app_tag = script_tag(APP_SCRIPT)
     if html.count(core_tags) != 1 or html.count(app_tag) != 1:
@@ -91,7 +95,7 @@ def source_archive():
         ("tests", "*.test.js"), ("tests/fixtures", "*.json"),
     ):
         files.extend(sorted((ROOT / folder).glob(pattern)))
-    packaging_types = {".py", ".swift", ".md", ".cs", ".csproj", ".js", ".json", ".manifest", ".ps1", ".java", ".xml", ".desktop", ".sh", ".svg"}
+    packaging_types = {".py", ".swift", ".md", ".cs", ".csproj", ".js", ".json", ".manifest", ".ps1", ".java", ".xml", ".desktop", ".sh", ".svg", ".png", ".ico", ".icns"}
     files.extend(path for path in sorted((ROOT / "packaging").rglob("*"))
                  if path.is_file() and path.suffix in packaging_types
                  and not {"obj", "bin", "__pycache__"}.intersection(path.relative_to(ROOT).parts))

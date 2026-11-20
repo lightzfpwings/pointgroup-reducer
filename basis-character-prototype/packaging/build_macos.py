@@ -174,14 +174,16 @@ macos.mkdir(parents=True)
 resources.mkdir()
 shutil.copy2(bundle, resources / "index.html")
 shutil.copy2(ROOT / "packaging" / "self-check.js", resources)
+shutil.copy2(ROOT / "packaging" / "icons" / "basis-character.icns", resources)
 for language, display in {"zh-Hans":"点群与基函数","zh-Hant":"點群與基函數","en":"Point Groups & Basis Functions"}.items():
     folder=resources/(language+".lproj");folder.mkdir()
     (folder/"InfoPlist.strings").write_text('"CFBundleDisplayName" = '+json.dumps(display,ensure_ascii=False)+';\n',encoding='utf-8')
 info = {
     "CFBundleName": "BasisCharacter", "CFBundleDisplayName": "点群与基函数",
     "CFBundleIdentifier": BUNDLE_ID,
+    "CFBundleIconFile": "basis-character.icns",
     "CFBundleExecutable": "BasisCharacter", "CFBundlePackageType": "APPL",
-    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "11",
+    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "12",
     "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"], "CFBundleDevelopmentRegion": "en",
     "LSMinimumSystemVersion": "12.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Integrated basis characters and irreducible reduction.",

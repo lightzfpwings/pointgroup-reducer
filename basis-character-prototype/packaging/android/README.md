@@ -13,9 +13,9 @@ The build produces an aligned universal unsigned APK and an APK validation repor
 
 ```sh
 apksigner sign --ks /path/to/release.p12 --ks-type PKCS12 --ks-key-alias basis-release \
-  --v4-signing-enabled false --out dist/BasisCharacter-0.5.0-Android.apk \
-  dist/BasisCharacter-0.5.0-Android-unsigned.apk
-apksigner verify --verbose --print-certs dist/BasisCharacter-0.5.0-Android.apk
+  --v4-signing-enabled false --out dist/BasisCharacter-0.5.1-Android.apk \
+  dist/BasisCharacter-0.5.1-Android-unsigned.apk
+apksigner verify --verbose --print-certs dist/BasisCharacter-0.5.1-Android.apk
 ```
 
 For the runtime smoke test, use a Linux runner with KVM available or another host with an accelerated API 35 emulator. The test installs ephemeral test-signed APKs in a disposable emulator, launches the normal app, calculates the two water SALCs, checks the clipboard and round-trips the exported JSON through Android content URIs. It also checks formula selection, IR/Raman activity, the XYZ file picker and mobile layout. Instrumentation supplies the document-picker choices. It leaves the release candidate unsigned for the private signing step.
