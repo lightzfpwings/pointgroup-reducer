@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
@@ -51,7 +52,8 @@ public final class SmokeTest extends Instrumentation {
             if ("true".equals(last)) return;
             SystemClock.sleep(150);
         }
-        throw new AssertionError("WebView condition failed: " + code + ", last=" + last);
+        String page = javascript("['status','xyz-feedback','review-state'].map(id=>document.getElementById(id).textContent)");
+        throw new AssertionError("WebView condition failed: " + code + ", last=" + last + ", page=" + page);
     }
 
     private ActivityMonitor answerPicker(String action, Uri uri) {
@@ -71,7 +73,10 @@ public final class SmokeTest extends Instrumentation {
                 int n;
                 while ((n = input.read(buffer)) != -1) bytes.write(buffer, 0, n);
                 return new JSONObject(bytes.toString("UTF-8"));
-            } catch (org.json.JSONException e) { SystemClock.sleep(100); }
+            } catch (java.io.FileNotFoundException | JSONException e) {
+                // The document URI can be visible before the background export creates its file.
+                SystemClock.sleep(100);
+            }
         }
         throw new AssertionError("No completed JSON export");
     }
