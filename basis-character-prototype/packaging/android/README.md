@@ -1,6 +1,6 @@
 # Android APK
 
-The application embeds the same standalone HTML used by the desktop builds and runs it in Android System WebView. It supports Android 8.0 (API 26) and later with WebView or Chrome version 109 or later for MathML. The manifest requests no permissions. Projects use Android's document picker and results can be copied to the system clipboard. The application ID is `io.github.lightzfpwings.basischaracter`.
+The application embeds the same standalone HTML used by the desktop builds and runs it in Android System WebView. It supports Android 8.0 (API 26) and later with WebView or Chrome version 109 or later for MathML. The manifest requests no permissions. The system document picker opens XYZ structures and loads or saves JSON projects. Results can be copied to the clipboard. The application ID is `io.github.lightzfpwings.basischaracter`.
 
 From the integrated module directory, build with JDK 17 or newer and the Android SDK.
 
@@ -13,12 +13,12 @@ The build produces an aligned universal unsigned APK and an APK validation repor
 
 ```sh
 apksigner sign --ks /path/to/release.p12 --ks-type PKCS12 --ks-key-alias basis-release \
-  --v4-signing-enabled false --out dist/BasisCharacter-0.4.6-Android.apk \
-  dist/BasisCharacter-0.4.6-Android-unsigned.apk
-apksigner verify --verbose --print-certs dist/BasisCharacter-0.4.6-Android.apk
+  --v4-signing-enabled false --out dist/BasisCharacter-0.5.0-Android.apk \
+  dist/BasisCharacter-0.5.0-Android-unsigned.apk
+apksigner verify --verbose --print-certs dist/BasisCharacter-0.5.0-Android.apk
 ```
 
-For the runtime smoke test, use a Linux runner with KVM available or another host with an accelerated API 35 emulator. The test installs ephemeral test-signed APKs in a disposable emulator, launches the normal app, calculates the two water SALCs, checks the clipboard and round-trips the exported JSON through Android content URIs. Instrumentation supplies the document-picker choices. It leaves the release candidate unsigned for the private signing step.
+For the runtime smoke test, use a Linux runner with KVM available or another host with an accelerated API 35 emulator. The test installs ephemeral test-signed APKs in a disposable emulator, launches the normal app, calculates the two water SALCs, checks the clipboard and round-trips the exported JSON through Android content URIs. It also checks formula selection, IR/Raman activity, the XYZ file picker and mobile layout. Instrumentation supplies the document-picker choices. It leaves the release candidate unsigned for the private signing step.
 
 ```sh
 sdkmanager "platform-tools" "emulator" "system-images;android-35;google_apis;x86_64"

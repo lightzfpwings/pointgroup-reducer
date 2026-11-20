@@ -2,11 +2,11 @@
 
 [English](README.en.md) · [繁體中文](README.zh-Hant.md)
 
-## 点群与基函数整合版 0.4.6
+## 点群与基函数整合版 0.5.0
 
-0.4.6 将 0.4.5 的 SALC 计算封装到 Linux、macOS、Windows 和 Android。四种封装共用离线引擎，支持 87 个空间点群、423 张手动约化表和三语切换。0.5.0 的振动光谱设计在独立开发线上继续。
+在 Windows、macOS、Linux 和 Android 上可导入 XYZ 或按化学式选择候选结构，在三维预览中确认原子位置与点群，再用 3N 方法计算振动对称性、红外偏振和拉曼张量。三语离线网页版使用相同引擎，页面首尾各留出 56 像素，表格标题和数据居中。
 
-[下载 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6) · [操作说明](basis-character-prototype/README.md)
+[下载 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0) · [操作说明](basis-character-prototype/README.md)
 
 整合版位于 `basis-character-prototype/`，使用独立版本标签 `basis-v*`。原 Python/Tk 约化器及 CLI 保留，原生 Windows 旧版下载见 [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3)。下文介绍原 Python/Tk 版本。
 

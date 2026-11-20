@@ -1,4 +1,8 @@
-# Point Groups & Basis Functions 0.4.6
+# Point Groups & Basis Functions 0.5.0
+
+Run `python3 build.py` in this directory and open the [0.5.0 English offline page](dist/BasisCharacterPrototype-0.5.0-en.html). Select **Vibrations (IR and Raman)**, open the [water XYZ file](examples/water.xyz) and select C₂ᵥ below the preview. Choose **Confirm structure and point group**, then **Calculate vibrations and activity**.
+
+With only a formula, enter `C2H6O` in the same workflow, choose **Find structures**, then select **Ethanol · trans conformer** or **Dimethyl ether**. Review the selected model, coordinates and point group before calculating its IR and Raman activity.
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
@@ -8,14 +12,14 @@ Use positions and s/p/d functions to construct representation matrices, reduce t
 
 | Platform | Download | Install and launch |
 |---|---|---|
-| Debian or Ubuntu desktop | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | Run `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb` in the download directory. Open Point Groups & Basis Functions from the applications menu or run `basis-character`. The launcher uses xdg-utils to open the local page in your default graphical browser. |
-| Apple silicon Mac, macOS 12 or later | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | Open the DMG and drag `BasisCharacter.app` into Applications. |
-| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | Extract the entire ZIP and open `BasisCharacter.exe`. If WebView2 is missing, install it using the bundled Microsoft offline runtime installer. |
-| Android 8.0 or later | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | Open the APK on your device and follow the installation prompts. The app requires Android System WebView or a Chrome WebView provider version 109 or later. Use the system file picker to save and load JSON. |
+| Debian or Ubuntu desktop | [BasisCharacter-0.5.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Linux-all.deb) | Run `sudo apt install ./BasisCharacter-0.5.0-Linux-all.deb` in the download directory. Open Point Groups & Basis Functions from the applications menu or run `basis-character`. The launcher uses xdg-utils to open the local page in your default graphical browser. |
+| Apple silicon Mac, macOS 12 or later | [BasisCharacter-0.5.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-macOS-arm64.dmg) | Open the DMG and drag `BasisCharacter.app` into Applications. |
+| Windows x64 | [BasisCharacter-0.5.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Windows-x64.zip) | Extract the entire ZIP and open `BasisCharacter.exe`. If WebView2 is missing, install it using the bundled Microsoft offline runtime installer. |
+| Android 8.0 or later | [BasisCharacter-0.5.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Android.apk) | Open the APK on your device and follow the installation prompts. The app requires Android System WebView or a Chrome WebView provider version 109 or later. Use the system picker to open XYZ coordinates and to load or save JSON projects. |
 
 The Mac app has an ad hoc signature and the DMG is unnotarized. The Windows application has no Authenticode publisher signature. Its bundled WebView2 installer is signed by Microsoft. The Android APK uses a dedicated project signing key for installation and future updates. macOS and Windows may display an unverified-publisher warning. [Signing details](SIGNING.md)
 
-Standalone HTML files are also available in all three languages, alongside the source archive and `SHA256SUMS.txt`. [Download 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6)
+Standalone HTML files are also available in all three languages, alongside the source archive and `SHA256SUMS.txt`. [Download 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0)
 
 **From basis functions** supports 87 verified spatial point groups. Expand representative positions by symmetry or enter individual sites, add s, p and five real d harmonics, and calculate. The application constructs the full representation matrices, identifies closed blocks in the chosen basis, computes characters, and reduces both the total space and each block.
 
@@ -33,7 +37,7 @@ The d basis is the five real spherical harmonics dxy, dxz, dyz, dx²−y² and d
 
 QR factorization expands transformed functions in a nonorthogonal angular basis, with a reconstruction check for each transformation.
 
-Limits are 120 sites and 180 functions. Radial IDs identify copies; this is not a quantum-chemistry basis library. Closed blocks need not be irreducible and can change with the chosen basis. Cartesian six-component d, automatic point-group identification, XYZ import, AO overlap integrals and electronic energies are not implemented.
+Limits are 120 sites and 180 functions. Radial IDs identify copies; this is not a quantum-chemistry basis library. Closed blocks need not be irreducible and can change with the chosen basis. Cartesian six-component d, automatic point-group identification, AO overlap integrals and electronic energies are not implemented.
 
 Character-table expressions display exact formulas; calculations use double precision. Exports retain full numeric precision and tolerances rather than claiming symbolic proofs. The original Python reducer remains compatible, with this integrated app in a separate directory. Synced project sources remain unchanged. The application runs without the original Python program. Tests compare all 423 complex tables and each original irrep's reduction, alongside integrated workflows, parsing, language switching and legacy input compatibility.
 
@@ -42,3 +46,17 @@ Version 0.4.2 corrects orbital and direction subscripts, group/irrep scripts, an
 Version 0.4.2 fixes mathematical table headers displaying `[object MathMLMathElement]`. Headers and body cells share node insertion. Regression checks cover character, basis-result, manual-result and vector tables in all three languages.
 
 Version 0.4.3 adds the Windows x64 wrapper, native JSON dialogs, clipboard support and remembered language menus. It also fixes position-tolerance editing. Run `python packaging/build_windows.py` on Windows x64 with the .NET 10 SDK to build the package. The package self-check runs the shared calculation script through Jint. The 0.4.4 Windows executable has no Authenticode signature. The original release includes the offline WebView2 installer, and the lightweight ZIP includes a download shortcut.
+
+## 0.5.0 spectroscopy development preview
+
+**Vibrations (IR and Raman)** uses the selected spatial point group and the coordinates of every atom, including atoms at the symmetry centre. Open or paste a single XYZ frame, enter coordinates manually or load a project. An XYZ frame has an atom count (1–120), a comment line that may be blank, then one element symbol and three coordinates in Å per atom. D and T are distinct isotope labels.
+
+Formula matching uses the element counts of a neutral molecule. It accepts `CH4`, `CH₄` and parenthesized groups. The offline collection includes methane, water, ammonia, carbon dioxide, benzene, BF₃, SF₆ and selected isomers of C₂H₆O and C₂H₂Cl₂. A tetrahedral model generator handles one C or Si bonded to four substituents drawn from H, F, Cl, Br and I. Results cover this collection and these rules. Trans ethanol and dimethyl ether use NIST reference geometries. All other candidates are labelled as idealized. Project JSON records the starting model and the actual coordinates used for calculation. [NIST ethanol](https://cccbdb.nist.gov/exp2x.asp?casno=64175) · [NIST dimethyl ether](https://cccbdb.nist.gov/exp2x.asp?casno=115106&charge=0)
+
+Rotate the preview and compare atom IDs with the coordinate table. Select A, B and C to measure A–B and the angle at B. Gray connections in an XYZ preview are distance estimates using covalent radii. Green lines join atoms selected for measurement. Confirmation checks that every operation gives a bijection between atoms of the same type and reports the largest mapping deviation. XYZ inputs default to the atomic centroid as the symmetry origin and preserve the file axes and raw coordinates. Check the axis convention for the group and, if needed, orient coordinates in a molecular editor before import. Editing the structure, group, origin or tolerance requires a new confirmation. [XYZ format](https://openbabel.org/docs/FileFormats/XYZ_cartesian_coordinates_format.html) · [Covalent radii](https://doi.org/10.1039/B801115J)
+
+Once confirmed, choose **Calculate vibrations and activity**. For each operation, the Cartesian displacement character is the number of fixed atoms times the trace of its spatial matrix. Removing translations and rotations leaves 3N−6 vibrational degrees of freedom for a nonlinear molecule, 3N−5 for a linear molecule and zero for a single atom. Electric-dipole IR activity follows the vector representation. Raman activity follows the six components of the symmetric polarizability tensor.
+
+Each degenerate multiplet counts as one fundamental, with complex conjugate rows paired for real displacements. When a finite subgroup is selected, its symmetry determines the degeneracies and counts. Frequencies require masses and force constants. Intensities also require dipole or polarizability derivatives. Load the methane (Td) or carbon dioxide (D4h) vibration example to try the calculation. Methane has nine vibrational degrees of freedom and four fundamentals, A1 + E + 2T2. Two are IR allowed and all four are Raman allowed. The symmetry assignments agree with the experimental compilation. [NIST methane data](https://cccbdb.nist.gov/exp2x.asp?casno=74828)
+
+For water in the xz plane, each of the two A₁ vibrations allows z-polarized IR absorption and three independent Raman tensor entries xx, yy and zz. The B₁ vibration allows x and xz. For CO₂ along z, the A₁g entry “xx + yy, zz” means that xx and yy are equal and zz is independent. Each off-diagonal label stands for a pair of equal matrix entries. Copied results preserve these combinations. Each row in the exported JSON `spectrum.activities` contains unit dipole directions in `irDirections` and symmetric matrices with unit Frobenius norm in `ramanTensors`. [Calculation and acceptance examples (Chinese)](SPECTROSCOPY_DESIGN.md)

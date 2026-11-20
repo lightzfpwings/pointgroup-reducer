@@ -110,8 +110,26 @@ def check_browser(work, uri):
         field("manual-characters").clear()
         field("manual-characters").send_keys(Keys.CONTROL, "v")
         wait.until(lambda _: field("manual-characters").get_attribute("value") == expected)
+        Select(field("workflow")).select_by_value("vibrations")
+        field("formula-text").send_keys("C2H6O")
+        field("find-models").click()
+        candidates = browser.find_elements(By.CSS_SELECTOR, "#formula-choices button")
+        assert len(candidates) == 2
+        candidates[1].click()
+        assert Select(field("group")).first_selected_option.get_attribute("value") == "C2v"
+        assert not field("calculate").is_enabled()
+        field("confirm-structure").click()
+        field("calculate").click()
+        wait.until(lambda _: "IR allowed 17 · Raman allowed 21" in field("result-body").text)
+        assert browser.execute_script("""
+          return [...document.querySelectorAll('.activity-table th,.activity-table td')].every(cell =>
+            getComputedStyle(cell).textAlign === 'center') &&
+            parseFloat(getComputedStyle(document.body).paddingTop) >= 56 &&
+            parseFloat(getComputedStyle(document.body).paddingBottom) >= 56;
+        """)
         return {"browser": browser.capabilities["browserVersion"], "offline": True, "example": "C2v water",
-                "salcIrreps": list(spaces), "projectRoundTrip": True, "clipboardRoundTrip": copy_method}
+                "salcIrreps": list(spaces), "projectRoundTrip": True, "clipboardRoundTrip": copy_method,
+                "formulaModel":"dimethyl-ether", "irBands":17, "ramanBands":21}
 
 
 def main():

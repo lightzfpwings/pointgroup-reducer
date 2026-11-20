@@ -116,6 +116,32 @@
     else s=out(n.left,1)+(n.op==='-'?'-':'+')+out(n.right,n.op==='-'?2:1);
     return precedence(n)<parent||n.kind==='number'&&/[eE]/.test(n.text)&&parent>=4?'\\left('+s+'\\right)':s;
   }return out(a);}
-  const api={label,expression,number,numberText,decomposition,formula,plainLabel,orbital:(axis,prefix)=>wrap(orbitalContent(axis,prefix)),basisLabel,component:(symbol,index)=>wrap(scripts(mi(symbol),mi(index),null)),latexLabel,latexExpression};
+  // Each generator is free up to scale. For a tensor, xy denotes the symmetric
+  // matrix with unit entries at xy and yx, so its coefficient is T_xy itself.
+  function selectionBasis(basis, isTensor, format = 'text') {
+    const latex = format === 'latex';
+    if (!basis.length) return latex ? '\\varnothing' : '—';
+    const axes = isTensor ? ['xx', 'yy', 'zz', 'xy', 'xz', 'yz'] : ['x', 'y', 'z'];
+    const generators = basis.map(generator => {
+      const values = isTensor
+        ? [generator[0][0], generator[1][1], generator[2][2], generator[0][1], generator[0][2], generator[1][2]]
+        : generator;
+      const pivot = values.find(v => Math.abs(v) > 1e-10);
+      const terms = [];
+      values.forEach((v, i) => {
+        if (Math.abs(v) <= 1e-10) return;
+        const ratio = v / pivot;
+        const magnitude = Number(Math.abs(ratio).toPrecision(7));
+        const symbol = latex && isTensor ? '\\mathrm{' + axes[i] + '}' : axes[i];
+        const factor = magnitude === 1 ? '' : latex ? latexExpression(magnitude) + '\\,' : magnitude + ' ';
+        const minus = latex ? '-' : '−';
+        const sign = terms.length ? (ratio < 0 ? ' ' + minus + ' ' : ' + ') : '';
+        terms.push(sign + factor + symbol);
+      });
+      return terms.join('');
+    });
+    return generators.join(latex ? ',\\quad ' : ', ');
+  }
+  const api={label,expression,number,numberText,decomposition,formula,plainLabel,orbital:(axis,prefix)=>wrap(orbitalContent(axis,prefix)),basisLabel,component:(symbol,index)=>wrap(scripts(mi(symbol),mi(index),null)),latexLabel,latexExpression,selectionBasis};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.MathFormat=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

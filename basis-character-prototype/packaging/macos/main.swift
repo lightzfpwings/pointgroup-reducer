@@ -154,10 +154,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
     @objc private func saveProject() { clickControl("save-project") }
     @objc private func exportResult() { clickControl("export-result") }
 
-    private func chooseJSON(_ completion: @escaping ([URL]?) -> Void) {
+    private func chooseInput(title: String, types: [UTType], _ completion: @escaping ([URL]?) -> Void) {
         let panel = NSOpenPanel()
-        panel.title = l("载入计算输入", "開啟計算輸入", "Open Calculation Input")
-        panel.allowedContentTypes = [.json]
+        panel.title = title
+        panel.allowedContentTypes = types
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
         panel.beginSheetModal(for: window) { response in
@@ -166,7 +166,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
     }
 
     private func presentOpenPanel() {
-        chooseJSON { urls in
+        chooseInput(title: l("载入计算输入", "開啟計算輸入", "Open Calculation Input"), types: [.json]) { urls in
             guard let url = urls?.first else { return }
             do {
                 let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
@@ -190,7 +190,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
 
     func webView(_ webView: WKWebView, runOpenPanelWith parameters: WKOpenPanelParameters,
                  initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping ([URL]?) -> Void) {
-        chooseJSON(completionHandler)
+        let types = [.json, UTType.plainText] + [UTType(filenameExtension: "xyz")].compactMap { $0 }
+        chooseInput(title: l("打开本地输入文件", "開啟本機輸入檔案", "Open Local Input"), types: types, completionHandler)
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

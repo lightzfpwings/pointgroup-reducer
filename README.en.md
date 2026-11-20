@@ -2,11 +2,11 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
-## Integrated Point Groups & Basis Functions 0.4.6
+## Integrated Point Groups & Basis Functions 0.5.0
 
-Version 0.4.6 packages the SALC calculations from 0.4.5 for Linux, macOS, Windows and Android. All four packages use the same offline engine, support 87 spatial groups and 423 manual reduction tables, and offer three interface languages. Vibrational spectroscopy is in development for 0.5.0.
+On Windows, macOS, Linux and Android, import XYZ coordinates or choose a candidate by molecular formula. Verify the atoms and point group in 3D, then use the 3N method to calculate vibrational symmetries, IR polarizations and Raman tensors. The three-language offline pages use the same engine. All versions centre table headers and values and leave 56 pixels of space at both page ends.
 
-[Download 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6) · [User guide](basis-character-prototype/README.en.md)
+[Download 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0) · [User guide](basis-character-prototype/README.en.md)
 
 The integrated app lives in `basis-character-prototype/` and uses its own `basis-v*` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
 

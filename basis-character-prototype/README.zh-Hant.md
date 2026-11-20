@@ -1,4 +1,8 @@
-# 點群與基函數 0.4.6
+# 點群與基函數 0.5.0
+
+在本目錄執行 `python3 build.py`，開啟 [0.5.0 繁體中文離線版](dist/BasisCharacterPrototype-0.5.0-zh-Hant.html)。選擇「振動光譜（紅外與拉曼）」，開啟[水分子 XYZ](examples/water.xyz)，在三維預覽下方選擇 C₂ᵥ，點選「確認結構與點群」，再點選「計算振動與光譜活性」。
+
+手邊只有化學式時，可在同一入口輸入 `C2H6O`，點選「尋找候選結構」，再選「乙醇 · 反式構形」或「二甲醚」。下方會顯示所選模型的三維結構、原子座標與點群。確認後即可比較兩種結構的紅外與拉曼活性。
 
 [简体中文](README.md) · [English](README.en.md)
 
@@ -8,14 +12,14 @@
 
 | 平台 | 下載 | 安裝與啟動 |
 |---|---|---|
-| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.4.6-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.4.6-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
-| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.4.6-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
-| Windows x64 | [BasisCharacter-0.4.6-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
-| Android 8.0 或更新版本 | [BasisCharacter-0.4.6-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.4.6/BasisCharacter-0.4.6-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，可透過系統檔案選擇器儲存與載入 JSON。 |
+| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.5.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.5.0-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
+| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.5.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
+| Windows x64 | [BasisCharacter-0.5.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.5.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.0/BasisCharacter-0.5.0-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，系統檔案選擇器可開啟 XYZ，也可載入與儲存 JSON 專案。 |
 
 Mac 應用程式使用臨時簽章，DMG 未經 Apple 公證。Windows 主程式沒有 Authenticode 發行者簽章，內含的 WebView2 安裝程式帶有微軟簽章。Android APK 使用專案的獨立簽署金鑰，之後的覆蓋安裝須使用相同的簽署身分。系統可能提示無法驗證桌面軟體發行者。 [簽章說明](SIGNING.md)
 
-如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.4.6](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.4.6)
+如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.5.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.0)
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
@@ -33,7 +37,7 @@ d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²�
 
 對非正交角向基採用 QR 分解展開，並檢查每次變換的重建殘差。
 
-目前最多 120 個中心、180 個函數。徑向 ID 是副本識別碼，尚無量子化學基組庫。封閉計算塊不等於不可約表示；換基可能改變塊結構。尚未實作六維 Cartesian d、自動點群辨識、XYZ 匯入、AO 重疊積分或電子能量。
+目前最多 120 個中心、180 個函數。徑向 ID 是副本識別碼，尚無量子化學基組庫。封閉計算塊不等於不可約表示；換基可能改變塊結構。尚未實作六維 Cartesian d、自動點群辨識、AO 重疊積分或電子能量。
 
 顯示表格的根式與公式，實際計算採雙精度；匯出保留完整數值和容差，不將數值結果視為符號證明。原有 Python 約化程式保持相容，整合版位於獨立目錄；同步 sources 未修改，執行整合版不依賴原 Python 程式。測試逐項核對原程式的 423 張完整複表與各不可約行，並檢查整合流程、運算式、三語狀態與舊檔相容性。
 
@@ -42,3 +46,17 @@ d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²�
 0.4.2 修復數學表頭顯示為 `[object MathMLMathElement]` 的問題。表頭與正文共用節點插入邏輯；三語特徵標表、基函數結果表、手動結果表及向量表均檢查數學表頭節點。
 
 0.4.3 新增 Windows x64 原生封裝、系統 JSON 對話框、剪貼簿與三語選單，並修復位置容差編輯。在 Windows x64 安裝 .NET 10 SDK 後執行 `python packaging/build_windows.py` 即可封裝。封裝自檢以 Jint 執行與 Mac 共用的計算指令碼。0.4.4 的 Windows 應用程式未使用 Authenticode 簽章。原始發布版附 WebView2 離線安裝程式，輕量包提供微軟下載捷徑。
+
+## 0.5.0 光譜開發預覽
+
+「振動光譜（紅外與拉曼）」使用所選空間點群和分子中所有原子的座標，包括位於對稱中心的原子。可開啟或貼上單幀 XYZ、手動輸入座標或載入專案。XYZ 首列填寫原子數（1–120），第二列為註解或空列，之後每列填寫元素與三個以 Å 為單位的座標。D 與 T 可作為相異的同位素類型。
+
+化學式依中性分子的元素數目配對，支援 `CH4`、`CH₄` 與含括號的寫法。離線模型庫收錄甲烷、水、氨、二氧化碳、苯、BF₃、SF₆，以及 C₂H₆O 和 C₂H₂Cl₂ 的代表結構。四面體碳或矽與四個 H、F、Cl、Br、I 取代基的組合依組成產生模型。每次只列出已收錄或可依這些規則產生的候選。乙醇反式構形和二甲醚採用 NIST 參考幾何，其餘候選標示為理想化幾何。專案 JSON 儲存起始模型及實際用於計算的全部座標。[NIST 乙醇](https://cccbdb.nist.gov/exp2x.asp?casno=64175) · [NIST 二甲醚](https://cccbdb.nist.gov/exp2x.asp?casno=115106&charge=0)
+
+旋轉模型，對照原子編號與座標表。選擇 A、B、C 可量測 A–B 距離及以 B 為頂點的夾角。XYZ 預覽中的灰色連線依共價半徑估算，綠線連接選取量測的原子。確認時程式檢查所有同類型原子在所選點群下的一一映射，並顯示最大位置偏差。XYZ 預設以幾何中心為對稱原點，保留檔案的軸向與原始座標。請核對點群的軸向提示，需要時可先在分子編輯器對齊座標再匯入。變更結構、點群、原點或容差後須再次確認。[XYZ 格式](https://openbabel.org/docs/FileFormats/XYZ_cartesian_coordinates_format.html) · [共價半徑資料](https://doi.org/10.1039/B801115J)
+
+確認後點選「計算振動與光譜活性」。各操作的笛卡兒位移特徵標等於固定原子數乘以空間矩陣的跡。扣除整體平移及轉動後，非線性分子有 3N−6 個振動自由度，線性分子有 3N−5 個，單原子為 0。紅外允許的振動與偶極向量同對稱性，拉曼允許的振動與對稱極化率張量的六個分量之一同對稱性。
+
+簡併分量合計為一個基頻，複共軛行亦成對計數。使用有限子群時，簡併度和計數均依該子群決定。峰位需要質量與力常數，強度還需要偶極矩或極化率對簡正座標的導數。可直接載入甲烷 Td 或二氧化碳 D4h 振動範例。甲烷的 9 個振動自由度分解為 A1 + E + 2T2，對應 4 個基頻，其中 2 個紅外允許、4 個拉曼允許。基頻對稱性與 NIST 的實驗歸屬一致。[NIST 甲烷振動資料](https://cccbdb.nist.gov/exp2x.asp?casno=74828)
+
+以 xz 平面內的水為例，兩個 A₁ 振動均允許 z 偏振，且各有三個獨立的拉曼張量分量 xx、yy、zz。B₁ 振動允許 x 偏振和 xz 分量。對沿 z 軸的 CO₂，A₁g 列中的「xx + yy, zz」表示 xx 與 yy 相等，zz 可獨立變化。xy、xz、yz 各代表一對相等的非對角元素。複製結果會保留這些組合，JSON 的 `spectrum.activities` 儲存每列的單位偶極方向 `irDirections` 及按 Frobenius 範數歸一化的對稱矩陣 `ramanTensors`。[計算方法與驗收範例](SPECTROSCOPY_DESIGN.md)

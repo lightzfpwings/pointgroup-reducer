@@ -1,4 +1,4 @@
-"""Build an aligned universal Android APK with the release's offline SALC page."""
+"""Build an aligned Android APK containing the integrated offline page."""
 import argparse
 import json
 import os
@@ -142,7 +142,8 @@ def emulator_test(sdk, work, avd, unsigned):
                 print(output([*device, "logcat", "-d", "-t", "250", "-s", "AndroidRuntime:E", "chromium:E", "ActivityTaskManager:E"]))
                 raise RuntimeError("Android runtime smoke failed.")
             return {"passed": True, "deviceAPI": output([*device, "shell", "getprop", "ro.build.version.sdk"]).strip(),
-                    "checks": ["launcher", "water-SALCs", "clipboard", "open-project-picker", "save-project-picker"]}
+                    "checks": ["launcher", "water-SALCs", "clipboard", "open-project-picker", "save-project-picker",
+                               "formula-selection", "structure-review", "IR-Raman-activity", "XYZ-file-picker", "mobile-layout"]}
         finally:
             process.terminate()
             try:

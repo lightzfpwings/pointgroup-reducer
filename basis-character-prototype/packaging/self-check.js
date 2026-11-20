@@ -18,6 +18,15 @@
     const [a, b] = space.copies[0].vectors[0].coefficients;
     assert(Math.abs(a*a - .5) < 1e-8 && Math.abs(a*b - (i ? -.5 : .5)) < 1e-8, 'water SALC coefficients');
   }
+  const spectrum = VibrationEngine.calculate(water);
+  assert(spectrum.degreesOfFreedom === 3 && spectrum.counts.irBands === 3 && spectrum.counts.ramanBands === 3, 'water vibrations');
+  const isomerCounts = FormulaModels.lookup('C2H6O').candidates.map(candidate => {
+    const input = {...candidate, tolerance:1e-6, vibrationOrigin:'centroid'};
+    assert(VibrationEngine.review(input).atomCount === 9, candidate.id);
+    const {irBands,ramanBands} = VibrationEngine.calculate(input).counts;
+    return [irBands,ramanBands];
+  });
+  assert(JSON.stringify(isomerCounts) === '[[21,21],[17,21]]', 'formula isomer activities');
   const groups = BasisEngine.groupNames.map(name => {
     const g = BasisEngine.group(name);
     const pInput = BasisEngine.template('central-c2v'), dInput = BasisEngine.template('central-d-oh');
@@ -42,6 +51,6 @@
   assert(groups.length === 87 && tables.length === 423 && languages.length === 3 && languages[2].title === 'Point Groups & Basis Functions', 'catalog/language count');
   assert(Math.abs(ReductionEngine.number('sqrt(3)/2') - Math.sqrt(3)/2) < 1e-12, 'expression parser');
   return JSON.stringify({status:'passed', runtime:'Jint (pure ECMAScript)', version:BasisEngine.VERSION, reductionVersion:ReductionEngine.VERSION,
-    examples, waterSalcChecks:salc.checks, supportedPointGroups:groups.length, expandedGroupChecks:groups,
+    examples, waterSalcChecks:salc.checks, waterVibrationCounts:spectrum.counts, isomerCounts, supportedPointGroups:groups.length, expandedGroupChecks:groups,
     reductionTables:tables, languages, reductionIntegrated:true, uiLaunched:false});
 })();

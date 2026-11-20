@@ -49,8 +49,8 @@ def build():
             "Depends: xdg-utils\n"
             "Recommends: firefox-esr | firefox | chromium | chromium-browser | google-chrome-stable\n"
             "Homepage: https://github.com/lightzfpwings/pointgroup-reducer\n"
-            "Description: Offline point group characters and symmetry-adapted linear combinations\n"
-            " Calculate characters, reduce representations and generate SALC coefficients\n"
+            "Description: Offline point group characters, SALCs and vibrational symmetry\n"
+            " Calculate characters, SALC coefficients and IR/Raman selection rules\n"
             " in English, Simplified Chinese or Traditional Chinese. The desktop menu\n"
             " opens the included offline application in a modern graphical web browser.\n",
             encoding="utf-8",

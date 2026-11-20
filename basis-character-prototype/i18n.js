@@ -24,6 +24,8 @@
   }
   const errors={
     salc_verification:['SALC 未通过投影、维数或正交性校验。','SALC 未通過投影、維數或正交性校驗。','SALC projection, dimension or orthogonality checks failed.'],
+    vibration_reduction:['振动或活性表示未通过约化检查。','振動或活性表示未通過約化檢查。','The vibration or activity representation failed reduction checks.'],
+    vibration_axis:['位置容差下无法确定与点群相容的分子轴，请检查坐标或减小容差。','位置容差下無法確定與點群相容的分子軸，請檢查座標或減小容差。','The molecular axis is ambiguous at this tolerance. Check the coordinates or reduce the tolerance.'],
     mapping_bijection:['中心的位置映射未形成一致的群置换，请检查坐标或减小容差。','中心的位置映射未形成一致的群置換，請檢查座標或減小容差。','The site permutations are inconsistent with the group. Check the coordinates or reduce the tolerance.'],
     invalid_json:['JSON 格式无效，请检查输入文件。','JSON 格式無效，請檢查輸入檔案。','Invalid JSON. Check the input file.'],
     invalid_expression:['无效的数值表达式。','無效的數值運算式。','Invalid numeric expression.'],

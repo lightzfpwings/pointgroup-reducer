@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowInsets;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebMessage;
 import android.webkit.WebMessagePort;
 import android.webkit.WebResourceRequest;
@@ -39,7 +41,7 @@ import java.util.concurrent.Executors;
 public final class MainActivity extends Activity {
     private static final Uri ORIGIN = Uri.parse("https://appassets.androidplatform.net");
     private static final String PAGE = ORIGIN + "/index.html";
-    private static final int OPEN = 1, SAVE = 2, STAGING = 3;
+    private static final int OPEN = 1, SAVE = 2, STAGING = 3, SELECT_FILE = 4;
     private static final int MAX_INPUT = 2 * 1024 * 1024;
     private final ExecutorService files = Executors.newSingleThreadExecutor();
     private WebView web;
@@ -48,6 +50,7 @@ public final class MainActivity extends Activity {
     private int picker;
     private String pendingImport;
     private File pendingExport;
+    private ValueCallback<Uri[]> fileSelection;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -88,6 +91,21 @@ public final class MainActivity extends Activity {
         settings.setAllowContentAccess(false);
         settings.setBlockNetworkLoads(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        web.setWebChromeClient(new WebChromeClient() {
+            @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback, FileChooserParams params) {
+                if (picker != 0 || !PAGE.equals(view.getUrl()) || params.getMode() != FileChooserParams.MODE_OPEN) {
+                    callback.onReceiveValue(null);
+                    return true;
+                }
+                // Providers may label XYZ as text, chemical data or a generic binary file.
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
+                picker = SELECT_FILE;
+                fileSelection = callback;
+                try { startActivityForResult(intent, SELECT_FILE); }
+                catch (android.content.ActivityNotFoundException e) { finishFileSelection(null); toast(R.string.file_error); }
+                return true;
+            }
+        });
         web.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 // All work happens on the original document, including file selection.
@@ -190,10 +208,14 @@ public final class MainActivity extends Activity {
 
     @Override protected void onActivityResult(int request, int result, Intent data) {
         super.onActivityResult(request, result, data);
-        if (request != OPEN && request != SAVE) return;
-        picker = 0;
         Uri uri = data == null ? null : data.getData();
         boolean selected = result == RESULT_OK && uri != null && "content".equals(uri.getScheme());
+        if (request == SELECT_FILE) {
+            if (fileSelection != null) finishFileSelection(selected ? new Uri[]{uri} : null);
+            return;
+        }
+        if (request != OPEN && request != SAVE) return;
+        picker = 0;
         if (request == SAVE) {
             final File staged = pendingExport;
             pendingExport = null;
@@ -222,6 +244,12 @@ public final class MainActivity extends Activity {
     }
 
     private static final class LimitExceeded extends IOException {}
+    private void finishFileSelection(Uri[] uris) {
+        ValueCallback<Uri[]> callback = fileSelection;
+        fileSelection = null;
+        picker = 0;
+        callback.onReceiveValue(uris);
+    }
     private static String readText(InputStream input, int limit) throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         byte[] buffer = new byte[8192];
@@ -252,12 +280,13 @@ public final class MainActivity extends Activity {
 
     @Override protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
-        state.putInt("picker", picker == STAGING ? 0 : picker);
+        state.putInt("picker", picker == SAVE || picker == OPEN ? picker : 0);
         if (pendingExport != null) state.putString("pendingExport", pendingExport.getName());
     }
 
     @Override protected void onDestroy() {
         ready = false;
+        if (fileSelection != null) finishFileSelection(null);
         if (channel != null) channel.close();
         files.shutdown();
         if (web != null) web.destroy();

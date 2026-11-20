@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
@@ -20,6 +21,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -59,7 +62,7 @@ public final class SmokeTest extends Instrumentation {
     }
 
     // A real scoped-storage content URI goes through the activity's normal
-    // picker result handlers. Only the user's two picker choices are automated.
+    // picker result handlers. Instrumentation supplies the user's document choices.
     private JSONObject readExport(ContentResolver resolver, Uri uri) throws Exception {
         for (int attempt = 0; attempt < 100; attempt++) {
             try (InputStream input = resolver.openInputStream(uri)) {
@@ -76,7 +79,7 @@ public final class SmokeTest extends Instrumentation {
     @Override public void onStart() {
         Context target = getTargetContext();
         ContentResolver resolver = target.getContentResolver();
-        Uri uri = null;
+        Uri uri = null, xyz = null;
         Activity activity = null;
         Bundle result = new Bundle();
         int status = Activity.RESULT_CANCELED;
@@ -125,12 +128,37 @@ public final class SmokeTest extends Instrumentation {
             until("document.getElementById('group').value === 'C2v' && document.getElementById('function-count').textContent.trim().startsWith('2')");
             if (open.getHits() != 1) throw new AssertionError("Open picker was not requested");
             removeMonitor(open);
+            javascript("window.byId=id=>document.getElementById(id);window.change=(id,v)=>{byId(id).value=v;byId(id).dispatchEvent(new Event('change'))};"
+                + "change('workflow','vibrations');change('language','en');byId('formula-text').value='CH4';"
+                + "byId('formula-text').dispatchEvent(new Event('input'));byId('find-models').click();byId('formula-choices').firstElementChild.click()");
+            until("byId('group').value==='Td' && byId('calculate').disabled");
+            javascript("byId('confirm-structure').click();byId('calculate').click()");
+            until("byId('result-body').textContent.includes('IR allowed 2 · Raman allowed 4')");
+            until("getComputedStyle(byId('result-body').querySelector('td')).textAlign==='center' && parseFloat(getComputedStyle(document.body).paddingTop)>=56 && parseFloat(getComputedStyle(document.body).paddingBottom)>=56");
+
+            values.clear();
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, "Basis-water.xyz");
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "text/plain");
+            xyz = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+            if (xyz == null) throw new AssertionError("Missing XYZ test document");
+            try (OutputStream out = resolver.openOutputStream(xyz)) {
+                out.write("3\nwater\nO 0 0 0\nH 0.75695 0 0.58588\nH -0.75695 0 0.58588\n".getBytes(StandardCharsets.UTF_8));
+            }
+            ActivityMonitor xyzPicker = answerPicker(Intent.ACTION_OPEN_DOCUMENT, xyz);
+            javascript("byId('open-xyz').scrollIntoView({block:'center'});byId('open-xyz').focus()");
+            sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+            until("byId('composition').textContent==='H₂O' && byId('calculate').disabled");
+            if (xyzPicker.getHits() != 1) throw new AssertionError("XYZ picker was not requested");
+            removeMonitor(xyzPicker);
+            javascript("change('group','C2v');byId('confirm-structure').click();byId('calculate').click()");
+            until("byId('result-body').textContent.includes('IR allowed 3 · Raman allowed 3')");
             result.putString("result", "BASIS_SMOKE_OK");
             status = Activity.RESULT_OK;
         } catch (Throwable error) {
             result.putString("error", android.util.Log.getStackTraceString(error));
         } finally {
             if (uri != null) resolver.delete(uri, null, null);
+            if (xyz != null) resolver.delete(xyz, null, null);
             if (activity != null) {
                 final Activity active = activity;
                 runOnMainSync(active::finish);
