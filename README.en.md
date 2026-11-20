@@ -4,7 +4,7 @@
 
 ## 0.5.0 spectroscopy development preview
 
-The development branch includes a vibrational symmetry prototype. Try the water, methane and CO₂ examples to inspect selection rules for fundamentals. [Spectroscopy design and acceptance examples (Chinese)](basis-character-prototype/SPECTROSCOPY_DESIGN.md)
+Enter a molecular formula to choose a candidate structure, or import XYZ coordinates. For C₂H₆O, select ethanol or dimethyl ether and review its 3D geometry. The module constructs the 3N displacement representation from all atoms, removes translations and rotations, and reports vibrational degeneracies, IR polarization directions and Raman tensor bases. [Offline setup and examples](basis-character-prototype/README.en.md)
 
 ## Integrated Point Groups & Basis Functions 0.4.5
 

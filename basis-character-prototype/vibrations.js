@@ -73,7 +73,58 @@
     return {geometry: 'linear', signs};
   }
 
-  function activityRows(table, vibrations, dipole, tensor) {
+  // Six real coordinates in an orthonormal Frobenius basis. In particular the
+  // xy seed has equal entries 1/√2 at (x,y) and (y,x).
+  const tensorComponents = [[0,0], [1,1], [2,2], [0,1], [0,2], [1,2]];
+  function asTensor(coordinates) {
+    const matrix = Array.from({length: 3}, () => [0, 0, 0]);
+    tensorComponents.forEach(([i, j], k) => {
+      matrix[i][j] = matrix[j][i] = coordinates[k] * (i === j ? 1 : Math.SQRT1_2);
+    });
+    return matrix;
+  }
+  const tensorSeeds = tensorComponents.map((_, k) => {
+    const coordinates = Array(6).fill(0);
+    coordinates[k] = 1;
+    return asTensor(coordinates);
+  });
+
+  // Each column is the image of a Cartesian seed under the real character
+  // projector, expressed in orthonormal coordinates.
+  function projectedBasis(images, weights, expectedRank) {
+    const basis = [];
+    for (const [column, seed] of images[0].entries()) {
+      const vector = seed.map(() => 0);
+      for (const [op, weight] of weights.entries()) {
+        images[op][column].forEach((value, i) => { vector[i] += weight * value; });
+      }
+      for (const axis of basis) {
+        const overlap = axis.reduce((sum, value, i) => sum + value * vector[i], 0);
+        axis.forEach((value, i) => { vector[i] -= overlap * value; });
+      }
+      const length = Math.hypot(...vector);
+      if (length <= 1e-8) continue;
+      const unit = vector.map(x => clean(x / length));
+      const sign = Math.sign(unit.find(x => Math.abs(x) > 1e-8));
+      basis.push(unit.map(x => x ? sign * x : 0));
+    }
+    if (basis.length !== expectedRank) {
+      throw new E.BasisError('vibration_reduction', '振动或活性表示未通过约化检查。');
+    }
+    return basis;
+  }
+
+  function activityRows(group, indices, table, vibrations, dipole, tensor) {
+    const classOf = Array(group.size);
+    indices.forEach((source, column) => {
+      for (const op of group.classes[source].members) classOf[op] = column;
+    });
+    const dipoleImages = group.matrices.map(E.transpose);
+    const tensorImages = group.matrices.map((m, op) => tensorSeeds.map(seed => {
+      const moved = E.matmul(m, E.matmul(seed, dipoleImages[op]));
+      return tensorComponents.map(([i, j]) =>
+        i === j ? moved[i][i] : (moved[i][j] + moved[j][i]) * Math.SQRT1_2);
+    }));
     const activities = [], used = new Set();
     for (let i = 0; i < table.X.length; i++) {
       const multiplicity = vibrations.integer_a[i];
@@ -87,16 +138,42 @@
       used.add(j);
       const irreps = j === i ? [table.irreps[i]] : [table.irreps[i], table.irreps[j]];
       const degeneracy = irreps.length * table.X[i][0];
+      // For a conjugate pair, the sum of its two central projectors has
+      // real weights 2 d Re(χ) / |G| and selects the whole real partner space.
+      const weights = classOf.map(k => degeneracy * R.z(table.X[i][k]).re / group.size);
+      const irDirections = projectedBasis(dipoleImages, weights, dipole.integer_a[i] * degeneracy);
+      const ramanTensors = projectedBasis(tensorImages, weights, tensor.integer_a[i] * degeneracy).map(asTensor);
       activities.push({irreps, multiplicity, degeneracy, degreesOfFreedom: multiplicity * degeneracy,
-        irActive: dipole.integer_a[i] > 0, ramanActive: tensor.integer_a[i] > 0});
+        irActive: dipole.integer_a[i] > 0, ramanActive: tensor.integer_a[i] > 0, irDirections, ramanTensors});
     }
     return activities;
   }
 
+  function prepareGeometry(spec) {
+    const origin = spec?.vibrationOrigin;
+    if (origin !== undefined && origin !== 'input' && origin !== 'centroid') {
+      throw new E.BasisError('invalid_origin', '坐标单位或对称原点设置无效。');
+    }
+    const action = E.siteAction(spec, {useCentroid: origin === 'centroid'});
+    return {action, ...classify(action)};
+  }
+
+  function review(spec) {
+    const {action, geometry} = prepareGeometry(spec);
+    const {group, sites, permutations, origin} = action;
+    let maxDeviation = 0;
+    permutations.forEach((targets, op) => {
+      sites.forEach((site, i) => {
+        const moved = E.apply(group.matrices[op], site.position);
+        maxDeviation = Math.max(maxDeviation, E.distance(moved, sites[targets[i]].position));
+      });
+    });
+    return {geometry, group: group.name, atomCount: sites.length, operations: group.size, maxDeviation, origin};
+  }
+
   function calculate(spec) {
-    const action = E.siteAction(spec);
+    const {action, geometry, signs} = prepareGeometry(spec);
     const {group, sites, permutations, tolerance} = action;
-    const {geometry, signs} = classify(action);
     const table = R.table(group.name);
     const dipole = group.matrices.map(trace);
     const fixed = permutations.map(p => p.reduce((count, target, i) => count + Number(target === i), 0));
@@ -133,7 +210,7 @@
     const vibrations = reduce(vibration), ramanTensor = reduce(tensor);
     const degreesOfFreedom = 3 * sites.length - 3 - ({atomic: 0, linear: 2, nonlinear: 3})[geometry];
     if (vibrations.dimension !== degreesOfFreedom) throw new E.BasisError('dimension_check', '单位操作特征标与维数不符。');
-    const activities = activityRows(table, vibrations, translations, ramanTensor);
+    const activities = activityRows(group, indices, table, vibrations, translations, ramanTensor);
     const counts = {irBands: 0, ramanBands: 0, silentBands: 0, totalBands: 0, irComponents: 0, ramanComponents: 0};
     for (const row of activities) {
       counts.totalBands += row.multiplicity;
@@ -141,7 +218,7 @@
       if (row.ramanActive) { counts.ramanBands += row.multiplicity; counts.ramanComponents += row.degreesOfFreedom; }
       if (!row.irActive && !row.ramanActive) counts.silentBands += row.multiplicity;
     }
-    return {schemaVersion: 1, group: group.name, geometry, atomCount: sites.length, degreesOfFreedom,
+    return {schemaVersion: 1, group: group.name, geometry, atomCount: sites.length, degreesOfFreedom, origin: action.origin,
       classes: table.classes.slice(), classSizes: table.sizes.slice(), fixedAtoms: classVector(fixed), positionTolerance: tolerance,
       cartesian, translations, rotations, vibrations, irDipole: translations, ramanTensor, activities, counts};
   }
@@ -160,7 +237,7 @@
     return {schemaVersion: 1, group, sites, functions: [], tolerance: 1e-6, note: ''};
   }
 
-  const api = {calculate, template};
+  const api = {review, calculate, template};
   if (commonJS) module.exports = api;
   root.VibrationEngine = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

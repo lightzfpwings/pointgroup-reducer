@@ -4,7 +4,7 @@
 
 ## 0.5.0 光譜開發預覽
 
-此開發線保留振動對稱性原型，可從水、甲烷或 CO₂ 範例檢視基頻選擇定則。 [設計與驗收範例](basis-character-prototype/SPECTROSCOPY_DESIGN.md)
+可以輸入化學式選擇候選結構，也可以匯入 XYZ。以 C₂H₆O 為例，先選用乙醇或二甲醚並核對三維結構。程式從所有原子構造 3N 位移表示，扣除平移與轉動後給出振動簡併度、紅外偏振與拉曼張量。[離線執行與範例](basis-character-prototype/README.zh-Hant.md)
 
 ## 點群與基函數整合版 0.4.5
 

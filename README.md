@@ -4,7 +4,7 @@
 
 ## 0.5.0 光谱开发预览
 
-本开发线保留振动对称性原型，可从水、甲烷或 CO₂ 示例查看基频选择定则。 [设计与验收样例](basis-character-prototype/SPECTROSCOPY_DESIGN.md)
+可以输入化学式选择候选结构，也可以导入 XYZ。以 C₂H₆O 为例，先选用乙醇或二甲醚并核对三维结构。程序从全部原子构造 3N 位移表示，扣除平移与转动后给出振动简并度、红外偏振和拉曼张量。[离线运行与示例](basis-character-prototype/README.md)
 
 ## 点群与基函数整合版 0.4.5
 

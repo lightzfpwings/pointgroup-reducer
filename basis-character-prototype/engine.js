@@ -254,7 +254,7 @@
       return { id: s.id, kind: s.kind.trim(), position: vector(s.position, '中心 ' + s.id + ' 的坐标') };
     });
     for (let i = 0; i < sites.length; i++) for (let j = 0; j < i; j++) {
-      if (distance(sites[i].position, sites[j].position) <= tol) fail('coincident_sites', '中心 ' + sites[i].id + ' 与 ' + sites[j].id + ' 坐标重合。多个轨道应引用同一个中心。');
+      if (distance(sites[i].position, sites[j].position) <= tol) fail('coincident_sites', '中心 ' + sites[i].id + ' 与 ' + sites[j].id + ' 坐标重合。多个轨道应引用同一个中心。', {sites: [sites[i].id, sites[j].id]});
     }
     return { sites, tol };
   }
@@ -270,9 +270,18 @@
       return mapping;
     });
   }
-  function siteAction(spec) {
+  function centroid(sites) {
+    return [0, 1, 2].map(k => sites.reduce((sum, site) => sum + site.position[k] / sites.length, 0));
+  }
+  function siteAction(spec, {useCentroid = false} = {}) {
     if (!spec || typeof spec !== 'object') fail('invalid_spec', '输入项目格式有误。');
     const g = group(spec.group), { sites, tol } = validateSites(spec);
+    // The centroid is fixed by every permutation. Translating this validated
+    // copy preserves both the input coordinates and the laboratory axes.
+    const origin = useCentroid ? centroid(sites) : [0, 0, 0];
+    if (useCentroid) {
+      for (const site of sites) site.position = site.position.map((value, k) => value - origin[k]);
+    }
     const permutations = positionMaps(g, sites, tol);
     // Unique matches within a tolerance can still violate p(ab) = p(a)p(b).
     for (const generator of g.generatorIndexes) {
@@ -283,7 +292,7 @@
         }
       }
     }
-    return { group: g, sites, tolerance: tol, permutations };
+    return { group: g, sites, tolerance: tol, permutations, origin };
   }
   function angularQR(columns) {
     const q = [], r = columns.map(() => Array(columns.length).fill(0));
@@ -471,7 +480,7 @@
     } else fail('template', '未知示例。');
     return { schemaVersion: 1, group: groupName, tolerance: 1e-6, sites, functions, note: name === 'benzene' ? '理想正六边形；半径为示意值，坐标单位自定，不代表实验键长。' : name === 'icosahedron' ? '单位球面上的正二十面体 12 个顶点；每个顶点一个 s 函数。' : '教学几何；只定义对称变换，不计算能量。' };
   }
-  const api = { VERSION, BasisError, groupNames: supportedNames, group, orbit, siteAction, calculate, template, apply, matmul, transpose, distance, dComponents, dTensor, frame };
+  const api = { VERSION, BasisError, groupNames: supportedNames, group, orbit, validateSites, centroid, siteAction, calculate, template, apply, matmul, transpose, distance, dComponents, dTensor, frame };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.BasisEngine = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

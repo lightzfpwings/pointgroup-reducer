@@ -14,7 +14,7 @@ PAGE_NAME = f"BasisCharacterPrototype-{VERSION}"
 LANGUAGES = ("zh-Hans", "zh-Hant", "en")
 CORE_SCRIPTS = (
     "engine.js", "reducer-catalog.js", "reducer-adapter.js",
-    "reduction-catalog.js", "reduction-engine.js", "salc.js", "vibrations.js", "messages-data.js",
+    "reduction-catalog.js", "reduction-engine.js", "salc.js", "vibrations.js", "structure.js", "formula-models.js", "messages-data.js",
     "i18n.js", "math-format.js",
 )
 APP_SCRIPT = "app.js"
@@ -87,7 +87,7 @@ def source_archive():
     )]
     for folder, pattern in (
         ("localization", "*.tsv"), ("localization", "*.py"),
-        ("compatibility", "*.py"), ("examples", "*.json"),
+        ("compatibility", "*.py"), ("examples", "*.json"), ("examples", "*.xyz"),
         ("tests", "*.test.js"), ("tests/fixtures", "*.json"),
     ):
         files.extend(sorted((ROOT / folder).glob(pattern)))

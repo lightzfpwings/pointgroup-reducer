@@ -16,7 +16,9 @@ function harness(bundled = false,languageVariant = '') {
     constructor(tag = 'div') { this.tagName = tag.toUpperCase(); this.children = []; this.attributes = {}; this.dataset = {}; this.value = ''; this.checked = false; this.disabled = false; this.className = ''; this._text = ''; this.files = []; }
     set textContent(value) { this._text = String(value); this.children = []; }
     get textContent() { return this._text + this.children.map(c => c.textContent).join(''); }
-    append(...nodes) { nodes.forEach(node => { if (typeof node === 'string') { const t = new Element('text'); t.textContent = node; node = t; } node.parent = this; this.children.push(node); if (this.tagName === 'SELECT' && this.children.length === 1) this.value = node.value; }); }
+    get parentNode() { return this.parent; }
+    getContext() { return null; } // Pixel rendering is checked in the offline browser smoke.
+    append(...nodes) { nodes.forEach(node => { if (typeof node === 'string') { const t = new Element('text'); t.textContent = node; node = t; } if (node.parent) node.remove(); node.parent = this; this.children.push(node); if (this.tagName === 'SELECT' && this.children.length === 1) this.value = node.value; }); }
     replaceChildren(...nodes) { this._text = ''; this.children = []; if (this.tagName === 'SELECT') this.value = ''; this.append(...nodes); }
     setAttribute(name, value) { this.attributes[name] = String(value); }
     getAttribute(name) { return this.attributes[name]??null; }
@@ -45,7 +47,7 @@ function harness(bundled = false,languageVariant = '') {
     const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
-  } else for(const name of ['salc.js','vibrations.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
+  } else for(const name of ['salc.js','vibrations.js','structure.js','formula-models.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);
   return { $, downloads, elements, document, context,statics,preferences, template: name => templates.find(t => t.dataset.template === name).click(), click: id => $(id).click(), flush: () => { while (timers.length) timers.shift()(); }, set: (id, value, changed = false) => { $(id).value = String(value); if (changed && $(id).onchange) $(id).onchange(); }, descendants: function walk(node) { return node.children.flatMap(c => [c, ...walk(c)]); } };
 }
@@ -237,15 +239,27 @@ test('SALC coefficients follow the selected irrep and copy through language, cli
 test('vibrations use every atom, load geometry-only projects and discard stored results', async () => {
   const h = harness(); h.template('water'); h.set('workflow','vibrations',true);
   assert(h.$('basis-section').classList.contains('hidden')); assert(!h.$('positions-section').classList.contains('hidden'));
+  assert(h.$('calculate').disabled); h.click('confirm-structure');
   h.click('calculate'); h.flush(); h.set('language','en',true);
   assert.equal(h.$('export-result').disabled,false); assert(h.$('result-body').textContent.includes('IR allowed 3'));
   assert(!/[\u4e00-\u9fff]/.test(h.$('result-body').textContent));
+  const rows = h.descendants(h.$('result-body')).filter(n => n.tagName === 'TR')
+    .map(row => row.children.map(cell => cell.textContent));
+  assert.deepEqual(rows.find(row => row[0] === 'A1'), ['A1','2','1','2','Allowed','Allowed','z','xx, yy, zz']);
+  assert.deepEqual(rows.find(row => row[0] === 'B1'), ['B1','1','1','1','Allowed','Allowed','x','xz']);
+  assert(h.$('result-body').textContent.includes('3 × 3 − 3 − 3 = 3'));
   h.click('copy-text'); assert(h.$('copy-content').value.includes('2A1 + B1'));
+  assert(h.$('copy-content').value.includes('B1\t1\t1\t1\tAllowed\tAllowed\tx\txz'));
   h.click('copy-latex'); assert(h.$('copy-content').value.includes('Raman allowed'));
+  assert(h.$('copy-content').value.includes('\\mathrm{xz}'));
   h.click('export-result'); const exported = JSON.parse(await h.downloads.at(-1).blob.text());
   assert.equal(exported.input.mode,'vibrations'); assert.equal(exported.spectrum.atomCount,3);
+  assert.deepEqual(exported.spectrum.activities[1].irDirections, [[1,0,0]]);
+  const [xz] = exported.spectrum.activities[1].ramanTensors;
+  assert.equal(xz[0][2],xz[2][0]); assert(Math.abs(xz[0][2] - Math.SQRT1_2) < 1e-12);
   delete exported.input.functions; exported.spectrum.degreesOfFreedom = 99;
   h.click('new-project'); h.context.BasisDesktop.importJSON(JSON.stringify(exported)); assert(h.$('export-result').disabled);
+  assert(h.$('calculate').disabled); h.click('confirm-structure');
   h.click('calculate'); h.flush(); h.click('export-result');
   assert.equal(JSON.parse(await h.downloads.at(-1).blob.text()).spectrum.degreesOfFreedom,3);
   h.set('workflow','basis',true); h.click('calculate'); h.flush();
@@ -255,11 +269,138 @@ test('vibrations use every atom, load geometry-only projects and discard stored 
 test('spectroscopy templates preserve mode on save and undo and report IR/Raman bands in the bundle', async () => {
   const h = harness(true,'en');
   for (const [name, count, ir, raman] of [['methane',9,2,4],['carbon-dioxide',4,2,1]]) {
-    h.template(name); assert.equal(h.$('workflow').value,'vibrations'); h.click('calculate'); h.flush();
+    h.template(name); assert.equal(h.$('workflow').value,'vibrations'); h.click('confirm-structure'); h.click('calculate'); h.flush();
     assert(h.$('result-body').textContent.includes('IR allowed '+ir+' · Raman allowed '+raman));
+    if (name === 'carbon-dioxide') {
+      assert(h.$('result-body').textContent.includes('3 × 3 − 3 − 2 = 4'));
+      assert(h.$('copy-content').value.includes('A1g\t1\t1\t1\tForbidden\tAllowed\t—\txx + yy, zz'));
+      assert(h.$('copy-content').value.includes('Eu\t1\t2\t2\tAllowed\tForbidden\tx, y\t—'));
+    }
     h.click('export-result'); const result = JSON.parse(await h.downloads.at(-1).blob.text());
     assert.equal(result.spectrum.degreesOfFreedom,count);
     h.click('save-project'); const saved = JSON.parse(await h.downloads.at(-1).blob.text()); assert.equal(saved.input.mode,'vibrations');
     h.set('workflow','manual',true); h.click('undo'); assert.equal(h.$('workflow').value,'vibrations'); assert(h.$('export-result').disabled);
   }
+});
+
+test('XYZ preview precedes confirmation, measurements survive camera changes and edits revoke the spectrum', async () => {
+  const h = harness(true, 'en');
+  h.set('workflow','vibrations',true);
+  // Translation of the whole molecule must not change modes or exported file axes.
+  const xyz = '3\nWater\nO 8 9 10\nH 8.75695 9 10.58588\nH 7.24305 9 10.58588';
+  h.$('xyz-file').files = [{size:xyz.length, text:async () => xyz}];
+  await h.$('xyz-file').onchange();
+  assert.equal(h.$('composition').textContent,'H₂O');
+  assert.equal(h.$('vibration-origin').value,'centroid');
+  assert(h.$('calculate').disabled);
+  h.set('measure-a','H2',true); h.set('measure-b','O1',true); h.set('measure-c','H3',true);
+  assert.match(h.$('measure-result').textContent,/0\.95719.*Å.*104\.520/);
+  h.click('confirm-structure'); // Inherited D6h is incompatible with water.
+  assert.match(h.$('review-state').textContent,/axis convention/);
+  assert(h.$('calculate').disabled);
+  h.set('group','C2v',true); h.click('confirm-structure');
+  assert.match(h.$('review-state').textContent,/Structure confirmed.*C2v.*checked 4/);
+  h.click('view-xy'); h.set('language','zh-Hant',true);
+  assert.equal(h.$('calculate').disabled,false); assert.match(h.$('review-state').textContent,/結構已確認/);
+  h.click('calculate'); h.flush(); h.click('export-result');
+  const saved = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.deepEqual(saved.input.sites[0].position,[8,9,10]);
+  assert.equal(saved.input.coordinateUnit,'angstrom'); assert.equal(saved.input.vibrationOrigin,'centroid');
+  assert.deepEqual(saved.input.functions,[]); assert.equal(saved.spectrum.counts.irBands,3);
+  assert(Math.abs(saved.spectrum.origin[2] - 10.39058666666667) < 1e-10);
+  h.context.BasisDesktop.importJSON(JSON.stringify(saved)); assert(h.$('calculate').disabled);
+  h.click('confirm-structure');
+  h.set('tolerance',1e-5,true); assert(h.$('calculate').disabled);
+  h.click('confirm-structure'); h.set('vibration-origin','input',true);
+  h.click('confirm-structure'); assert(h.$('calculate').disabled);
+  h.set('vibration-origin','centroid',true); h.click('confirm-structure'); h.click('calculate');
+  const oxygenX = h.descendants(h.$('sites-table')).find(n => n.getAttribute('aria-label') === 'O1 x');
+  oxygenX.value = '8.1'; oxygenX.oninput(); oxygenX.onchange(); h.flush();
+  assert(h.$('calculate').disabled); assert(h.$('export-result').disabled);
+  h.click('confirm-structure'); assert(h.$('calculate').disabled); assert(h.$('review-state').classList.contains('error'));
+  h.click('undo'); assert(h.$('calculate').disabled); h.click('confirm-structure'); assert(!h.$('calculate').disabled);
+});
+
+test('invalid and superseded XYZ imports never replace the reviewed atom set', async () => {
+  const h = harness(); h.template('methane'); h.click('confirm-structure'); h.click('calculate'); h.flush();
+  const xyz = fs.readFileSync(path.join(__dirname,'../examples/water.xyz'),'utf8');
+  h.set('xyz-text','3\nwater\nO 0 0 0'); h.$('xyz-text').oninput();
+  assert(h.$('calculate').disabled); assert(h.$('export-result').disabled);
+  h.click('apply-xyz'); assert.match(h.$('xyz-feedback').textContent,/原有坐标已保留/);
+  assert.equal(h.$('composition').textContent,'CH₄'); assert(h.$('confirm-structure').disabled);
+  h.click('discard-xyz'); h.click('confirm-structure'); assert(!h.$('calculate').disabled);
+  let complete;
+  h.$('xyz-file').files = [{size:xyz.length, text:() => new Promise(resolve => { complete = resolve; })}];
+  const first = h.$('xyz-file').onchange();
+  assert(h.$('calculate').disabled); assert(h.$('confirm-structure').disabled);
+  h.template('carbon-dioxide'); complete(xyz); await first;
+  assert.equal(h.$('composition').textContent,'CO₂');
+  h.set('xyz-text',xyz); h.$('xyz-text').oninput(); h.click('apply-xyz');
+  assert.equal(h.$('composition').textContent,'H₂O'); assert(h.$('calculate').disabled);
+  h.click('undo'); assert.equal(h.$('composition').textContent,'CO₂'); assert(h.$('calculate').disabled);
+});
+
+function searchFormula(h, formula) {
+  h.set('formula-text',formula); h.$('formula-text').oninput();
+  h.$('formula-form').onsubmit({preventDefault() {}});
+  return h.$('formula-choices').children;
+}
+
+test('formula selection, structure review, calculation and project reload use the actual chosen coordinates', async () => {
+  const h = harness(true,'en');
+  h.set('workflow','vibrations',true);
+  const original = h.$('composition').textContent;
+  let choices = searchFormula(h,'(CH₃)₂O');
+  assert.equal(choices.length,2); assert.match(choices[0].textContent,/Ethanol/);
+  assert.equal(h.$('composition').textContent,original); assert(h.$('confirm-structure').disabled);
+  choices[0].click();
+  assert.equal(h.$('composition').textContent,'C₂H₆O'); assert.equal(h.$('group').value,'Cs');
+  assert(h.$('calculate').disabled); h.click('confirm-structure'); h.click('calculate'); h.flush();
+  assert.match(h.$('result-body').textContent,/IR allowed 21 · Raman allowed 21/);
+  h.$('formula-choices').children[1].click(); assert(h.$('calculate').disabled && h.$('export-result').disabled);
+  assert.equal(h.$('group').value,'C2v'); assert.match(h.$('model-origin').textContent,/Dimethyl ether.*NIST/);
+  h.set('language','zh-Hant',true); choices = h.$('formula-choices').children;
+  assert.match(choices[0].textContent,/反式構形/); assert.equal(choices[1].getAttribute('aria-pressed'),'true');
+  h.set('language','en',true); h.click('confirm-structure'); h.click('calculate'); h.flush();
+  assert.match(h.$('copy-content').value,/Starting model.*Dimethyl ether/);
+  assert.match(h.$('result-body').textContent,/IR allowed 17 · Raman allowed 21/);
+  h.click('export-result');
+  const saved = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.equal(saved.input.formulaModel.id,'dimethyl-ether'); assert.equal(saved.input.formulaModel.formula,'C2H6O');
+  assert.match(saved.input.formulaModel.sourceURL,/115106/);
+  assert.equal(saved.input.sites.length,9); assert.equal(saved.spectrum.counts.irBands,17);
+  saved.input.sites.forEach(site => { site.position = site.position.map(v => 1.1*v); });
+  h.context.BasisDesktop.importJSON(JSON.stringify(saved));
+  assert(h.$('calculate').disabled); assert.equal(h.$('formula-text').value,'');
+  assert.match(h.$('model-origin').textContent,/Dimethyl ether/);
+  h.click('confirm-structure'); h.click('calculate'); h.flush(); h.click('export-result');
+  const loaded = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.deepEqual(loaded.input.sites,saved.input.sites);
+  assert.equal(loaded.spectrum.counts.irBands,17);
+});
+
+test('formula drafts block stale results across failed lookups, switches, undo and asynchronous XYZ reads', async () => {
+  const h = harness();
+  h.template('methane'); h.click('confirm-structure'); h.click('calculate'); h.flush();
+  assert.equal(searchFormula(h,'CH4+').length,0);
+  assert.match(h.$('formula-feedback').textContent,/中性分子式/);
+  assert(h.$('confirm-structure').disabled && h.$('calculate').disabled && h.$('export-result').disabled);
+  assert.equal(searchFormula(h,'C60').length,0);
+  assert.match(h.$('formula-feedback').textContent,/离线模型库暂无候选/);
+  h.click('discard-formula'); h.click('confirm-structure'); assert(!h.$('calculate').disabled);
+  const oldCandidates = searchFormula(h,'C2H2Cl2');
+  searchFormula(h,'CH4'); oldCandidates[2].click(); assert(h.$('confirm-structure').disabled);
+  h.$('formula-choices').children[0].click(); h.click('confirm-structure'); h.click('calculate');
+  searchFormula(h,'C2H2Cl2')[2].click(); h.flush();
+  assert(h.$('calculate').disabled && h.$('export-result').disabled); assert.equal(h.$('group').value,'C2h');
+  h.click('undo'); assert.match(h.$('model-origin').textContent,/甲烷/); assert(h.$('calculate').disabled);
+  let complete;
+  h.$('xyz-file').files = [{size:20,text:() => new Promise(resolve => { complete=resolve; })}];
+  const read = h.$('xyz-file').onchange();
+  searchFormula(h,'C2H6O')[0].click();
+  complete('2\nH2\nH 0 0 0\nH 0 0 0.74'); await read;
+  assert.equal(h.$('composition').textContent,'C₂H₆O'); assert.equal(h.$('group').value,'Cs');
+  h.set('xyz-text','2\nH2\nH 0 0 0\nH 0 0 0.74'); h.$('xyz-text').oninput(); h.click('apply-xyz');
+  assert.equal(h.$('composition').textContent,'H₂'); assert.equal(h.$('model-origin').textContent,'');
+  assert.equal(h.$('formula-choices').children.length,0); assert(h.$('calculate').disabled);
 });
