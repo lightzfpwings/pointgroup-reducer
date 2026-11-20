@@ -47,7 +47,7 @@ Version 0.4.2 fixes mathematical table headers displaying `[object MathMLMathEle
 
 Version 0.4.3 adds the Windows x64 wrapper, native JSON dialogs, clipboard support and remembered language menus. It also fixes position-tolerance editing. Run `python packaging/build_windows.py` on Windows x64 with the .NET 10 SDK to build the package. The package self-check runs the shared calculation script through Jint. The 0.4.4 Windows executable has no Authenticode signature. The original release includes the offline WebView2 installer, and the lightweight ZIP includes a download shortcut.
 
-## 0.5.0 spectroscopy development preview
+## Vibrational spectroscopy in 0.5.0
 
 **Vibrations (IR and Raman)** uses the selected spatial point group and the coordinates of every atom, including atoms at the symmetry centre. Open or paste a single XYZ frame, enter coordinates manually or load a project. An XYZ frame has an atom count (1–120), a comment line that may be blank, then one element symbol and three coordinates in Å per atom. D and T are distinct isotope labels.
 
