@@ -180,6 +180,7 @@ d 的局部 x′、z′ 轴必须互相垂直。	d 的局部 x′、z′ 軸必�
 函数编号重复或引用了不存在的中心。	函數編號重複或引用不存在的中心。	Duplicate function IDs or unknown sites.
 已载入输入。请重新计算，不沿用文件中的旧结果。	已載入輸入。請重新計算，不沿用檔案中的舊結果。	Input opened. Recalculate; saved results are not reused.
 输入文件不能超过 2 MiB。	輸入檔案不能超過 2 MiB。	Input file cannot exceed 2 MiB.
+无法读取所选文件。	無法讀取所選檔案。	Could not read the selected file.
 已撤销最近一次输入修改。	已復原最近一次輸入修改。	Last input change undone.
 已新建空项目，可撤销。	已新增空白專案，可復原。	New empty project. Undo is available.
 需要填写有限数值。	須填寫有限數值。	 must be a finite number.

@@ -252,7 +252,13 @@
     invalidate(t('已载入分子坐标。'));
     render();
   }
-  $('open-xyz').onclick = () => $('xyz-file').click();
+  $('open-xyz').onclick = () => {
+    if (mode !== 'vibrations') return;
+    if (window.BasisAndroid?.readXYZ) {
+      return readInput(window.BasisAndroid.readXYZ, importXYZ, error => { xyzError = error; });
+    }
+    $('xyz-file').click();
+  };
   $('xyz-text').oninput = () => invalidate();
   $('discard-xyz').onclick = () => { $('xyz-text').value = ''; invalidate(); };
   $('apply-xyz').onclick = () => {
@@ -260,24 +266,29 @@
     try { importXYZ($('xyz-text').value); }
     catch (error) { invalidate(); xyzError = error; renderReviewState(); }
   };
-  async function readLocalFile(input, load, onError) {
-    const file = input.files[0];
-    if (!file) return;
-    input.value = '';
+  async function readInput(read, load, onError) {
     if (mode === 'vibrations') {
       invalidate();
       readingStructure = true; renderReviewState();
     }
     const current = ++fileRequest;
     try {
-      if (file.size > 2 * 1024 * 1024) throw new Error('输入文件不能超过 2 MiB。');
-      const text = await file.text();
-      if (current === fileRequest) load(text);
+      const text = await read();
+      if (text !== null && current === fileRequest) load(text);
     } catch (error) {
       if (current === fileRequest) onError(error);
     } finally {
       if (current === fileRequest) { readingStructure = false; renderReviewState(); }
     }
+  }
+  function readLocalFile(input, load, onError) {
+    const file = input.files[0];
+    if (!file) return;
+    input.value = '';
+    return readInput(() => {
+      if (file.size > 2 * 1024 * 1024) throw new Error('输入文件不能超过 2 MiB。');
+      return file.text();
+    }, load, onError);
   }
   $('xyz-file').onchange = () => {
     if (mode === 'vibrations') return readLocalFile($('xyz-file'), importXYZ, error => { xyzError = error; });

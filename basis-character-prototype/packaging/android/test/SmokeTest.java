@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
@@ -150,8 +149,7 @@ public final class SmokeTest extends Instrumentation {
                 out.write("3\nwater\nO 0 0 0\nH 0.75695 0 0.58588\nH -0.75695 0 0.58588\n".getBytes(StandardCharsets.UTF_8));
             }
             ActivityMonitor xyzPicker = answerPicker(Intent.ACTION_OPEN_DOCUMENT, xyz);
-            javascript("byId('open-xyz').scrollIntoView({block:'center'});byId('open-xyz').focus()");
-            sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+            javascript("byId('open-xyz').click()");
             until("byId('composition').textContent==='H₂O' && byId('calculate').disabled");
             if (xyzPicker.getHits() != 1) throw new AssertionError("XYZ picker was not requested");
             removeMonitor(xyzPicker);

@@ -346,6 +346,21 @@ function searchFormula(h, formula) {
   return h.$('formula-choices').children;
 }
 
+test('native XYZ selection reads the chosen document and drops a superseded selection', async () => {
+  const h = harness(); h.template('methane');
+  const xyz = fs.readFileSync(path.join(__dirname,'../examples/water.xyz'),'utf8');
+  let complete;
+  h.context.BasisAndroid = {readXYZ: () => new Promise(resolve => { complete = resolve; })};
+  const first = h.$('open-xyz').onclick();
+  assert(h.$('confirm-structure').disabled);
+  h.template('carbon-dioxide'); complete(xyz); await first;
+  assert.equal(h.$('composition').textContent,'CO₂');
+  const second = h.$('open-xyz').onclick();
+  complete(xyz); await second;
+  assert.equal(h.$('composition').textContent,'H₂O');
+  assert(h.$('calculate').disabled); assert(!h.$('confirm-structure').disabled);
+});
+
 test('formula selection, structure review, calculation and project reload use the actual chosen coordinates', async () => {
   const h = harness(true,'en');
   h.set('workflow','vibrations',true);

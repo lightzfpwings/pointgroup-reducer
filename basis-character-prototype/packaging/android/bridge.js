@@ -8,7 +8,27 @@
     for (const type of ['openJSON', 'saveJSON', 'copyText']) {
       handlers[type] = {postMessage: payload => port.postMessage(JSON.stringify({type, payload}))};
     }
-    port.onmessage = message => window.BasisDesktop.importJSON(message.data);
+    let pendingXYZ, receiveXYZ;
+    window.BasisAndroid = {readXYZ() {
+      if (!pendingXYZ) {
+        pendingXYZ = new Promise((resolve, reject) => {
+          receiveXYZ = document => {
+            if (document.error) reject(new Error(document.error === 'size' ? '输入文件不能超过 2 MiB。' : '无法读取所选文件。'));
+            else resolve(document.text ?? null);
+          };
+        });
+        port.postMessage(JSON.stringify({type: 'openXYZ'}));
+      }
+      return pendingXYZ;
+    }};
+    port.onmessage = message => {
+      const document = JSON.parse(message.data);
+      if (document.type === 'project') window.BasisDesktop.importJSON(document.text);
+      if (document.type !== 'xyz' || !pendingXYZ) return;
+      receiveXYZ(document);
+      pendingXYZ = null;
+      receiveXYZ = null;
+    };
     window.webkit = {messageHandlers: handlers};
     port.postMessage(JSON.stringify({type: 'ready'}));
   }

@@ -10,8 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.WindowInsets;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebMessage;
 import android.webkit.WebMessagePort;
 import android.webkit.WebResourceRequest;
@@ -41,7 +39,7 @@ import java.util.concurrent.Executors;
 public final class MainActivity extends Activity {
     private static final Uri ORIGIN = Uri.parse("https://appassets.androidplatform.net");
     private static final String PAGE = ORIGIN + "/index.html";
-    private static final int OPEN = 1, SAVE = 2, STAGING = 3, SELECT_FILE = 4;
+    private static final int OPEN = 1, SAVE = 2, STAGING = 3, OPEN_XYZ = 4;
     private static final int MAX_INPUT = 2 * 1024 * 1024;
     private final ExecutorService files = Executors.newSingleThreadExecutor();
     private WebView web;
@@ -50,7 +48,6 @@ public final class MainActivity extends Activity {
     private int picker;
     private String pendingImport;
     private File pendingExport;
-    private ValueCallback<Uri[]> fileSelection;
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -91,21 +88,6 @@ public final class MainActivity extends Activity {
         settings.setAllowContentAccess(false);
         settings.setBlockNetworkLoads(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
-        web.setWebChromeClient(new WebChromeClient() {
-            @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback, FileChooserParams params) {
-                if (picker != 0 || !PAGE.equals(view.getUrl()) || params.getMode() != FileChooserParams.MODE_OPEN) {
-                    callback.onReceiveValue(null);
-                    return true;
-                }
-                // Providers may label XYZ as text, chemical data or a generic binary file.
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
-                picker = SELECT_FILE;
-                fileSelection = callback;
-                try { startActivityForResult(intent, SELECT_FILE); }
-                catch (android.content.ActivityNotFoundException e) { finishFileSelection(null); toast(R.string.file_error); }
-                return true;
-            }
-        });
         web.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 // All work happens on the original document, including file selection.
@@ -151,7 +133,8 @@ public final class MainActivity extends Activity {
                         JSONObject message = new JSONObject(event.getData());
                         switch (message.getString("type")) {
                         case "ready": ready = true; deliverImport(); break;
-                        case "openJSON": selectInput(); break;
+                        case "openJSON": selectInput(OPEN); break;
+                        case "openXYZ": selectInput(OPEN_XYZ); break;
                         case "saveJSON": stageExport(message.getJSONObject("payload")); break;
                         case "copyText": copy(message.getJSONObject("payload").getString("text")); break;
                         }
@@ -162,13 +145,19 @@ public final class MainActivity extends Activity {
         });
     }
 
-    private void selectInput() {
-        if (picker != 0) return;
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE)
-            .setType("*/*").putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/json", "text/plain", "application/octet-stream"});
-        picker = OPEN;
-        try { startActivityForResult(intent, OPEN); }
-        catch (android.content.ActivityNotFoundException e) { picker = 0; toast(R.string.file_error); }
+    private void selectInput(int request) {
+        if (picker != 0) {
+            if (request == OPEN_XYZ) sendDocument("xyz", null, null);
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*");
+        if (request == OPEN) intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/json", "text/plain", "application/octet-stream"});
+        picker = request;
+        try { startActivityForResult(intent, request); }
+        catch (android.content.ActivityNotFoundException e) {
+            picker = 0;
+            reportInputError(request, false);
+        }
     }
 
     private void stageExport(JSONObject payload) throws JSONException {
@@ -210,11 +199,7 @@ public final class MainActivity extends Activity {
         super.onActivityResult(request, result, data);
         Uri uri = data == null ? null : data.getData();
         boolean selected = result == RESULT_OK && uri != null && "content".equals(uri.getScheme());
-        if (request == SELECT_FILE) {
-            if (fileSelection != null) finishFileSelection(selected ? new Uri[]{uri} : null);
-            return;
-        }
-        if (request != OPEN && request != SAVE) return;
+        if (request != OPEN && request != OPEN_XYZ && request != SAVE) return;
         picker = 0;
         if (request == SAVE) {
             final File staged = pendingExport;
@@ -236,19 +221,20 @@ public final class MainActivity extends Activity {
                 try (InputStream input = getContentResolver().openInputStream(uri)) {
                     if (input == null) throw new IOException();
                     String text = readText(input, MAX_INPUT);
-                    runOnUiThread(() -> { pendingImport = text; deliverImport(); });
-                } catch (LimitExceeded e) { toast(R.string.file_large); }
-                catch (IOException | SecurityException e) { toast(R.string.file_error); }
+                    runOnUiThread(() -> {
+                        if (request == OPEN_XYZ) sendDocument("xyz", text, null);
+                        else { pendingImport = text; deliverImport(); }
+                    });
+                } catch (LimitExceeded e) { runOnUiThread(() -> reportInputError(request, true)); }
+                catch (IOException | SecurityException e) { runOnUiThread(() -> reportInputError(request, false)); }
             });
-        }
+        } else if (request == OPEN_XYZ) sendDocument("xyz", null, null);
     }
 
     private static final class LimitExceeded extends IOException {}
-    private void finishFileSelection(Uri[] uris) {
-        ValueCallback<Uri[]> callback = fileSelection;
-        fileSelection = null;
-        picker = 0;
-        callback.onReceiveValue(uris);
+    private void reportInputError(int request, boolean tooLarge) {
+        if (request == OPEN_XYZ) sendDocument("xyz", null, tooLarge ? "size" : "read");
+        else toast(tooLarge ? R.string.file_large : R.string.file_error);
     }
     private static String readText(InputStream input, int limit) throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -261,9 +247,17 @@ public final class MainActivity extends Activity {
         return bytes.toString("UTF-8");
     }
 
+    private void sendDocument(String type, String text, String error) {
+        if (!ready || isDestroyed() || !PAGE.equals(web.getUrl())) return;
+        try {
+            JSONObject result = new JSONObject().put("type", type).put("text", text).put("error", error);
+            channel.postMessage(new WebMessage(result.toString()));
+        } catch (JSONException e) { toast(R.string.file_error); }
+    }
+
     private void deliverImport() {
-        if (ready && !isDestroyed() && pendingImport != null && PAGE.equals(web.getUrl())) {
-            channel.postMessage(new WebMessage(pendingImport));
+        if (ready && pendingImport != null) {
+            sendDocument("project", pendingImport, null);
             pendingImport = null;
         }
     }
@@ -286,7 +280,6 @@ public final class MainActivity extends Activity {
 
     @Override protected void onDestroy() {
         ready = false;
-        if (fileSelection != null) finishFileSelection(null);
         if (channel != null) channel.close();
         files.shutdown();
         if (web != null) web.destroy();
