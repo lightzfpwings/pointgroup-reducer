@@ -27,6 +27,11 @@
     return [irBands,ramanBands];
   });
   assert(JSON.stringify(isomerCounts) === '[[21,21],[17,21]]', 'formula isomer activities');
+  const platinum = FormulaModels.lookup('Pt(NH3)2Cl2').candidates;
+  assert(platinum.map(c => c.group).join(',') === 'C2v,C2h', 'platinum stereoisomers');
+  const ion = FormulaModels.lookup('[Fe(CN)6]4-').candidates[0];
+  const ionSpectrum = VibrationEngine.calculate({...ion, tolerance:1e-6, vibrationOrigin:'centroid'});
+  assert(ion.charge === -4 && ionSpectrum.degreesOfFreedom === 33 && ionSpectrum.counts.irBands === 4, 'ferrocyanide');
   const groups = BasisEngine.groupNames.map(name => {
     const g = BasisEngine.group(name);
     const pInput = BasisEngine.template('central-c2v'), dInput = BasisEngine.template('central-d-oh');

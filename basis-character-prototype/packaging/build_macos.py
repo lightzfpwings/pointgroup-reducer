@@ -183,7 +183,7 @@ info = {
     "CFBundleIdentifier": BUNDLE_ID,
     "CFBundleIconFile": "basis-character.icns",
     "CFBundleExecutable": "BasisCharacter", "CFBundlePackageType": "APPL",
-    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "12",
+    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "13",
     "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"], "CFBundleDevelopmentRegion": "en",
     "LSMinimumSystemVersion": "12.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Integrated basis characters and irreducible reduction.",

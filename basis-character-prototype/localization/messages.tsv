@@ -320,7 +320,6 @@ NIST 参考几何	NIST 參考幾何	NIST reference geometry
 选择已收录的候选结构，在下方核对模型。	選擇已收錄的候選結構，在下方核對模型。	Select a candidate from the offline collection to preview it below.
 离线模型库暂无候选。可打开或粘贴 XYZ，或清除查询后手动添加原子。	離線模型庫暫無候選。可開啟或貼上 XYZ，或清除查詢後手動新增原子。	No match in the offline collection. Open or paste an XYZ structure, or clear the search to enter atoms manually.
 请选用候选结构，或清除查询以核对当前结构。	請選用候選結構，或清除查詢以核對目前結構。	Select a candidate, or clear the search to review the current structure.
-请输入中性分子式，注意元素符号大小写。可使用整数下标和圆括号。	請輸入中性分子式，注意元素符號大小寫。可使用整數下標和圓括號。	Enter a neutral molecular formula with case-sensitive element symbols. Integer subscripts and parentheses are supported.
 无法识别化学式中的元素。	無法辨識化學式中的元素。	Unrecognized element in the molecular formula.
 每个分子最多支持 120 个原子。	每個分子最多支援 120 個原子。	Each molecule can contain up to 120 atoms.
 甲烷 · 正四面体	甲烷 · 正四面體	Methane · tetrahedral
@@ -339,3 +338,70 @@ NIST 参考几何	NIST 參考幾何	NIST reference geometry
 氨 · 三角锥形	氨 · 三角錐形	Ammonia · trigonal pyramidal
 三氟化硼 · 平面三角形	三氟化硼 · 平面三角形	Boron trifluoride · trigonal planar
 六氟化硫 · 正八面体	六氟化硫 · 正八面體	Sulfur hexafluoride · octahedral
+乙烷（交错式）	乙烷（交錯式）	Ethane (staggered)
+乙烯	乙烯	Ethene
+乙炔（线形，有限子群）	乙炔（線形，有限子群）	Ethyne (linear, finite subgroup)
+丙烷	丙烷	Propane
+环丙烷	環丙烷	Cyclopropane
+丙二烯	丙二烯	Allene
+丙炔	丙炔	Propyne
+异丁烷	異丁烷	Isobutane
+环己烷（椅式）	環己烷（椅式）	Cyclohexane (chair)
+呋喃	呋喃	Furan
+吡咯	吡咯	Pyrrole
+甲醇	甲醇	Methanol
+甲醛	甲醛	Formaldehyde
+甲酸（反式构象）	甲酸（反式構象）	Formic acid (trans)
+环氧乙烷	環氧乙烷	Oxirane
+甲酰胺	甲醯胺	Formamide
+氯苯	氯苯	Chlorobenzene
+丙烯	丙烯	Propene
+正丁烷（反式构象）	正丁烷（反式構象）	n-Butane (anti)
+顺式-2-丁烯	順式-2-丁烯	cis-2-Butene
+反式-2-丁烯	反式-2-丁烯	trans-2-Butene
+异丁烯	異丁烯	Isobutene
+环丁烷（折叠形）	環丁烷（折疊形）	Cyclobutane (puckered)
+甲苯	甲苯	Toluene
+苯酚	苯酚	Phenol
+吡啶	吡啶	Pyridine
+氟苯	氟苯	Fluorobenzene
+噻吩	噻吩	Thiophene
+萘	萘	Naphthalene
+乙醛	乙醛	Acetaldehyde
+丙酮	丙酮	Acetone
+乙酸	乙酸	Acetic acid
+甲酸甲酯	甲酸甲酯	Methyl formate
+甲胺	甲胺	Methylamine
+乙腈	乙腈	Acetonitrile
+四氯合铂(II)	四氯合鉑(II)	Tetrachloroplatinate(II)
+四氯合钯(II)	四氯合鈀(II)	Tetrachloropalladate(II)
+四氯合金(III)	四氯合金(III)	Tetrachloroaurate(III)
+四氯合钴(II)	四氯合鈷(II)	Tetrachlorocobaltate(II)
+四氯合锌(II)	四氯合鋅(II)	Tetrachlorozincate(II)
+六氯合铂(IV)	六氯合鉑(IV)	Hexachloroplatinate(IV)
+亚铁氰根（铁 II）	亞鐵氰根（鐵 II）	Hexacyanoferrate(II)
+铁氰根（铁 III）	鐵氰根（鐵 III）	Hexacyanoferrate(III)
+四氰合镍(II)	四氰合鎳(II)	Tetracyanonickelate(II)
+二氰合银(I)（线形，有限子群）	二氰合銀(I)（線形，有限子群）	Dicyanoargentate(I) (linear, finite subgroup)
+六羰基铬	六羰基鉻	Chromium hexacarbonyl
+六羰基钼	六羰基鉬	Molybdenum hexacarbonyl
+六羰基钨	六羰基鎢	Tungsten hexacarbonyl
+四羰基镍	四羰基鎳	Nickel tetracarbonyl
+五羰基铁（三角双锥）	五羰基鐵（三角雙錐）	Iron pentacarbonyl (trigonal bipyramid)
+二茂铁（重叠式）	二茂鐵（重疊式）	Ferrocene (eclipsed)
+二茂铁（交错式）	二茂鐵（交錯式）	Ferrocene (staggered)
+顺铂	順鉑	Cisplatin
+反铂	反鉑	Transplatin
+四氯氧合钒(IV)（四方锥）	四氯氧合釩(IV)（四方錐）	Oxotetrachlorovanadate(IV) (square pyramid)
+二氨合银(I)（交错式）	二氨合銀(I)（交錯式）	Diamminesilver(I) (staggered)
+请输入化学式，注意元素符号大小写。离子示例 [Fe(CN)6]4-。	請輸入化學式，注意元素符號大小寫。離子範例 [Fe(CN)6]4-。	Enter a formula using case-sensitive element symbols. For an ion, try [Fe(CN)6]4-.
+对称化 NIST 参考几何	對稱化 NIST 參考幾何	Symmetrized NIST reference geometry
+结构目录	結構目錄	Structure catalog
+按名称浏览有机物和配合物	依名稱瀏覽有機物與配合物	Browse organic molecules and complexes by name
+常见有机物	常見有機物	Common organic molecules
+代表性配合物	代表性配合物	Coordination compounds
+α-D-吡喃葡萄糖	α-D-吡喃葡萄糖	α-D-Glucopyranose
+β-D-吡喃葡萄糖	β-D-吡喃葡萄糖	β-D-Glucopyranose
+L-丙氨酸（中性分子）	L-丙胺酸（中性分子）	L-Alanine (neutral molecule)
+D-丙氨酸（中性分子）	D-丙胺酸（中性分子）	D-Alanine (neutral molecule)
+PubChem 计算构象	PubChem 計算構象	PubChem computed conformer

@@ -47,7 +47,7 @@ function harness(bundled = false,languageVariant = '') {
     const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
-  } else for(const name of ['salc.js','vibrations.js','structure.js','formula-models.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
+  } else for(const name of ['salc.js','vibrations.js','structure.js','structure-library.js', 'formula-models.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);
   return { $, downloads, elements, document, context,statics,preferences, template: name => templates.find(t => t.dataset.template === name).click(), click: id => $(id).click(), flush: () => { while (timers.length) timers.shift()(); }, set: (id, value, changed = false) => { $(id).value = String(value); if (changed && $(id).onchange) $(id).onchange(); }, descendants: function walk(node) { return node.children.flatMap(c => [c, ...walk(c)]); } };
 }
@@ -397,8 +397,8 @@ test('formula selection, structure review, calculation and project reload use th
 test('formula drafts block stale results across failed lookups, switches, undo and asynchronous XYZ reads', async () => {
   const h = harness();
   h.template('methane'); h.click('confirm-structure'); h.click('calculate'); h.flush();
-  assert.equal(searchFormula(h,'CH4+').length,0);
-  assert.match(h.$('formula-feedback').textContent,/中性分子式/);
+  assert.equal(searchFormula(h,'CH4++').length,0);
+  assert.match(h.$('formula-feedback').textContent,/元素符号大小写/);
   assert(h.$('confirm-structure').disabled && h.$('calculate').disabled && h.$('export-result').disabled);
   assert.equal(searchFormula(h,'C60').length,0);
   assert.match(h.$('formula-feedback').textContent,/离线模型库暂无候选/);
@@ -418,4 +418,27 @@ test('formula drafts block stale results across failed lookups, switches, undo a
   h.set('xyz-text','2\nH2\nH 0 0 0\nH 0 0 0.74'); h.$('xyz-text').oninput(); h.click('apply-xyz');
   assert.equal(h.$('composition').textContent,'H₂'); assert.equal(h.$('model-origin').textContent,'');
   assert.equal(h.$('formula-choices').children.length,0); assert(h.$('calculate').disabled);
+});
+
+test('offline catalog keeps the chosen oxidation state through confirmation, export and reload', async () => {
+  const h = harness(true, 'en');
+  h.set('workflow','vibrations',true);
+  h.set('formula-catalog','[Fe(CN)6]4-',true);
+  assert.equal(h.$('formula-text').value,'[Fe(CN)6]4-');
+  assert.equal(h.$('formula-choices').children.length,1);
+  const buttons = searchFormula(h,'Fe(CN)6');
+  assert.equal(buttons.length,2);
+  assert.match(buttons[0].textContent,/⁴⁻.*Hexacyanoferrate\(II\)/);
+  buttons[1].click(); assert(h.$('calculate').disabled);
+  h.click('confirm-structure'); h.click('calculate'); h.flush();
+  h.click('export-result');
+  const saved = JSON.parse(await h.downloads.at(-1).blob.text());
+  assert.equal(saved.input.formulaModel.formula,'[Fe(CN)6]3-');
+  assert.equal(saved.input.formulaModel.charge,-3);
+  assert.equal(saved.spectrum.degreesOfFreedom,33);
+  h.context.BasisDesktop.importJSON(JSON.stringify(saved));
+  assert.match(h.$('model-origin').textContent,/³⁻.*Hexacyanoferrate\(III\)/);
+  h.set('language','zh-Hant',true);
+  assert.match(h.$('formula-catalog').textContent,/鐵氰根/);
+  assert(h.$('calculate').disabled);
 });

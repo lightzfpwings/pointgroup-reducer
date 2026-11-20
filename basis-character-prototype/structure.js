@@ -61,7 +61,8 @@
   // Dalton Trans. (2008), doi:10.1039/B801115J. Lines are only a display aid.
   const radii = {__proto__:null, H:.31, D:.31, T:.31, Li:1.28, Be:.96, B:.84, C:.76, N:.71, O:.66, F:.57,
     Na:1.66, Mg:1.41, Al:1.21, Si:1.11, P:1.07, S:1.05, Cl:1.02, K:2.03, Ca:1.76,
-    Fe:1.32, Co:1.26, Ni:1.24, Cu:1.32, Zn:1.22, As:1.19, Se:1.20, Br:1.20, I:1.39};
+    V:1.53, Cr:1.39, Fe:1.32, Co:1.26, Ni:1.24, Cu:1.32, Zn:1.22, As:1.19, Se:1.20, Br:1.20,
+    Mo:1.54, Pd:1.39, Ag:1.45, I:1.39, W:1.62, Pt:1.36, Au:1.36};
   const colors = {__proto__:null, H:'#fcfdff', D:'#d9edff', T:'#b7daff', C:'#354655', N:'#416cca', O:'#d3574b',
     F:'#79b495', Cl:'#559d68', Br:'#a66047', I:'#896aa7', S:'#e4b73d', P:'#dc8f4f'};
   function inferredBonds(sites) {

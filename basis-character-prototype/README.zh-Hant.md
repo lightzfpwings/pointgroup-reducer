@@ -1,6 +1,6 @@
-# 點群與基函數 0.5.1
+# 點群與基函數 0.6.0
 
-在本目錄執行 `python3 build.py`，開啟 [0.5.1 繁體中文離線版](dist/BasisCharacterPrototype-0.5.1-zh-Hant.html)。選擇「振動光譜（紅外與拉曼）」，開啟[水分子 XYZ](examples/water.xyz)，在三維預覽下方選擇 C₂ᵥ，點選「確認結構與點群」，再點選「計算振動與光譜活性」。
+在本目錄執行 `python3 build.py`，開啟 [0.6.0 繁體中文離線版](dist/BasisCharacterPrototype-0.6.0-zh-Hant.html)。選擇「振動光譜（紅外與拉曼）」，開啟[水分子 XYZ](examples/water.xyz)，在三維預覽下方選擇 C₂ᵥ，點選「確認結構與點群」，再點選「計算振動與光譜活性」。
 
 手邊只有化學式時，可在同一入口輸入 `C2H6O`，點選「尋找候選結構」，再選「乙醇 · 反式構形」或「二甲醚」。下方會顯示所選模型的三維結構、原子座標與點群。確認後即可比較兩種結構的紅外與拉曼活性。
 
@@ -8,20 +8,20 @@
 
 可從 s/p/d 基函數及分子幾何建立表示矩陣、約化特徵標，再產生各不可約副本的 SALC 係數。亦可直接輸入特徵標進行約化。
 
-0.5.1 為四個平台與三語離線網頁版加入了青綠色正四面體圖示。
+0.6.0 新增 39 個常見有機物模型及 21 個配合物模型。離線庫現有 221 個候選結構，涵蓋 196 種依電荷區分的化學式。
 
 ## 下載與安裝
 
 | 平台 | 下載 | 安裝與啟動 |
 |---|---|---|
-| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.5.1-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.5.1-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
-| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.5.1-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
-| Windows x64 | [BasisCharacter-0.5.1-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
-| Android 8.0 或更新版本 | [BasisCharacter-0.5.1-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.5.1/BasisCharacter-0.5.1-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，系統檔案選擇器可開啟 XYZ，也可載入與儲存 JSON 專案。 |
+| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.6.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.6.0-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
+| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.6.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
+| Windows x64 | [BasisCharacter-0.6.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.6.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，系統檔案選擇器可開啟 XYZ，也可載入與儲存 JSON 專案。 |
 
 Mac 應用程式使用臨時簽章，DMG 未經 Apple 公證。Windows 主程式沒有 Authenticode 發行者簽章，內含的 WebView2 安裝程式帶有微軟簽章。Android APK 使用專案的獨立簽署金鑰，之後的覆蓋安裝須使用相同的簽署身分。系統可能提示無法驗證桌面軟體發行者。 [簽章說明](SIGNING.md)
 
-如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.5.1](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.5.1)
+如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.6.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.6.0)
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 
@@ -53,7 +53,9 @@ d 採五維實球諧函數 dxy、dxz、dyz、dx²−y²、dz²；dz² 指 2z²�
 
 「振動光譜（紅外與拉曼）」使用所選空間點群和分子中所有原子的座標，包括位於對稱中心的原子。可開啟或貼上單幀 XYZ、手動輸入座標或載入專案。XYZ 首列填寫原子數（1–120），第二列為註解或空列，之後每列填寫元素與三個以 Å 為單位的座標。D 與 T 可作為相異的同位素類型。
 
-化學式依中性分子的元素數目配對，支援 `CH4`、`CH₄` 與含括號的寫法。離線模型庫收錄甲烷、水、氨、二氧化碳、苯、BF₃、SF₆，以及 C₂H₆O 和 C₂H₂Cl₂ 的代表結構。四面體碳或矽與四個 H、F、Cl、Br、I 取代基的組合依組成產生模型。每次只列出已收錄或可依這些規則產生的候選。乙醇反式構形和二甲醚採用 NIST 參考幾何，其餘候選標示為理想化幾何。專案 JSON 儲存起始模型及實際用於計算的全部座標。[NIST 乙醇](https://cccbdb.nist.gov/exp2x.asp?casno=64175) · [NIST 二甲醚](https://cccbdb.nist.gov/exp2x.asp?casno=115106&charge=0)
+在振動光譜的「結構目錄」可依名稱瀏覽有機物與配合物，也可輸入化學式。輸入 `C4H8` 可比較順式與反式 2-丁烯、異丁烯及環丁烷。輸入 `Pt(NH3)2Cl2` 可比較順鉑與反鉑。輸入 `[Fe(CN)6]4-` 可指定亞鐵氰根，省略電荷則同時列出鐵(II)與鐵(III)候選。每次選擇後，先核對三維結構並確認，再計算紅外與拉曼選擇定則。全部座標隨應用程式提供，Android 可離線使用。
+
+新增有機物中，17 個模型採用 NIST CCCBDB 參考座標，經重新定向與對稱化以處理座標捨入誤差。α/β-D-吡喃葡萄糖與 D/L-丙胺酸採用 PubChem 計算構象。其餘新增模型採用理想化幾何，配合物明確包含配體上的原子。二茂鐵提供重疊式與交錯式兩種環取向。原有碳、矽四面體取代模型仍可依化學式查詢。專案 JSON 儲存所選候選、電荷（如有）與用於計算的完整座標。 [NIST CCCBDB](https://cccbdb.nist.gov/exp2x.asp?casno=74840&charge=0) · [PubChem](https://pubchem.ncbi.nlm.nih.gov/compound/79025)
 
 旋轉模型，對照原子編號與座標表。選擇 A、B、C 可量測 A–B 距離及以 B 為頂點的夾角。XYZ 預覽中的灰色連線依共價半徑估算，綠線連接選取量測的原子。確認時程式檢查所有同類型原子在所選點群下的一一映射，並顯示最大位置偏差。XYZ 預設以幾何中心為對稱原點，保留檔案的軸向與原始座標。請核對點群的軸向提示，需要時可先在分子編輯器對齊座標再匯入。變更結構、點群、原點或容差後須再次確認。[XYZ 格式](https://openbabel.org/docs/FileFormats/XYZ_cartesian_coordinates_format.html) · [共價半徑資料](https://doi.org/10.1039/B801115J)
 

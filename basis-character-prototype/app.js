@@ -8,6 +8,7 @@
   const viewer = structure.createViewer($('model-canvas'));
   let reviewed = null, reviewError = null, xyzError = null, readingStructure = false, busy = false;
   let formulaResults = null, formulaError = null, chosenModel = null;
+  let catalogLanguage = '';
   let fileRequest = 0;
   const clone = x => JSON.parse(JSON.stringify(x));
   const fmt = x => Math.abs(x) < 1e-10 ? '0' : Math.abs(x - Math.round(x)) < 1e-10 ? String(Math.round(x)) : Number(x.toPrecision(7)).toString();
@@ -109,7 +110,7 @@
   }
   function startingModelLabel() {
     const origin = spec.formulaModel;
-    return origin ? [t('起始模型'),t(origin.name),t(origin.geometry)].join(' · ') : '';
+    return origin ? [t('起始模型'),origin.display,t(origin.name),t(origin.geometry)].filter(Boolean).join(' · ') : '';
   }
   function renderModel() {
     if (mode !== 'vibrations') return;
@@ -141,6 +142,7 @@
   }
   function clearFormulaSearch() {
     $('formula-text').value = '';
+    $('formula-catalog').value = '';
     formulaResults = null; formulaError = null; chosenModel = null;
   }
   function resetStructureInputs() {
@@ -169,6 +171,20 @@
     viewer.view(flatAxis === undefined ? 'iso' : ['yz','xz','xy'][flatAxis]);
   }
   function renderFormulaSearch() {
+    const catalog = $('formula-catalog');
+    if (catalogLanguage !== I.language()) {
+      const previous = catalog.value;
+      catalog.replaceChildren();
+      option(catalog, '', t('按名称浏览有机物和配合物'));
+      for (const {category, items} of window.FormulaModels.catalog()) {
+        const group = el('optgroup');
+        group.label = t(category);
+        for (const item of items) option(group, item.formula, item.display + ' · ' + item.names.map(t).join(' / '));
+        catalog.append(group);
+      }
+      catalog.value = previous || '';
+      catalogLanguage = I.language();
+    }
     const listing = formulaResults, feedback = $('formula-feedback'), choices = $('formula-choices');
     const hasText = !!$('formula-text').value.trim();
     $('find-models').disabled = !hasText;
@@ -186,7 +202,7 @@
       ? '甲烷的平衡结构为正四面体。选择下方模型以核对。'
       : '选择已收录的候选结构，在下方核对模型。');
     listing.candidates.forEach((candidate, index) => {
-      const button = el('button', t(candidate.name) + ' · ' + M.plainLabel(candidate.group), 'small');
+      const button = el('button', [candidate.display,t(candidate.name),M.plainLabel(candidate.group)].filter(Boolean).join(' · '), 'small');
       button.type = 'button';
       button.setAttribute('aria-pressed', String(chosenModel === candidate.id));
       button.onclick = () => {
@@ -198,15 +214,21 @@
     });
   }
   $('formula-text').oninput = () => {
+    $('formula-catalog').value = '';
     formulaResults = null; formulaError = null; chosenModel = null; renderFormulaSearch(); invalidate();
   };
-  $('formula-form').onsubmit = event => {
-    event.preventDefault();
+  function findModels() {
     if (mode !== 'vibrations') return;
     formulaResults = null; formulaError = null; chosenModel = null;
     try { formulaResults = window.FormulaModels.lookup($('formula-text').value); }
     catch (error) { formulaError = error; }
     renderFormulaSearch(); invalidate();
+  }
+  $('formula-form').onsubmit = event => { event.preventDefault(); findModels(); };
+  $('formula-catalog').onchange = () => {
+    if (!$('formula-catalog').value) return;
+    $('formula-text').value = $('formula-catalog').value;
+    findModels();
   };
   $('discard-formula').onclick = () => {
     const pending = formulaPending();
@@ -501,7 +523,11 @@
         '\\Gamma_{\\mathrm{vib}} &= \\Gamma_{3N} - \\Gamma_{\\mathrm{trans}} - \\Gamma_{\\mathrm{rot}}',
         '\\dim\\Gamma_{\\mathrm{vib}} &= ' + vibrationDimension(s,true),
       ];
-      if (spec.formulaModel) lines.unshift(latexText(t('起始模型')) + ' &= ' + latexText(t(spec.formulaModel.name)));
+      if (spec.formulaModel) {
+        const origin = spec.formulaModel;
+        const label = origin.charge ? origin.formula + ' · ' + t(origin.name) : t(origin.name);
+        lines.unshift(latexText(t('起始模型')) + ' &= ' + latexText(label));
+      }
       for (const [key,label] of vibrationRows) {
         const terms = s[key].terms.map(a => (a.multiplicity === 1 ? '' : a.multiplicity) + M.latexLabel(a.irrep));
         lines.push('\\Gamma_{' + latexText(t(label)) + '} &= ' + (terms.join(' + ') || '0'));

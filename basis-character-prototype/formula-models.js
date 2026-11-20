@@ -1,14 +1,29 @@
-/* Offline neutral-molecule candidates. A formula indexes compositions, never a spectrum. */
+/* Offline structure candidates indexed by elemental composition and ionic charge. */
 (function (root) {
   'use strict';
   const commonJS = typeof module !== 'undefined' && module.exports;
   const E = commonJS ? require('./engine.js') : root.BasisEngine;
   const S = commonJS ? require('./structure.js') : root.MolecularStructure;
+  const library = commonJS ? require('./structure-library.js') : root.StructureLibrary;
+  const invalid = '请输入化学式，注意元素符号大小写。离子示例 [Fe(CN)6]4-。';
+  const subscripts = '₀₁₂₃₄₅₆₇₈₉', superscripts = '⁰¹²³⁴⁵⁶⁷⁸⁹';
 
   function parseFormula(input) {
-    const invalid = '请输入中性分子式，注意元素符号大小写。可使用整数下标和圆括号。';
     if (typeof input !== 'string' || input.length > 512) throw new Error(invalid);
-    const text = input.trim().replace(/[₀-₉]/g, c => '₀₁₂₃₄₅₆₇₈₉'.indexOf(c));
+    let text = input.trim().replace(/[₀-₉]/g, c => subscripts.indexOf(c)).replace(/−/g, '-')
+      .replace(/([⁰¹²³⁴⁵⁶⁷⁸⁹]*)([⁺⁻])$/, (_, digits, sign) =>
+        '^' + Array.from(digits, c => superscripts.indexOf(c)).join('') + (sign === '⁺' ? '+' : '-'));
+    // Digits after ] or ^ denote charge. In NH4+ the 4 remains a subscript.
+    const suffix = /(\]|\^)([1-9]\d?)?([+-])$/.exec(text);
+    let charge = 0;
+    if (suffix) {
+      charge = Number(suffix[2] || 1) * (suffix[3] === '+' ? 1 : -1);
+      text = text.slice(0, suffix.index + (suffix[1] === ']' ? 1 : 0));
+    } else if (/[+-]$/.test(text)) {
+      charge = text.endsWith('+') ? 1 : -1;
+      text = text.slice(0, -1);
+    }
+    if (text.startsWith('[') && text.endsWith(']')) text = text.slice(1, -1);
     const groups = [new Map()];
     const token = /\s*([A-Z][a-z]?|\(|\))(\d*)/gy;
     for (let offset = 0; offset < text.length; offset = token.lastIndex) {
@@ -32,7 +47,21 @@
       if ([...current.values()].reduce((a, b) => a + b, 0) > 120) throw new Error('每个分子最多支持 120 个原子。');
     }
     if (groups.length !== 1 || !groups[0].size) throw new Error(invalid);
-    return groups[0];
+    return {counts:groups[0], charge};
+  }
+
+  function chargeSuffix(charge, display = false) {
+    if (!charge) return '';
+    const n = Math.abs(charge), digits = n === 1 ? '' : String(n);
+    return display ? Array.from(digits, c => superscripts[c]).join('') + (charge > 0 ? '⁺' : '⁻')
+      : digits + (charge > 0 ? '+' : '-');
+  }
+
+  function speciesDisplay(formula) {
+    const end = /\]([1-9]\d?)?([+-])$/.exec(formula);
+    const composition = end ? formula.slice(0, end.index + 1) : formula;
+    return composition.replace(/\d/g, digit => subscripts[digit]) +
+      (end ? chargeSuffix(Number(end[1] || 1) * (end[2] === '+' ? 1 : -1), true) : '');
   }
 
   const ethanol = [
@@ -109,10 +138,18 @@
       model('trans','反式-1,2-二氯乙烯','C2h',trans)];
   }
 
+  const records = new Map();
+  for (const entry of [...library.organics, ...library.complexes]) {
+    const {counts, charge} = parseFormula(entry.formula), key = S.formatFormula(counts);
+    if (!records.has(key)) records.set(key, []);
+    records.get(key).push({entry, charge});
+  }
+
   function lookup(input) {
-    const counts = parseFormula(input), formula = S.formatFormula(counts);
+    const {counts, charge} = parseFormula(input), formula = S.formatFormula(counts);
     let candidates;
-    switch (formula) {
+    if (charge) candidates = [];
+    else switch (formula) {
       // The two C2H6O coordinate sets are the trans ethanol and dimethyl ether
       // cartesians in NIST CCCBDB (CAS 64-17-5 and 115-10-6, respectively).
       case 'C2H6O': candidates = [model('ethanol-trans','乙醇 · 反式构象','Cs',ethanol,'64175'),
@@ -133,10 +170,41 @@
         ['S',0,0,0], ...E.orbit('Oh',[0,0,1.56]).positions.map(p => ['F',...p])])]; break;
       default: candidates = tetrahedral(counts, formula);
     }
-    return {formula, display:S.formatFormula(counts, true), candidates};
+    for (const {entry, charge:ionicCharge} of records.get(formula) || []) {
+      if (charge && charge !== ionicCharge) continue;
+      const candidate = model(entry.id, entry.name, entry.group, entry.atoms(), entry.cas);
+      if (entry.cas) candidate.geometry = '对称化 NIST 参考几何';
+      if (entry.cid) {
+        candidate.geometry = 'PubChem 计算构象';
+        candidate.sourceURL = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + entry.cid;
+        candidate.conformerID = entry.conformerID;
+      }
+      if (ionicCharge) Object.assign(candidate, {charge:ionicCharge, formula:entry.formula, display:speciesDisplay(entry.formula)});
+      candidates.push(candidate);
+    }
+    const composition = S.formatFormula(counts, true);
+    return charge ? {formula:'[' + formula + ']' + chargeSuffix(charge),
+      display:candidates[0]?.display || '[' + composition + ']' + chargeSuffix(charge, true), candidates}
+      : {formula, display:composition, candidates};
   }
 
-  const api = {lookup};
+  function catalog() {
+    const organic = [
+      {formula:'CH4', name:'甲烷 · 正四面体'}, {formula:'C6H6', name:'苯 · 平面六元环'},
+      {formula:'C2H6O', name:'乙醇 · 反式构象'}, {formula:'C2H6O', name:'二甲醚'},
+      ...dichloroethenes().map(c => ({formula:'C2H2Cl2', name:c.name})), ...library.organics
+    ];
+    return [[ '常见有机物', organic ], [ '代表性配合物', library.complexes ]].map(([category, entries]) => {
+      const labels = new Map();
+      for (const {formula, name} of entries) {
+        if (!labels.has(formula)) labels.set(formula, []);
+        labels.get(formula).push(name);
+      }
+      return {category, items:Array.from(labels, ([formula, names]) => ({formula, display:speciesDisplay(formula), names}))};
+    });
+  }
+
+  const api = {lookup, catalog};
   if (commonJS) module.exports = api;
   root.FormulaModels = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

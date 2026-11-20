@@ -139,6 +139,14 @@ public final class SmokeTest extends Instrumentation {
             javascript("byId('confirm-structure').click();byId('calculate').click()");
             until("byId('result-body').textContent.includes('IR allowed 2 · Raman allowed 4')");
             until("getComputedStyle(byId('result-body').querySelector('td')).textAlign==='center' && parseFloat(getComputedStyle(document.body).paddingTop)>=56 && parseFloat(getComputedStyle(document.body).paddingBottom)>=56");
+            javascript("change('formula-catalog','C4H8')");
+            until("byId('formula-choices').children.length===4 && byId('calculate').disabled");
+            javascript("byId('formula-choices').children[1].click();byId('confirm-structure').click();byId('calculate').click()");
+            until("byId('group').value==='C2h' && byId('result-body').textContent.includes('IR allowed 15 · Raman allowed 15')");
+            javascript("change('formula-catalog','[Fe(CN)6]4-');byId('formula-choices').firstElementChild.click()");
+            until("byId('group').value==='Oh' && byId('calculate').disabled && byId('model-origin').textContent.includes('Hexacyanoferrate(II)')");
+            javascript("byId('confirm-structure').click();byId('calculate').click()");
+            until("byId('result-body').textContent.includes('IR allowed 4 · Raman allowed 6')");
 
             values.clear();
             values.put(MediaStore.MediaColumns.DISPLAY_NAME, "Basis-water.xyz");
