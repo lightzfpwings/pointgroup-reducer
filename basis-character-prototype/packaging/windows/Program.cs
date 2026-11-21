@@ -18,6 +18,7 @@ internal static class Program
     [STAThread]
     static int Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "--apply-update") return Updates.Finish(args);
         if (args.Length > 0 && args[0] == "--self-check")
         {
             try
@@ -41,7 +42,7 @@ internal static class Program
         if (!page.Contains("id=\"calculate\"") || page.Contains("<script src=")) throw new InvalidDataException("HTML resources missing");
         // 不授予 CLR/网络/浏览器权限；仅执行随软件附带的数学脚本。
         var engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMinutes(10)));
-        foreach (var name in new[] { "engine.js", "reducer-catalog.js", "reducer-adapter.js", "reduction-catalog.js", "reduction-engine.js", "salc.js", "vibrations.js", "structure.js", "structure-library.js", "formula-models.js", "messages-data.js", "i18n.js", "math-format.js" })
+        foreach (var name in new[] { "engine.js", "reducer-catalog.js", "reducer-adapter.js", "reduction-catalog.js", "reduction-engine.js", "salc.js", "vibrations.js", "structure.js", "structure-library.js", "formula-models.js", "messages-data.js", "i18n.js", "math-format.js", "updates.js" })
             engine.Execute(ReadResource(name));
         var report = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(engine.Evaluate(ReadResource("self-check.js")).AsString())!;
         if (report["version"].GetString() != Version || report["reductionVersion"].GetString() != Version) throw new InvalidDataException("Version mismatch");
@@ -60,6 +61,8 @@ internal static class Program
         if (!Bridge.TrustedSource(Page, Page) || Bridge.TrustedSource(Page, "https://example.org/") || Bridge.TrustedSource("https://example.org/", Page)) throw new InvalidDataException("Origin guard failed");
         if (!File.Exists(Path.Combine(Resources, "bridge.js"))) throw new InvalidDataException("Bridge missing");
         report["jsonSavePayloadChecks"] = JsonSerializer.SerializeToElement("passed");
+        Updates.CheckReplacement();
+        report["updateReplacement"] = JsonSerializer.SerializeToElement("passed");
         report["originChecks"] = JsonSerializer.SerializeToElement("passed");
         report["resourcesPresent"] = JsonSerializer.SerializeToElement(true);
         return JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true });
@@ -189,6 +192,7 @@ internal sealed class MainWindow : Form
         }
         catch (Exception e) { Error(e); Close(); }
     }
+    private bool installing;
     private async Task Receive(CoreWebView2WebMessageReceivedEventArgs message)
     {
         if (!Bridge.TrustedSource(message.Source, view.Source?.AbsoluteUri ?? "")) return;
@@ -199,6 +203,25 @@ internal sealed class MainWindow : Form
             var payload = json.RootElement.GetProperty("payload");
             switch (type)
             {
+                case "update":
+                    int id = payload.GetProperty("id").GetInt32();
+                    string status = "ok"; string? result = null; bool restart = false;
+                    try {
+                        switch (payload.GetProperty("action").GetString()) {
+                        case "page": result = await Updates.Page(payload.GetProperty("page").GetInt32()); break;
+                        case "install":
+                            if (installing) { status = "busy"; break; }
+                            installing = true;
+                            try { await Updates.Prepare(payload.GetProperty("version").GetString()!); restart = true; }
+                            finally { installing = false; }
+                            break;
+                        default: status = "asset"; break;
+                        }
+                    } catch (UnauthorizedAccessException) { status = "location"; }
+                      catch (Exception error) { status = error.Message is "asset" or "integrity" or "rate" or "install" ? error.Message : "network"; }
+                    if (IsAppPage) await Script("window.BasisUpdates.receive("+id+","+JsonSerializer.Serialize(status)+","+JsonSerializer.Serialize(result)+")");
+                    if (restart) Close();
+                    break;
                 case "openJSON": await OpenJSON(); break;
                 case "saveJSON":
                     var name = payload.GetProperty("name").GetString()!;

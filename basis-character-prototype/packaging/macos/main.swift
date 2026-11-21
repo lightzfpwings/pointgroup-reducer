@@ -58,10 +58,11 @@ func selfCheck() throws {
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     private enum BridgeMessage: String, CaseIterable {
-        case saveJSON, openJSON, copyText, languageChanged
+        case saveJSON, openJSON, copyText, languageChanged, update
     }
 
     private var window: NSWindow!
+    private var installing = false
     private var webView: WKWebView!
     private var contentURL: URL!
     private var language = UserDefaults.standard.string(forKey: "symmetry-language") ?? "zh-Hans"
@@ -88,7 +89,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         for message in BridgeMessage.allCases {
             configuration.userContentController.add(self, name: message.rawValue)
         }
-        configuration.userContentController.addUserScript(WKUserScript(source: "window.BasisPreferredLanguage='\(language)';", injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        configuration.userContentController.addUserScript(WKUserScript(source: "window.BasisUpdatePlatform='macos';window.BasisPreferredLanguage='\(language)';", injectionTime: .atDocumentStart, forMainFrameOnly: true))
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -200,6 +201,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
               let command = BridgeMessage(rawValue: message.name) else { return }
         let body = message.body as? [String: Any]
         switch command {
+        case .update:
+            guard let id=body?["id"] as? Int, let action=body?["action"] as? String else { return }
+            Task { @MainActor in
+                var status="ok", result:String?, restart=false
+                do {
+                    if action=="page", let page=body?["page"] as? Int { result=try await MacUpdates.page(page) }
+                    else if action=="install", let v=body?["version"] as? String,
+                        let current=Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String {
+                        guard !installing else { throw UpdateIssue("busy") }
+                        installing=true; defer { installing=false }
+                        let image=try await MacUpdates.download(v,current:current); defer { try? FileManager.default.removeItem(at:image) }
+                        try await MacUpdates.install(image,version:v); restart=true
+                    } else { throw UpdateIssue("asset") }
+                } catch let e as UpdateIssue { status=e.key }
+                  catch let e as CocoaError where e.code == .fileWriteNoPermission { status="location" }
+                  catch { status=action=="page" ? "network" : "install" }
+                let args:[Any]=[id,status,result as Any? ?? NSNull()]
+                if let data=try? JSONSerialization.data(withJSONObject:args) {
+                    _ = try? await webView.evaluateJavaScript("window.BasisUpdates.receive(..."+String(decoding:data,as:UTF8.self)+")")
+                }
+                if restart { NSApp.terminate(nil) }
+            }
         case .openJSON:
             presentOpenPanel()
         case .languageChanged:

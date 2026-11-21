@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Basis Character Update
+Name[zh_CN]=点群与基函数更新
+Name[zh_TW]=點群與基函數更新
+Exec=/usr/lib/basis-character/update.py %u
+Icon=basis-character
+Terminal=false
+NoDisplay=true
+MimeType=x-scheme-handler/basis-character-update;

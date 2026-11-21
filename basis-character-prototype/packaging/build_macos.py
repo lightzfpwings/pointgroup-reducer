@@ -183,7 +183,7 @@ info = {
     "CFBundleIdentifier": BUNDLE_ID,
     "CFBundleIconFile": "basis-character.icns",
     "CFBundleExecutable": "BasisCharacter", "CFBundlePackageType": "APPL",
-    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "13",
+    "CFBundleShortVersionString": VERSION, "CFBundleVersion": "14",
     "CFBundleLocalizations": ["zh-Hans", "zh-Hant", "en"], "CFBundleDevelopmentRegion": "en",
     "LSMinimumSystemVersion": "12.0", "NSHighResolutionCapable": True,
     "NSHumanReadableCopyright": "Integrated basis characters and irreducible reduction.",
@@ -193,7 +193,7 @@ info = {
 sdk = subprocess.check_output(["xcrun", "--show-sdk-path"], text=True).strip()
 env = os.environ.copy()
 env["CLANG_MODULE_CACHE_PATH"] = str(BUILD / "module-cache")
-run(["xcrun", "swiftc", str(ROOT / "packaging" / "macos" / "main.swift"),
+run(["xcrun", "swiftc", str(ROOT / "packaging" / "macos" / "main.swift"), str(ROOT / "packaging" / "macos" / "Updates.swift"),
      "-swift-version", "5", "-parse-as-library", "-target", "arm64-apple-macos12.0", "-sdk", sdk,
      "-module-cache-path", str(BUILD / "module-cache"), "-O",
      "-framework", "Cocoa", "-framework", "WebKit", "-framework", "JavaScriptCore",

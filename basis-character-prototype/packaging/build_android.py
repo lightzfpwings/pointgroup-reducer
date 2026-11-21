@@ -2,6 +2,8 @@
 import argparse
 import json
 import os
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 import shutil
 import subprocess
@@ -36,7 +38,7 @@ def version_code(version):
     return major * 1000000 + minor * 1000 + patch
 
 
-def build_apk(sdk, work, manifest, sources, target, assets=None):
+def build_apk(sdk, work, manifest, sources, target, assets=None, version=VERSION):
     tools = sdk / "build-tools" / TOOLS_VERSION
     jar = sdk / "platforms" / f"android-{TARGET_API}" / "android.jar"
     aapt = tools / "aapt2"
@@ -48,7 +50,7 @@ def build_apk(sdk, work, manifest, sources, target, assets=None):
     generated.mkdir()
     link = [aapt, "link", "-o", shell, "-I", jar, "--manifest", manifest,
             "--min-sdk-version", str(MIN_API), "--target-sdk-version", str(TARGET_API),
-            "--version-name", VERSION, "--version-code", str(version_code(VERSION))]
+            "--version-name", version, "--version-code", str(version_code(version))]
     if assets:
         resources = work / "resources.zip"
         run([aapt, "compile", "--dir", ANDROID / "res", "-o", resources])
@@ -79,8 +81,9 @@ def verify_apk(sdk, apk, html):
                   f"launchable-activity: name='{PACKAGE}.MainActivity'"):
         if entry not in info:
             raise ValueError(f"APK missing expected metadata: {entry}")
-    if any(line.startswith("uses-permission:") for line in info.splitlines()):
-        raise ValueError("The offline app unexpectedly requests an Android permission.")
+    permissions = set(re.findall(r"^uses-permission: name='([^']+)'", info, re.MULTILINE))
+    if permissions != {"android.permission.INTERNET", "android.permission.REQUEST_INSTALL_PACKAGES"}:
+        raise ValueError(f"Unexpected Android update permissions: {permissions}")
     with zipfile.ZipFile(apk) as z:
         if z.testzip() or not z.read("classes.dex").startswith(b"dex\n"):
             raise ValueError("Invalid APK or missing DEX")
@@ -101,21 +104,27 @@ def emulator_test(sdk, work, avd, unsigned):
     serial = f"emulator-{port}"
     if serial in output([adb, "devices"]):
         raise RuntimeError(f"Emulator port {port} already in use.")
-    test_unsigned = work / "instrumentation-unsigned.apk"
-    build_apk(sdk, work / "instrumentation", ANDROID / "test" / "AndroidManifest.xml",
-              ANDROID / "test", test_unsigned)
-    # Temporary private key and test APKs exist only inside the temporary build directory.
+    # Both versions and the instrumentation use an ephemeral key. Only the
+    # original production APK is exported to dist.
     key = work / "instrumentation-only.p12"
     run(["keytool", "-genkeypair", "-keystore", key, "-storepass", "ci-test-only",
          "-keypass", "ci-test-only", "-storetype", "PKCS12", "-alias", "smoke",
          "-keyalg", "RSA", "-keysize", "2048", "-validity", "3", "-dname", "CN=Instrumentation test only"])
-    test_packages = []
-    for src in (unsigned, test_unsigned):
-        path = work / ("smoke-" + src.name)
+    def signed(src, dest):
         run([tools / "apksigner", "sign", "--ks", key, "--ks-pass", "pass:ci-test-only",
-             "--v4-signing-enabled", "false", "--out", path, src])
-        run([tools / "apksigner", "verify", path])
-        test_packages.append(path)
+             "--v4-signing-enabled", "false", "--out", dest, src])
+        run([tools / "apksigner", "verify", dest])
+        return dest
+    next_code = version_code(VERSION)+1
+    next_version = f"{next_code//1000000}.{next_code//1000%1000}.{next_code%1000}"
+    fixture = work / "fixture-unsigned.apk"
+    build_apk(sdk, work/"fixture", ANDROID/"AndroidManifest.xml", ANDROID/"src", fixture, work/"assets", next_version)
+    test_assets = work/"instrumentation-assets"
+    test_assets.mkdir()
+    signed(fixture, test_assets/"fixture.apk")
+    test_unsigned = work / "instrumentation-unsigned.apk"
+    build_apk(sdk, work / "instrumentation", ANDROID / "test" / "AndroidManifest.xml", ANDROID / "test", test_unsigned, test_assets)
+    test_packages = [signed(src, work/("smoke-"+src.name)) for src in (unsigned, test_unsigned)]
     log = DIST / "android-emulator.log"
     with log.open("w") as stream:
         process = subprocess.Popen([str(emulator), "-avd", avd, "-port", str(port),
@@ -141,9 +150,42 @@ def emulator_test(sdk, work, avd, unsigned):
             if "BASIS_SMOKE_OK" not in run_result or "INSTRUMENTATION_CODE: -1" not in run_result:
                 print(output([*device, "logcat", "-d", "-t", "250", "-s", "AndroidRuntime:E", "chromium:E", "ActivityTaskManager:E"]))
                 raise RuntimeError("Android runtime smoke failed.")
+            run([*device,"shell","appops","set",PACKAGE,"REQUEST_INSTALL_PACKAGES","allow"])
+            runner = PACKAGE+".test/.UpgradeTest"
+            with (work/"upgrade-run.log").open("w") as capture:
+                upgrading = subprocess.Popen([str(x) for x in [*device,"shell","am","instrument","-w","-r","-e","version",next_version,runner]], stdout=capture, stderr=capture)
+                try:
+                    deadline = time.monotonic()+85
+                    while time.monotonic()<deadline:
+                        info = output([*device,"shell","dumpsys","package",PACKAGE])
+                        if f"versionCode={next_code} " in info:
+                            break
+                        if upgrading.poll() is not None:
+                            raise RuntimeError("Upgrade instrumentation exited: "+(work/"upgrade-run.log").read_text()[-2500:])
+                        # Accept only the system package installer's explicit Install button.
+                        subprocess.run([*device,"shell","uiautomator","dump","/sdcard/basis-update-ui.xml"],capture_output=True,timeout=15)
+                        tree = subprocess.run([*device,"shell","cat","/sdcard/basis-update-ui.xml"],capture_output=True,text=True).stdout
+                        if tree.startswith("<?xml"):
+                            for node in ET.fromstring(tree).iter("node"):
+                                if (node.get("package","").endswith("packageinstaller") and node.get("text","").lower()=="install"
+                                        and node.get("enabled")=="true"):
+                                    x1,y1,x2,y2=map(int,re.findall(r"\d+",node.get("bounds","")))
+                                    run([*device,"shell","input","tap",str((x1+x2)//2),str((y1+y2)//2)])
+                                    break
+                        time.sleep(1)
+                    else:
+                        raise RuntimeError("System APK upgrade timed out: "+(work/"upgrade-run.log").read_text()[-2000:])
+                finally:
+                    if upgrading.poll() is None:
+                        upgrading.terminate()
+                    upgrading.wait(timeout=10)
+            verify = output([*device,"shell","am","instrument","-w","-r","-e","phase","verify",runner])
+            if "BASIS_UPGRADE_PRESERVED" not in verify or "INSTRUMENTATION_CODE: -1" not in verify:
+                raise RuntimeError("Application data verification failed: "+verify)
             return {"passed": True, "deviceAPI": output([*device, "shell", "getprop", "ro.build.version.sdk"]).strip(),
                     "checks": ["launcher", "water-SALCs", "clipboard", "open-project-picker", "save-project-picker",
-                               "formula-selection", "structure-review", "IR-Raman-activity", "XYZ-file-picker", "mobile-layout"]}
+                               "formula-selection", "structure-review", "IR-Raman-activity", "XYZ-file-picker", "mobile-layout",
+                               "update-digest-rejection", "system-upgrade", "update-preserves-data"]}
         finally:
             process.terminate()
             try:

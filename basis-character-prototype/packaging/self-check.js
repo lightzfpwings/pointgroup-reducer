@@ -52,6 +52,7 @@
     assert(r.valid && r.integer_a[0] === 1, name);
     return {group:name, classes:table.classes.length, orthogonalityError:table.orthogonalityError};
   });
+  assert(BasisUpdates.compare('0.10.0','0.9.9') > 0, 'numeric update versions');
   const languages = I18n.languages.map(language => { I18n.setLanguage(language); return {language,title:I18n.translate('点群与基函数')}; });
   assert(groups.length === 87 && tables.length === 423 && languages.length === 3 && languages[2].title === 'Point Groups & Basis Functions', 'catalog/language count');
   assert(Math.abs(ReductionEngine.number('sqrt(3)/2') - Math.sqrt(3)/2) < 1e-12, 'expression parser');

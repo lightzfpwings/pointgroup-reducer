@@ -405,3 +405,30 @@ NIST 参考几何	NIST 參考幾何	NIST reference geometry
 L-丙氨酸（中性分子）	L-丙胺酸（中性分子）	L-Alanine (neutral molecule)
 D-丙氨酸（中性分子）	D-丙胺酸（中性分子）	D-Alanine (neutral molecule)
 PubChem 计算构象	PubChem 計算構象	PubChem computed conformer
+检查更新	檢查更新	Check for updates
+安装更新	安裝更新	Install update
+下载新版 HTML	下載新版 HTML	Download updated HTML
+正在检查 GitHub 正式版…	正在檢查 GitHub 正式版…	Checking GitHub releases…
+GitHub 暂无本软件的正式版。	GitHub 暫無本軟體的正式版。	No stable release of this app is available on GitHub.
+已是最新版本（{version}）。	已是最新版本（{version}）。	You’re up to date ({version}).
+发现 {version}。安装前请保存当前项目。	發現 {version}。安裝前請儲存目前的專案。	Version {version} is available. Save your project before installing.
+请在系统窗口完成更新。安装后重新打开应用。	請在系統視窗完成更新。安裝後重新開啟應用程式。	Complete the update in the system dialog, then reopen the app.
+已替换 HTML 文件。请重新打开该文件。	已替換 HTML 檔案。請重新開啟該檔案。	HTML file updated. Reopen the file to use the new version.
+正在准备更新…	正在準備更新…	Preparing the update…
+正在下载并校验安装包…	正在下載並核對安裝套件…	Downloading and verifying the update…
+GitHub 暂时限制了查询次数，请稍后重试。	GitHub 暫時限制了查詢次數，請稍後重試。	GitHub’s request limit was reached. Try again later.
+该正式版缺少可验证的本平台安装包。	該正式版缺少可驗證的本平台安裝套件。	This release is missing a verifiable package for this platform.
+安装包校验失败，请重新检查更新。	安裝套件驗證失敗，請重新檢查更新。	Package verification failed. Check for updates again.
+请选择本软件较旧的离线 HTML 文件。	請選擇本軟體較舊的離線 HTML 檔案。	Select an older standalone HTML file for this app.
+需要系统允许安装更新，请授权后重试。	需要系統允許安裝更新，請授權後重試。	Allow this app to install updates in system settings, then retry.
+已取消更新。	已取消更新。	Update cancelled.
+请将应用放在可写的应用目录，再检查更新。	請將應用程式放在可寫入的應用目錄，再檢查更新。	Move the app to a writable application folder, then check again.
+已有更新正在进行。	已有更新正在進行。	An update is already in progress.
+系统未能安装更新，请重试。	系統未能安裝更新，請重試。	The system could not install the update. Try again.
+请求超时，请重试。	請求逾時，請重試。	The request timed out. Try again.
+无法连接 GitHub，请检查网络后重试。	無法連線至 GitHub，請檢查網路後重試。	Could not reach GitHub. Check your connection and retry.
+更新失败，请重试或从 GitHub 下载。	更新失敗，請重試或從 GitHub 下載。	Update failed. Retry or download the release from GitHub.
+发现 {version}。请先下载新版 HTML，再替换原文件。	發現 {version}。請先下載新版 HTML，再替換原檔案。	Version {version} is available. Download the new HTML before replacing your original file.
+选择原文件并替换	選擇原檔案並替換	Choose original file and replace
+校验下载的 HTML	驗證下載的 HTML	Verify downloaded HTML
+新版文件已校验。请选择要覆盖的原 HTML 文件。	新版檔案已驗證。請選擇要覆蓋的原 HTML 檔案。	Download verified. Choose the original HTML file to replace.

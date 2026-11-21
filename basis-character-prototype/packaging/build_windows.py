@@ -162,6 +162,10 @@ def copy_licenses(package):
 
 
 def archive_distribution(package, *, full=False):
+    inventory = package / "basis-package-files.json"
+    managed = {path.relative_to(package).as_posix(): sha256(path) for path in sorted(package.rglob("*"))
+               if path.is_file() and path != inventory}
+    inventory.write_text(json.dumps(managed, ensure_ascii=False, sort_keys=True), encoding="utf-8")
     suffix = "" if full else "-lite"
     archive = DIST / f"BasisCharacter-{VERSION}-Windows-x64{suffix}.zip"
     with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as output:

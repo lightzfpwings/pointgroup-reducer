@@ -16,7 +16,7 @@ LANGUAGES = ("zh-Hans", "zh-Hant", "en")
 CORE_SCRIPTS = (
     "engine.js", "reducer-catalog.js", "reducer-adapter.js",
     "reduction-catalog.js", "reduction-engine.js", "salc.js", "vibrations.js", "structure.js", "structure-library.js", "formula-models.js", "messages-data.js",
-    "i18n.js", "math-format.js",
+    "i18n.js", "math-format.js", "updates.js",
 )
 APP_SCRIPT = "app.js"
 CORE_OPEN = "<script data-basis-core>"

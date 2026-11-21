@@ -47,7 +47,7 @@ function harness(bundled = false,languageVariant = '') {
     const scripts = [...html.matchAll(/<script(?: data-basis-core)?>\s*([\s\S]*?)<\/script>/g)];
     assert.equal(scripts.length, languageVariant ? 3 : 2);
     scripts.forEach((match, i) => vm.runInContext(match[1], sandbox, { filename: 'offline-script-' + i }));
-  } else for(const name of ['salc.js','vibrations.js','structure.js','structure-library.js', 'formula-models.js','messages-data.js','i18n.js','math-format.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
+  } else for(const name of ['salc.js','vibrations.js','structure.js','structure-library.js', 'formula-models.js','messages-data.js','i18n.js','math-format.js','updates.js','app.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../'+name),'utf8'),sandbox,{filename:name});
   const $ = id => document.getElementById(id);
   return { $, downloads, elements, document, context,statics,preferences, template: name => templates.find(t => t.dataset.template === name).click(), click: id => $(id).click(), flush: () => { while (timers.length) timers.shift()(); }, set: (id, value, changed = false) => { $(id).value = String(value); if (changed && $(id).onchange) $(id).onchange(); }, descendants: function walk(node) { return node.children.flatMap(c => [c, ...walk(c)]); } };
 }

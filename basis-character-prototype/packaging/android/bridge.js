@@ -5,7 +5,7 @@
     if (event.data !== 'basis-port' || event.ports.length !== 1) return;
     window.removeEventListener('message', connect);
     const port = event.ports[0], handlers = {};
-    for (const type of ['openJSON', 'saveJSON', 'copyText']) {
+    for (const type of ['openJSON', 'saveJSON', 'copyText','update']) {
       handlers[type] = {postMessage: payload => port.postMessage(JSON.stringify({type, payload}))};
     }
     let pendingXYZ, receiveXYZ;
@@ -29,6 +29,7 @@
       pendingXYZ = null;
       receiveXYZ = null;
     };
+    window.BasisUpdatePlatform = "android";
     window.webkit = {messageHandlers: handlers};
     port.postMessage(JSON.stringify({type: 'ready'}));
   }

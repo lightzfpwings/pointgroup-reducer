@@ -744,6 +744,7 @@
     if(reduction){if(mode==='basis'){renderResult();view.forEach(([id,value])=>$(id).value=value);populateOperations();$('inspect-operation').value=view[1][1];renderInspector();renderAlignment();if(salc)showSalcs();}else renderManualResult();}
     status(lastMessage,lastKind,lastDetail);
   });
+  window.BasisUpdates.bind(document, I, E.VERSION);
   loadTemplate('benzene'); history = []; $('undo').disabled = true;
   for(const axis of ['s','px','py','pz',...E.dComponents])$('symbol-'+axis).replaceChildren(M.orbital(axis));
   for(const axis of ['x','y','z'])$('symbol-direction-'+axis).replaceChildren(M.component('u',axis));

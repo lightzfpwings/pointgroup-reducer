@@ -1,6 +1,6 @@
 # 四平台直接分发与签名
 
-0.6.0 提供 Linux 的 DEB、Apple 芯片 Mac 的 DMG、Windows x64 的完整 ZIP，以及 Android 的 APK。各文件的 SHA-256 列在同页的 `SHA256SUMS.txt`。[0.6.0 下载页](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.6.0)
+0.7.0 提供 Linux 的 DEB、Apple 芯片 Mac 的 DMG、Windows x64 的完整 ZIP，以及 Android 的 APK。各文件的 SHA-256 列在同页的 `SHA256SUMS.txt`。[0.7.0 下载页](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.7.0)
 
 本次直接分发的 Mac 应用使用临时签名，DMG 未经 Apple 公证。Windows 主程序没有 Authenticode 发布者签名，完整 ZIP 内的 WebView2 离线安装程序带有微软签名。Linux DEB 安装离线页面和桌面入口。Android APK 采用项目独立的签名身份，可直接在设备上安装。请长期保管项目的 Android 私钥和备份，后续 APK 使用同一签名身份，便于现有用户覆盖更新。
 

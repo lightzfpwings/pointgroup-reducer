@@ -111,6 +111,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends python3-selenium desktop-file-utils ./dist/BasisCharacter-*-Linux-all.deb
+          sudo /usr/bin/python3 -B -m unittest discover -s packaging/linux -p test_update.py
           /usr/bin/python3 packaging/linux/check_installed.py
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:

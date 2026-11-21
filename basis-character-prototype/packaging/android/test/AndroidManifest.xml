@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.github.lightzfpwings.basischaracter.test">
     <application android:label="Basis instrumentation"/>
     <instrumentation android:name=".SmokeTest" android:targetPackage="io.github.lightzfpwings.basischaracter"/>
+    <instrumentation android:name=".UpgradeTest" android:targetPackage="io.github.lightzfpwings.basischaracter"/>
 </manifest>

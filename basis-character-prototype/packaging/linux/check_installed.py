@@ -28,6 +28,10 @@ def digest(path):
 def launch_target(work):
     # Exercise the real launcher and xdg-open. In a headless session the BROWSER
     # preference captures the URL handed to the graphical browser tested below.
+    updater = Path("/usr/share/applications/basis-character-update.desktop")
+    subprocess.run(["desktop-file-validate", updater], check=True)
+    handler = subprocess.check_output(["xdg-mime","query","default","x-scheme-handler/basis-character-update"],text=True).strip()
+    assert handler == updater.name, handler
     capture = work / "browser-argument"
     handler = work / "record-browser"
     handler.write_text('#!/bin/sh\nprintf "%s\\n" "$1" > "$BASIS_LAUNCH_CAPTURE"\n')

@@ -2,11 +2,13 @@
 
 [简体中文](README.md) · [繁體中文](README.zh-Hant.md)
 
-## Integrated Point Groups & Basis Functions 0.6.0
+## Integrated Point Groups & Basis Functions 0.7.0
 
 On Windows, macOS, Linux and Android, import XYZ coordinates or choose a candidate by molecular formula. Verify the atoms and point group in 3D, then use the 3N method to calculate vibrational symmetries, IR polarizations and Raman tensors. The three-language offline pages use the same engine. All versions centre table headers and values and leave 56 pixels of space at both page ends. Version 0.6.0 adds 39 organic structures and 21 coordination structures. The offline library now contains 221 candidates for 196 formulas when charge states are counted separately.
 
-[Download 0.6.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.6.0) · [User guide](basis-character-prototype/README.en.md)
+Version 0.7.0 adds Check for updates next to the version number. Check GitHub for a stable release of this app, save your project and select Install update. Molecular lookup, vibrations and IR/Raman calculations work offline.
+
+[Download 0.7.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.7.0) · [User guide](basis-character-prototype/README.en.md)
 
 The integrated app lives in `basis-character-prototype/` and uses its own `basis-v*` release tag. The original Python/Tk reducer and CLI remain available; the previous native Windows package is in [v2.4.3](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/v2.4.3). The rest of this page documents the Python/Tk version.
 

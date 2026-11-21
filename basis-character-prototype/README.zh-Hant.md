@@ -1,6 +1,6 @@
-# 點群與基函數 0.6.0
+# 點群與基函數 0.7.0
 
-在本目錄執行 `python3 build.py`，開啟 [0.6.0 繁體中文離線版](dist/BasisCharacterPrototype-0.6.0-zh-Hant.html)。選擇「振動光譜（紅外與拉曼）」，開啟[水分子 XYZ](examples/water.xyz)，在三維預覽下方選擇 C₂ᵥ，點選「確認結構與點群」，再點選「計算振動與光譜活性」。
+在本目錄執行 `python3 build.py`，開啟 [0.7.0 繁體中文離線版](dist/BasisCharacterPrototype-0.7.0-zh-Hant.html)。選擇「振動光譜（紅外與拉曼）」，開啟[水分子 XYZ](examples/water.xyz)，在三維預覽下方選擇 C₂ᵥ，點選「確認結構與點群」，再點選「計算振動與光譜活性」。
 
 手邊只有化學式時，可在同一入口輸入 `C2H6O`，點選「尋找候選結構」，再選「乙醇 · 反式構形」或「二甲醚」。下方會顯示所選模型的三維結構、原子座標與點群。確認後即可比較兩種結構的紅外與拉曼活性。
 
@@ -10,18 +10,22 @@
 
 0.6.0 新增 39 個常見有機物模型及 21 個配合物模型。離線庫現有 221 個候選結構，涵蓋 196 種依電荷區分的化學式。
 
+0.7.0 在版本號旁新增「檢查更新」。點選後查詢 GitHub 的本軟體正式版，發現新版可在介面選擇「安裝更新」。請先儲存目前的專案。分子結構查詢、振動和紅外／拉曼計算均可離線使用。
+
+0.6.0 及更早版本必須先從發布頁安裝一次 0.7.0。Android 核對套件名稱、簽章和版本，再交由系統覆蓋安裝，首次可能需要允許此應用程式安裝更新。Windows 在原解壓縮目錄更新並重新啟動，macOS 替換應用程式套件並重新啟動。Debian／Ubuntu 使用系統授權安裝新版 DEB。獨立 HTML 可在支援檔案寫入的瀏覽器選擇原檔案覆蓋，其他瀏覽器可下載同語言 HTML 後替換。安裝套件在替換前依發布附件的 SHA-256 驗證。
+
 ## 下載與安裝
 
 | 平台 | 下載 | 安裝與啟動 |
 |---|---|---|
-| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.6.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.6.0-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
-| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.6.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
-| Windows x64 | [BasisCharacter-0.6.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
-| Android 8.0 或更新版本 | [BasisCharacter-0.6.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.6.0/BasisCharacter-0.6.0-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，系統檔案選擇器可開啟 XYZ，也可載入與儲存 JSON 專案。 |
+| Debian / Ubuntu 圖形桌面 | [BasisCharacter-0.7.0-Linux-all.deb](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.7.0/BasisCharacter-0.7.0-Linux-all.deb) | 在下載目錄執行 `sudo apt install ./BasisCharacter-0.7.0-Linux-all.deb`，從應用程式選單開啟「點群與基函數」或執行 `basis-character`。系統透過 xdg-utils 在預設圖形瀏覽器中開啟本機網頁。 |
+| Apple 晶片 Mac，macOS 12 或更新版本 | [BasisCharacter-0.7.0-macOS-arm64.dmg](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.7.0/BasisCharacter-0.7.0-macOS-arm64.dmg) | 開啟 DMG，將 `BasisCharacter.app` 拖入「應用程式」後啟動。 |
+| Windows x64 | [BasisCharacter-0.7.0-Windows-x64.zip](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.7.0/BasisCharacter-0.7.0-Windows-x64.zip) | 完整解壓縮 ZIP 後開啟 `BasisCharacter.exe`。若缺少 WebView2，先執行隨附的微軟離線執行階段安裝程式。 |
+| Android 8.0 或更新版本 | [BasisCharacter-0.7.0-Android.apk](https://github.com/lightzfpwings/pointgroup-reducer/releases/download/basis-v0.7.0/BasisCharacter-0.7.0-Android.apk) | 在裝置上開啟 APK 並依系統提示安裝。應用程式需要 Android System WebView 或 Chrome 核心 109 及以上，系統檔案選擇器可開啟 XYZ，也可載入與儲存 JSON 專案。 |
 
 Mac 應用程式使用臨時簽章，DMG 未經 Apple 公證。Windows 主程式沒有 Authenticode 發行者簽章，內含的 WebView2 安裝程式帶有微軟簽章。Android APK 使用專案的獨立簽署金鑰，之後的覆蓋安裝須使用相同的簽署身分。系統可能提示無法驗證桌面軟體發行者。 [簽章說明](SIGNING.md)
 
-如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.6.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.6.0)
+如需直接使用瀏覽器，可下載三語獨立 HTML。發布頁另有原始碼及 `SHA256SUMS.txt`。 [下載 0.7.0](https://github.com/lightzfpwings/pointgroup-reducer/releases/tag/basis-v0.7.0)
 
 「由基函數計算」支援 87 個已驗證的空間點群，從代表座標展開位置，或逐中心輸入。添加 s、p、五個實 d 分量後，自動建立表示矩陣、識別封閉計算塊、計算特徵標，再約化全體及各塊。
 

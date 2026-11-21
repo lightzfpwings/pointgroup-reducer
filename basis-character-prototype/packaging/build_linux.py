@@ -21,6 +21,8 @@ def build():
         work = Path(temporary)
         stage = work / PACKAGE
         payload = {
+            "usr/lib/basis-character/update.py": (LINUX / "update.py", 0o755),
+            "usr/share/applications/basis-character-update.desktop": (LINUX / "basis-character-update.desktop", 0o644),
             "usr/bin/basis-character": (LINUX / "basis-character.sh", 0o755),
             "usr/share/applications/basis-character.desktop": (LINUX / "basis-character.desktop", 0o644),
             "usr/share/icons/hicolor/512x512/apps/basis-character.png": (ROOT / "packaging/icons/basis-character-512.png", 0o644),
@@ -47,7 +49,7 @@ def build():
             "Architecture: all\n"
             "Maintainer: lightzfpwings <209329913+lightzfpwings@users.noreply.github.com>\n"
             f"Installed-Size: {installed_size}\n"
-            "Depends: xdg-utils\n"
+            "Depends: xdg-utils, desktop-file-utils, python3 (>= 3.9), ca-certificates, pkexec | policykit-1, zenity\n"
             "Recommends: firefox-esr | firefox | chromium | chromium-browser | google-chrome-stable\n"
             "Homepage: https://github.com/lightzfpwings/pointgroup-reducer\n"
             "Description: Offline point group characters, SALCs and vibrational symmetry\n"

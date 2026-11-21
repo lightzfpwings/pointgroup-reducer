@@ -3,8 +3,9 @@
   'use strict';
   if (window.top !== window || window.location.href !== 'https://basischaracter.local/index.html' || !window.chrome?.webview) return;
   const handlers = {};
-  for (const type of ['saveJSON', 'openJSON', 'copyText', 'languageChanged']) {
+  for (const type of ['saveJSON', 'openJSON', 'copyText', 'languageChanged','update']) {
     handlers[type] = Object.freeze({ postMessage(payload) { window.chrome.webview.postMessage({ type, payload }); } });
   }
+  window.BasisUpdatePlatform = "windows";
   window.webkit = Object.freeze({ messageHandlers: Object.freeze(handlers) });
 })();

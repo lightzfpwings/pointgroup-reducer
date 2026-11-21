@@ -42,6 +42,7 @@ public final class MainActivity extends Activity {
     private static final int OPEN = 1, SAVE = 2, STAGING = 3, OPEN_XYZ = 4;
     private static final int MAX_INPUT = 2 * 1024 * 1024;
     private final ExecutorService files = Executors.newSingleThreadExecutor();
+    private AppUpdate updater;
     private WebView web;
     private WebMessagePort channel;
     private boolean ready;
@@ -71,6 +72,7 @@ public final class MainActivity extends Activity {
             }
         }
 
+        updater = new AppUpdate(this, files, state);
         web = new WebView(this);
         setContentView(web);
         if (Build.VERSION.SDK_INT >= 35) {
@@ -133,12 +135,13 @@ public final class MainActivity extends Activity {
                         JSONObject message = new JSONObject(event.getData());
                         switch (message.getString("type")) {
                         case "ready": ready = true; deliverImport(); break;
+                        case "update": updater.handle(message.getJSONObject("payload")); break;
                         case "openJSON": selectInput(OPEN); break;
                         case "openXYZ": selectInput(OPEN_XYZ); break;
                         case "saveJSON": stageExport(message.getJSONObject("payload")); break;
                         case "copyText": copy(message.getJSONObject("payload").getString("text")); break;
                         }
-                    } catch (JSONException e) { toast(R.string.file_error); }
+                    } catch (Exception e) { toast(R.string.file_error); }
                 }
             });
             web.postWebMessage(new WebMessage("basis-port", new WebMessagePort[]{ports[1]}), ORIGIN);
@@ -197,6 +200,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onActivityResult(int request, int result, Intent data) {
         super.onActivityResult(request, result, data);
+        if (updater != null && updater.result(request, result)) return;
         Uri uri = data == null ? null : data.getData();
         boolean selected = result == RESULT_OK && uri != null && "content".equals(uri.getScheme());
         if (request != OPEN && request != OPEN_XYZ && request != SAVE) return;
@@ -255,6 +259,11 @@ public final class MainActivity extends Activity {
         } catch (JSONException e) { toast(R.string.file_error); }
     }
 
+    void updateReply(int id, String status, String data) {
+        if (ready && !isDestroyed() && PAGE.equals(web.getUrl()))
+            web.evaluateJavascript("window.BasisUpdates.receive("+id+","+JSONObject.quote(status)+","+(data==null?"null":JSONObject.quote(data))+")",null);
+    }
+
     private void deliverImport() {
         if (ready && pendingImport != null) {
             sendDocument("project", pendingImport, null);
@@ -274,6 +283,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onSaveInstanceState(Bundle state) {
         super.onSaveInstanceState(state);
+        if (updater != null) updater.save(state);
         state.putInt("picker", picker == SAVE || picker == OPEN ? picker : 0);
         if (pendingExport != null) state.putString("pendingExport", pendingExport.getName());
     }
