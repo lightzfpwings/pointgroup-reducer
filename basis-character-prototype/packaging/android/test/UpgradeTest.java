@@ -81,10 +81,13 @@ public class UpgradeTest extends Instrumentation {
                 js("window.u=id=>document.getElementById(id);u('language').value='en';u('language').dispatchEvent(new Event('change'));u('check-update').click()");
                 until("!u('install-update').hidden && u('update-status').textContent.includes('"+next+"')");
                 js("u('install-update').click()"); until("u('update-status').textContent.includes('verification failed')");
+                Bundle progress=new Bundle();
+                progress.putString("result","BASIS_UPGRADE_CORRUPT_APK_REJECTED"); sendStatus(1,progress);
                 corrupt=false; js("u('install-update').click()");
                 // The host accepts the OS installer prompt. A successful self-update
                 // replaces this process, so verification continues in a fresh process.
-                SystemClock.sleep(90000); throw new IOException("System installer did not replace the process");
+                SystemClock.sleep(100000);
+                throw new IOException("System installer did not replace the process: "+js("u('update-status').textContent"));
             }
             status=Activity.RESULT_OK;
         } catch(Throwable e) { result.putString("error",android.util.Log.getStackTraceString(e)); }

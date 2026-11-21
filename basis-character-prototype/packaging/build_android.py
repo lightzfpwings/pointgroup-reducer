@@ -155,26 +155,37 @@ def emulator_test(sdk, work, avd, unsigned):
             with (work/"upgrade-run.log").open("w") as capture:
                 upgrading = subprocess.Popen([str(x) for x in [*device,"shell","am","instrument","-w","-r","-e","version",next_version,runner]], stdout=capture, stderr=capture)
                 try:
-                    deadline = time.monotonic()+85
+                    deadline = time.monotonic()+120
+                    last_screen = []
+                    runner_finished = None
                     while time.monotonic()<deadline:
                         info = output([*device,"shell","dumpsys","package",PACKAGE])
                         if f"versionCode={next_code} " in info:
                             break
                         if upgrading.poll() is not None:
-                            raise RuntimeError("Upgrade instrumentation exited: "+(work/"upgrade-run.log").read_text()[-2500:])
-                        # Accept only the system package installer's explicit Install button.
+                            # The updated process can exit before PackageManager reports its new version.
+                            if runner_finished is None:
+                                runner_finished = time.monotonic()
+                            elif time.monotonic()-runner_finished > 5:
+                                break
                         subprocess.run([*device,"shell","uiautomator","dump","/sdcard/basis-update-ui.xml"],capture_output=True,timeout=15)
                         tree = subprocess.run([*device,"shell","cat","/sdcard/basis-update-ui.xml"],capture_output=True,text=True).stdout
                         if tree.startswith("<?xml"):
-                            for node in ET.fromstring(tree).iter("node"):
-                                if (node.get("package","").endswith("packageinstaller") and node.get("text","").lower()=="install"
+                            nodes = list(ET.fromstring(tree).iter("node"))
+                            last_screen = [(n.get("package"), n.get("text")) for n in nodes if n.get("text")]
+                            for node in nodes:
+                                # Existing installations use the system's "Update" confirmation.
+                                if (node.get("package","") in ("com.android.packageinstaller", "com.google.android.packageinstaller",
+                                                               "com.android.permissioncontroller", "com.google.android.permissioncontroller")
+                                        and node.get("text","").strip().casefold() in ("install", "update")
                                         and node.get("enabled")=="true"):
                                     x1,y1,x2,y2=map(int,re.findall(r"\d+",node.get("bounds","")))
                                     run([*device,"shell","input","tap",str((x1+x2)//2),str((y1+y2)//2)])
                                     break
                         time.sleep(1)
-                    else:
-                        raise RuntimeError("System APK upgrade timed out: "+(work/"upgrade-run.log").read_text()[-2000:])
+                    if f"versionCode={next_code} " not in output([*device,"shell","dumpsys","package",PACKAGE]):
+                        raise RuntimeError(f"System APK upgrade failed. Screen: {last_screen[-10:]}. "
+                                           + (work/"upgrade-run.log").read_text()[-3000:])
                 finally:
                     if upgrading.poll() is None:
                         upgrading.terminate()
